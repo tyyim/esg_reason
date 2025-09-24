@@ -1,0 +1,118 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDE
+.idea/
+.vscode/
+.spyderproject
+.spyproject
+.ropeproject
+
+# ESG Project Specific
+# ====================
+
+# API Keys and Environment
+.env
+*.env
+config.json
+secrets.json
+api_keys.txt
+
+# Data Files
+*.pdf
+source_documents/
+MMESGBench/
+data/
+datasets/
+
+# Results and Outputs
+*results*.json
+*checkpoint*.json
+*output*.json
+evaluation_results/
+checkpoints/
+logs/
+*.log
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Model Files and Caches
+models/
+model_cache/
+*.bin
+*.pt
+*.pth
+*.ckpt
+transformers_cache/
+.cache/
+
+# Archive and Backup
+archive_scripts/
+backup/
+old/
+*.bak
+*.backup
+
+# OS Generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Large files
+*.zip
+*.tar.gz
+*.tgz
+
+# Processed images (can be regenerated)
+processed_data/images/
+*.png
+
+# MCP Configuration (contains secrets)
+.mcp.json
+.claude/
