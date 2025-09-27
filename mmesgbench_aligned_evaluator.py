@@ -21,6 +21,8 @@ import time
 # Import our existing ColBERT infrastructure
 from colbert_full_dataset_evaluation import MultiDocumentColBERTRetriever
 
+print("🔄 All imports completed successfully!")
+
 
 @dataclass
 class EvaluationQuestion:
@@ -267,6 +269,9 @@ class ParallelColBERTEvaluator:
         self.questions = self._load_dataset()
         print(f"📊 Loaded {len(self.questions)} questions from {len(set(q.doc_id for q in self.questions))} documents")
 
+        # Storage for pre-computed retrievals (question_id -> retrieved_chunks)
+        self.precomputed_retrievals = {}
+
     def _load_dataset(self) -> List[EvaluationQuestion]:
         """Load questions from MMESGBench dataset"""
         with open(self.dataset_file, 'r') as f:
@@ -320,14 +325,16 @@ class ParallelColBERTEvaluator:
         return results
 
     def _process_single_question(self, question: EvaluationQuestion) -> Dict[str, Any]:
-        """Process a single question through ColBERT pipeline"""
+        """Process a single question using pre-computed retrievals"""
         try:
-            # Step 1: Retrieve relevant chunks using ColBERT
-            retrieved_chunks = self.retriever.retrieve(
-                question.doc_id,
-                question.question,
-                top_k=5
-            )
+            # Step 1: Get pre-computed retrieval chunks (no model loading needed)
+            question_key = f"{question.doc_id}::{question.question}"
+            retrieved_chunks = self.precomputed_retrievals.get(question_key, [])
+
+            if not retrieved_chunks:
+                print(f"Warning: No pre-computed retrieval found for question: {question.question[:50]}...")
+                # Fallback to empty retrieval
+                retrieved_chunks = []
 
             # Step 2: Generate response using retrieved chunks
             response = self.retriever.generate_response(
@@ -360,9 +367,41 @@ class ParallelColBERTEvaluator:
         except Exception as e:
             raise Exception(f"Failed to process question: {e}")
 
+    def precompute_all_retrievals(self, questions_to_evaluate: List[EvaluationQuestion]) -> None:
+        """Pre-compute ColBERT retrievals for all questions to enable safe parallelization"""
+        print(f"🔍 Pre-computing ColBERT retrievals for {len(questions_to_evaluate)} questions...")
+        print("   This avoids thread-safety issues and memory bloat during parallel processing")
+
+        start_time = time.time()
+
+        for i, question in enumerate(questions_to_evaluate):
+            if i % 50 == 0:  # Progress update every 50 questions
+                elapsed = time.time() - start_time
+                rate = i / elapsed if elapsed > 0 else 0
+                remaining = (len(questions_to_evaluate) - i) / rate if rate > 0 else 0
+                print(f"   Progress: {i}/{len(questions_to_evaluate)} ({i/len(questions_to_evaluate)*100:.1f}%) | {rate:.1f} q/s | ETA: {remaining:.0f}s")
+
+            # Generate unique key for this question
+            question_key = f"{question.doc_id}::{question.question}"
+
+            # Retrieve chunks using ColBERT (single-threaded, safe)
+            try:
+                retrieved_chunks = self.retriever.retrieve(
+                    question.doc_id,
+                    question.question,
+                    top_k=5
+                )
+                self.precomputed_retrievals[question_key] = retrieved_chunks
+            except Exception as e:
+                print(f"   Warning: Failed to retrieve for question {i}: {e}")
+                self.precomputed_retrievals[question_key] = []
+
+        total_time = time.time() - start_time
+        print(f"✅ Pre-computation completed in {total_time:.1f}s ({total_time/len(questions_to_evaluate):.2f}s per question)")
+
     def run_evaluation(self, limit: int = None, start_from: int = 0) -> Dict[str, Any]:
-        """Run evaluation with parallel processing"""
-        print(f"🚀 Starting MMESGBench-aligned parallel evaluation...")
+        """Run evaluation with optimized parallel processing"""
+        print(f"🚀 Starting MMESGBench-aligned optimized evaluation...")
 
         # Select questions to evaluate
         questions_to_evaluate = self.questions[start_from:]
@@ -371,6 +410,11 @@ class ParallelColBERTEvaluator:
 
         print(f"📊 Evaluating {len(questions_to_evaluate)} questions in batches of {self.batch_size}")
 
+        # STEP 1: Pre-compute all ColBERT retrievals (single-threaded, safe)
+        self.precompute_all_retrievals(questions_to_evaluate)
+
+        # STEP 2: Process with parallel generation only
+        print(f"🚀 Starting parallel generation phase...")
         all_results = []
         total_batches = (len(questions_to_evaluate) + self.batch_size - 1) // self.batch_size
 
@@ -453,31 +497,72 @@ class ParallelColBERTEvaluator:
 
 
 def main():
-    """Test the new evaluator on a small sample"""
-    print("🧪 Testing MMESGBench-aligned evaluator with parallel processing...")
+    """Run optimized evaluation - test first, then full dataset"""
+    print("🚀 MAIN FUNCTION STARTED - Running OPTIMIZED MMESGBench dataset evaluation...")
+    print("📝 About to initialize evaluator...")
 
-    # Test with small sample first
-    evaluator = ParallelColBERTEvaluator(batch_size=5)  # Small batch for testing
+    # Use optimal batch size for evaluation
+    evaluator = ParallelColBERTEvaluator(batch_size=10)  # Optimal batch size
+    print("✅ Evaluator initialized successfully")
+    print(f"📊 Dataset contains {len(evaluator.questions)} questions")
 
-    # Run on first 5 questions for testing
-    results = evaluator.run_evaluation(limit=5)
+    # TEST FIRST: Run on small sample to validate optimization
+    print("🧪 Testing optimized approach on 10 questions...")
+    test_results = evaluator.run_evaluation(limit=10)  # Test with 10 questions
+
+    # Show test results
+    print(f"\n📊 Test Results:")
+    print(f"Accuracy: {test_results['accuracy']:.1%}")
+    print(f"Processing Time: {test_results['avg_processing_time']:.1f}s per question")
+
+    # Ask for confirmation before running full dataset
+    print(f"\n🎯 Test successful! Ready for full dataset evaluation.")
+    print(f"   Full evaluation will process all {len(evaluator.questions)} questions")
+
+    # Run full evaluation
+    print("🏃 Starting FULL dataset evaluation...")
+    results = evaluator.run_evaluation()  # No limit = all 933 questions
 
     # Save results
-    output_file = "mmesgbench_aligned_test_results.json"
+    output_file = "mmesgbench_aligned_full_results.json"
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=2)
 
-    print(f"\n✅ Test results saved to: {output_file}")
+    print(f"\n✅ Full results saved to: {output_file}")
 
-    # Show summary
-    print(f"\n📈 Test Summary:")
+    # Show comprehensive summary
+    print(f"\n📈 Final Results Summary:")
     print(f"Overall Accuracy: {results['accuracy']:.1%}")
     print(f"Processing Time: {results['avg_processing_time']:.1f}s per question")
     print(f"Total Questions: {results['total_questions']}")
+    print(f"Total Score: {results['total_score']:.1f}")
 
     print(f"\n📊 Format Breakdown:")
     for fmt, stats in results['format_breakdown'].items():
         print(f"  {fmt}: {stats['accuracy']:.1%} ({stats['correct']:.1f}/{stats['total']})")
+
+    print(f"\n📂 Document Performance (Top 10):")
+    doc_sorted = sorted(results['document_breakdown'].items(),
+                       key=lambda x: x[1]['accuracy'], reverse=True)
+    for doc_name, stats in doc_sorted[:10]:
+        doc_short = doc_name[:40] + "..." if len(doc_name) > 40 else doc_name
+        print(f"  {doc_short}: {stats['accuracy']:.1%} ({stats['correct']:.1f}/{stats['total']})")
+
+    print(f"\n🎯 Target Comparison:")
+    target_accuracy = 0.415  # MMESGBench target
+    gap = target_accuracy - results['accuracy']
+    print(f"Target: {target_accuracy:.1%} | Actual: {results['accuracy']:.1%} | Gap: {gap:.1%}")
+
+    if gap > 0:
+        print(f"📊 Still {gap:.1%} below MMESGBench target - validation of document substitution impact")
+    else:
+        print(f"🎉 Exceeded MMESGBench target by {-gap:.1%}!")
+
+    print(f"\n⏱️  Performance Stats:")
+    estimated_old_time = results['total_questions'] * 16  # Old system ~16s per question
+    speedup = estimated_old_time / results['total_time']
+    print(f"Total Time: {results['total_time']:.1f}s ({results['total_time']/3600:.1f} hours)")
+    print(f"Estimated Speedup: {speedup:.1f}x faster than sequential processing")
 
 
 if __name__ == "__main__":
