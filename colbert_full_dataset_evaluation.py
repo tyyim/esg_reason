@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-ColBERT Text-Only RAG Evaluation
-Evaluates only the ColBERT text retrieval approach without ColPali dependencies
+ColBERT Full Dataset Evaluation
+Evaluates ColBERT text retrieval across all 45 MMESGBench documents (933 questions)
 """
 
 import sys
@@ -36,9 +36,10 @@ class ColBERTEvalResult:
     evidence_pages: List[int]
     retrieved_chunks: List[Dict[str, Any]]
     retrieval_stats: Dict[str, Any]
+    question_id: int
 
-class SimpleColBERTRetriever:
-    """Simplified ColBERT-based text retrieval without ColPali dependencies"""
+class MultiDocumentColBERTRetriever:
+    """ColBERT retriever that can handle multiple documents"""
 
     def __init__(self):
         # Initialize API client
@@ -48,13 +49,15 @@ class SimpleColBERTRetriever:
 
         self.client = OpenAI(
             api_key=api_key,
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1"
+            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+            timeout=60.0  # Reduce timeout from default 600s
         )
 
         # Use sentence-transformers for text retrieval
         self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-        self.chunks = {}
-        self.embeddings = {}
+        self.chunks = {}  # doc_id -> chunks
+        self.embeddings = {}  # doc_id -> embeddings
+        self.indexed_documents = set()
 
         # Load extraction prompt
         self.extraction_prompt = self._load_extraction_prompt()
@@ -110,35 +113,83 @@ Answer format: String
 
 ---"""
 
-    def index_document(self, doc_id: str, pdf_path: str, chunk_size: int = 512) -> None:
+    def find_document_path(self, doc_id: str) -> str:
+        """Find the actual PDF file path for a document ID"""
+        # Check current directory first
+        direct_path = f"./{doc_id}"
+        if os.path.exists(direct_path):
+            return direct_path
+
+        # Check common patterns
+        possible_paths = [
+            f"./source_documents/{doc_id}",
+            f"./{doc_id}",
+        ]
+
+        # Also check for the substituted documents
+        substitutions = {
+            "Microsoft CDP Climate Change Response 2023.pdf": "Microsoft-CDP-2024-Response.pdf",
+            "ISO 14001.pdf": "ISO-14001-2015.pdf",
+            "Gender 2024.pdf": "UNESCO-GEM-Report-2024.pdf"
+        }
+
+        if doc_id in substitutions:
+            substituted_name = substitutions[doc_id]
+            possible_paths.extend([
+                f"./{substituted_name}",
+                f"./source_documents/{substituted_name}"
+            ])
+
+        for path in possible_paths:
+            if os.path.exists(path):
+                return path
+
+        logger.error(f"Document not found: {doc_id}")
+        return None
+
+    def index_document(self, doc_id: str, chunk_size: int = 512) -> bool:
         """Index document for text retrieval"""
-        logger.info(f"Indexing document {doc_id} for text retrieval")
+        if doc_id in self.indexed_documents:
+            return True
 
-        # Extract text from PDF
-        chunks = []
-        with fitz.open(pdf_path) as pdf:
-            for page_num in range(pdf.page_count):
-                page = pdf[page_num]
-                page_text = page.get_text()
+        pdf_path = self.find_document_path(doc_id)
+        if not pdf_path:
+            return False
 
-                # Split into chunks
-                words = page_text.split()
-                for i in range(0, len(words), chunk_size):
-                    chunk_text = ' '.join(words[i:i + chunk_size])
-                    if chunk_text.strip():
-                        chunks.append({
-                            'text': chunk_text,
-                            'page': page_num + 1,
-                            'chunk_id': len(chunks)
-                        })
+        logger.info(f"Indexing document {doc_id}")
 
-        # Store chunks and compute embeddings
-        self.chunks[doc_id] = chunks
-        chunk_texts = [chunk['text'] for chunk in chunks]
-        embeddings = self.model.encode(chunk_texts)
-        self.embeddings[doc_id] = embeddings
+        try:
+            # Extract text from PDF
+            chunks = []
+            with fitz.open(pdf_path) as pdf:
+                for page_num in range(pdf.page_count):
+                    page = pdf[page_num]
+                    page_text = page.get_text()
 
-        logger.info(f"Indexed {len(chunks)} text chunks for {doc_id}")
+                    # Split into chunks
+                    words = page_text.split()
+                    for i in range(0, len(words), chunk_size):
+                        chunk_text = ' '.join(words[i:i + chunk_size])
+                        if chunk_text.strip():
+                            chunks.append({
+                                'text': chunk_text,
+                                'page': page_num + 1,
+                                'chunk_id': len(chunks)
+                            })
+
+            # Store chunks and compute embeddings
+            self.chunks[doc_id] = chunks
+            chunk_texts = [chunk['text'] for chunk in chunks]
+            embeddings = self.model.encode(chunk_texts)
+            self.embeddings[doc_id] = embeddings
+            self.indexed_documents.add(doc_id)
+
+            logger.info(f"Indexed {len(chunks)} text chunks for {doc_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to index {doc_id}: {e}")
+            return False
 
     def retrieve(self, doc_id: str, question: str, top_k: int = 5) -> List[Dict]:
         """Retrieve top-k relevant text chunks"""
@@ -161,7 +212,7 @@ Answer format: String
             results.append({
                 'text': chunk['text'],
                 'page': chunk['page'],
-                'score': float(similarities[idx]),  # Convert to regular float
+                'score': float(similarities[idx]),
                 'chunk_id': chunk['chunk_id']
             })
 
@@ -175,39 +226,53 @@ Answer format: String
         # Stage 1: Generate response with Qwen Max
         stage1_prompt = f"You are a helpful assistant. Please answer the following question based on the provided context:\n\nQuestion: {question}\n\nContext:\n{context_text}\n\nAnswer:"
 
-        try:
-            stage1_response = self.client.chat.completions.create(
-                model="qwen-max",
-                messages=[{"role": "user", "content": stage1_prompt}],
-                temperature=0.0,
-                max_tokens=1024,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
-            )
-            stage1_text = stage1_response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"Stage 1 generation failed: {e}")
-            return {"response": "Failed", "extracted_response": "Failed", "predicted_answer": "Failed"}
+        # Stage 1 with retry logic
+        stage1_text = None
+        for attempt in range(3):  # Try up to 3 times
+            try:
+                stage1_response = self.client.chat.completions.create(
+                    model="qwen-max",
+                    messages=[{"role": "user", "content": stage1_prompt}],
+                    temperature=0.0,
+                    max_tokens=1024,
+                    top_p=1,
+                    frequency_penalty=0,
+                    presence_penalty=0
+                )
+                stage1_text = stage1_response.choices[0].message.content
+                break  # Success, exit retry loop
+            except Exception as e:
+                logger.warning(f"Stage 1 attempt {attempt + 1} failed: {e}")
+                if attempt == 2:  # Last attempt
+                    logger.error(f"Stage 1 generation failed after 3 attempts: {e}")
+                    return {"response": "Failed", "extracted_response": "Failed", "predicted_answer": "Failed"}
+                time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s
 
         # Stage 2: Extract answer with Qwen Max
         stage2_prompt = f"Question: {question}\nAnalysis: {stage1_text}\n\n{self.extraction_prompt}"
 
-        try:
-            stage2_response = self.client.chat.completions.create(
-                model="qwen-max",
-                messages=[{"role": "user", "content": stage2_prompt}],
-                temperature=0.0,
-                max_tokens=256,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0,
-                seed=42
-            )
-            extracted_text = stage2_response.choices[0].message.content
-        except Exception as e:
-            logger.error(f"Stage 2 extraction failed: {e}")
-            return {"response": stage1_text, "extracted_response": "Failed to extract", "predicted_answer": "Failed to extract"}
+        # Stage 2 with retry logic
+        extracted_text = None
+        for attempt in range(3):  # Try up to 3 times
+            try:
+                stage2_response = self.client.chat.completions.create(
+                    model="qwen-max",
+                    messages=[{"role": "user", "content": stage2_prompt}],
+                    temperature=0.0,
+                    max_tokens=256,
+                    top_p=1,
+                    frequency_penalty=0,
+                    presence_penalty=0,
+                    seed=42
+                )
+                extracted_text = stage2_response.choices[0].message.content
+                break  # Success, exit retry loop
+            except Exception as e:
+                logger.warning(f"Stage 2 attempt {attempt + 1} failed: {e}")
+                if attempt == 2:  # Last attempt
+                    logger.error(f"Stage 2 extraction failed after 3 attempts: {e}")
+                    return {"response": stage1_text, "extracted_response": "Failed to extract", "predicted_answer": "Failed to extract"}
+                time.sleep(2 ** attempt)  # Exponential backoff: 1s, 2s, 4s
 
         # Parse extracted answer
         try:
@@ -244,7 +309,7 @@ class MMESGBenchEvaluator:
         exact_match = pred_clean == gt_clean
 
         # Format-specific evaluation
-        if answer_format.lower() in ["integer", "float"]:
+        if answer_format.lower() in ["integer", "int", "float"]:
             return self._evaluate_numeric(pred_clean, gt_clean, exact_match)
         elif answer_format.lower() == "list":
             return self._evaluate_list(pred_clean, gt_clean, exact_match)
@@ -372,11 +437,11 @@ class MMESGBenchEvaluator:
 
         return [text] if text else []
 
-class ColBERTTextOnlyEvaluation:
-    """Evaluation pipeline for ColBERT Text-Only RAG"""
+class ColBERTFullDatasetEvaluation:
+    """Evaluation pipeline for ColBERT across full MMESGBench dataset"""
 
     def __init__(self):
-        self.retriever = SimpleColBERTRetriever()
+        self.retriever = MultiDocumentColBERTRetriever()
         self.evaluator = MMESGBenchEvaluator()
 
     def _save_checkpoint(self, results: List[ColBERTEvalResult], completed_idx: int, total_samples: int, checkpoint_file: str):
@@ -386,7 +451,8 @@ class ColBERTTextOnlyEvaluation:
                 "completed_questions": completed_idx,
                 "total_questions": total_samples,
                 "results": [asdict(r) for r in results],
-                "timestamp": time.time()
+                "timestamp": time.time(),
+                "approach": "ColBERT Full Dataset"
             }
             with open(checkpoint_file, 'w') as f:
                 json.dump(checkpoint_data, f, indent=2)
@@ -415,29 +481,17 @@ class ColBERTTextOnlyEvaluation:
             logger.warning(f"Failed to load checkpoint: {e}")
             return [], 0
 
-    def run_evaluation(self, limit: int = None, checkpoint_file: str = "colbert_checkpoint.json") -> Dict[str, Any]:
-        """Run ColBERT RAG evaluation on AR6 dataset with checkpoint support"""
-        logger.info("🚀 Starting ColBERT Text-Only RAG Evaluation")
+    def run_evaluation(self, limit: int = None, checkpoint_file: str = "colbert_full_dataset_checkpoint.json") -> Dict[str, Any]:
+        """Run ColBERT evaluation across full MMESGBench dataset"""
+        logger.info("🚀 Starting ColBERT Full Dataset Evaluation")
 
-        # Load AR6 data
-        samples = self._load_ar6_data(limit)
+        # Load full dataset
+        samples = self._load_dataset(limit)
         if not samples:
-            logger.error("No AR6 samples found")
+            logger.error("No samples found")
             return {}
 
-        logger.info(f"📊 Loaded {len(samples)} AR6 questions for evaluation")
-        if limit is None:
-            logger.info(f"🎯 Running FULL AR6 dataset evaluation ({len(samples)} questions)")
-        else:
-            logger.info(f"🎯 Running limited evaluation ({len(samples)} questions)")
-
-        # Setup document
-        ar6_pdf = "source_documents/AR6 Synthesis Report Climate Change 2023.pdf"
-        doc_id = "AR6 Synthesis Report Climate Change 2023.pdf"
-
-        if not os.path.exists(ar6_pdf):
-            logger.error(f"AR6 PDF not found: {ar6_pdf}")
-            return {}
+        logger.info(f"📊 Loaded {len(samples)} questions from {len(set(s['doc_id'] for s in samples))} documents")
 
         # Load checkpoint if it exists
         results, start_idx = self._load_checkpoint(checkpoint_file)
@@ -446,86 +500,88 @@ class ColBERTTextOnlyEvaluation:
             logger.info("✅ All questions already completed!")
             return self._compile_final_results(results)
 
-        # Index document (only if needed)
-        logger.info("📚 Indexing AR6 document for text retrieval...")
-        self.retriever.index_document(doc_id, ar6_pdf)
-
-        # Initialize metrics from checkpoint
-        total_time = sum(r.processing_time for r in results)
-        total_tokens = sum(r.api_tokens for r in results)
-        correct_count = sum(1 for r in results if r.is_correct)
-        exact_match_count = sum(1 for r in results if r.exact_match)
-        total_f1 = sum(r.f1_score for r in results)
-
         logger.info(f"📊 Resuming from question {start_idx + 1}/{len(samples)}")
 
+        # Process questions with checkpointing
         for i, sample in enumerate(samples[start_idx:], start_idx):
-            logger.info(f"Evaluating sample {i+1}/{len(samples)}: {sample['answer_format']} question")
+            try:
+                start_time = time.time()
 
-            start_time = time.time()
+                # Index document if needed
+                doc_id = sample["doc_id"]
+                if not self.retriever.index_document(doc_id):
+                    logger.error(f"Failed to index document: {doc_id}")
+                    continue
 
-            # Parse evidence information
-            evidence_pages = self._parse_evidence_pages(sample.get("evidence_pages", "[]"))
+                # Parse evidence information
+                evidence_pages = self._parse_evidence_pages(sample.get("evidence_pages", "[]"))
 
-            # Retrieve relevant chunks
-            retrieved_chunks = self.retriever.retrieve(doc_id, sample["question"], top_k=5)
+                # Retrieve relevant chunks
+                retrieved_chunks = self.retriever.retrieve(doc_id, sample["question"], top_k=5)
 
-            # Generate response
-            response = self.retriever.generate_response(sample["question"], retrieved_chunks)
+                # Generate response
+                response = self.retriever.generate_response(sample["question"], retrieved_chunks)
 
-            processing_time = time.time() - start_time
-            total_time += processing_time
+                processing_time = time.time() - start_time
 
-            # Parse API tokens (estimate)
-            api_tokens = len(sample["question"].split()) + sum(len(chunk["text"].split()) for chunk in retrieved_chunks[:5])
-            total_tokens += api_tokens
+                # Parse API tokens (estimate)
+                api_tokens = len(sample["question"].split()) + sum(len(chunk["text"].split()) for chunk in retrieved_chunks[:5])
 
-            # Evaluate prediction
-            is_correct, exact_match, f1_score = self.evaluator.evaluate_prediction(
-                prediction=response["predicted_answer"],
-                ground_truth=sample["answer"],
-                answer_format=sample["answer_format"]
-            )
+                # Evaluate prediction
+                is_correct, exact_match, f1_score = self.evaluator.evaluate_prediction(
+                    prediction=response["predicted_answer"],
+                    ground_truth=sample["answer"],
+                    answer_format=sample.get("answer_format", "Str")
+                )
 
-            if is_correct:
-                correct_count += 1
-            if exact_match:
-                exact_match_count += 1
-            total_f1 += f1_score
+                # Analyze retrieval stats
+                retrieval_stats = self._analyze_retrieval_stats(retrieved_chunks, evidence_pages)
 
-            # Analyze retrieval stats
-            retrieval_stats = self._analyze_retrieval_stats(retrieved_chunks, evidence_pages)
+                # Check if this is a substituted document (for flagging)
+                substituted_docs = ["Microsoft CDP Climate Change Response 2023.pdf", "ISO 14001.pdf", "Gender 2024.pdf"]
+                is_substituted = doc_id in substituted_docs
 
-            # Store result
-            result = ColBERTEvalResult(
-                question=sample["question"],
-                predicted_answer=response["predicted_answer"],
-                ground_truth=sample["answer"],
-                answer_format=sample["answer_format"],
-                is_correct=is_correct,
-                exact_match=exact_match,
-                f1_score=f1_score,
-                processing_time=processing_time,
-                api_tokens=api_tokens,
-                reasoning_trace=response.get("response", ""),
-                doc_id=sample["doc_id"],
-                evidence_pages=evidence_pages,
-                retrieved_chunks=retrieved_chunks,
-                retrieval_stats=retrieval_stats
-            )
-            results.append(result)
+                # Store result
+                result = ColBERTEvalResult(
+                    question=sample["question"],
+                    predicted_answer=response["predicted_answer"],
+                    ground_truth=sample["answer"],
+                    answer_format=sample.get("answer_format", "Str"),
+                    is_correct=is_correct,
+                    exact_match=exact_match,
+                    f1_score=f1_score,
+                    processing_time=processing_time,
+                    api_tokens=api_tokens,
+                    reasoning_trace=response.get("response", ""),
+                    doc_id=doc_id,
+                    evidence_pages=evidence_pages,
+                    retrieved_chunks=retrieved_chunks,
+                    retrieval_stats=retrieval_stats,
+                    question_id=i + 1
+                )
+                results.append(result)
 
-            # Save checkpoint every 5 questions
-            if (i + 1) % 5 == 0:
+                # Save checkpoint every question (more frequent checkpointing)
                 self._save_checkpoint(results, i + 1, len(samples), checkpoint_file)
+                if (i + 1) % 10 == 0:  # Log every 10 questions
+                    logger.info(f"📊 Progress update: {i + 1}/{len(samples)} questions processed")
 
-            # Log progress
-            status = "✅" if is_correct else "❌"
-            logger.info(f"  {status} {sample['answer_format']}: '{response['predicted_answer']}' vs '{sample['answer']}' "
-                       f"(F1: {f1_score:.3f}, pages: {retrieval_stats.get('page_coverage', 0)})")
+                # Log progress
+                status = "✅" if is_correct else "❌"
+                sub_flag = " 🔸 SUBSTITUTED" if is_substituted else ""
+                logger.info(f"  {status} Q{i+1}/{len(samples)} ({doc_id}): '{response['predicted_answer']}' vs '{sample['answer']}' "
+                           f"(F1: {f1_score:.3f}){sub_flag}")
+
+            except KeyboardInterrupt:
+                logger.info("🛑 Evaluation interrupted by user")
+                self._save_checkpoint(results, i, len(samples), checkpoint_file)
+                break
+            except Exception as e:
+                logger.error(f"Error on question {i + 1}: {e}")
+                continue
 
         # Final checkpoint
-        self._save_checkpoint(results, len(samples), len(samples), checkpoint_file)
+        self._save_checkpoint(results, len(results), len(samples), checkpoint_file)
 
         return self._compile_final_results(results)
 
@@ -548,14 +604,23 @@ class ColBERTTextOnlyEvaluation:
         avg_time = total_time / total_samples if total_samples else 0
         avg_tokens = total_tokens / total_samples if total_samples else 0
 
+        # Document analysis
+        doc_stats = {}
+        for r in results:
+            if r.doc_id not in doc_stats:
+                doc_stats[r.doc_id] = {"total": 0, "correct": 0}
+            doc_stats[r.doc_id]["total"] += 1
+            if r.is_correct:
+                doc_stats[r.doc_id]["correct"] += 1
+
         # Retrieval analysis
         avg_similarity = sum(r.retrieval_stats.get("avg_similarity", 0) for r in results) / len(results)
         avg_page_coverage = sum(r.retrieval_stats.get("page_coverage", 0) for r in results) / len(results)
 
         evaluation_summary = {
-            "approach": "ColBERT Text-Only RAG (MMESGBench Replication)",
+            "approach": "ColBERT Full Dataset RAG (MMESGBench)",
             "model": "qwen-max",
-            "dataset": "AR6 Synthesis Report (MMESGBench)",
+            "dataset": f"MMESGBench Full Dataset ({len(doc_stats)} documents)",
             "total_samples": total_samples,
             "correct_predictions": correct_count,
             "exact_matches": exact_match_count,
@@ -568,79 +633,24 @@ class ColBERTTextOnlyEvaluation:
             "total_tokens": total_tokens,
             "avg_retrieval_similarity": avg_similarity,
             "avg_page_coverage": avg_page_coverage,
+            "document_stats": doc_stats,
             "target_accuracy": 0.415,  # MMESGBench ColBERT target
             "results": results
         }
 
         return evaluation_summary
 
-    def print_results(self, evaluation_summary: Dict[str, Any]):
-        """Print detailed evaluation results"""
-        print("\n" + "="*80)
-        print("🎯 COLBERT TEXT-ONLY RAG EVALUATION RESULTS")
-        print("="*80)
-
-        print(f"Approach: {evaluation_summary['approach']}")
-        print(f"Model: {evaluation_summary['model']}")
-        print(f"Dataset: {evaluation_summary['dataset']}")
-
-        print(f"\n📊 PERFORMANCE METRICS:")
-        print(f"Total Samples: {evaluation_summary['total_samples']}")
-        print(f"Accuracy (with tolerance): {evaluation_summary['accuracy']:.1%}")
-        print(f"Exact Match Ratio: {evaluation_summary['exact_match_ratio']:.1%}")
-        print(f"Average F1 Score: {evaluation_summary['avg_f1_score']:.3f}")
-        print(f"Target Accuracy: {evaluation_summary['target_accuracy']:.1%}")
-
-        # Performance vs target
-        accuracy = evaluation_summary['accuracy']
-        target = evaluation_summary['target_accuracy']
-        performance_status = "🎉 EXCEEDS" if accuracy > target else "⚠️ BELOW" if accuracy < target else "✅ MEETS"
-        print(f"Performance vs Target: {performance_status} ({accuracy:.1%} vs {target:.1%})")
-
-        print(f"\n🔍 RETRIEVAL METRICS:")
-        print(f"Average Similarity: {evaluation_summary['avg_retrieval_similarity']:.3f}")
-        print(f"Average Page Coverage: {evaluation_summary['avg_page_coverage']:.1%}")
-
-        print(f"\n⏱️ EFFICIENCY METRICS:")
-        print(f"Total Time: {evaluation_summary['total_time']:.2f}s")
-        print(f"Average Time/Question: {evaluation_summary['avg_processing_time']:.2f}s")
-        print(f"Total Tokens: {evaluation_summary['total_tokens']:,}")
-        print(f"Average Tokens/Query: {evaluation_summary['avg_tokens_per_query']:.0f}")
-
-        print(f"\n📝 DETAILED RESULTS:")
-        print("-"*80)
-
-        for i, result in enumerate(evaluation_summary['results']):
-            status = "✅ CORRECT" if result.is_correct else "❌ INCORRECT"
-            exact_status = " (EXACT)" if result.exact_match else ""
-            print(f"\n{i+1}. {status}{exact_status} ({result.answer_format}) - F1: {result.f1_score:.3f}")
-            print(f"   Q: {result.question[:80]}...")
-            print(f"   Predicted: {result.predicted_answer}")
-            print(f"   Ground Truth: {result.ground_truth}")
-
-            # Show retrieval info
-            stats = result.retrieval_stats
-            print(f"   Retrieval: {len(result.retrieved_chunks)} chunks, "
-                  f"avg sim: {stats.get('avg_similarity', 0):.3f}, "
-                  f"page coverage: {stats.get('page_coverage', 0):.0f}%")
-
-            # Show evidence page matching
-            if result.evidence_pages:
-                retrieved_pages = [chunk['page'] for chunk in result.retrieved_chunks]
-                evidence_found = set(retrieved_pages).intersection(set(result.evidence_pages))
-                evidence_status = f"✅ Found pages {list(evidence_found)}" if evidence_found else "❌ Evidence pages not retrieved"
-                print(f"   Evidence: {evidence_status} (expected: {result.evidence_pages})")
-
-    def _load_ar6_data(self, limit: int) -> List[Dict[str, Any]]:
-        """Load AR6 samples from MMESGBench dataset"""
+    def _load_dataset(self, limit: int = None) -> List[Dict[str, Any]]:
+        """Load MMESGBench dataset"""
         try:
             with open("./MMESGBench/dataset/samples.json", 'r') as f:
                 full_dataset = json.load(f)
 
-            ar6_samples = [s for s in full_dataset if s.get("doc_id") == "AR6 Synthesis Report Climate Change 2023.pdf"]
-            return ar6_samples[:limit]
+            if limit:
+                return full_dataset[:limit]
+            return full_dataset
         except Exception as e:
-            logger.error(f"Error loading AR6 data: {e}")
+            logger.error(f"Error loading dataset: {e}")
             return []
 
     def _analyze_retrieval_stats(self, retrieved_chunks: List[Dict[str, Any]],
@@ -684,42 +694,86 @@ class ColBERTTextOnlyEvaluation:
         except:
             return []
 
+    def print_results(self, evaluation_summary: Dict[str, Any]):
+        """Print detailed evaluation results"""
+        print("\n" + "="*80)
+        print("🎯 COLBERT FULL DATASET EVALUATION RESULTS")
+        print("="*80)
+
+        print(f"Approach: {evaluation_summary['approach']}")
+        print(f"Model: {evaluation_summary['model']}")
+        print(f"Dataset: {evaluation_summary['dataset']}")
+
+        print(f"\n📊 PERFORMANCE METRICS:")
+        print(f"Total Samples: {evaluation_summary['total_samples']}")
+        print(f"Accuracy (with tolerance): {evaluation_summary['accuracy']:.1%}")
+        print(f"Exact Match Ratio: {evaluation_summary['exact_match_ratio']:.1%}")
+        print(f"Average F1 Score: {evaluation_summary['avg_f1_score']:.3f}")
+        print(f"Target Accuracy: {evaluation_summary['target_accuracy']:.1%}")
+
+        # Performance vs target
+        accuracy = evaluation_summary['accuracy']
+        target = evaluation_summary['target_accuracy']
+        performance_status = "🎉 EXCEEDS" if accuracy > target else "⚠️ BELOW" if accuracy < target else "✅ MEETS"
+        print(f"Performance vs Target: {performance_status} ({accuracy:.1%} vs {target:.1%})")
+
+        print(f"\n🔍 RETRIEVAL METRICS:")
+        print(f"Average Similarity: {evaluation_summary['avg_retrieval_similarity']:.3f}")
+        print(f"Average Page Coverage: {evaluation_summary['avg_page_coverage']:.1%}")
+
+        print(f"\n⏱️ EFFICIENCY METRICS:")
+        print(f"Total Time: {evaluation_summary['total_time']:.2f}s ({evaluation_summary['total_time']/60:.1f} minutes)")
+        print(f"Average Time/Question: {evaluation_summary['avg_processing_time']:.2f}s")
+        print(f"Total Tokens: {evaluation_summary['total_tokens']:,}")
+        print(f"Average Tokens/Query: {evaluation_summary['avg_tokens_per_query']:.0f}")
+
+        print(f"\n📚 DOCUMENT PERFORMANCE:")
+        doc_stats = evaluation_summary.get('document_stats', {})
+        print(f"Documents processed: {len(doc_stats)}")
+
+        # Show top and bottom performing documents
+        sorted_docs = sorted(doc_stats.items(), key=lambda x: x[1]['correct']/x[1]['total'] if x[1]['total'] > 0 else 0, reverse=True)
+        print("\nTop 5 performing documents:")
+        for doc, stats in sorted_docs[:5]:
+            acc = stats['correct']/stats['total'] if stats['total'] > 0 else 0
+            print(f"  {acc:.1%} ({stats['correct']}/{stats['total']}): {doc}")
+
 def main():
-    """Run ColBERT Text-Only RAG evaluation"""
-    print("🎯 ColBERT Text-Only RAG Evaluation")
-    print("Targeting MMESGBench 41.5% accuracy with ColBERT + Qwen Max")
+    """Run ColBERT Full Dataset evaluation"""
+    print("🎯 ColBERT Full Dataset Evaluation")
+    print("Targeting MMESGBench performance across all 933 questions")
     print("="*70)
 
     # Setup logging
     logging.basicConfig(level=logging.INFO)
 
     # Create and run evaluation pipeline
-    pipeline = ColBERTTextOnlyEvaluation()
+    pipeline = ColBERTFullDatasetEvaluation()
 
-    # Get limit from command line args or default to 10 for quick test
+    # Get limit from command line args
     import sys
-    if len(sys.argv) > 1 and sys.argv[1] == "--full":
-        print("🎯 Running FULL AR6 dataset evaluation (37 questions)")
-        results = pipeline.run_evaluation(limit=None)  # Run all AR6 questions
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        print("🧪 Running test evaluation (50 questions)")
+        results = pipeline.run_evaluation(limit=50)
     elif len(sys.argv) > 1 and sys.argv[1].startswith("--limit="):
         limit = int(sys.argv[1].split("=")[1])
         print(f"🎯 Running evaluation with limit: {limit} questions")
         results = pipeline.run_evaluation(limit=limit)
     else:
-        print("🎯 Running quick test evaluation (10 questions)")
-        print("💡 Use '--full' for all 37 AR6 questions or '--limit=N' for custom limit")
-        results = pipeline.run_evaluation(limit=10)
+        print("🚀 Running FULL dataset evaluation (933 questions)")
+        print("💡 Use '--test' for 50 questions or '--limit=N' for custom limit")
+        results = pipeline.run_evaluation(limit=None)
 
     if results:
         pipeline.print_results(results)
 
         # Save results with appropriate filename
         total_questions = results['total_samples']
-        if total_questions == 37:
-            results_file = "colbert_ar6_full_results.json"
-            print(f"📊 Full AR6 dataset evaluation completed!")
+        if total_questions == 933:
+            results_file = "colbert_full_dataset_results.json"
+            print(f"📊 Full MMESGBench dataset evaluation completed!")
         else:
-            results_file = f"colbert_ar6_{total_questions}q_results.json"
+            results_file = f"colbert_dataset_{total_questions}q_results.json"
 
         with open(results_file, 'w') as f:
             results_copy = results.copy()
@@ -727,7 +781,7 @@ def main():
             json.dump(results_copy, f, indent=2)
 
         print(f"\n💾 Results saved to: {results_file}")
-        print(f"\n🎉 ColBERT Text-Only RAG evaluation completed!")
+        print(f"\n🎉 ColBERT Full Dataset evaluation completed!")
 
         # Final summary
         accuracy = results['accuracy']
@@ -735,18 +789,19 @@ def main():
         f1 = results['avg_f1_score']
 
         print(f"\n📈 FINAL SUMMARY:")
-        print(f"✅ ColBERT Text RAG Accuracy: {accuracy:.1%}")
+        print(f"✅ ColBERT Full Dataset Accuracy: {accuracy:.1%}")
         print(f"🎯 MMESGBench Target: {target:.1%}")
         print(f"📊 Average F1 Score: {f1:.3f}")
+        print(f"⏱️ Total Time: {results['total_time']/60:.1f} minutes")
 
         if accuracy >= target:
             print(f"🎉 SUCCESS: Achieved target accuracy!")
         else:
             gap = target - accuracy
-            print(f"⚠️ GAP: {gap:.1%} below target - retrieval optimization needed")
+            print(f"⚠️ GAP: {gap:.1%} below target - optimization needed")
 
     else:
-        print("❌ ColBERT Text-Only RAG evaluation failed")
+        print("❌ ColBERT Full Dataset evaluation failed")
 
 if __name__ == "__main__":
     main()
