@@ -31,11 +31,14 @@ export DASHSCOPE_API_KEY="your_qwen_api_key_here"
 
 ### Instant Results (Recommended)
 ```bash
-# View existing ColBERT results (40.0% accuracy)
-python run_colbert_evaluation.py
+# Run full dataset evaluation (933 questions across 45 documents)
+python launch_autonomous_evaluation.py
 
-# Run ColPali evaluation with checkpoints (40.0% accuracy)
-python robust_colpali_evaluation.py
+# Quick ColBERT evaluation on AR6 subset
+python colbert_text_only_evaluation.py
+
+# Manual cleanup and sync to GitHub
+./cleanup "Your custom commit message"
 ```
 
 ## 📁 Repository Structure
@@ -251,6 +254,39 @@ This repository is designed for collaborative ESG reasoning research. Team membe
 - Maintain MMESGBench compatibility for result comparison
 - Document performance improvements with comprehensive metrics
 - Use checkpoint systems for long-running evaluations
+
+## 🤖 Development Automation
+
+### Auto-Cleanup and Sync
+The repository includes automated cleanup and sync capabilities for streamlined development:
+
+```bash
+# Manual trigger - cleans temporary files and syncs to GitHub
+./cleanup "Custom commit message"
+
+# What gets cleaned automatically:
+# ✅ Temporary files (*.tmp, *.temp, .DS_Store)
+# ✅ Old checkpoints and results (>1 day old)
+# ✅ Python cache files (__pycache__, *.pyc)
+# ✅ Automatic git commit and push
+```
+
+### Claude Code Hooks
+Configured hooks automatically trigger cleanup when you mention:
+- `"commit and sync"`
+- `"cleanup and push"`
+- `"tidy up"`
+
+### File Structure After Cleanup
+```
+esg_reason/
+├── 🎯 PRODUCTION SCRIPTS (committed)
+├── 📚 DOCUMENTATION (committed)
+├── 🔧 CONFIGURATION (committed)
+├── 📊 source_documents/ (local only, excluded)
+├── 🗂️ archive_scripts/ (local only, excluded)
+└── 🧹 Temporary files (automatically cleaned)
+```
 
 ## 📄 License
 

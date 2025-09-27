@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Manual trigger for cleanup and sync
+# Usage: ./cleanup [message]
+
+CUSTOM_MESSAGE="$1"
+
+if [ -n "$CUSTOM_MESSAGE" ]; then
+    echo "🧹 Running manual cleanup with custom message: $CUSTOM_MESSAGE"
+    export CUSTOM_COMMIT_MSG="$CUSTOM_MESSAGE"
+fi
+
+# Run the cleanup script
+./.claude/cleanup_and_sync.sh
