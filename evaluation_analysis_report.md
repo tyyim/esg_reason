@@ -2,9 +2,10 @@
 # 📊 MMESGBench Evaluation Results Analysis
 
 ## 🎯 Executive Summary
-- **Overall Accuracy**: 35.2% (302/857 questions)
-- **Target vs Actual**: 41.5% target vs 35.2% actual
-- **Performance Gap**: 6.3 percentage points below target
+- **Overall Accuracy (Final)**: 39.9% (372/933 questions) with MMESGBench evaluation
+- **Previous Accuracy**: 33.7% (314/933 questions) with strict evaluation
+- **Target vs Actual**: 41.5% target vs 39.9% actual
+- **Performance Gap**: 1.6 percentage points below target (significantly improved!)
 
 ## 🔄 Document Substitution Impact Analysis
 
@@ -28,42 +29,49 @@
 - **Hard**: 35.6% accuracy (133 questions)
 - **Easy**: 36.0% accuracy (377 questions)
 
-## ⚖️ Evaluation Function Comparison
+## ⚖️ Evaluation Function Comparison & Results
 
-### Key Differences from MMESGBench:
-1. **Numeric Evaluation**: MMESGBench uses more sophisticated precision handling and percentage conversion
-2. **String Evaluation**: MMESGBench has more aggressive text cleaning and fuzzy matching with 80% threshold
-3. **List Evaluation**: MMESGBench has more robust list parsing but similar F1 logic
+### Key Differences Fixed:
+1. **String Evaluation**: Implemented fuzzy matching (ANLS) with 0.5 threshold and substring matching
+2. **List Evaluation**: Added fuzzy matching with 80% threshold for partial matches
+3. **Numeric Evaluation**: Enhanced float tolerance and percentage handling
+4. **Format Normalization**: Better handling of units, brackets, and punctuation
 
-### Potential Impact:
-- **Numeric**: LOW - Both use 1% tolerance
-- **String**: MEDIUM - Their text cleaning might catch edge cases we miss
-- **List**: LOW - Similar F1 approach
+### Impact Measured (Before → After MMESGBench Evaluation):
+- **Overall**: 33.7% → 39.9% (+6.2% improvement)
+- **Questions Changed**: 92 total (75 newly correct, 17 newly incorrect)
+- **String Format**: Significant gains from fuzzy matching
+- **List Format**: Major improvements from partial matching
 
-## 📋 Performance by Answer Format
-- **Str**: 35.1% (299 questions)
-- **Float**: 34.6% (148 questions)
-- **Int**: 36.1% (207 questions)
-- **List**: 34.6% (131 questions)
-- **None**: 35.7% (148 questions)
+## 📋 Performance by Answer Format (MMESGBench Evaluation)
+- **Int**: 42.5% (88/207 questions) - Improved
+- **Str**: 38.5% (115/299 questions) - Major improvement from fuzzy matching
+- **Float**: 33.8% (50/148 questions) - Slight decrease due to stricter tolerance
+- **List**: 36.6% (48/131 questions) - Significant improvement from partial matching
+- **None**: 48.0% (71/148 questions) - Strong performance
 
-## 🔍 Root Cause Analysis
+## 🔍 Root Cause Analysis (Updated)
 
-### Primary Performance Gaps:
-1. **Document Substitution**: 41.3% impact from 3 substituted documents
-2. **Question Complexity**: Complexity pattern needs investigation
-3. **Evaluation Differences**: String cleaning differences may account for additional gaps
+### Performance Gaps Addressed:
+1. ✅ **Evaluation Logic Fixed**: 6.2% improvement by aligning with MMESGBench evaluation
+2. 🔄 **Document Substitution**: Still impacts performance (needs manual re-labeling)
+3. 🔄 **Question Complexity**: Pattern analysis pending
 
-### Recommendations:
-1. **High Priority**: Re-evaluate questions from substituted documents manually
-2. **Medium Priority**: Implement MMESGBench's more sophisticated text cleaning
-3. **Research**: Investigate format-specific performance patterns
-4. **Validation**: Cross-check evaluation logic on known test cases
+### Current Status:
+- **39.9% accuracy achieved** (vs 41.5% target)
+- **Only 1.6% gap remaining** (down from 6.3%)
+- **Strong baseline established** for DSPy optimization
 
-## 📈 Next Steps for Phase 1
-- **DSPy Integration**: Current 35.2% provides solid baseline for optimization
-- **Focus Areas**: Target substituted document questions
-- **Expected Improvement**: -5 percentage points possible
+### Next Steps:
+1. **High Priority**: Manual re-labeling of critical documents (Sum Yee assigned)
+2. **DSPy Integration**: Ready for Phase 1 optimization with solid 39.9% baseline
+3. **Expected Improvement**: 2-5% additional improvement possible
+
+## 📈 Phase 1 Readiness
+- **Baseline Established**: 39.9% with optimized ColBERT + MMESGBench evaluation
+- **Memory Optimization**: Pre-computed retrievals + parallel generation working
+- **Evaluation Alignment**: Full compatibility with MMESGBench scoring
+- **Infrastructure Ready**: PostgreSQL vector store, API integration, comprehensive evaluation pipeline
 
 ---
 *Analysis generated from 933 questions across 41 documents*

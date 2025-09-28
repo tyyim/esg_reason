@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 """
-Fallback Optimized ColBERT Evaluator
-Uses proven colbert_full_dataset_evaluation.py as base with memory optimizations
+Optimized ColBERT Evaluator with Exact MMESGBench Evaluation Logic
+Uses exact evaluation functions from MMESGBench to fix accuracy discrepancies
 """
 
 import json
 import time
 import concurrent.futures
 from typing import Dict, List, Any
-from colbert_full_dataset_evaluation import MultiDocumentColBERTRetriever, MMESGBenchEvaluator
+from colbert_full_dataset_evaluation import MultiDocumentColBERTRetriever
+from mmesgbench_exact_evaluation import evaluate_prediction_mmesgbench
 
-print("🔄 Optimized ColBERT evaluator loaded successfully!")
+print("🔄 Optimized ColBERT evaluator with MMESGBench evaluation loaded!")
 
-class OptimizedColBERTEvaluator:
-    """Optimized evaluator with pre-computed retrievals"""
+class OptimizedColBERTEvaluatorMMESGBench:
+    """Optimized evaluator with exact MMESGBench evaluation logic"""
 
     def __init__(self, batch_size: int = 10):
-        print("📝 Initializing base ColBERT components...")
+        print("📝 Initializing ColBERT components with MMESGBench evaluation...")
         self.retriever = MultiDocumentColBERTRetriever()
-        self.evaluator = MMESGBenchEvaluator()
         self.batch_size = batch_size
         self.precomputed_cache = {}
-        print("✅ Base components ready")
+        print("✅ Components ready with MMESGBench evaluation")
 
     def precompute_retrievals_for_questions(self, questions: List[Dict[str, Any]]) -> None:
         """Pre-compute retrievals for better memory management"""
@@ -35,13 +35,12 @@ class OptimizedColBERTEvaluator:
                 remaining = (len(questions) - i) / rate if rate > 0 else 0
                 print(f"   Progress: {i}/{len(questions)} ({i/len(questions)*100:.1f}%) | ETA: {remaining:.0f}s")
 
-            # Use existing retriever
             try:
                 doc_id = question['doc_id']
                 question_text = question['question']
                 cache_key = f"{doc_id}::{question_text}"
 
-                # Index document first (critical step that was missing!)
+                # Index document first (critical step!)
                 if not self.retriever.index_document(doc_id):
                     print(f"   Warning: Failed to index document {doc_id}")
                     self.precomputed_cache[cache_key] = []
@@ -49,8 +48,6 @@ class OptimizedColBERTEvaluator:
 
                 # Retrieve using existing infrastructure
                 chunks = self.retriever.retrieve(doc_id, question_text, top_k=5)
-
-                # Cache the result
                 self.precomputed_cache[cache_key] = chunks
 
             except Exception as e:
@@ -62,10 +59,10 @@ class OptimizedColBERTEvaluator:
         print(f"✅ Pre-computation completed in {total_time:.1f}s")
 
     def evaluate_with_precomputed(self, questions: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Run evaluation using pre-computed retrievals and parallel generation"""
-        print(f"🚀 Starting optimized evaluation with parallel generation...")
+        """Run evaluation using pre-computed retrievals and exact MMESGBench evaluation"""
+        print(f"🚀 Starting optimized evaluation with MMESGBench evaluation logic...")
 
-        # Step 1: Pre-compute all retrievals (safe, single-threaded)
+        # Step 1: Pre-compute all retrievals
         self.precompute_retrievals_for_questions(questions)
 
         # Step 2: Parallel generation phase
@@ -111,28 +108,26 @@ class OptimizedColBERTEvaluator:
             print(f"⏱️  Batch {batch_num} completed in {batch_time:.1f}s")
 
         total_time = time.time() - start_time
-
-        # Compile results
         return self._compile_results(all_results, total_time)
 
     def _process_single_question(self, question: Dict[str, Any]) -> Dict[str, Any]:
-        """Process single question using pre-computed retrieval"""
+        """Process single question using pre-computed retrieval and MMESGBench evaluation"""
         try:
             # Get pre-computed chunks
             cache_key = f"{question['doc_id']}::{question['question']}"
             retrieved_chunks = self.precomputed_cache.get(cache_key, [])
 
-            # Generate response using existing infrastructure (includes extraction)
+            # Generate response using existing infrastructure
             response = self.retriever.generate_response(
                 question['question'],
                 retrieved_chunks
             )
 
-            # Extract answer from response dict
+            # Extract answer from response
             extracted_answer = response.get('predicted_answer', 'Failed to extract')
 
-            # Evaluate using existing evaluator
-            is_correct, exact_match, f1_score = self.evaluator.evaluate_prediction(
+            # Use exact MMESGBench evaluation logic
+            is_correct, exact_match, f1_score = evaluate_prediction_mmesgbench(
                 extracted_answer,
                 question['answer'],
                 question['answer_format']
@@ -201,48 +196,56 @@ class OptimizedColBERTEvaluator:
             'format_breakdown': format_stats,
             'document_breakdown': doc_stats,
             'detailed_results': results,
-            'evaluation_method': 'Optimized ColBERT with pre-computed retrievals'
+            'evaluation_method': 'Optimized ColBERT with MMESGBench exact evaluation logic'
         }
 
 
 def main():
-    """Test optimized evaluator"""
-    print("🚀 Testing Optimized ColBERT Evaluator...")
+    """Test evaluator with MMESGBench evaluation logic"""
+    print("🚀 Testing Optimized ColBERT Evaluator with MMESGBench Evaluation...")
 
     # Load dataset
     with open('MMESGBench/dataset/samples.json', 'r') as f:
         dataset = json.load(f)
 
-    # Run full dataset evaluation with fixed optimized evaluator
-    print(f"🎯 Running FULL dataset evaluation with {len(dataset)} questions")
+    print(f"🎯 Running FULL dataset evaluation with {len(dataset)} questions using MMESGBench evaluation")
 
-    evaluator = OptimizedColBERTEvaluator(batch_size=10)
+    evaluator = OptimizedColBERTEvaluatorMMESGBench(batch_size=10)
     results = evaluator.evaluate_with_precomputed(dataset)
 
-    print(f"\n📊 Full Dataset Results:")
-    print(f"Accuracy: {results['accuracy']:.1%}")
+    print(f"\n📊 Full Dataset Results (MMESGBench Evaluation):")
+    print(f"Accuracy: {results['accuracy']:.1%} ({results['total_score']:.0f}/{results['total_questions']})")
     print(f"Processing Time: {results['avg_processing_time']:.1f}s per question")
     print(f"Total Time: {results['total_time']:.1f}s")
 
-    # Save full dataset results
-    output_file = 'optimized_full_dataset_fixed_results.json'
+    # Save results
+    output_file = 'optimized_full_dataset_mmesgbench_evaluation.json'
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=2)
 
-    print(f"✅ Full dataset evaluation completed! Results saved to: {output_file}")
+    print(f"✅ Evaluation completed with MMESGBench logic! Results saved to: {output_file}")
+
+    # Compare with previous results
+    try:
+        with open('optimized_full_dataset_fixed_results.json', 'r') as f:
+            old_results = json.load(f)
+
+        old_accuracy = old_results['accuracy']
+        new_accuracy = results['accuracy']
+        improvement = new_accuracy - old_accuracy
+
+        print(f"\n📈 Evaluation Logic Comparison:")
+        print(f"Previous (Our Logic): {old_accuracy:.1%} ({old_results['total_score']:.0f}/{old_results['total_questions']})")
+        print(f"Current (MMESGBench): {new_accuracy:.1%} ({results['total_score']:.0f}/{results['total_questions']})")
+        print(f"Improvement: {improvement:.1%} ({improvement*results['total_questions']:.0f} additional correct)")
+
+    except FileNotFoundError:
+        print("Previous results not found for comparison")
 
     # Show format breakdown
-    print(f"\n📊 Format Breakdown:")
+    print(f"\n📊 Format Breakdown (MMESGBench Evaluation):")
     for fmt, stats in results['format_breakdown'].items():
-        print(f"  {fmt}: {stats['accuracy']:.1%} ({stats['correct']:.1f}/{stats['total']})")
-
-    # Show top documents
-    print(f"\n📂 Top Document Performance:")
-    doc_sorted = sorted(results['document_breakdown'].items(),
-                       key=lambda x: x[1]['accuracy'], reverse=True)
-    for doc_name, stats in doc_sorted[:10]:
-        doc_short = doc_name[:40] + "..." if len(doc_name) > 40 else doc_name
-        print(f"  {doc_short}: {stats['accuracy']:.1%} ({stats['correct']:.1f}/{stats['total']})")
+        print(f"  {fmt}: {stats['accuracy']:.1%} ({stats['correct']:.0f}/{stats['total']})")
 
 
 if __name__ == "__main__":
