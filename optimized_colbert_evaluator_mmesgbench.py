@@ -9,7 +9,7 @@ import time
 import concurrent.futures
 from typing import Dict, List, Any
 from colbert_full_dataset_evaluation import MultiDocumentColBERTRetriever
-from mmesgbench_exact_evaluation import evaluate_prediction_mmesgbench
+from mmesgbench_exact_evaluation import evaluate_prediction_mmesgbench, eval_acc_and_f1_mmesgbench
 
 print("🔄 Optimized ColBERT evaluator with MMESGBench evaluation loaded!")
 
@@ -156,39 +156,57 @@ class OptimizedColBERTEvaluatorMMESGBench:
             }
 
     def _compile_results(self, results: List[Dict[str, Any]], total_time: float) -> Dict[str, Any]:
-        """Compile final results"""
+        """Compile final results with exact MMESGBench F1 calculation"""
         total_questions = len(results)
         total_score = sum(r['score'] for r in results)
         accuracy = total_score / total_questions if total_questions > 0 else 0
+
+        # Calculate exact MMESGBench F1 score
+        mmesgbench_samples = []
+        for result in results:
+            mmesgbench_samples.append({
+                'score': result['score'],
+                'answer': result['ground_truth'],
+                'pred': result['predicted_answer']
+            })
+
+        # Get exact MMESGBench accuracy and F1
+        mmesgbench_acc, mmesgbench_f1 = eval_acc_and_f1_mmesgbench(mmesgbench_samples)
 
         # Group by format
         format_stats = {}
         for result in results:
             fmt = result['answer_format']
             if fmt not in format_stats:
-                format_stats[fmt] = {'total': 0, 'correct': 0}
+                format_stats[fmt] = {'total': 0, 'correct': 0, 'f1_sum': 0.0}
             format_stats[fmt]['total'] += 1
             format_stats[fmt]['correct'] += result['score']
+            format_stats[fmt]['f1_sum'] += result.get('f1_score', 0.0)
 
-        # Calculate format accuracies
+        # Calculate format accuracies and F1
         for fmt, stats in format_stats.items():
             stats['accuracy'] = stats['correct'] / stats['total'] if stats['total'] > 0 else 0
+            stats['avg_f1'] = stats['f1_sum'] / stats['total'] if stats['total'] > 0 else 0
 
         # Group by document
         doc_stats = {}
         for result in results:
             doc = result['doc_id']
             if doc not in doc_stats:
-                doc_stats[doc] = {'total': 0, 'correct': 0}
+                doc_stats[doc] = {'total': 0, 'correct': 0, 'f1_sum': 0.0}
             doc_stats[doc]['total'] += 1
             doc_stats[doc]['correct'] += result['score']
+            doc_stats[doc]['f1_sum'] += result.get('f1_score', 0.0)
 
-        # Calculate doc accuracies
+        # Calculate doc accuracies and F1
         for doc, stats in doc_stats.items():
             stats['accuracy'] = stats['correct'] / stats['total'] if stats['total'] > 0 else 0
+            stats['avg_f1'] = stats['f1_sum'] / stats['total'] if stats['total'] > 0 else 0
 
         return {
             'accuracy': accuracy,
+            'mmesgbench_accuracy': mmesgbench_acc,
+            'mmesgbench_f1_score': mmesgbench_f1,
             'total_questions': total_questions,
             'total_score': total_score,
             'total_time': total_time,
@@ -196,7 +214,7 @@ class OptimizedColBERTEvaluatorMMESGBench:
             'format_breakdown': format_stats,
             'document_breakdown': doc_stats,
             'detailed_results': results,
-            'evaluation_method': 'Optimized ColBERT with MMESGBench exact evaluation logic'
+            'evaluation_method': 'Optimized ColBERT with MMESGBench exact evaluation logic + F1 score'
         }
 
 
@@ -215,6 +233,7 @@ def main():
 
     print(f"\n📊 Full Dataset Results (MMESGBench Evaluation):")
     print(f"Accuracy: {results['accuracy']:.1%} ({results['total_score']:.0f}/{results['total_questions']})")
+    print(f"MMESGBench F1 Score: {results['mmesgbench_f1_score']:.1%}")
     print(f"Processing Time: {results['avg_processing_time']:.1f}s per question")
     print(f"Total Time: {results['total_time']:.1f}s")
 

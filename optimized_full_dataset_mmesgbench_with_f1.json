@@ -10531,5 +10531,15 @@
     "newly_correct": 75,
     "newly_incorrect": 17,
     "accuracy_change": 0.062165058949624874
+  },
+  "mmesgbench_f1_score": 0.41126817391942266,
+  "mmesgbench_accuracy": 0.3987138263665595,
+  "evaluation_breakdown": {
+    "total_questions": 933,
+    "answerable_questions": 785,
+    "predicted_answerable": 672,
+    "recall": 0.3834394904458599,
+    "precision": 0.44345238095238093,
+    "f1_score": 0.41126817391942266
   }
 }

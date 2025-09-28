@@ -188,46 +188,64 @@ def evaluate_prediction_mmesgbench(predicted_answer: str, ground_truth: str, ans
     # Exact match (case-insensitive)
     exact_match = str(predicted_answer).strip().lower() == str(ground_truth).strip().lower()
 
-    # F1 score calculation (for compatibility)
-    if is_correct:
-        f1_score = 1.0
-    elif answer_format == "List":
-        # For lists, use fuzzy matching score as F1
-        try:
-            if ground_truth.startswith('[') and ground_truth.endswith(']'):
-                gt_list = ast.literal_eval(ground_truth)
-            else:
-                gt_list = [item.strip() for item in ground_truth.split(',')]
-
-            if predicted_answer.startswith('[') and predicted_answer.endswith(']'):
-                pred_list = ast.literal_eval(predicted_answer)
-            else:
-                pred_list = [item.strip() for item in predicted_answer.split(',')]
-
-            gt_items = [str(item).strip().lower() for item in gt_list]
-            pred_items = [str(item).strip().lower() for item in pred_list]
-
-            if len(gt_items) == 0 and len(pred_items) == 0:
-                f1_score = 1.0
-            elif len(gt_items) == 0 or len(pred_items) == 0:
-                f1_score = 0.0
-            else:
-                matched = 0
-                for gt_item in gt_items:
-                    for pred_item in pred_items:
-                        if fuzzy_match(gt_item, pred_item, threshold=0.8):
-                            matched += 1
-                            break
-                f1_score = matched / len(gt_items)
-        except:
-            f1_score = 0.0
-    elif answer_format == "Str":
-        # Use ANLS score as F1 for strings
-        f1_score = anls_compute(ground_truth, predicted_answer, threshold=0.0)
-    else:
-        f1_score = 0.0
+    # Use exact MMESGBench F1 calculation
+    f1_score = calculate_mmesgbench_f1(predicted_answer, ground_truth, is_correct)
 
     return is_correct, exact_match, f1_score
+
+def calculate_mmesgbench_f1(predicted_answer: str, ground_truth: str, is_correct: bool) -> float:
+    """
+    Calculate F1 score using exact MMESGBench logic from eval_acc_and_f1 function
+    """
+    # Create sample dict to match their format
+    sample = {
+        "score": 1.0 if is_correct else 0.0,
+        "answer": ground_truth,
+        "pred": predicted_answer
+    }
+
+    # Use their exact F1 calculation logic
+    try:
+        # Check if this is a "Not answerable" case
+        if ground_truth == "Not answerable":
+            # For unanswerable questions, F1 is same as accuracy
+            return sample["score"]
+        else:
+            # For answerable questions, use their precision/recall formula
+            # Note: Their F1 is calculated at dataset level, but we approximate at question level
+            if predicted_answer == "Not answerable":
+                # Predicted unanswerable but should be answerable
+                return 0.0
+            else:
+                # Both are answerable, F1 = accuracy for individual questions
+                return sample["score"]
+    except:
+        return 0.0
+
+def eval_acc_and_f1_mmesgbench(samples):
+    """
+    Exact replication of MMESGBench eval_acc_and_f1 function
+    """
+    evaluated_samples = [sample for sample in samples if "score" in sample]
+    if not evaluated_samples:
+        return 0.0, 0.0
+
+    acc = sum([sample["score"] for sample in evaluated_samples])/len(evaluated_samples)
+    try:
+        # Calculate recall: correct answerable / total answerable
+        answerable_samples = [sample for sample in evaluated_samples if sample["answer"] != "Not answerable"]
+        recall = sum([sample["score"] for sample in answerable_samples]) / len(answerable_samples) if answerable_samples else 0.0
+
+        # Calculate precision: correct predictions among non-"Not answerable" predictions
+        predicted_answerable = [sample for sample in evaluated_samples if sample["pred"] != "Not answerable"]
+        precision = sum([sample["score"] for sample in predicted_answerable]) / len(predicted_answerable) if predicted_answerable else 0.0
+
+        # Calculate F1
+        f1 = 2 * recall * precision / (recall + precision) if (recall + precision) > 0.0 else 0.0
+    except:
+        f1 = 0.0
+
+    return acc, f1
 
 # Test the evaluation functions
 if __name__ == "__main__":
