@@ -159,7 +159,7 @@
     "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What three main strategies did Microsoft use to achieve carbon neutrality in FY22? Write the answer in list format.",
-    "answer": "[Investments in energy efficiency, Carbon-free electricity procurement, Carbon removal offsets]",
+    "answer": "['Investments in energy efficiency', 'Carbon-free electricity procurement', 'Carbon removal offsets']",
     "evidence_pages": [
       86
     ],
