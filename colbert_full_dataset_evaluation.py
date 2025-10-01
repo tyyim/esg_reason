@@ -129,8 +129,9 @@ Answer format: String
         # Also check for the substituted documents
         substitutions = {
             "Microsoft CDP Climate Change Response 2023.pdf": "Microsoft-CDP-2024-Response.pdf",
+            "Microsoft CDP Climate Change Response 2024.pdf": "Microsoft-CDP-2024-Response.pdf",  # Corrected GT uses 2024
             "ISO 14001.pdf": "ISO-14001-2015.pdf",
-            "Gender 2024.pdf": "UNESCO-GEM-Report-2024.pdf"
+            "Gender 2024.pdf": "Gender 2024.pdf"  # Now using correct Gender 2024.pdf
         }
 
         if doc_id in substitutions:

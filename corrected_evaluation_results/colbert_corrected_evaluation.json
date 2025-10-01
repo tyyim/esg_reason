@@ -1,0 +1,542 @@
+{
+  "accuracy": 0.46808510638297873,
+  "mmesgbench_accuracy": 0.46808510638297873,
+  "mmesgbench_f1_score": 0.38461538461538464,
+  "total_questions": 47,
+  "total_score": 22.0,
+  "total_time": 186.34653091430664,
+  "avg_processing_time": 3.9648198066873754,
+  "format_breakdown": {
+    "Int": {
+      "total": 9,
+      "correct": 5.0,
+      "f1_sum": 5.0,
+      "accuracy": 0.5555555555555556,
+      "avg_f1": 0.5555555555555556
+    },
+    "Float": {
+      "total": 7,
+      "correct": 1.0,
+      "f1_sum": 1.0,
+      "accuracy": 0.14285714285714285,
+      "avg_f1": 0.14285714285714285
+    },
+    "Str": {
+      "total": 18,
+      "correct": 9.0,
+      "f1_sum": 9.0,
+      "accuracy": 0.5,
+      "avg_f1": 0.5
+    },
+    "null": {
+      "total": 6,
+      "correct": 5.0,
+      "f1_sum": 5.0,
+      "accuracy": 0.8333333333333334,
+      "avg_f1": 0.8333333333333334
+    },
+    "List": {
+      "total": 5,
+      "correct": 0.0,
+      "f1_sum": 0.0,
+      "accuracy": 0.0,
+      "avg_f1": 0.0
+    },
+    "None": {
+      "total": 2,
+      "correct": 2.0,
+      "f1_sum": 2.0,
+      "accuracy": 1.0,
+      "avg_f1": 1.0
+    }
+  },
+  "document_breakdown": {
+    "Microsoft CDP Climate Change Response 2024.pdf": {
+      "total": 31,
+      "correct": 12.0,
+      "f1_sum": 12.0,
+      "accuracy": 0.3870967741935484,
+      "avg_f1": 0.3870967741935484
+    },
+    "Gender 2024.pdf": {
+      "total": 16,
+      "correct": 10.0,
+      "f1_sum": 10.0,
+      "accuracy": 0.625,
+      "avg_f1": 0.625
+    }
+  },
+  "detailed_results": [
+    {
+      "question": "When does Microsoft aim to be carbon negative?",
+      "predicted_answer": "2030",
+      "ground_truth": 2030,
+      "score": 1.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is Microsoft’s progress towards achieving its Scope 1 and 2 target in percentage terms? Please write down the answer in float format with 2 decimals",
+      "predicted_answer": "100.00",
+      "ground_truth": 55.36,
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What is Microsoft's mission?",
+      "predicted_answer": "\"to empower every person and every organization on the planet to achieve more\"",
+      "ground_truth": "to empower every person and every organization on the planet to achieve more",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How often is the TCFD Report published?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "Calculate the average emissions per device type.",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What percentage of Scope 2 emissions has Microsoft reduced from 2013 to 2020?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": 44.36,
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What are the total Scope 3 emissions in metric tons CO2e?",
+      "predicted_answer": "0.000",
+      "ground_truth": 14819000,
+      "score": 0.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Which emission reduction measure supports all-electric vehicle transitions in Redmond?",
+      "predicted_answer": "Fleet electrification",
+      "ground_truth": "Fleet electrification",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is the total emissions covered by the target in all selected scopes?",
+      "predicted_answer": "230035.750",
+      "ground_truth": 15357094,
+      "score": 0.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What is the difference between location-based and market-based emissions?",
+      "predicted_answer": "Failed to extract",
+      "ground_truth": 7684269,
+      "score": 0.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What types of renewable electricity are mentioned? Write the answer in list format.",
+      "predicted_answer": "['Wind', 'Solar', 'Hydro']",
+      "ground_truth": "['Wind', 'solar', 'hydro', 'biogas', 'geothermal']",
+      "score": 0.0,
+      "answer_format": "List",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Has Microsoft achieved its ongoing annual carbon neutrality target as of FY22? Answer Yes, No, or Not answerable",
+      "predicted_answer": "Yes",
+      "ground_truth": "Yes",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What are all the Scope 3 categories in this questionnaire? Write the answer in list format.",
+      "predicted_answer": "['Purchased goods and services', 'Capital goods', 'Fuel-and-energy-related activities (not included in Scope 1 or 2)', 'Business travel', 'Employee commuting', 'Downstream transportation and distribution']",
+      "ground_truth": "['Purchased goods and services',\n 'Capital goods',\n 'Fuel-and-energy-related activities',\n 'Upstream transportation and distribution',\n 'Waste generated in operations',\n 'Business travel',\n 'Employee commuting',\n 'Downstream transportation and distribution',\n 'Use of sold products',\n 'End of life treatment of sold products',\n 'Downstream leased assets']",
+      "score": 0.0,
+      "answer_format": "List",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
+      "predicted_answer": "['European Union (EU) countries', 'Poland', 'Netherlands', 'Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Singapore', 'Spain', 'Sweden', 'United Kingdom']",
+      "ground_truth": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
+      "score": 0.0,
+      "answer_format": "List",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "According to the table about total gross global Scope 1 emission, which greenhouse gas contributes most?",
+      "predicted_answer": "CO2",
+      "ground_truth": "CO2",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How many Scope 3 categories were revised for base year FY20 base on C5.1c?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "According to the table about total gross global Scope 1 emission, What is the total gross global emissions for all listed greenhouse gas types?",
+      "predicted_answer": "144960",
+      "ground_truth": 144960,
+      "score": 1.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What percent of total energy use came from non-renewable sources?",
+      "predicted_answer": "Failed to extract",
+      "ground_truth": 0.0555,
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Based on the total Scope 1 and 2 emissions in the 2020 base year, what is the average annual reduction required to reach the 2030 target?",
+      "predicted_answer": "27063.03",
+      "ground_truth": 34418.3,
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What three main strategies did Microsoft use to achieve carbon neutrality in FY22? Write the answer in list format.",
+      "predicted_answer": "['Carbon Offsetting', 'Fleet Electrification and Emissions Reductions', 'Renewable Energy Investments']",
+      "ground_truth": "['Investments in energy efficiency', 'Carbon-free electricity procurement', 'Carbon removal offsets']",
+      "score": 0.0,
+      "answer_format": "List",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Does Microsoft’s emissions reduction target include any land-related emissions? Answer Yes, No, or Not answerable",
+      "predicted_answer": "No",
+      "ground_truth": "No",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is the total capacity of the two community solar gardens Microsoft supported in Illinois? Please write the answer in int format.",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How much CO₂e reduction is planned by implementing all initiatives currently marked as 'to be implemented', 'implementation commenced', and 'implemented'? Write the answer in int format.",
+      "predicted_answer": "4040",
+      "ground_truth": 24414730,
+      "score": 0.0,
+      "answer_format": "Int",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How many PPAs related projects has Microsoft signed globally as of FY22, and what is the total renewable energy capacity covered?",
+      "predicted_answer": "19.8",
+      "ground_truth": "135 projects, 13.5 GW capacity",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What is the additional, voluntary label associated with purchased renewable electricity?",
+      "predicted_answer": "\"EKOEnergy certification\"",
+      "ground_truth": "['Green-e Certified','EECS','EKOenergy']",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Did Microsoft have any FLAG science-based targets in FY22? Answer Yes, No, or Not answerable",
+      "predicted_answer": "Yes",
+      "ground_truth": "No",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Where are the forests located that Microsoft uses for land-based carbon sequestration?",
+      "predicted_answer": "['Virginia', 'Tennessee and Kentucky']",
+      "ground_truth": "Washington, United States",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "From Table in C8.2m, which country faced a limited supply of renewable electricity rather than a lack of credible procurement options?",
+      "predicted_answer": "Failed",
+      "ground_truth": "['Singapore', 'Taiwan, China']",
+      "score": 0.0,
+      "answer_format": "List",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What is the total Scope 3 emissions increase in target year 2030 compared to the base year (from July 1, 2019 to June 30, 2020) across Categories 1–4",
+      "predicted_answer": "14819000.000",
+      "ground_truth": "Not answerable",
+      "score": 0.0,
+      "answer_format": null,
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "In what year was gender parity first achieved in tertiary education globally?",
+      "predicted_answer": "1998",
+      "ground_truth": "1998",
+      "score": 1.0,
+      "answer_format": "Int",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How many fewer women than men are using the Internet worldwide, as of the latest data?",
+      "predicted_answer": "244000000",
+      "ground_truth": "244000000",
+      "score": 1.0,
+      "answer_format": "Int",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is the share of women in science, engineering, and ICT jobs as of 2022?",
+      "predicted_answer": "25",
+      "ground_truth": "25%",
+      "score": 1.0,
+      "answer_format": "Float",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is one primary reason cited by women in Pakistan for not owning a mobile phone?",
+      "predicted_answer": "lack of family approval",
+      "ground_truth": "Lack of family approval",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "By what factor are women aged 20–24 more likely to have spreadsheet skills than those aged 40–44 in low- and middle-income countries?",
+      "predicted_answer": "2",
+      "ground_truth": "2 times",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 1.0
+    },
+    {
+      "question": "How many countries had more female STEM graduates than male between 2018–2023?",
+      "predicted_answer": "9",
+      "ground_truth": "9",
+      "score": 1.0,
+      "answer_format": "Int",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What percentage of total emissions covered by Microsoft’s 2030 target is made up of Scope 3 emissions in the reporting year?",
+      "predicted_answer": "96.48",
+      "ground_truth": 0.9649,
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What is the global share of women among STEM graduates between 2018 and 2023?",
+      "predicted_answer": "Not answerable\nAnswer format",
+      "ground_truth": "35%",
+      "score": 0.0,
+      "answer_format": "Float",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What was th number of women who graduated with a STEM degree globally in 2022?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": "None",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "What is the purpose of the Women4Ethical AI platform?",
+      "predicted_answer": "To ensure that women are represented equally in the design and deployment of artificial intelligence, address the underrepresentation of women in the tech industry, and mitigate and prevent the perpetuation and amplification of gender biases in AI algorithms and data sources, making technological progress more inclusive and ethically sound.",
+      "ground_truth": "Ensure women' are represented eqially in design and development process",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "What percentage of women in Kenya reported affordability as the primary barrier to smartphone ownership?",
+      "predicted_answer": "more than 50",
+      "ground_truth": "34%",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "Which five countries have the highest percentage of girls proficient in advanced programming as of 2023?",
+      "predicted_answer": "Not answerable",
+      "ground_truth": "Not answerable",
+      "score": 1.0,
+      "answer_format": "None",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "Which European country listed has the lowest share of female STEM graduates, in figure 23?",
+      "predicted_answer": "Switzerland",
+      "ground_truth": "Germany",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "In which country do women aged 15–19 have a higher literacy rate than men in the same age group?",
+      "predicted_answer": "Cambodia",
+      "ground_truth": "The Gambia",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    },
+    {
+      "question": "In which subject do girls perform better than boys in most countries at both minimum and high proficiency levels?",
+      "predicted_answer": "reading",
+      "ground_truth": "Reading",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "Which region with the highest out-of-school rates for girls",
+      "predicted_answer": "sub-Saharan Africa",
+      "ground_truth": "Sub-Saharan Africa",
+      "score": 1.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": true,
+      "f1_score": 1.0
+    },
+    {
+      "question": "In which country do young rural women face the lowest gender parity index in school attendance?",
+      "predicted_answer": "Afghanistan",
+      "ground_truth": "Guinea",
+      "score": 0.0,
+      "answer_format": "Str",
+      "doc_id": "Gender 2024.pdf",
+      "exact_match": false,
+      "f1_score": 0.0
+    }
+  ],
+  "evaluation_method": "Optimized ColBERT with MMESGBench exact evaluation logic + F1 score"
+}

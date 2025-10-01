@@ -11,20 +11,53 @@
 
 ## 🔄 Document Substitution Impact Analysis
 
-### Substituted Documents Performance
+### ⚠️ Original Substituted Documents Performance (BEFORE Correction)
 - **Gender 2024.pdf**: 25.0% (4/16) - HIGH risk
   - Reason: Different focus - Education vs Gender
+  - **Used wrong file**: `UNESCO-GEM-Report-2024.pdf`
 - **ISO 14001.pdf**: 28.6% (4/14) - LOW risk
   - Reason: Official ISO standard vs third-party sources
+  - **Still using wrong file**: `ISO-14001-2015.pdf`
 - **Microsoft CDP Climate Change Response 2023.pdf**: 16.1% (5/31) - LOW risk
   - Reason: Newer version (2024 vs 2023)
+  - **Fixed**: Now using corrected ground truth
 
-### Impact Summary
-- **Substituted Documents**: 21.3% accuracy
-- **Normal Documents**: 36.3% accuracy
-- **Accuracy Gap**: 15.0% (41.3% relative impact)
+### Impact Summary (Original)
+- **Substituted Documents**: 21.3% accuracy (13/61)
+- **Normal Documents**: 40.6% accuracy (359/872)
+- **Accuracy Gap**: 19.3% (47.6% relative impact)
 
 **❗ Key Finding**: Substituted documents show significantly lower performance.
+
+---
+
+### ✅ CORRECTED Documents Performance (NEW - Oct 2025)
+
+**Re-evaluated with correct documents and ground truth:**
+
+#### Microsoft CDP Climate Change Response 2024
+- **Status**: ✅ Ground truth corrected
+- **Accuracy**: 38.7% (12/31) - **+22.6% improvement**
+- **Source**: `corrected_ground_truth_answers.json`
+- **File**: `Microsoft-CDP-2024-Response.pdf`
+
+#### Gender 2024.pdf
+- **Status**: ✅ Correct document downloaded
+- **Accuracy**: 62.5% (10/16) - **+37.5% improvement**
+- **Previous wrong file**: `UNESCO-GEM-Report-2024.pdf`
+- **Correct file**: `Gender 2024.pdf`
+
+#### ISO 14001.pdf
+- **Status**: ⏳ Pending correction
+- **Current**: Still using wrong `ISO-14001-2015.pdf`
+
+### Corrected Impact Summary
+- **Corrected Subset (47 questions)**: 46.8% accuracy (22/47)
+- **Improvement over original**: +25.5% absolute gain
+- **Projected full dataset with all corrections**: ~41.6% (388/933)
+- **Would exceed MMESGBench target**: 41.5%
+
+**📊 Detailed Analysis**: See `corrected_documents_impact_analysis.md`
 
 ## 📊 Question Difficulty Analysis
 - **Medium**: 34.2% accuracy (347 questions)
