@@ -152,26 +152,27 @@ Parallel Generation → MMESGBench Exact Evaluation → Results + F1
 Successfully downloaded all **933 questions** across **45 ESG documents** with the following exceptions:
 
 ### ✅ Document Corrections Completed
-**3 documents were corrected (previously substituted):**
+**2 documents corrected, 1 filename validated:**
 
 | Document | Status | Impact | Accuracy Change |
 |----------|--------|--------|-----------------|
 | `Microsoft CDP Climate Change Response 2024.pdf` | ✅ **Ground truth corrected** | Relabeled 31 questions | 16.1% → 38.7% (+22.6%) |
 | `Gender 2024.pdf` | ✅ **Correct document obtained** | Downloaded correct file | 25.0% → 62.5% (+37.5%) |
-| `ISO 14001.pdf` | ✅ **Confirmed correct** | `ISO-14001-2015.pdf` is the right file | 28.6% (no change) |
+| `ISO 14001.pdf` / `ISO-14001-2015.pdf` | ✅ **Filename validated** | Same document, different name | 28.6% (no change) |
 
 ### 🔍 Correction Impact Summary
 
 **Key Finding**: Document quality matters significantly
-- **Wrong documents caused**: 19.3% average performance drop
+- **Wrong documents caused**: 19.3% average performance drop on 2 substituted documents
 - **Corrections yielded**: +1.4% overall improvement on 933-question dataset
-- **Subset improvement**: +25.5% average on corrected documents alone
+- **Subset improvement**: +30.1% average on 2 corrected documents (Microsoft CDP: +22.6%, Gender: +37.5%)
+- **Filename validation**: ISO-14001-2015.pdf confirmed identical to ISO 14001.pdf reference
 
 **Validation Status**: All documents now validated and baseline re-established at **41.3% accuracy**
 
 ### 📊 Full Dataset Availability
 - **Total PDFs**: 45/45 (100% complete)
-- **Source reliability**: 42 original + 3 high-quality alternatives
+- **Source reliability**: 43 original + 2 corrected alternatives
 - **Ready for scaling**: All documents indexed and accessible
 
 ## 📈 Research Roadmap
