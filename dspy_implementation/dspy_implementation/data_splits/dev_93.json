@@ -1,0 +1,839 @@
+[
+  {
+    "doc_id": "SBTI Zero v2.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What are the potential variants of mass balance in this draft standard?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "google-2024-environmental-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What is the total water consumption for all data centers in 2023?",
+    "answer": "6100.6",
+    "evidence_sources": "['Table']",
+    "answer_format": "Float",
+    "evidence_pages": "[80]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How much did the absolute scope 3 GHG emissions from sold products reduce from FY22 to FY24? Answer in MT CO2e",
+    "answer": "2116400",
+    "evidence_sources": "['Chart']",
+    "answer_format": "Int",
+    "evidence_pages": "[20]"
+  },
+  {
+    "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "How many categories of risks are communicated by the RFC framework?",
+    "answer": "5",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[31, 87]"
+  },
+  {
+    "doc_id": "GRI Standards 2021.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "If a company had 4 fatalities from work-related injury and 800,000 hours worked, what is the fatality rate using the 1,000,000 multiplier?",
+    "answer": "5%",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Float",
+    "evidence_pages": "[481, 482]"
+  },
+  {
+    "doc_id": "SBTi-criteria.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "How does the SBTi define 'negligible' emissions for reporting purposes?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "TNFD GRI Mapping.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "How many GRI standards are covered in the mapping document?",
+    "answer": "10",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[4]"
+  },
+  {
+    "doc_id": "SASB Health Care Distributors.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+    "answer": "Counterfeit Drugs",
+    "evidence_sources": "['Table']",
+    "answer_format": "Str",
+    "evidence_pages": "[6]"
+  },
+  {
+    "doc_id": "LSEG ESG.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "How much of Unilever’s total revenue in 2023 was classified as green revenue under FTSE’s taxonomy?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+    "answer": "[0.8, 1.3]",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[20]"
+  },
+  {
+    "doc_id": "IEA 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What are the three overarching themes for this year's Outlook? Write the answer in the list format.",
+    "answer": "['Energy security', 'clean energy transitions', 'uncertainty']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "List",
+    "evidence_pages": "[21, 23]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "For a WELL Core project with a building area of 50,000 square meters, how many square meters must be available for performance testing?",
+    "answer": "1250",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[5]"
+  },
+  {
+    "doc_id": "Microsoft CDP Climate Change Response 2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "Has Microsoft achieved its ongoing annual carbon neutrality target as of FY22? Answer Yes, No, or Not answerable",
+    "answer": "Yes",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[41]"
+  },
+  {
+    "doc_id": "SBTi-criteria.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What percentage of total scope 1 and 2 emissions can be excluded if they are deemed immaterial?",
+    "answer": "5%",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Float",
+    "evidence_pages": "[9]"
+  },
+  {
+    "doc_id": "SASB Health Care Distributors.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "Who shares responsibility with Health Care Distributors in ensuring product safety according to the topic summary for Product Safety?",
+    "answer": "Manufacturers",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[9]"
+  },
+  {
+    "doc_id": "Gender 2024.pdf",
+    "doc_type": "Governance-related Standards",
+    "question": "What was th number of women who graduated with a STEM degree globally in 2022?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "Which organizations established the IPCC? Answer the origanizations abbreviation in list",
+    "answer": "['UNEP', 'WMO']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "List",
+    "evidence_pages": "[186]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How does Dell plan to achieve zero trust solution validation by 2025?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What was Meta’s total Scope 1 and Scope 2 GHG emissions in the 2021 base year as covered by the SBTi target? Answer in metric tons CO2e",
+    "answer": "57660",
+    "evidence_sources": "['Table']",
+    "answer_format": "Int",
+    "evidence_pages": "[18, 19]"
+  },
+  {
+    "doc_id": "TNFD Summary.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "Under which disclosure pillar is the organisation asked to describe its board’s oversight of nature-related risks?",
+    "answer": "Governance",
+    "evidence_sources": "['Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[4]"
+  },
+  {
+    "doc_id": "Gender 2024.pdf",
+    "doc_type": "Governance-related Standards",
+    "question": "In which country do young rural women face the lowest gender parity index in school attendance?",
+    "answer": "Guinea",
+    "evidence_sources": "['Chart', 'Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[24]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "How many asset managers are part of the Net Zero Asset Managers initiative?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What is the total CO2e emissions for all Scope 3 categories in the base year 12/31/2019 according to 7.5?",
+    "answer": "8754000",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[62, 63, 64, 65, 66, 67]"
+  },
+  {
+    "doc_id": "SBTi-criteria.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the maximum acceptable timeframe for supplier or customer engagement targets in scope 3 emissions?",
+    "answer": "5 years from the submission date",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[13]"
+  },
+  {
+    "doc_id": "Credo-ESG-Report-2024.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How many new employees did Credo hire in the past calendar year?",
+    "answer": "90",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[26]"
+  },
+  {
+    "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What percentage of total emissions originated from suppliers in FY23?",
+    "answer": "76.5%",
+    "evidence_sources": "['Generalized-text (Layout)', 'Image']",
+    "answer_format": "Float",
+    "evidence_pages": "[15]"
+  },
+  {
+    "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What is the total emissions (metric tons CO2e) for Scope 2 in the base year 12/31/2019?",
+    "answer": "5952400",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[61, 62]"
+  },
+  {
+    "doc_id": "IFRS S2 Vol29.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "What is the email of IFRS Foundation?",
+    "answer": "sustainability_licensing@ifrs.org",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Str",
+    "evidence_pages": "[6]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the minimum CO2 concentration threshold (in ppm) for demand-controlled ventilation to earn 1 point?",
+    "answer": "900",
+    "evidence_sources": "['Table']",
+    "answer_format": "Int",
+    "evidence_pages": "[26]"
+  },
+  {
+    "doc_id": "LEED 2025.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+    "answer": "11",
+    "answer_format": "Int",
+    "evidence_pages": "[6, 7, 8]",
+    "evidence_sources": "['Table', 'Pure-text (Plain-text)']"
+  },
+  {
+    "doc_id": "SBTI Zero v2.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "If a Category A company sets a target in 2025 using Version 1.2 of the Corporate Net-Zero Standard, until what year will this target remain valid, and by what year must the company transition to Version 2.0?",
+    "answer": "2030, 2030",
+    "answer_format": "Str",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "evidence_pages": "[17]"
+  },
+  {
+    "doc_id": "SASB Education.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "What is the required minimum employment duration (in weeks) for a graduate to be counted in the job placement rate?",
+    "answer": "13",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[13]"
+  },
+  {
+    "doc_id": "LEED 2025.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "If a Core & Shell project earned all points from Water Efficiency and Sustainable Sites categories, what is the possible score the project can achieve?",
+    "answer": "22",
+    "answer_format": "Int",
+    "evidence_pages": "[6, 7]",
+    "evidence_sources": "['Table', 'Generalized-text (Layout)']"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the minimum percentage of occupants who must perceive their environment as thermally acceptable for WELL Certification?",
+    "answer": "80%",
+    "evidence_sources": "['Table', 'Pure-text (Plain-text)']",
+    "answer_format": "Float",
+    "evidence_pages": "[165]"
+  },
+  {
+    "doc_id": "Gender 2024.pdf",
+    "doc_type": "Governance-related Standards",
+    "question": "What percentage of women in Kenya reported affordability as the primary barrier to smartphone ownership?",
+    "answer": "34%",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[39]"
+  },
+  {
+    "doc_id": "Microsoft CDP Climate Change Response 2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What is Microsoft's mission?",
+    "answer": "To empower epower every person and every organization on the planet to achieve more",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[1]"
+  },
+  {
+    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What is the total base year 2015 emissions covered by target in all selected Scopes?",
+    "answer": "38378460",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[16, 17]"
+  },
+  {
+    "doc_id": "SUSTAINALYTICS ESG.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "Given a company exposure of 8.1 and a Manageable Risk Factor (MRF) of 90%, what is the value of the manageable risk?",
+    "answer": "7.3",
+    "evidence_sources": "['Table']",
+    "answer_format": "Float",
+    "evidence_pages": "[12]"
+  },
+  {
+    "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What is the maximum average annual CO₂ emission allowed between 2020 and 2050 to stay within the remaining carbon budget for 1.5°C (50% likelihood)? Write the answer in the float format.",
+    "answer": "16.7",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Float",
+    "evidence_pages": "[35, 98]"
+  },
+  {
+    "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What is the total GHG Scope 3+ Reduction for Alibaba Group Holding Limited?",
+    "answer": "23907425",
+    "evidence_sources": "['Image']",
+    "answer_format": "Float",
+    "evidence_pages": "[220]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What was the effect of intensive handwashing promotion on childhood diarrhea in high-risk communities in Pakistan?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How many hours of volunteer work were logged by Dell team members in FY24?",
+    "answer": "949000",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[5, 49]"
+  },
+  {
+    "doc_id": "NGFS 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "Which publication from NGFS on May 2023? Answer the name of the publication",
+    "answer": "Stocktake on Financial Institutions’ Transition Plans and their Relevance to Micro-prudential Authorities",
+    "evidence_sources": "['Generalized-text (Layout)', 'Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[8, 12]"
+  },
+  {
+    "doc_id": "ipcc-ar6-wg3.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What are the contributions of different sectors to reaching net zero GHG emissions? Write the answer in list format.",
+    "answer": "['Buildings', 'Industry', 'Transport', 'Energy Supply (positive)', 'LULUCF', 'Non-CO2 from all sectors']",
+    "evidence_sources": "['Chart']",
+    "answer_format": "List",
+    "evidence_pages": "[40]"
+  },
+  {
+    "doc_id": "ISO 26000.pdf",
+    "doc_type": "Social-related Standards",
+    "question": "According to ISO 26000, which category of organizations—regardless of size, sector, or location—is eligible to apply its guidance?",
+    "answer": "All type of prganization",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[6]"
+  },
+  {
+    "doc_id": "2023-amazon-sustainability-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What is the increased number of packages were delivered via micromobility solutions in 2023 compared to 2022?",
+    "answer": "409000000",
+    "evidence_sources": "['Table', 'Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[17]"
+  },
+  {
+    "doc_id": "IEA 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What percentage of global energy demand is influenced by elections in 2024?",
+    "answer": "50%",
+    "evidence_sources": "['Chart']",
+    "answer_format": "Float",
+    "evidence_pages": "[76]"
+  },
+  {
+    "doc_id": "LSEG ESG.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "How many countries have introduced mandatory ESG reporting instruments?",
+    "answer": "64",
+    "evidence_sources": "['Pure-text (Plain-text)', 'Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[19]"
+  },
+  {
+    "doc_id": "LEED 2025.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the recommended maximum percentage of income for rent payments?",
+    "answer": "30%",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[26]"
+  },
+  {
+    "doc_id": "Gender 2024.pdf",
+    "doc_type": "Governance-related Standards",
+    "question": "In what year was gender parity first achieved in tertiary education globally?",
+    "answer": "1998",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[11, 12]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "Which types of renewable materials are used in Dell's fiber-based packaging according to the FY24 report? Write the answer in the list format",
+    "answer": "['Bamboo', 'Recycled paper pulp', 'Sugar cane fibers', 'Sustainably sourced raw fiber']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[35]"
+  },
+  {
+    "doc_id": "WHO GHG.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "Acccording to the list of participants, how many participants are from the UK NHS?",
+    "answer": "3",
+    "evidence_sources": "['Table']",
+    "answer_format": "Int",
+    "evidence_pages": "[20, 21, 22]"
+  },
+  {
+    "doc_id": "SDG 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "By how many percentage points did digital remittance services cost less than non-digital services globally in 2023?",
+    "answer": "1.93%",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Float",
+    "evidence_pages": "[31]"
+  },
+  {
+    "doc_id": "SDG 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "Which year recorded the highest number of civilian deaths in armed conflicts between 2015 and 2023?",
+    "answer": "2015",
+    "evidence_sources": "['Chart', 'Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[42]"
+  },
+  {
+    "doc_id": "ipcc-ar6-wg3.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What is the Gini coefficient for electricity access in Nigeria in 2018?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "ipcc-ar6-wg3.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "How many Contributing anthors of the Industry Section?",
+    "answer": "8",
+    "evidence_sources": "['Pure-text (Plain-text)', 'Generalized-text (Layout)']",
+    "answer_format": "Int",
+    "evidence_pages": "[966]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the recommended maximum portion size of red meat per serving according to the WELL Core Guidance?",
+    "answer": "4 oz (115 g)",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[101]"
+  },
+  {
+    "doc_id": "Credo-ESG-Report-2024.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What structured training modules are included in Credo’s annual compliance training? Write the answer in the list format",
+    "answer": "['Code of Conduct', 'Cybersecurity', 'Data Privacy', 'Harassment', 'Victim Rights', 'Procedures for Harassment Incidents']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "List",
+    "evidence_pages": "[40]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "How many varieties of fruits and non-fried vegetables at least must be included for commercial dining spaces?",
+    "answer": "4",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[74]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "Which region has the highest number of listed asset owners with responsible investment policy examples, and how many asset owners are listed for that region?",
+    "answer": "Europe",
+    "evidence_sources": "['Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[23]"
+  },
+  {
+    "doc_id": "2023-amazon-sustainability-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What is the total number of trees planted by Amazon in India over three years through the Wild Carbon project?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "How does the life cycle stage 'cradle-to-grave' impact the calculation of avoided emissions?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "GHG Public.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "How many trees were preserved for the future by using the specified paper?",
+    "answer": "5.66",
+    "evidence_sources": "['Generalized-text (Layout)', 'Image']",
+    "answer_format": "Float",
+    "evidence_pages": "[110]"
+  },
+  {
+    "doc_id": "SBTI Zero v2.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What are the two specific alignment targets required for tier 1 suppliers and what are their respective target years?",
+    "answer": "100% of tier 1 suppliers aligned by spend with net-zero by target year; 100% of tier 1 suppliers providing emissions-intensive activities aligned by 2030.",
+    "answer_format": "Str",
+    "evidence_sources": "['Image']",
+    "evidence_pages": "[131]"
+  },
+  {
+    "doc_id": "TCFD Guidence 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "According to the TCFD guidance, what drama-based elements should be considered when writing scenario narratives? Write the answer in the list format",
+    "answer": "['the players (who)', 'the events (what)', 'the timeframe (when)', 'the scene (where)', 'the props (how)', 'the motives (why)']",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "List",
+    "evidence_pages": "[82]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What is the percentage increase in Black employees from 2022 to 2023?",
+    "answer": "0.08%",
+    "evidence_sources": "['Table']",
+    "answer_format": "Float",
+    "evidence_pages": "[53]"
+  },
+  {
+    "doc_id": "TCFD Guidence 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "According to TCFD’s 2019 Status Report, what percentage of surveyed companies reported using scenario analysis for strategy formulation?",
+    "answer": "56%",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Float",
+    "evidence_pages": "[7]"
+  },
+  {
+    "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What are the three main initiatives to reduce Scope 2 emissions? Write the answer in the list format",
+    "answer": "['Purchasing carbon-free energy', 'accelerating technologies', 'transforming energy system']",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "List",
+    "evidence_pages": "[17, 48, 126]"
+  },
+  {
+    "doc_id": "SUSTAINALYTICS ESG.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "If a company's subindustry exposure is 6 and its issue beta is 1.3, what is its company-specific exposure to the ESG issue?",
+    "answer": "7.8",
+    "evidence_sources": "['Pure-text (Plain-text)', 'Table']",
+    "answer_format": "Float",
+    "evidence_pages": "[9, 12]"
+  },
+  {
+    "doc_id": "TCFD Guidence 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What role does strategic thinking play between external drivers and strategy output according to both diagrams?",
+    "answer": "It interprets uncertainties creatively and feeds insights into structured planning",
+    "evidence_sources": "['Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[35, 36]"
+  },
+  {
+    "doc_id": "GRI Standards 2021.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "What email address should be used to notify GRI of a report",
+    "answer": "reportregistration@globalreporting.org",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Str",
+    "evidence_pages": "[20, 22]"
+  },
+  {
+    "doc_id": "GHG Public.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "If an organization has limited local staff capacity and standardized equipment across all facilities, which GHG data management approach is more suitable?",
+    "answer": "Centralized",
+    "evidence_sources": "['Table', 'Image']",
+    "answer_format": "Str",
+    "evidence_pages": "[53]"
+  },
+  {
+    "doc_id": "WELL 2020.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What is the minimum number of total points required for WELL Platinum certification?",
+    "answer": "80",
+    "evidence_sources": "['Table']",
+    "answer_format": "Int",
+    "evidence_pages": "[6]"
+  },
+  {
+    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
+    "answer": "8219",
+    "evidence_sources": "['Generalized-text (Layout)', 'Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[70, 72]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "How does the climate scenario analysis implementation rate differ between asset owners and investment managers?",
+    "answer": "25%",
+    "evidence_sources": "['Chart']",
+    "answer_format": "Float",
+    "evidence_pages": "[11]"
+  },
+  {
+    "doc_id": "SBTI Zero v2.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "How many companies had their science-based net-zero targets validated globally since the launch of the Corporate Net-Zero Standard?",
+    "answer": "More than 1,500",
+    "evidence_sources": "['Generalized-text (Layout)']",
+    "answer_format": "Str",
+    "evidence_pages": "[7]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How much of the shipped packaging material was fiber-based in FY23?",
+    "answer": "93.7%",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Float",
+    "evidence_pages": "[35]"
+  },
+  {
+    "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+    "doc_type": "CDP Climate Responses",
+    "question": "What are the primary sources of GHG emissions for Alphabet? Write the answer in the list format",
+    "answer": "['Natural gas use', 'refrigerant leakage', 'fuel use', 'purchased electricity']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "List",
+    "evidence_pages": "[6]"
+  },
+  {
+    "doc_id": "GHG Survey.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What are the main roles of the GHG Protocol according to the document? Write the answer in the list format",
+    "answer": "['Definition', 'assessment', 'enforcement', 'support']",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "List",
+    "evidence_pages": "[43]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What were the top three regions by policy output in 2023, and what was their combined contribution percentage?",
+    "answer": "['EU (25%)', 'US (24%)', 'Global (13%)']",
+    "evidence_sources": "['Image', 'Chart']",
+    "answer_format": "List",
+    "evidence_pages": "[38]"
+  },
+  {
+    "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "Which logistics strategies are included in Alibaba’s circular logistics framework as shown in the diagram? Write the answer in the list format",
+    "answer": "['Order', 'packaging', 'transport', 'use', 'recycling', 'Warehousing and redistribution']",
+    "evidence_sources": "['Image']",
+    "answer_format": "List",
+    "evidence_pages": "[40]"
+  },
+  {
+    "doc_id": "Dell ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What specific programs did Dell support in Ethiopia and India?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "2023-amazon-sustainability-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How many metric tons of CO2e did Amazon avoid annually through its 2023 on-site solar projects?",
+    "answer": "47500",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[26]"
+  },
+  {
+    "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What is the name of the processor specifically designed and optimized for Alibaba Cloud's self-developed operating system Apsara?",
+    "answer": "CIPU",
+    "evidence_sources": "['Pure-text (Plain-text)', 'Generalized-text (Layout)']",
+    "answer_format": "Str",
+    "evidence_pages": "[112]"
+  },
+  {
+    "doc_id": "SBTI Zero v2.pdf",
+    "doc_type": "Environment-related Standards",
+    "question": "What percentage of total scope 3 emissions are covered by the 5% category threshold?",
+    "answer": "89%",
+    "evidence_sources": "['Table']",
+    "answer_format": "Float",
+    "evidence_pages": "[105]"
+  },
+  {
+    "doc_id": "google-2024-environmental-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How many grid regions achieved at least 90% hourly carbon-free energy use in 2023?",
+    "answer": "10",
+    "evidence_sources": "['Image']",
+    "answer_format": "Int",
+    "evidence_pages": "[37]"
+  },
+  {
+    "doc_id": "google-2024-environmental-report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How much lower are emissions for Google flight compared to typical one?",
+    "answer": "32%",
+    "evidence_sources": "['Image']",
+    "answer_format": "Float",
+    "evidence_pages": "[22]"
+  },
+  {
+    "doc_id": "GRI Standards 2021.pdf",
+    "doc_type": "Comprehensive Standards",
+    "question": "What is the minimum age for hazardous work according to ILO Convention 138? Write the answer in int format.",
+    "answer": "18",
+    "evidence_sources": "['Pure-text (Plain-text)']",
+    "answer_format": "Int",
+    "evidence_pages": "[544, 548]"
+  },
+  {
+    "doc_id": "ipcc-ar6-wg3.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "From the Figure SPM.1, between 1990 and 2019, which greenhouse gas showed the highest relative increase in emissions?",
+    "answer": "Fluorinated gases",
+    "evidence_sources": "['Chart']",
+    "answer_format": "Str",
+    "evidence_pages": "[20]"
+  },
+  {
+    "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "What percentage of workers have the green skills needed for a green transition?",
+    "answer": "12.5%",
+    "evidence_sources": "['Pure-text (Plain-text)', 'Generalized-text (Layout)']",
+    "answer_format": "Float",
+    "evidence_pages": "[82]"
+  },
+  {
+    "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+    "doc_type": "Annual ESG Reports",
+    "question": "How many smart distribution centers has Cainiao established county-level? Answer in Int format",
+    "answer": "1460",
+    "evidence_sources": "['Generalized-text (Layout)', 'Image']",
+    "answer_format": "Int",
+    "evidence_pages": "[20, 25, 148, 154]"
+  },
+  {
+    "doc_id": "PRI 2024.pdf",
+    "doc_type": "Government & International Organization Documents",
+    "question": "What are the key themes from the 11 case studies mentioned in the Net Zero Insights section?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  },
+  {
+    "doc_id": "ISO 37001.pdf",
+    "doc_type": "Governance-related Standards",
+    "question": "What are the key differences in measures to prevent bribery by the organization versus its personnel or business associates?",
+    "answer": "Not answerable",
+    "evidence_sources": "[]",
+    "answer_format": "None",
+    "evidence_pages": "[]"
+  }
+]
