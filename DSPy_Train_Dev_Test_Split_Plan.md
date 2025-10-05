@@ -327,18 +327,21 @@ for evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
 - **Method**: LLM assigns difficulty during QA generation based on reasoning depth + modality complexity
 - **Categories**: Easy, Medium, Difficult
 - **Philosophy**: Intrinsic task complexity (prospective assessment)
+- **⚠️ CRITICAL FINDING**: Difficulty labels are **NOT included in the public dataset** (`samples.json` only contains: `doc_id`, `doc_type`, `question`, `answer`, `evidence_pages`, `evidence_sources`, `answer_format`)
 
-**Our Performance-Based Approach**:
+**Our Performance-Based Approach** (Required):
 - **Method**: Sort questions by baseline score within each evidence type, divide into terciles
 - **Categories**: Easy (top 1/3), Medium (middle 1/3), Hard (bottom 1/3)
 - **Philosophy**: Extrinsic difficulty relative to baseline model (empirical assessment)
+- **Data Source**: `optimized_full_dataset_mmesgbench_with_f1.json` baseline scores
 
-**Why Our Approach is Appropriate for DSPy Optimization**:
-1. **Calibrated to baseline**: Difficulty is relative to the 41.3% baseline we're optimizing from
-2. **Data-driven**: Uses actual performance rather than predicted complexity
-3. **No additional annotation**: Automated from existing evaluation results
-4. **Balanced by design**: Guarantees ~33% distribution in each difficulty level
-5. **Optimization-relevant**: Questions that are hard for the baseline are priority targets for DSPy improvement
+**Why We MUST Use Performance-Based Approach**:
+1. **No official labels available**: Paper's difficulty labels not released in public dataset
+2. **Cannot replicate paper's LLM assessment**: Would require their exact prompt and quality control pipeline
+3. **Empirically grounded**: Based on actual 41.3% baseline performance
+4. **Optimization-relevant**: Hard questions = baseline failures → DSPy optimization targets
+5. **Balanced by design**: Guarantees ~33% distribution in each difficulty level
+6. **Reproducible**: Anyone with baseline results can create same splits
 
 ---
 
