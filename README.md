@@ -49,18 +49,21 @@ python calculate_f1_score.py
 ```
 esg_reason/
 ├── 🎯 PRODUCTION SCRIPTS (Phase 0 Complete)
-├── optimized_colbert_evaluator_mmesgbench.py  # Main production evaluator (39.9% + F1)
+├── optimized_colbert_evaluator_mmesgbench.py  # Main production evaluator (41.3% baseline)
 ├── colbert_full_dataset_evaluation.py         # Core infrastructure (MultiDocumentColBERTRetriever)
 ├── mmesgbench_exact_evaluation.py             # Exact MMESGBench evaluation functions
 ├── launch_autonomous_evaluation.py            # Simple launcher script
 ├── calculate_f1_score.py                      # F1 score calculation utility
-├── evaluation_comparison_analysis.py          # Evaluation metric comparison
+├── dspy_implementation/                       # DSPy integration (45.1% baseline)
+│   ├── evaluate_full_dataset.py               # DSPy full dataset evaluation
+│   └── dspy_dataset.py                        # DSPy dataset wrapper
 │
-├── 📊 ANALYSIS & RESULTS
-├── optimized_full_dataset_mmesgbench_with_f1.json  # Final results (39.9% + 41.1% F1)
-├── evaluation_comparison_analysis.json             # Evaluation discrepancy analysis
-├── substituted_questions_for_review.json           # Questions needing manual review
-├── evaluation_analysis_report.md                   # Comprehensive performance analysis
+├── 📊 DATASETS & RESULTS
+├── mmesgbench_dataset_corrected.json          # **AUTHORITATIVE DATASET** (933 questions with corrections)
+├── optimized_full_dataset_mmesgbench_with_f1.json  # Final results (41.3% ColBERT + F1)
+├── dspy_full_dataset_results.json             # DSPy baseline results (45.1%)
+├── evaluation_analysis_report.md              # Comprehensive performance analysis
+├── DSPy_Train_Dev_Test_Split_Plan.md          # Phase 1 split strategy
 │
 ├── 📚 INFRASTRUCTURE
 ├── src/
@@ -155,8 +158,31 @@ Parallel Generation → MMESGBench Exact Evaluation → Results + F1
 
 ## 📚 Dataset Status & Document Exceptions
 
+### 🎯 **Authoritative Dataset: `mmesgbench_dataset_corrected.json`**
+
+**Our Production Dataset**: `mmesgbench_dataset_corrected.json` (933 questions)
+- **Source**: MMESGBench dataset with 3 document corrections applied
+- **Use This For**: All experiments, evaluations, and DSPy optimization
+- **DO NOT Use**: `MMESGBench/dataset/samples.json` (original with incorrect ground truth)
+
+**Key Differences from Original**:
+1. Microsoft CDP 2024 questions (31): Ground truth corrected to match actual document
+2. Gender 2024 questions (16): Ground truth updated for correct document
+3. ISO 14001 questions (14): Validated (same document, different filename)
+
+### 📝 **Scripts Using Corrected Dataset**
+
+**Production scripts** that should use `mmesgbench_dataset_corrected.json`:
+- `dspy_implementation/evaluate_full_dataset.py` - DSPy evaluation
+- `dspy_implementation/dspy_dataset.py` - DSPy dataset loader
+- `optimized_colbert_evaluator_mmesgbench.py` - ColBERT evaluation
+- `colbert_full_dataset_evaluation.py` - Full dataset ColBERT
+- Phase 1 split creation scripts (to be implemented)
+
+**Note**: Update these scripts to use `mmesgbench_dataset_corrected.json` instead of `MMESGBench/dataset/samples.json`
+
 ### ✅ Complete MMESGBench Dataset (45/45 PDFs)
-Successfully downloaded all **933 questions** across **45 ESG documents** with the following exceptions:
+Successfully downloaded all **933 questions** across **45 ESG documents**.
 
 ### ✅ Document Corrections Completed
 **3 documents corrected/validated:**

@@ -182,8 +182,8 @@ for each evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
 ### Step 1: Create Stratified Splits (Week 1)
 ```bash
 python create_stratified_splits.py \
-  --input MMESGBench/dataset/samples.json \
-  --baseline_results optimized_full_dataset_mmesgbench_with_f1.json \
+  --input mmesgbench_dataset_corrected.json \
+  --baseline_results dspy_full_dataset_results.json \
   --output splits/ \
   --strategy evidence_difficulty \
   --train_ratio 0.20 \
@@ -191,6 +191,8 @@ python create_stratified_splits.py \
   --test_ratio 0.70 \
   --seed 42
 ```
+
+**Important**: Use `mmesgbench_dataset_corrected.json` (our authoritative dataset with document corrections), NOT `MMESGBench/dataset/samples.json` (original with incorrect ground truth).
 
 **Outputs**:
 - `splits/train.json` (~186 questions) - Stratified by Evidence Type × Difficulty

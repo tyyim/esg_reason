@@ -72,6 +72,11 @@ checkpoints/
 logs/
 *.log
 
+# IMPORTANT: Track authoritative dataset and key baseline results
+!mmesgbench_dataset_corrected.json
+!optimized_full_dataset_mmesgbench_with_f1.json
+!dspy_full_dataset_results.json
+
 # Temporary Files
 tmp/
 temp/
