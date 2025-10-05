@@ -1,0 +1,41 @@
+/Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: 'dlopen(/Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/image.so, 0x0006): Symbol not found: __ZN3c1017RegisterOperatorsD1Ev
+  Referenced from: <C1CC76AA-CD55-3E10-9064-29676E3E2535> /Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/image.so
+  Expected in:     <6B8AC17B-04CC-36D0-BD01-780381EFB0CC> /Users/victoryim/anaconda3/lib/python3.11/site-packages/torch/lib/libtorch_cpu.dylib'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+================================================================================
+DSPy Baseline Evaluation - MMESGBench
+================================================================================
+
+📋 Setting up DSPy environment...
+✅ DSPy configured with Qwen Max
+   Model: qwen-max
+   Temperature: 0.0
+   Max tokens: 1024
+📊 Loading MMESGBench dataset with corrections...
+✅ Loaded 933 questions from MMESGBench
+✅ Applied 3 document corrections
+   Baseline: 41.3% (385/933)
+
+📊 Dataset splits created:
+   Train: 746 questions (80%)
+   Dev:   93 questions (10%)
+   Test:  94 questions (10%)
+   Splits saved to: dspy_implementation/data_splits/
+
+🎯 Evaluating on Dev Set
+   Questions: 93/93
+   Target accuracy: 41.3% (385/933 on full dataset)
+
+🚀 Initializing MMESGBenchRAG module...
+🔍 Initializing ColBERT retriever (existing 41.3% baseline)...
+✅ ColBERT retriever ready
+✅ MMESGBenchRAG module initialized
+   • Retriever: ColBERT (41.3% baseline)
+   • Stage 1: ChainOfThought reasoning
+   • Stage 2: Answer extraction
+
+🔄 Running evaluation on 93 questions...
+   This may take several minutes...
+
+Evaluating:   0%|          | 0/93 [00:00<?, ?it/s]Evaluating:   1%|          | 1/93 [00:01<01:46,  1.16s/it]Evaluating:   2%|▏         | 2/93 [00:03<02:24,  1.58s/it]Evaluating:   3%|▎         | 3/93 [00:03<01:32,  1.02s/it]Evaluating:   4%|▍         | 4/93 [00:04<01:30,  1.02s/it]Evaluating:   5%|▌         | 5/93 [00:08<02:55,  1.99s/it]Evaluating:   6%|▋         | 6/93 [00:18<07:09,  4.94s/it]Evaluating:   8%|▊         | 7/93 [00:37<13:39,  9.53s/it]Evaluating:   9%|▊         | 8/93 [00:56<17:32, 12.39s/it]Evaluating:  10%|▉         | 9/93 [01:17<21:07, 15.09s/it]                                                          Evaluating:  10%|▉         | 9/93 [01:24<21:07, 15.09s/it]Evaluating:  11%|█         | 10/93 [01:24<17:37, 12.74s/it]Evaluating:  12%|█▏        | 11/93 [01:44<20:28, 14.98s/it]Evaluating:  13%|█▎        | 12/93 [01:56<18:57, 14.05s/it]Evaluating:  14%|█▍        | 13/93 [02:04<16:13, 12.17s/it]Evaluating:  15%|█▌        | 14/93 [02:14<15:04, 11.45s/it]Evaluating:  16%|█▌        | 15/93 [02:22<13:43, 10.56s/it]Evaluating:  17%|█▋        | 16/93 [02:31<12:56, 10.09s/it]Evaluating:  18%|█▊        | 17/93 [02:41<12:28,  9.85s/it]Evaluating:  19%|█▉        | 18/93 [02:53<13:07, 10.50s/it]Evaluating:  20%|██        | 19/93 [03:24<20:34, 16.68s/it]                                                           Evaluating:  20%|██        | 19/93 [03:38<20:34, 16.68s/it]Evaluating:  22%|██▏       | 20/93 [03:38<19:16, 15.84s/it]Evaluating:  23%|██▎       | 21/93 [03:50<17:45, 14.80s/it]Evaluating:  24%|██▎       | 22/93 [04:14<20:54, 17.66s/it]Evaluating:  25%|██▍       | 23/93 [04:28<19:16, 16.53s/it]Evaluating:  26%|██▌       | 24/93 [04:44<18:42, 16.27s/it]Evaluating:  27%|██▋       | 25/93 [04:56<16:59, 14.99s/it]Evaluating:  28%|██▊       | 26/93 [05:03<14:15, 12.76s/it]Evaluating:  29%|██▉       | 27/93 [05:14<13:17, 12.09s/it]Evaluating:  30%|███       | 28/93 [05:19<10:40,  9.86s/it]Evaluating:  31%|███       | 29/93 [05:35<12:29, 11.71s/it]                                                           Evaluating:  31%|███       | 29/93 [05:48<12:29, 11.71s/it]Evaluating:  32%|███▏      | 30/93 [05:48<12:40, 12.07s/it]Evaluating:  33%|███▎      | 31/93 [05:57<11:31, 11.15s/it]Evaluating:  34%|███▍      | 32/93 [06:03<10:00,  9.84s/it]Evaluating:  35%|███▌      | 33/93 [06:48<20:11, 20.20s/it]Evaluating:  37%|███▋      | 34/93 [06:59<17:10, 17.47s/it]Evaluating:  38%|███▊      | 35/93 [07:10<15:10, 15.70s/it]Evaluating:  39%|███▊      | 36/93 [07:34<17:02, 17.95s/it]Document not found: Apple_CDP-Climate-Change-Questionnaire_2023.pdf
+Evaluating:  41%|████      | 38/93 [07:46<11:28, 12.53s/it]Evaluating:  42%|████▏     | 39/93 [08:01<11:50, 13.15s/it]                                                           Evaluating:  42%|████▏     | 39/93 [08:18<11:50, 13.15s/it]Evaluating:  43%|████▎     | 40/93 [08:18<12:31, 14.18s/it]Evaluating:  44%|████▍     | 41/93 [08:29<11:25, 13.19s/it]Evaluating:  45%|████▌     | 42/93 [08:43<11:35, 13.64s/it]Evaluating:  46%|████▌     | 43/93 [08:54<10:42, 12.84s/it]Evaluating:  47%|████▋     | 44/93 [09:35<16:59, 20.81s/it]Evaluating:  48%|████▊     | 45/93 [09:44<13:52, 17.34s/it]
