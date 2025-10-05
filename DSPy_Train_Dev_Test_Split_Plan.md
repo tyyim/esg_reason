@@ -1,28 +1,28 @@
-# DSPy Optimization: Train/Dev/Test Split Strategy
+# DSPy Optimization: Train/Dev/Test Split Strategy (REVISED)
 
 ## 📋 Executive Summary
 
-**Date**: 2025-10-05
+**Date**: 2025-10-05 (Revised)
 **Phase**: Phase 1 - DSPy/GEPA Optimization
-**Baseline Performance**: 45.1% accuracy (421/933 questions) - ColBERT + DSPy baseline
+**Baseline Performance**: 41.3% accuracy (385/933 questions) - ColBERT baseline with MMESGBench evaluation
 **Total Dataset**: 933 questions from MMESGBench
 
 ## 🎯 Split Design Philosophy
 
 ### Core Principles
-1. **Sample Efficiency**: DSPy is designed to work with 30-300 training examples (per DSPy documentation)
-2. **Stratified Sampling**: Balance across answer formats, evidence types, and difficulty
-3. **Large Test Set**: Maintain statistical significance by keeping majority of data for final evaluation
-4. **Preserve Baseline Comparability**: Test on same full dataset (933 questions) as MMESGBench for fair comparison
+1. **Generous Training Set**: 20% training data (186 questions) provides robust examples for DSPy optimization
+2. **Evidence Type Focus**: Stratify primarily by evidence type (Pure-text, Table, Chart, Image, Generalized-text)
+3. **Difficulty Balance**: Include Easy/Medium/Hard examples based on baseline performance
+4. **Large Test Set**: 70% test set maintains statistical significance and comparability
+5. **Preserve Baseline Comparability**: Enable direct comparison with MMESGBench baselines
 
 ### Optimization Metric Decision
 
-**Recommended: Optimize on ACCURACY only**
+**APPROVED: Optimize on ACCURACY only**
 
 **Rationale**:
 - MMESGBench paper reports **accuracy** as primary metric
-- Current baseline (45.1%) and target (41.5%) both use accuracy
-- F1 score correlation with accuracy is high (~41.5% F1 vs 45.1% accuracy)
+- Current baseline (41.3%) and target (41.5%) both use accuracy
 - Simpler optimization objective reduces overfitting risk
 - Enables direct comparison with MMESGBench baselines and other approaches
 
@@ -30,135 +30,148 @@
 
 ---
 
-## 📊 Proposed Split Configuration
+## 📊 Final Split Configuration
 
-### **Option A: Conservative Split (Recommended)**
+### **20/10/70 Split (Approved)**
 ```
-Train:  93 questions  (10%)  - For DSPy/GEPA prompt optimization
-Dev:    93 questions  (10%)  - For validation during optimization
-Test:   747 questions (80%)  - For final evaluation and comparison
-```
-
-**Justification**:
-- **Train (93)**: Within DSPy recommended range (30-300), provides ~18-19 examples per answer format
-- **Dev (93)**: Equal size to train for robust validation
-- **Test (747)**: Large enough for statistical significance (±1.8% margin at 95% CI)
-- **Total train+dev (186)**: Well within DSPy optimal range, prevents overfitting
-
-### **Option B: Minimal Split (Ultra Sample-Efficient)**
-```
-Train:  50 questions  (5%)   - Minimal for DSPy optimization
-Dev:    43 questions  (5%)   - Quick validation
-Test:   840 questions (90%)  - Maximum test coverage
+Train:  186 questions (~20%)  - For DSPy/GEPA prompt optimization
+Dev:     93 questions (~10%)  - For validation during optimization
+Test:   654 questions (~70%)  - For final evaluation and comparison
 ```
 
 **Justification**:
-- **Train (50)**: Absolute minimum for balanced representation (~10 per format)
-- **Dev (43)**: Small but sufficient for trend detection
-- **Test (840)**: Nearly full dataset for comprehensive evaluation
-- **Risk**: May underfit due to limited training examples for complex reasoning chains
-
-### **Option C: Balanced Split**
-```
-Train:  140 questions (15%)  - More examples for complex patterns
-Dev:    93 questions  (10%)  - Standard validation
-Test:   700 questions (75%)  - Still large test set
-```
-
-**Justification**:
-- **Train (140)**: ~28 examples per format, better for learning rare patterns
-- **Dev (93)**: Same as Option A
-- **Test (700)**: Slightly smaller but still robust
-- **Trade-off**: More training data but less test coverage
+- **Train (186)**: Sufficient examples for learning complex reasoning patterns across all evidence types
+- **Dev (93)**: Robust validation set for monitoring optimization progress
+- **Test (654)**: Large test set ensures statistical significance (±1.9% margin at 95% CI)
+- **Total train+dev (279)**: Within DSPy recommended range (30-300), prevents overfitting
+- **Training coverage**: ~12-26 examples per evidence type per difficulty level
 
 ---
 
-## 📊 Stratification Dimensions
+## 📊 Stratification Strategy: Evidence Type × Difficulty
 
-### 1. Answer Format Distribution (5 types)
+### Difficulty Definition (Proxy from 41.3% Baseline)
 
-| Format | Total | % of Dataset | Train (A) | Dev (A) | Test (A) |
-|--------|-------|--------------|-----------|---------|----------|
-| String | 299   | 32.0%        | 30        | 30      | 239      |
-| Integer| 207   | 22.2%        | 21        | 21      | 165      |
-| Float  | 148   | 15.9%        | 15        | 15      | 118      |
-| None   | 148   | 15.9%        | 15        | 15      | 118      |
-| List   | 131   | 14.0%        | 12        | 12      | 107      |
-| **TOTAL** | **933** | **100%** | **93** | **93** | **747** |
+**Difficulty Levels** assigned by sorting questions within each evidence type by baseline score:
+- **Easy**: Top 1/3 by score (highest performing questions)
+- **Medium**: Middle 1/3 by score
+- **Hard**: Bottom 1/3 by score (lowest performing questions)
 
-### 2. Evidence Type Distribution (5 types)
+### Evidence Type Performance Analysis
 
-| Evidence Type     | Total | % of Dataset | Train (A) | Dev (A) | Test (A) |
-|-------------------|-------|--------------|-----------|---------|----------|
-| Pure-text         | 395   | 42.3%        | 39        | 39      | 317      |
-| Generalized-text  | 225   | 24.1%        | 23        | 23      | 179      |
-| Table             | 123   | 13.2%        | 12        | 12      | 99       |
-| Chart             | 100   | 10.7%        | 10        | 10      | 80       |
-| Image             | 90    | 9.6%         | 9         | 9       | 72       |
-| **TOTAL**         | **933** | **100%**   | **93**    | **93**  | **747**  |
+| Evidence Type     | Total | Correct | Accuracy | Overall Difficulty |
+|-------------------|-------|---------|----------|-------------------|
+| Pure-text         | 394   | 172     | 43.7%    | Medium            |
+| Generalized-text  | 226   | 96      | 42.5%    | Medium            |
+| Image             | 90    | 33      | 36.7%    | Medium            |
+| Table             | 122   | 43      | 35.2%    | Medium            |
+| Chart             | 101   | 28      | 27.7%    | Hard              |
 
-### 3. Performance-Based Stratification
+### Complete Evidence Type × Difficulty Matrix
 
-**Priority Areas for Training Set** (based on 45.1% baseline):
-- **Float** (40.5% accuracy) - Include more challenging examples
-- **List** (41.2% accuracy) - Needs optimization for multi-value extraction
-- **Table+Chart** - Multimodal reasoning complexity
-- **Cross-document questions** - Complex reasoning chains
+| Evidence Type       | Difficulty | Total | Train | Dev  | Test |
+|---------------------|------------|-------|-------|------|------|
+| Pure-text           | Easy       | 131   | 26    | 13   | 92   |
+| Pure-text           | Medium     | 131   | 26    | 13   | 92   |
+| Pure-text           | Hard       | 132   | 26    | 13   | 93   |
+| Table               | Easy       | 40    | 8     | 4    | 28   |
+| Table               | Medium     | 40    | 8     | 4    | 28   |
+| Table               | Hard       | 42    | 8     | 4    | 30   |
+| Chart               | Easy       | 33    | 6     | 3    | 24   |
+| Chart               | Medium     | 33    | 6     | 3    | 24   |
+| Chart               | Hard       | 35    | 7     | 3    | 25   |
+| Image               | Easy       | 30    | 6     | 3    | 21   |
+| Image               | Medium     | 30    | 6     | 3    | 21   |
+| Image               | Hard       | 30    | 6     | 3    | 21   |
+| Generalized-text    | Easy       | 75    | 15    | 7    | 53   |
+| Generalized-text    | Medium     | 75    | 15    | 7    | 53   |
+| Generalized-text    | Hard       | 76    | 15    | 7    | 54   |
+| **TOTAL**           |            | **933** | **184** | **90** | **659** |
 
-**Balanced Representation**:
-- Include mix of easy/medium/hard examples in training
-- Ensure dev set has similar difficulty distribution
-- Reserve edge cases for test set to measure generalization
+**Note**: Actual totals (184/90/659) differ slightly from target (186/93/654) due to rounding in stratified sampling
+
+### Stratification Summary
+
+**Evidence Type Coverage in Training Set**:
+- Pure-text: 78 questions (42.4%)
+- Generalized-text: 45 questions (24.5%)
+- Table: 24 questions (13.0%)
+- Chart: 19 questions (10.3%)
+- Image: 18 questions (9.8%)
+
+**Difficulty Balance in Training Set**:
+- Easy: ~61 questions (33%)
+- Medium: ~61 questions (33%)
+- Hard: ~62 questions (34%)
 
 ---
 
 ## 🔧 Stratified Sampling Strategy
 
-### Stratification Method: **Proportional Random Sampling with Constraints**
+### Sampling Method: **Evidence Type × Difficulty Proportional Sampling**
 
 ```python
 # Pseudo-code for sampling strategy
-for each (answer_format, evidence_type) combination:
-    n_train = round(total_count × 0.10)  # 10% for Option A
-    n_dev = round(total_count × 0.10)
-    n_test = total_count - n_train - n_dev
+for each evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
+    # Get all questions for this evidence type
+    questions = filter_by_evidence_type(evidence_type)
 
-    # Sample with constraints:
-    # 1. Maintain format proportions
-    # 2. Maintain evidence type proportions
-    # 3. Ensure document diversity (max 2 questions per doc in train/dev)
-    # 4. Include performance outliers (both easy and hard)
+    # Sort by baseline score (descending)
+    questions.sort(by=baseline_score, reverse=True)
+
+    # Divide into difficulty terciles
+    n = len(questions)
+    easy = questions[0 : n//3]
+    medium = questions[n//3 : 2*n//3]
+    hard = questions[2*n//3 : n]
+
+    # Sample from each difficulty level
+    for difficulty_level in [easy, medium, hard]:
+        n_train = int(len(difficulty_level) × 0.20)
+        n_dev = int(len(difficulty_level) × 0.10)
+        n_test = len(difficulty_level) - n_train - n_dev
+
+        # Random sample with constraints:
+        # 1. Maintain evidence type × difficulty proportions
+        # 2. Ensure document diversity (max 2 questions per doc in train/dev)
+        # 3. Randomize within difficulty level to avoid bias
 ```
 
-### Document Diversity Constraint
-- **Train**: Max 2 questions per document (to ensure diversity across 45 docs)
+### Key Constraints
+
+**Document Diversity**:
+- **Train**: Max 2 questions per document (ensures coverage across 45 docs)
 - **Dev**: Max 2 questions per document
 - **Test**: Remaining questions distributed naturally
+- **Rationale**: Prevents overfitting to specific document styles
 
-### Cross-Format Balance
-Ensure training set includes all meaningful format×evidence combinations:
-- String + Pure-text (most common)
-- Float + Table (numeric reasoning)
-- List + Chart (multi-value extraction)
-- None + Generalized-text (unanswerable detection)
+**Random Seed**:
+- Use fixed seed (42) for reproducibility
+- All experiments use same train/dev/test splits for fair comparison
+
+**No Answer Format Stratification**:
+- Answer format distribution naturally maintained through evidence type stratification
+- Focus on evidence type ensures multimodal reasoning coverage
 
 ---
 
 ## 📈 Expected Outcomes & Success Criteria
 
 ### Phase 1 Goals
-1. **Baseline Maintenance**: Test accuracy ≥ 45.1% (current DSPy baseline)
-2. **Optimization Target**: Test accuracy ≥ 46-47% (+1-2% improvement)
-3. **Format Improvements**:
-   - Float: 40.5% → 43-45% (±3% numeric precision improvement)
-   - List: 41.2% → 43-45% (better multi-value extraction)
+1. **Baseline Maintenance**: Test accuracy ≥ 41.3% (current ColBERT baseline)
+2. **Optimization Target**: Test accuracy ≥ 42-43% (+0.7-1.7% improvement to match/exceed 41.5% MMESGBench target)
+3. **Evidence Type Improvements**:
+   - Chart: 27.7% → 30-32% (hardest category, biggest opportunity)
+   - Table: 35.2% → 37-39% (numeric reasoning improvement)
+   - Image: 36.7% → 38-40% (visual understanding enhancement)
 4. **Generalization**: Dev accuracy within ±1% of test accuracy (no overfitting)
+5. **Sample Efficiency**: Demonstrate improvement with only 186 training examples (~20% of data)
 
 ### DSPy/GEPA Optimization Metrics
-- **Primary**: Test set accuracy (compare to 45.1% baseline)
-- **Secondary**: F1 score, format-specific accuracy
-- **Efficiency**: Training cost (API tokens), optimization time
-- **Robustness**: Performance variance across random seeds
+- **Primary**: Test set accuracy (compare to 41.3% baseline)
+- **Secondary**: F1 score, evidence-type specific accuracy
+- **Efficiency**: Training cost (API tokens), optimization time, convergence speed
+- **Robustness**: Performance variance across random seeds, generalization gap (dev vs test)
 
 ---
 
@@ -168,41 +181,49 @@ Ensure training set includes all meaningful format×evidence combinations:
 ```bash
 python create_stratified_splits.py \
   --input MMESGBench/dataset/samples.json \
+  --baseline_results optimized_full_dataset_mmesgbench_with_f1.json \
   --output splits/ \
-  --strategy option_a \
+  --strategy evidence_difficulty \
+  --train_ratio 0.20 \
+  --dev_ratio 0.10 \
+  --test_ratio 0.70 \
   --seed 42
 ```
 
 **Outputs**:
-- `splits/train.json` (93 questions)
-- `splits/dev.json` (93 questions)
-- `splits/test.json` (747 questions)
-- `splits/split_analysis.json` (distribution verification)
+- `splits/train.json` (~186 questions) - Stratified by Evidence Type × Difficulty
+- `splits/dev.json` (~93 questions) - Stratified by Evidence Type × Difficulty
+- `splits/test.json` (~654 questions) - Remaining questions
+- `splits/split_analysis.json` - Distribution verification report
+- `splits/difficulty_assignments.json` - Question-level difficulty labels
 
 ### Step 2: Validate Split Quality (Week 1)
-```python
+```bash
 # Verify stratification quality
 python validate_splits.py --splits_dir splits/
 
-# Checks:
-# 1. Format distribution matches proportions (±2%)
-# 2. Evidence type distribution matches (±2%)
-# 3. Document diversity (no doc has >2 train/dev questions)
+# Automated checks:
+# 1. Evidence type distribution matches proportions (±2%)
+# 2. Difficulty distribution balanced across Easy/Medium/Hard (±3%)
+# 3. Document diversity (max 2 questions per doc in train/dev)
 # 4. No data leakage between splits
-# 5. Performance distribution is balanced
+# 5. Answer format naturally balanced (not explicitly stratified)
+# 6. Train+dev size within DSPy range (30-300)
 ```
 
 ### Step 3: Baseline Evaluation on Splits (Week 1)
 ```bash
-# Evaluate current ColBERT+DSPy baseline on all splits
+# Evaluate current ColBERT baseline on all splits
 python evaluate_baseline_on_splits.py \
-  --model colbert_dspy_baseline \
-  --splits_dir splits/
+  --model colbert_mmesgbench_baseline \
+  --splits_dir splits/ \
+  --evaluation_method mmesgbench_exact
 
-# Expected results (based on 45.1% overall):
-# - Train: ~45% (should match overall)
-# - Dev: ~45% (should match overall)
-# - Test: ~45% (should match overall)
+# Expected results (based on 41.3% overall):
+# - Train: ~41% (should match overall, validates split quality)
+# - Dev: ~41% (should match overall)
+# - Test: ~41% (should match overall)
+# - Evidence type breakdown by split
 ```
 
 ### Step 4: DSPy Optimization (Week 2-3)
@@ -214,10 +235,12 @@ python dspy_optimize.py \
   --optimizer GEPA \
   --metric accuracy \
   --max_iterations 20 \
-  --target_accuracy 0.47
+  --target_accuracy 0.425 \
+  --focus_evidence_types Chart,Table,Image
 
-# Expected optimization time: 2-4 hours
-# Expected API cost: $5-15 (based on 93 train + 93 dev examples)
+# Expected optimization time: 3-6 hours (186 train + 93 dev examples)
+# Expected API cost: $10-25 (based on Qwen API pricing)
+# Monitor dev set performance to prevent overfitting
 ```
 
 ### Step 5: Final Evaluation (Week 3)
@@ -226,14 +249,16 @@ python dspy_optimize.py \
 python evaluate_optimized_model.py \
   --model dspy_gepa_optimized \
   --test_set splits/test.json \
-  --output results/phase1_final_results.json
+  --evaluation_method mmesgbench_exact \
+  --output results/phase1_dspy_final_results.json
 
 # Report all metrics:
-# - Overall accuracy
-# - Format-specific accuracy
-# - Evidence-type specific accuracy
+# - Overall accuracy (compare to 41.3% baseline)
+# - Evidence-type specific accuracy (focus on Chart/Table/Image improvements)
+# - Difficulty-level performance (Easy/Medium/Hard breakdown)
 # - F1 score
-# - Comparison to baseline (45.1%)
+# - Generalization gap (dev vs test)
+# - Statistical significance (bootstrap CI)
 ```
 
 ---
@@ -241,47 +266,79 @@ python evaluate_optimized_model.py \
 ## 📋 Quality Assurance Checklist
 
 ### Pre-Optimization Validation
-- [ ] Split distributions match target proportions (±2% tolerance)
+- [ ] Split distributions match Evidence Type × Difficulty proportions (±2% tolerance)
 - [ ] No data leakage between train/dev/test
 - [ ] Document diversity maintained (max 2 per doc in train/dev)
-- [ ] Baseline evaluation on splits matches expected ~45%
-- [ ] All format×evidence combinations represented in training
+- [ ] Baseline evaluation on splits matches expected ~41.3%
+- [ ] Difficulty terciles balanced (Easy/Medium/Hard ~33% each)
+- [ ] Train+dev size within DSPy range (184+90=274, target 30-300) ✓
 
 ### During Optimization
-- [ ] Monitor dev set accuracy to detect overfitting
-- [ ] Track optimization metrics (iterations, improvements)
-- [ ] Document prompt evolution and changes
-- [ ] Validate on dev set after each GEPA iteration
+- [ ] Monitor dev set accuracy after each GEPA iteration
+- [ ] Track optimization metrics (accuracy improvements, convergence)
+- [ ] Document prompt evolution and reasoning chain changes
+- [ ] Early stopping if dev accuracy plateaus or decreases
+- [ ] Monitor evidence-type specific performance (focus on Chart/Table)
 
 ### Post-Optimization Evaluation
-- [ ] Test accuracy ≥ 45.1% (baseline maintenance)
+- [ ] Test accuracy ≥ 41.3% (baseline maintenance)
 - [ ] Dev-test accuracy gap < 2% (generalization check)
-- [ ] Format-specific improvements documented
-- [ ] Statistical significance testing (bootstrap CI)
-- [ ] Comparison table: Baseline vs Optimized
+- [ ] Evidence-type improvements documented (Chart, Table, Image priority)
+- [ ] Statistical significance testing (bootstrap CI, p-value vs baseline)
+- [ ] Comparison table: Baseline vs Optimized (overall + evidence-type breakdown)
 
 ---
 
-## 🔍 Alternative Considerations
+## 🔍 Implementation Details
 
-### Should we include difficulty labels?
+### Difficulty Assignment Method
 
-**Current Status**: MMESGBench dataset has **no difficulty field**
+**Approach**: Performance-based terciles within each evidence type
 
-**Options**:
-1. **Proxy Difficulty Metrics**:
-   - Use baseline accuracy as proxy (questions with <30% = hard, >60% = easy)
-   - Evidence page count (single-page vs cross-page)
-   - Answer format complexity (None/Int = easier, Float/List = harder)
+**Why this works**:
+1. **Data-driven**: Uses actual baseline performance (41.3% evaluation results)
+2. **Evidence-specific**: Accounts for different difficulty distributions across modalities
+3. **Balanced**: Ensures ~33% Easy, ~33% Medium, ~33% Hard across dataset
+4. **No manual annotation**: Automated based on `score` field from baseline results
 
-2. **Manual Annotation**:
-   - Annotate subset for difficulty (not recommended - time-intensive)
+**Process**:
+```python
+for evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
+    questions = get_questions_by_evidence_type(evidence_type)
+    questions.sort(by='baseline_score', descending=True)
 
-3. **Ignore Difficulty**:
-   - Rely on proportional sampling to naturally balance difficulty
-   - Performance-based stratification captures difficulty implicitly
+    easy_questions = top_third(questions)      # Highest scores
+    medium_questions = middle_third(questions) # Middle scores
+    hard_questions = bottom_third(questions)   # Lowest scores
+```
 
-**Recommendation**: Use **performance-based proxies** (baseline accuracy) to ensure balanced difficulty distribution without manual annotation.
+### Why Not Stratify by Answer Format?
+
+**Rationale**:
+1. **Evidence type is more fundamental**: Determines reasoning complexity (text vs visual vs tabular)
+2. **Answer format is secondary**: String/Int/Float/List reflect output type, not input complexity
+3. **Natural distribution preserved**: Stratifying by evidence type automatically maintains reasonable answer format balance
+4. **Simplicity**: 5×3=15 cells vs 5×5×3=75 cells if both dimensions stratified
+5. **Focus on research goal**: Multimodal reasoning (evidence types) is core research question
+
+### Comparison: Our Difficulty Method vs MMESGBench Paper
+
+**MMESGBench Paper Approach** (Section 3.3):
+- **Method**: LLM assigns difficulty during QA generation based on reasoning depth + modality complexity
+- **Categories**: Easy, Medium, Difficult
+- **Philosophy**: Intrinsic task complexity (prospective assessment)
+
+**Our Performance-Based Approach**:
+- **Method**: Sort questions by baseline score within each evidence type, divide into terciles
+- **Categories**: Easy (top 1/3), Medium (middle 1/3), Hard (bottom 1/3)
+- **Philosophy**: Extrinsic difficulty relative to baseline model (empirical assessment)
+
+**Why Our Approach is Appropriate for DSPy Optimization**:
+1. **Calibrated to baseline**: Difficulty is relative to the 41.3% baseline we're optimizing from
+2. **Data-driven**: Uses actual performance rather than predicted complexity
+3. **No additional annotation**: Automated from existing evaluation results
+4. **Balanced by design**: Guarantees ~33% distribution in each difficulty level
+5. **Optimization-relevant**: Questions that are hard for the baseline are priority targets for DSPy improvement
 
 ---
 
