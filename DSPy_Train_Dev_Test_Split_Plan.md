@@ -4,7 +4,8 @@
 
 **Date**: 2025-10-05 (Revised)
 **Phase**: Phase 1 - DSPy/GEPA Optimization
-**Baseline Performance**: 41.3% accuracy (385/933 questions) - ColBERT baseline with MMESGBench evaluation
+**Baseline Performance**: 45.1% accuracy (421/933 questions) - DSPy baseline with automated prompt engineering
+**Previous Baseline**: 41.3% accuracy (385/933 questions) - ColBERT baseline
 **Total Dataset**: 933 questions from MMESGBench
 
 ## 🎯 Split Design Philosophy
@@ -22,7 +23,7 @@
 
 **Rationale**:
 - MMESGBench paper reports **accuracy** as primary metric
-- Current baseline (41.3%) and target (41.5%) both use accuracy
+- Current DSPy baseline (45.1%) already exceeds MMESGBench target (41.5%)
 - Simpler optimization objective reduces overfitting risk
 - Enables direct comparison with MMESGBench baselines and other approaches
 
@@ -158,17 +159,18 @@ for each evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
 ## 📈 Expected Outcomes & Success Criteria
 
 ### Phase 1 Goals
-1. **Baseline Maintenance**: Test accuracy ≥ 41.3% (current ColBERT baseline)
-2. **Optimization Target**: Test accuracy ≥ 42-43% (+0.7-1.7% improvement to match/exceed 41.5% MMESGBench target)
-3. **Evidence Type Improvements**:
-   - Chart: 27.7% → 30-32% (hardest category, biggest opportunity)
-   - Table: 35.2% → 37-39% (numeric reasoning improvement)
-   - Image: 36.7% → 38-40% (visual understanding enhancement)
-4. **Generalization**: Dev accuracy within ±1% of test accuracy (no overfitting)
-5. **Sample Efficiency**: Demonstrate improvement with only 186 training examples (~20% of data)
+1. **Baseline Maintenance**: Test accuracy ≥ 45.1% (current DSPy baseline)
+2. **Optimization Target**: Test accuracy ≥ 46-47% (+1-2% improvement via GEPA optimization)
+3. **Stretch Goal**: Test accuracy ≥ 48-50% (further evidence type improvements)
+4. **Evidence Type Improvements** (based on ColBERT performance):
+   - Chart: 27.7% → 32-35% (hardest category, biggest opportunity)
+   - Table: 35.2% → 39-42% (numeric reasoning improvement)
+   - Image: 36.7% → 40-43% (visual understanding enhancement)
+5. **Generalization**: Dev accuracy within ±1% of test accuracy (no overfitting)
+6. **Sample Efficiency**: Demonstrate improvement with only 186 training examples (~20% of data)
 
 ### DSPy/GEPA Optimization Metrics
-- **Primary**: Test set accuracy (compare to 41.3% baseline)
+- **Primary**: Test set accuracy (compare to 45.1% DSPy baseline, 41.3% ColBERT baseline)
 - **Secondary**: F1 score, evidence-type specific accuracy
 - **Efficiency**: Training cost (API tokens), optimization time, convergence speed
 - **Robustness**: Performance variance across random seeds, generalization gap (dev vs test)
@@ -213,16 +215,16 @@ python validate_splits.py --splits_dir splits/
 
 ### Step 3: Baseline Evaluation on Splits (Week 1)
 ```bash
-# Evaluate current ColBERT baseline on all splits
+# Evaluate current DSPy baseline on all splits
 python evaluate_baseline_on_splits.py \
-  --model colbert_mmesgbench_baseline \
+  --model dspy_baseline \
   --splits_dir splits/ \
   --evaluation_method mmesgbench_exact
 
-# Expected results (based on 41.3% overall):
-# - Train: ~41% (should match overall, validates split quality)
-# - Dev: ~41% (should match overall)
-# - Test: ~41% (should match overall)
+# Expected results (based on 45.1% overall):
+# - Train: ~45% (should match overall, validates split quality)
+# - Dev: ~45% (should match overall)
+# - Test: ~45% (should match overall)
 # - Evidence type breakdown by split
 ```
 
@@ -235,7 +237,8 @@ python dspy_optimize.py \
   --optimizer GEPA \
   --metric accuracy \
   --max_iterations 20 \
-  --target_accuracy 0.425 \
+  --baseline_accuracy 0.451 \
+  --target_accuracy 0.470 \
   --focus_evidence_types Chart,Table,Image
 
 # Expected optimization time: 3-6 hours (186 train + 93 dev examples)
@@ -253,7 +256,7 @@ python evaluate_optimized_model.py \
   --output results/phase1_dspy_final_results.json
 
 # Report all metrics:
-# - Overall accuracy (compare to 41.3% baseline)
+# - Overall accuracy (compare to 45.1% DSPy baseline, 41.3% ColBERT baseline)
 # - Evidence-type specific accuracy (focus on Chart/Table/Image improvements)
 # - Difficulty-level performance (Easy/Medium/Hard breakdown)
 # - F1 score
@@ -269,7 +272,7 @@ python evaluate_optimized_model.py \
 - [ ] Split distributions match Evidence Type × Difficulty proportions (±2% tolerance)
 - [ ] No data leakage between train/dev/test
 - [ ] Document diversity maintained (max 2 per doc in train/dev)
-- [ ] Baseline evaluation on splits matches expected ~41.3%
+- [ ] Baseline evaluation on splits matches expected ~45.1% (DSPy baseline)
 - [ ] Difficulty terciles balanced (Easy/Medium/Hard ~33% each)
 - [ ] Train+dev size within DSPy range (184+90=274, target 30-300) ✓
 
@@ -281,11 +284,12 @@ python evaluate_optimized_model.py \
 - [ ] Monitor evidence-type specific performance (focus on Chart/Table)
 
 ### Post-Optimization Evaluation
-- [ ] Test accuracy ≥ 41.3% (baseline maintenance)
+- [ ] Test accuracy ≥ 45.1% (DSPy baseline maintenance)
+- [ ] Target accuracy ≥ 46-47% (optimization improvement)
 - [ ] Dev-test accuracy gap < 2% (generalization check)
 - [ ] Evidence-type improvements documented (Chart, Table, Image priority)
 - [ ] Statistical significance testing (bootstrap CI, p-value vs baseline)
-- [ ] Comparison table: Baseline vs Optimized (overall + evidence-type breakdown)
+- [ ] Comparison table: DSPy Baseline vs GEPA Optimized (overall + evidence-type breakdown)
 
 ---
 
@@ -406,7 +410,7 @@ for evidence_type in [Pure-text, Table, Chart, Image, Generalized-text]:
 - **DSPy Documentation**: Recommends 30-300 examples for optimization
 - **MMESGBench Paper**: 933 questions, accuracy-based evaluation
 - **Notion Research Proposal**: Phase 1 DSPy integration plan
-- **Current Baseline**: 45.1% accuracy (421/933) with ColBERT + DSPy
+- **Current Baseline**: 45.1% accuracy (421/933) with DSPy automated prompt engineering (+3.8% over ColBERT 41.3%)
 
 ---
 

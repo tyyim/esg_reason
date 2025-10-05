@@ -8,14 +8,15 @@
 
 ## 🎯 Project Overview
 
-This repository contains a **production-ready MMESGBench baseline** achieving **41.3% accuracy** on the full 933-question dataset with corrected documents and exact evaluation alignment. Phase 0 is **complete** and ready for DSPy optimization in Phase 1.
+This repository contains a **production-ready MMESGBench baseline with DSPy integration** achieving **45.1% accuracy** on the full 933-question dataset with corrected documents and exact evaluation alignment. Phase 0 is **complete** and ready for GEPA optimization in Phase 1.
 
-### 🏆 **Key Achievements - Phase 0B Complete**
-- ✅ **MMESGBench Baseline**: 41.3% accuracy (385/933 questions) - **99.5% of target**
-- ✅ **Document Corrections**: +1.4% improvement from using correct documents
+### 🏆 **Key Achievements - Phase 0 Complete**
+- ✅ **DSPy Baseline**: **45.1% accuracy** (421/933 questions) - **+3.8% over ColBERT baseline**
+- ✅ **ColBERT Baseline**: 41.3% accuracy (385/933 questions) - 99.5% of MMESGBench target
+- ✅ **Document Corrections**: 3 documents corrected/validated (+1.4% overall improvement)
 - ✅ **F1 Score**: ~41.5% (estimated based on corrected subset performance)
 - ✅ **Evaluation Alignment**: 100% compatible with MMESGBench GitHub implementation
-- ✅ **Performance Gap**: Only 0.2% below MMESGBench target (41.5%)
+- ✅ **DSPy Integration**: Automated prompt engineering provides baseline improvement
 - ✅ **Memory Optimized**: Pre-computed retrievals + parallel generation pipeline
 
 ## 🚀 Quick Start
@@ -69,10 +70,14 @@ esg_reason/
 │
 ├── 🗄️ ARCHIVED (Development History)
 ├── archive_scripts/                       # Historical development scripts
-│   ├── autonomous_colbert_evaluator.py    # Early implementations
-│   ├── optimized_colbert_evaluator.py     # Pre-MMESGBench evaluator (33.7%)
-│   ├── parameter_analysis_mmesgbench.md   # Parameter gap analysis (fixed)
-│   └── prompt_comparison.md               # Prompt architecture analysis (fixed)
+│   ├── analyze_evaluation_results.py      # Historical analysis utilities
+│   ├── evaluation_comparison_analysis.py  # Evaluation metric debugging
+│   ├── extract_substituted_questions.py   # Document substitution tools
+│   ├── colbert_corrected_evaluation.py    # Intermediate evaluation scripts
+│   ├── rerun_corrected_evaluation.py      # Deprecated evaluation runners
+│   ├── robust_colpali_evaluation.py       # Phase 0B visual RAG implementation
+│   ├── dspy_baseline_comparison_analysis.md  # Historical performance analysis
+│   └── [other archived scripts]          # Previous testing implementations
 │
 ├── 📄 DATASET & DOCUMENTS
 ├── MMESGBench/                            # Cloned benchmark repository
@@ -107,9 +112,10 @@ python calculate_f1_score.py
 
 | Metric | Result | Target | Achievement |
 |--------|--------|--------|--------------|
-| **Overall Accuracy** | **41.3%** (385/933) | 41.5% | **99.5%** ✅ |
-| **F1 Score** | **~41.5%** | - | **Strong** ✅ |
-| **Performance Gap** | **0.2%** | - | **Nearly Perfect** ✅ |
+| **DSPy Baseline** | **45.1%** (421/933) | 41.5% | **108.7%** ✅ |
+| **ColBERT Baseline** | 41.3% (385/933) | 41.5% | 99.5% ✅ |
+| **DSPy Improvement** | **+3.8%** | - | **Automated prompt engineering** ✅ |
+| **F1 Score** | ~41.5% | - | Strong ✅ |
 
 ### **Document Correction Impact**
 
@@ -120,9 +126,10 @@ python calculate_f1_score.py
 | ISO 14001 | 28.6% (4/14) | 28.6% (4/14) | Confirmed correct |
 | **Overall Impact** | 39.9% | **41.3%** | **+1.4%** |
 
-### **Phase 0B Achievements**
+### **Phase 0 Achievements**
+- ✅ **DSPy Integration**: 45.1% baseline (+3.8% over ColBERT through automated prompt engineering)
 - ✅ **MMESGBench Alignment**: 100% evaluation compatibility confirmed
-- ✅ **Document Quality Validated**: Correct documents yield +25.5% improvement
+- ✅ **Document Quality Validated**: 3 documents corrected/validated (+1.4% improvement)
 - ✅ **Production Ready**: Memory optimized, parallel generation pipeline
 - ✅ **Comprehensive Analysis**: F1 scoring, document correction impact analysis
 - ✅ **Clean Codebase**: Essential scripts organized, development history archived
@@ -152,13 +159,13 @@ Parallel Generation → MMESGBench Exact Evaluation → Results + F1
 Successfully downloaded all **933 questions** across **45 ESG documents** with the following exceptions:
 
 ### ✅ Document Corrections Completed
-**2 documents corrected, 1 filename validated:**
+**3 documents corrected/validated:**
 
-| Document | Status | Impact | Accuracy Change |
-|----------|--------|--------|-----------------|
-| `Microsoft CDP Climate Change Response 2024.pdf` | ✅ **Ground truth corrected** | Relabeled 31 questions | 16.1% → 38.7% (+22.6%) |
-| `Gender 2024.pdf` | ✅ **Correct document obtained** | Downloaded correct file | 25.0% → 62.5% (+37.5%) |
-| `ISO 14001.pdf` / `ISO-14001-2015.pdf` | ✅ **Filename validated** | Same document, different name | 28.6% (no change) |
+| # | Document | Issue Found | Resolution | Accuracy Impact |
+|---|----------|-------------|------------|-----------------|
+| 1 | `Microsoft CDP Climate Change Response 2024.pdf` | **Wrong document substituted** | Downloaded correct document and relabeled 31 questions | 16.1% → 38.7% (**+22.6%**) |
+| 2 | `Gender 2024.pdf` | **Wrong document in dataset** | Downloaded correct document | 25.0% → 62.5% (**+37.5%**) |
+| 3 | `ISO 14001.pdf` / `ISO-14001-2015.pdf` | **Different filename only** | Confirmed same document, just different name | 28.6% (no change) |
 
 ### 🔍 Correction Impact Summary
 
@@ -168,7 +175,7 @@ Successfully downloaded all **933 questions** across **45 ESG documents** with t
 - **Subset improvement**: +30.1% average on 2 corrected documents (Microsoft CDP: +22.6%, Gender: +37.5%)
 - **Filename validation**: ISO-14001-2015.pdf confirmed identical to ISO 14001.pdf reference
 
-**Validation Status**: All documents now validated and baseline re-established at **41.3% accuracy**
+**Validation Status**: All documents now validated. **ColBERT baseline: 41.3%** → **DSPy baseline: 45.1%** (with automated prompt engineering)
 
 ### 📊 Full Dataset Availability
 - **Total PDFs**: 45/45 (100% complete)
@@ -177,22 +184,38 @@ Successfully downloaded all **933 questions** across **45 ESG documents** with t
 
 ## 📈 Research Roadmap
 
-### ✅ Phase 0B - MMESGBench Baseline with Document Corrections (COMPLETED)
+### ✅ Phase 0 - MMESGBench Baseline with DSPy Integration (COMPLETED)
 - [x] MMESGBench exact evaluation logic implementation
 - [x] Production ColBERT retrieval system (41.3% accuracy)
+- [x] **DSPy integration with automated prompt engineering (45.1% accuracy)**
 - [x] Comprehensive F1 scoring (~41.5% F1 estimated)
 - [x] Memory optimization and parallel generation pipeline
 - [x] Full dataset evaluation with 933 questions
-- [x] Document correction and validation (Microsoft CDP + Gender 2024)
+- [x] Document correction and validation (3 documents corrected/validated)
 - [x] Clean production codebase organization
-- [x] **Baseline established at 41.3% - 99.5% of MMESGBench target**
+- [x] **DSPy baseline established at 45.1% (+3.8% over ColBERT, 108.7% of MMESGBench target)**
 
-### 🔄 Phase 1 - DSPy Enhancement (READY)
+### 🔄 Phase 1 - DSPy Enhancement (IN PROGRESS)
+**Status**: Train/Dev/Test splits prepared for GEPA optimization
+
+**Dataset Splits** (20/10/70 stratified by Evidence Type × Difficulty):
+- **Train**: 186 questions (~20%) - For DSPy/GEPA prompt optimization
+- **Dev**: 93 questions (~10%) - For validation during optimization
+- **Test**: 654 questions (~70%) - For final evaluation and comparison
+
+**Stratification Strategy**:
+- Evidence Types: Pure-text (42.4%), Generalized-text (24.5%), Table (13.0%), Chart (10.3%), Image (9.8%)
+- Difficulty Levels: Easy/Medium/Hard (performance-based terciles within each evidence type)
+- **Details**: See `DSPy_Train_Dev_Test_Split_Plan.md` for complete split methodology
+
+**Implementation Tasks**:
+- [ ] Create stratified splits using evidence type × difficulty matrix
+- [ ] Validate split quality (distribution, no data leakage, document diversity)
+- [ ] Baseline evaluation on splits (verify ~41.3% on all splits)
 - [ ] Wrap ColBERT retrieval in DSPy signatures
-- [ ] Apply GEPA optimizer on 41.3% baseline
-- [ ] Address format-specific weaknesses (List: 0%, Float: 14.3% on subset)
-- [ ] Maintain exact MMESGBench evaluation compatibility
-- [ ] Target: Exceed 41.5% baseline, aim for 43-44% accuracy
+- [ ] Apply GEPA optimizer on training set
+- [ ] Final evaluation on test set
+- [ ] Target: Exceed 41.5% baseline, aim for 42-43% accuracy
 
 ### 🔮 Phase 2 - Comparative Analysis (Future)
 - [ ] Fine-tuning approaches (LoRA + small-RL)
@@ -312,5 +335,5 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**🎯 Phase 0B Complete - Ready for DSPy Phase 1**
-*MMESGBench baseline established at 41.3% accuracy (99.5% of target) with corrected documents and exact evaluation alignment - optimal foundation for DSPy optimization.*
+**🎯 Phase 0 Complete - DSPy Phase 1 In Progress**
+*DSPy baseline established at **45.1% accuracy** (+3.8% over ColBERT, 108.7% of MMESGBench target) with corrected documents, automated prompt engineering, and exact evaluation alignment - ready for GEPA optimization.*
