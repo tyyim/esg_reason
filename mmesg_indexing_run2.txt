@@ -1,0 +1,28 @@
+================================================================================
+MMESGBench Document Indexing to PostgreSQL
+================================================================================
+
+📂 Loading corrected document list...
+✅ Found 45 unique documents in corrected dataset
+
+🏷️  Collection name: MMESG
+
+================================================================================
+Indexing 45 documents to PostgreSQL
+================================================================================
+
+📋 Initializing Qwen embeddings...
+Traceback (most recent call last):
+  File "/Users/victoryim/Local_Git/CC/index_mmesgbench_to_postgres.py", line 269, in <module>
+    main()
+  File "/Users/victoryim/Local_Git/CC/index_mmesgbench_to_postgres.py", line 258, in main
+    index_documents_to_postgres(doc_ids, collection_name)
+  File "/Users/victoryim/Local_Git/CC/index_mmesgbench_to_postgres.py", line 88, in index_documents_to_postgres
+    embeddings = DashScopeEmbeddings(
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/anaconda3/lib/python3.11/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/anaconda3/lib/python3.11/site-packages/langchain_community/embeddings/dashscope.py", line 128, in validate_environment
+    import dashscope
+ModuleNotFoundError: No module named 'dashscope'
