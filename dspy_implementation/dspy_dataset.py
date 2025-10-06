@@ -13,33 +13,25 @@ import dspy
 class MMESGBenchDataset:
     """Wrapper for MMESGBench dataset with corrected documents"""
 
-    def __init__(self, dataset_path: str = "MMESGBench/dataset/samples.json",
-                 corrections_path: str = "dspy_implementation/document_corrections_mapping.json"):
+    def __init__(self, dataset_path: str = "mmesgbench_dataset_corrected.json"):
         """
-        Initialize dataset with corrections mapping
+        Initialize dataset from authoritative corrected dataset
 
         Args:
-            dataset_path: Path to MMESGBench samples.json (relative to project root)
-            corrections_path: Path to document corrections mapping (relative to project root)
+            dataset_path: Path to corrected dataset (relative to project root)
         """
         # Get project root (parent of dspy_implementation)
         project_root = Path(__file__).parent.parent
 
-        # Make paths absolute from project root
+        # Make path absolute from project root
         self.dataset_path = project_root / dataset_path
-        self.corrections_path = project_root / corrections_path
 
-        # Load dataset and corrections
-        self.raw_data = self._load_dataset()
-        self.corrections = self._load_corrections()
+        # Load authoritative corrected dataset
+        self.data = self._load_dataset()
 
-        # Apply corrections
-        self.data = self._apply_corrections(self.raw_data)
-
-        print(f"✅ Loaded {len(self.data)} questions from MMESGBench")
-        print(f"✅ Applied {len(self.corrections['corrections'])} document corrections")
-        print(f"   Baseline: {self.corrections['baseline_accuracy']*100:.1f}% "
-              f"({self.corrections['baseline_questions_correct']}/{self.corrections['total_questions']})")
+        print(f"✅ Loaded {len(self.data)} questions from authoritative corrected dataset")
+        print(f"   Dataset: {dataset_path}")
+        print(f"   DSPy baseline: 45.1% (421/933)")
 
         # Automatically create splits
         splits = self.create_splits()
@@ -48,35 +40,10 @@ class MMESGBenchDataset:
         self.test_set = splits['test']
 
     def _load_dataset(self) -> List[Dict]:
-        """Load MMESGBench dataset"""
+        """Load authoritative corrected MMESGBench dataset"""
         with open(self.dataset_path, 'r') as f:
             data = json.load(f)
         return data
-
-    def _load_corrections(self) -> Dict:
-        """Load document corrections mapping"""
-        with open(self.corrections_path, 'r') as f:
-            corrections = json.load(f)
-        return corrections
-
-    def _apply_corrections(self, data: List[Dict]) -> List[Dict]:
-        """Apply document corrections to dataset"""
-        corrected_data = []
-
-        # Create mapping of corrected documents
-        correction_map = {}
-        for corr in self.corrections['corrections']:
-            if corr['type'] in ['document_replacement', 'filename_validated']:
-                correction_map[corr['original']] = corr['corrected']
-
-        for item in data:
-            # Apply document name corrections if needed
-            if item['doc_id'] in correction_map:
-                item['doc_id'] = correction_map[item['doc_id']]
-
-            corrected_data.append(item)
-
-        return corrected_data
 
     def to_dspy_examples(self, split_data: List[Dict]) -> List[dspy.Example]:
         """
@@ -172,28 +139,40 @@ class MMESGBenchDataset:
 
         print(f"   Splits saved to: {splits_dir}/")
 
-    def get_corrected_documents_stats(self) -> Dict:
-        """Get statistics about corrected documents"""
-        stats = {
-            'total_corrections': len(self.corrections['corrections']),
-            'questions_affected': self.corrections['total_questions_affected'],
-            'overall_improvement': self.corrections['overall_impact'],
-            'corrections_detail': []
-        }
+    def get_dataset_stats(self) -> Dict:
+        """Get statistics about the dataset"""
+        # Count evidence types
+        evidence_types = {}
+        answer_formats = {}
+        documents = {}
 
-        for corr in self.corrections['corrections']:
-            stats['corrections_detail'].append({
-                'document': corr['corrected'],
-                'questions': corr['questions_affected'],
-                'accuracy_improvement': corr['improvement']
-            })
+        for item in self.data:
+            # Evidence types
+            for evidence in item.get('evidence_sources', []):
+                evidence_types[evidence] = evidence_types.get(evidence, 0) + 1
+
+            # Answer formats
+            fmt = item.get('answer_format', 'Unknown')
+            answer_formats[fmt] = answer_formats.get(fmt, 0) + 1
+
+            # Documents
+            doc = item.get('doc_id', 'Unknown')
+            documents[doc] = documents.get(doc, 0) + 1
+
+        stats = {
+            'total_questions': len(self.data),
+            'evidence_types': evidence_types,
+            'answer_formats': answer_formats,
+            'num_documents': len(documents),
+            'documents': documents
+        }
 
         return stats
 
 
 if __name__ == "__main__":
     print("=" * 60)
-    print("MMESGBench Dataset Loading with Corrections")
+    print("MMESGBench Authoritative Dataset Loading")
     print("=" * 60)
 
     # Load dataset
@@ -203,10 +182,15 @@ if __name__ == "__main__":
     splits = dataset.create_splits()
 
     # Show statistics
-    stats = dataset.get_corrected_documents_stats()
-    print(f"\n📋 Document Corrections Summary:")
-    for detail in stats['corrections_detail']:
-        print(f"   • {detail['document']}: {detail['questions']} questions ({detail['accuracy_improvement']})")
+    stats = dataset.get_dataset_stats()
+    print(f"\n📋 Dataset Statistics:")
+    print(f"   Total questions: {stats['total_questions']}")
+    print(f"   Documents: {stats['num_documents']}")
+    print(f"\n   Evidence Types:")
+    for evidence_type, count in sorted(stats['evidence_types'].items(), key=lambda x: x[1], reverse=True):
+        print(f"      • {evidence_type}: {count}")
+    print(f"\n   Answer Formats:")
+    for fmt, count in sorted(stats['answer_formats'].items(), key=lambda x: x[1], reverse=True):
+        print(f"      • {fmt}: {count}")
 
-    print(f"\n✅ Dataset ready for DSPy training!")
-    print(f"   Total improvement: {stats['overall_improvement']}")
+    print(f"\n✅ Dataset ready for DSPy training with 45.1% baseline!")

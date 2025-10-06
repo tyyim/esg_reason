@@ -26,24 +26,9 @@ def load_full_dataset():
     """Load full MMESGBench dataset with corrections"""
     import json
 
-    # Load samples
-    with open('MMESGBench/dataset/samples.json', 'r') as f:
+    # Load authoritative corrected dataset
+    with open('mmesgbench_dataset_corrected.json', 'r') as f:
         data = json.load(f)
-
-    # Load corrections
-    with open('dspy_implementation/document_corrections_mapping.json', 'r') as f:
-        corrections = json.load(f)
-
-    # Apply corrections
-    correction_map = {}
-    for corr in corrections['corrections']:
-        if corr['type'] in ['document_replacement', 'filename_validated']:
-            correction_map[corr['original']] = corr['corrected']
-
-    # Apply corrections to data
-    for item in data:
-        if item['doc_id'] in correction_map:
-            item['doc_id'] = correction_map[item['doc_id']]
 
     # Convert to DSPy examples
     examples = []
