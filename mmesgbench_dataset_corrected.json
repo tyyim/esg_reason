@@ -1,6 +1,6 @@
 [
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is Microsoft's mission?",
     "answer": "to empower every person and every organization on the planet to achieve more",
@@ -13,7 +13,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "When does Microsoft aim to be carbon negative?",
     "answer": 2030,
@@ -26,7 +26,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How often is the TCFD Report published?",
     "answer": "Not answerable",
@@ -35,7 +35,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What are the total Scope 3 emissions in metric tons CO2e?",
     "answer": 14819000,
@@ -48,7 +48,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Calculate the average emissions per device type.",
     "answer": "Not answerable",
@@ -57,7 +57,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Which emission reduction measure supports all-electric vehicle transitions in Redmond?",
     "answer": "Fleet electrification",
@@ -70,7 +70,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is Microsoft\u2019s progress towards achieving its Scope 1 and 2 target in percentage terms? Please write down the answer in float format with 2 decimals",
     "answer": 55.36,
@@ -84,7 +84,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the total emissions covered by the target in all selected scopes?",
     "answer": 15357094,
@@ -97,7 +97,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the difference between location-based and market-based emissions?",
     "answer": 7684269,
@@ -110,7 +110,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percentage of Scope 2 emissions has Microsoft reduced from 2013 to 2020?",
     "answer": 44.36,
@@ -126,7 +126,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Based on the total Scope 1 and 2 emissions in the 2020 base year, what is the average annual reduction required to reach the 2030 target?",
     "answer": 34418.3,
@@ -143,7 +143,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Has Microsoft achieved its ongoing annual carbon neutrality target as of FY22? Answer Yes, No, or Not answerable",
     "answer": "Yes",
@@ -156,7 +156,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What three main strategies did Microsoft use to achieve carbon neutrality in FY22? Write the answer in list format.",
     "answer": "['Investments in energy efficiency', 'Carbon-free electricity procurement', 'Carbon removal offsets']",
@@ -169,7 +169,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What are all the Scope 3 categories in this questionnaire? Write the answer in list format.",
     "answer": "['Purchased goods and services',\n 'Capital goods',\n 'Fuel-and-energy-related activities',\n 'Upstream transportation and distribution',\n 'Waste generated in operations',\n 'Business travel',\n 'Employee commuting',\n 'Downstream transportation and distribution',\n 'Use of sold products',\n 'End of life treatment of sold products',\n 'Downstream leased assets']",
@@ -183,7 +183,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What types of renewable electricity are mentioned? Write the answer in list format.",
     "answer": "['Wind', 'solar', 'hydro', 'biogas', 'geothermal']",
@@ -197,7 +197,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How many Scope 3 categories were revised for base year FY20 base on C5.1c?",
     "answer": "Not answerable",
@@ -206,7 +206,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "According to the breakdown of total gross global Scope 1 emission, which greenhouse gas contributes most?",
     "answer": "CO2",
@@ -220,7 +220,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "According to the table about total gross global Scope 1 emission, What is the total gross global emissions for all listed greenhouse gas types?",
     "answer": 144960,
@@ -234,7 +234,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percent of total energy use came from non-renewable sources?",
     "answer": 0.0555,
@@ -247,7 +247,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
     "answer": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
@@ -260,7 +260,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Where are the forests located that Microsoft uses for land-based carbon sequestration?",
     "answer": "Washington, United States",
@@ -273,7 +273,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
     "answer": "Not answerable",
@@ -282,7 +282,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the additional, voluntary label associated with purchased renewable electricity?",
     "answer": "['Green-e Certified','EECS','EKOenergy']",
@@ -297,7 +297,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the total capacity of the two community solar gardens Microsoft supported in Illinois? Please write the answer in int format.",
     "answer": "Not answerable",
@@ -306,7 +306,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "From Table in C8.2m, which country faced a limited supply of renewable electricity rather than a lack of credible procurement options?",
     "answer": "['Singapore', 'Taiwan, China']",
@@ -319,7 +319,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Does Microsoft\u2019s emissions reduction target include any land-related emissions? Answer Yes, No, or Not answerable",
     "answer": "No",
@@ -337,7 +337,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Did Microsoft have any FLAG science-based targets in FY22? Answer Yes, No, or Not answerable",
     "answer": "No",
@@ -352,7 +352,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the total Scope 3 emissions increase in target year 2030 compared to the base year (from July 1, 2019 to June 30, 2020) across Categories 1\u20134",
     "answer": "Not answerable",
@@ -361,7 +361,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How many PPAs and green tariff related projects has Microsoft signed globally as of FY23, and what is the total renewable energy capacity covered?",
     "answer": "52 projects, 19.8 GW capacity",
@@ -375,7 +375,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How much CO\u2082e reduction is planned by implementing all initiatives currently marked as 'to be implemented', 'implementation commenced', and 'implemented'? Write the answer in int format.",
     "answer": 24414730,
@@ -388,7 +388,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Microsoft CDP Climate Change Response 2024.pdf",
+    "doc_id": "Microsoft-CDP-2024-Response.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percentage of total emissions covered by Microsoft\u2019s 2030 target is made up of Scope 3 emissions in the reporting year?",
     "answer": 0.9649,
@@ -1338,7 +1338,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What is the deadline for submitting a CDP response in 2024?",
     "answer": "23:59 (IDLW) March 20th 2024",
@@ -1351,7 +1351,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "In which languages will responses be scored in 2024? Write the answer in list format.",
     "answer": "['English', 'Japanese', 'Chinese', 'Spanish', 'Portuguese']",
@@ -1364,7 +1364,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many modules are there in the full corporate questionnaire?",
     "answer": "13",
@@ -1377,7 +1377,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the four consecutive levels of scoring mentioned in the document? Write the answer in list format.",
     "answer": "['Disclosure', 'Awareness', 'Management', 'Leadership']",
@@ -1390,7 +1390,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "If a company scores 92% in Climate Change, 20% in Forests, and 90% in Water Security, what is its final CDP score? Answer in A, B, C, or D",
     "answer": "D",
@@ -1405,7 +1405,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "If a company scores 65% in Climate Change, 47% in Forests, and 72% in Water Security, what is its final CDP score? Answer in A, B, C, or D",
     "answer": "B",
@@ -1420,7 +1420,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many types of proportional scoring are mentioned in the document?",
     "answer": "3",
@@ -1433,7 +1433,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many years ago did Company ABC start its mining operations?",
     "answer": "Not answerable",
@@ -1442,7 +1442,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What is the deadline for submitting a score appeal to CDP?",
     "answer": "23:59 (IDLW) March 20th 2025",
@@ -1455,7 +1455,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What is the maximum number of days after March 20th, 2025, that an organization can expect to receive the results of their appeal?",
     "answer": "Not answerable",
@@ -1464,7 +1464,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "If a company discloses only on palm oil and soy, how is its combined commodity score calculated?",
     "answer": "50% weight for each commodity",
@@ -1479,7 +1479,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "Which scoring categories are used for Forests commodity-specific questions? Write the answer in list format.",
     "answer": "['Visibility', 'DCF status', 'Targets']",
@@ -1493,7 +1493,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "CDP_Full_Corporate_Scoring_Introduction_2024.pdf",
+    "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the three key ways in which open text answers may be assessed? Write the answer in list format.",
     "answer": "['Providing a clear rationale', 'Providing an explanation', 'Providing an example with an accompanying timeline']",
@@ -5700,7 +5700,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How many past reporting years of emissions data will Apple provide?",
     "answer": "Not answerable",
@@ -5709,7 +5709,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the currency used for financial information in Apple CDP Climate Change Questionnaire?",
     "answer": "USD",
@@ -5722,7 +5722,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How many countries/areas in which Apple operate are listed in C0.3?",
     "answer": "52",
@@ -5735,7 +5735,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What are the key responsibilities of the Chief Sustainability Officer?",
     "answer": "Managing climate-related activities, risks, and opportunities.",
@@ -5748,7 +5748,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the target reduction in absolute emissions by fiscal year 2030?",
     "answer": "75%",
@@ -5763,7 +5763,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the potential financial impact of acute physical risks on Apple's operations?",
     "answer": "Not answerable",
@@ -5772,7 +5772,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What would be the hypothetical annual financial cost for Apple if a global carbon price of $75 per metric ton CO2e were applied to its 2022 total emissions?",
     "answer": "1522500000",
@@ -5785,7 +5785,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the potential annual cost if Apple does not mitigate its emissions by 2030?",
     "answer": "1522500000",
@@ -5799,7 +5799,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the estimated cost to realize the opportunity of reducing emissions by 75 percent?",
     "answer": "Not answerable",
@@ -5808,7 +5808,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percentage of the target has been achieved relative to the base year? Please write down the answer in float format with 2 decimals.",
     "answer": "28.7%",
@@ -5821,7 +5821,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the projected impact of Pillar #5 on carbon neutrality by 2030?",
     "answer": "Not answerable",
@@ -5830,7 +5830,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the total base year 2015 emissions covered by target in all selected Scopes?",
     "answer": "38378460",
@@ -5844,7 +5844,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the annual linear reduction required to meet Apple's 1.5\u00b0C trajectory target?",
     "answer": "4.2%",
@@ -5857,7 +5857,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How does the life cycle stage 'cradle-to-grave' impact the calculation of avoided emissions?",
     "answer": "Not answerable",
@@ -5866,7 +5866,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "Calculate the total gross global Scope 1 and Scope 2 emissions in the reporting year.",
     "answer": "1123605",
@@ -5880,7 +5880,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What was Apple\u2019s total Scope 3 emissions (metric tons CO2e) from categories 1, 4, 6, 7, 9, 11, and 12 in the target year 2030?",
     "answer": "20550000",
@@ -5894,7 +5894,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the percentage change in Scope 1 and 2 emissions intensity per unit total revenue from fiscal year 2021 to 2022?",
     "answer": "-7%",
@@ -5907,7 +5907,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percentage of total energy consumption is from renewable sources? Please write down the answer in float format with 2 decimals.",
     "answer": "92.28%",
@@ -5920,7 +5920,7 @@
     "answer_format": "Float"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How does the non-fuel energy consumption in Germany compare to Hong Kong SAR, China?",
     "answer": "Germany > Hong Kong SAR, China",
@@ -5933,7 +5933,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the difference in wind renewable electricity consumption (in MWh) between Germany and Hungary?",
     "answer": "8140",
@@ -5947,7 +5947,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
     "answer": "8219",
@@ -5962,7 +5962,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "How much more renewable electricity was consumed in Thailand compared to Malaysia in MWh?",
     "answer": "1593",
@@ -5975,7 +5975,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "Apple_CDP-Climate-Change-Questionnaire_2023.pdf",
+    "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
     "doc_type": "CDP Climate Responses",
     "question": "What percentage of suppliers by procurement spend comply with the climate-related requirement for renewable energy?",
     "answer": "85%",
@@ -8431,7 +8431,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the four stages of the PDCA model as described in the document? Write the answer in the list format",
     "answer": "['Plan', 'Do', 'Check', 'Act']",
@@ -8445,7 +8445,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the intended outcomes of an environmental management system according to this standard?",
     "answer": "Not answerable",
@@ -8454,7 +8454,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the stages of a product's life cycle according to ISO 14001:2015? Write the answer in the list format",
     "answer": "['Acquisition of raw materials', 'design', 'production', 'transportation/delivery', 'use', 'end-of-life treatment', 'final disposal']",
@@ -8467,7 +8467,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What specific actions must top management take to ensure the effectiveness of the environmental management system?",
     "answer": "Not answerable",
@@ -8476,7 +8476,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many main clauses does ISO 14001:2015 increased compared to ISO 14001:2004?",
     "answer": "6",
@@ -8490,7 +8490,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "Which ISO 14001:2015 clause replaces the 'Control of documents' requirement from ISO 14001:2004? Write the answer in the list format",
     "answer": "['Clause 7.5.2 Creating and updating', 'Clause 7.5.3 Control of documented information']",
@@ -8504,7 +8504,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many clauses have been added in the 2015 edition compared to the 2004 edition?",
     "answer": "Not answerable",
@@ -8513,7 +8513,7 @@
     "answer_format": null
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What are the three intended outcomes of an environmental management system according to ISO 14001? Write the answer in the list format",
     "answer": "['Enhancement of environmental performance', 'Fulfilment of compliance obligations', 'Achievement of environmental objectives']",
@@ -8528,7 +8528,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "Which iterative cycle model does ISO 14001 base its management approach on?",
     "answer": "Plan-Do-Check-Act (PDCA)",
@@ -8542,7 +8542,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many dimensions are included in the ISO 14001 definition of 'risks and opportunities'?",
     "answer": "2",
@@ -8556,7 +8556,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "What shall organization do to evaluate fulfilment of its complance obligations? Write the answer in the list format",
     "answer": "['determine the frequency that compliance will be evaluated', 'evaluate compliance and take action if needed', 'maintain knowledge and understanding of its compliance status']",
@@ -8571,7 +8571,7 @@
     "answer_format": "List"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "How many key elements are covered under the 'Support' section of ISO 14001?",
     "answer": "5",
@@ -8588,7 +8588,7 @@
     "answer_format": "Int"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "Which clause in the 2015 edition corresponds to 'Environmental aspects' in the 2004 edition?",
     "answer": "6.1.2",
@@ -8601,7 +8601,7 @@
     "answer_format": "Str"
   },
   {
-    "doc_id": "ISO 14001.pdf",
+    "doc_id": "ISO-14001-2015.pdf",
     "doc_type": "Environment-related Standards",
     "question": "Which ISO standard provides guidelines for incorporating ecodesign?",
     "answer": "ISO 14006",
