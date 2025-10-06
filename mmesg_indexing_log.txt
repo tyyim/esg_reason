@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/victoryim/Local_Git/CC/index_mmesgbench_to_postgres.py", line 13, in <module>
+    from langchain.text_splitter import RecursiveCharacterTextSplitter
+ModuleNotFoundError: No module named 'langchain'
