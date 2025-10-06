@@ -1,0 +1,23 @@
+Could not setup extensions: 'Connection' object has no attribute 'commit'
+No chunks found for SASB Health Care Distributors.pdf
+No chunks found for SASB Agricultural Products.pdf
+No chunks found for OECD Net Zero+.pdf
+No chunks found for 2023-amazon-sustainability-report.pdf
+No chunks found for google-2024-environmental-report.pdf
+No chunks found for Microsoft-2024-Environmental-Sustainability-Report.pdf
+No chunks found for LEED 2025.pdf
+No chunks found for alphabet-2024-cdp-climate-change-response.pdf
+No chunks found for SBTI Zero v2.pdf
+No chunks found for GHG Survey.pdf
+No chunks found for IEA 2024.pdf
+No chunks found for Apple_CDP-Climate-Change-Questionnaire_2023.pdf
+No chunks found for WHO GHG.pdf
+No chunks found for Meta-CDP-Climate-Change-Survey-2023.pdf
+No chunks found for OECD Net Zero+.pdf
+No chunks found for google-2024-environmental-report.pdf
+No chunks found for ISO 14001.pdf
+No chunks found for ipcc-ar6-wg3.pdf
+No chunks found for Microsoft-2024-Environmental-Sustainability-Report.pdf
+No chunks found for alphabet-2024-cdp-climate-change-response.pdf
+No chunks found for Meta-CDP-Climate-Change-Survey-2023.pdf
+No chunks found for ipcc-ar6-wg3.pdf
