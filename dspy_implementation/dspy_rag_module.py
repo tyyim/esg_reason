@@ -5,7 +5,7 @@ Implements two-stage RAG: ColBERT Retrieval → Reasoning → Extraction
 """
 
 import dspy
-from dspy_implementation.dspy_retriever import DSPyColBERTRetriever
+from dspy_implementation.dspy_postgres_retriever import DSPyPostgresRetriever
 from dspy_implementation.dspy_signatures import ESGReasoning, AnswerExtraction
 
 
@@ -24,8 +24,8 @@ class MMESGBenchRAG(dspy.Module):
     def __init__(self):
         super().__init__()
 
-        # Initialize ColBERT retriever (existing infrastructure)
-        self.retriever = DSPyColBERTRetriever()
+        # Initialize PostgreSQL retriever (pgvector + Qwen embeddings)
+        self.retriever = DSPyPostgresRetriever()
 
         # DSPy modules for two-stage generation
         # Stage 1: Generate detailed analysis with chain-of-thought
@@ -35,7 +35,7 @@ class MMESGBenchRAG(dspy.Module):
         self.extraction = dspy.Predict(AnswerExtraction)
 
         print("✅ MMESGBenchRAG module initialized")
-        print("   • Retriever: ColBERT (41.3% baseline)")
+        print("   • Retriever: PostgreSQL + pgvector (Qwen embeddings)")
         print("   • Stage 1: ChainOfThought reasoning")
         print("   • Stage 2: Answer extraction")
 
@@ -97,7 +97,7 @@ class MMESGBenchRAGBasic(dspy.Module):
 
     def __init__(self):
         super().__init__()
-        self.retriever = DSPyColBERTRetriever()
+        self.retriever = DSPyPostgresRetriever()
         self.reasoning = dspy.Predict(ESGReasoning)  # Basic Predict, no CoT
         self.extraction = dspy.Predict(AnswerExtraction)
 
