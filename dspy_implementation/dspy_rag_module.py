@@ -5,8 +5,8 @@ Implements two-stage RAG: ColBERT Retrieval → Reasoning → Extraction
 """
 
 import dspy
-from dspy_retriever import DSPyColBERTRetriever
-from dspy_signatures import ESGReasoning, AnswerExtraction
+from dspy_implementation.dspy_retriever import DSPyColBERTRetriever
+from dspy_implementation.dspy_signatures import ESGReasoning, AnswerExtraction
 
 
 class MMESGBenchRAG(dspy.Module):
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     print("=" * 60)
 
     # Initialize DSPy with Qwen
-    from dspy_setup import setup_dspy_qwen
+    from dspy_implementation.dspy_setup import setup_dspy_qwen
     setup_dspy_qwen()
 
     print("\n🧪 Testing RAG module...")
