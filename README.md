@@ -8,7 +8,7 @@
 
 ## 🎯 Project Overview
 
-This repository contains a **production-ready MMESGBench baseline with DSPy integration** achieving **45.1% accuracy** on the full 933-question dataset with corrected documents and exact evaluation alignment. Phase 0 is **complete** and ready for GEPA optimization in Phase 1.
+This repository contains a **production-ready MMESGBench baseline with DSPy integration** achieving **45.1% accuracy** on the full 933-question dataset with corrected documents and exact evaluation alignment. Phase 0 is **complete** and Phase 1a (MIPROv2 optimization) is **in progress**.
 
 ### 🏆 **Key Achievements - Phase 0 Complete**
 - ✅ **DSPy Baseline**: **45.1% accuracy** (421/933 questions) - **+3.8% over ColBERT baseline**
@@ -54,16 +54,21 @@ esg_reason/
 ├── mmesgbench_exact_evaluation.py             # Exact MMESGBench evaluation functions
 ├── launch_autonomous_evaluation.py            # Simple launcher script
 ├── calculate_f1_score.py                      # F1 score calculation utility
+├── create_stratified_splits.py                # Phase 1a: Stratified split creation
 ├── dspy_implementation/                       # DSPy integration (45.1% baseline)
 │   ├── evaluate_full_dataset.py               # DSPy full dataset evaluation
 │   └── dspy_dataset.py                        # DSPy dataset wrapper
 │
 ├── 📊 DATASETS & RESULTS
-├── mmesgbench_dataset_corrected.json          # **AUTHORITATIVE DATASET** (933 questions with corrections)
+├── mmesgbench_dataset_corrected.json          # **AUTHORITATIVE DATASET** (929 unique questions)
 ├── optimized_full_dataset_mmesgbench_with_f1.json  # Final results (41.3% ColBERT + F1)
 ├── dspy_full_dataset_results.json             # DSPy baseline results (45.1%)
 ├── evaluation_analysis_report.md              # Comprehensive performance analysis
 ├── DSPy_Train_Dev_Test_Split_Plan.md          # Phase 1 split strategy
+├── splits/                                    # **Phase 1a Stratified Splits**
+│   ├── train.json                             # 178 questions (19.2%) for MIPROv2 optimization
+│   ├── dev.json                               # 84 questions (9.0%) for validation
+│   └── test.json                              # 667 questions (71.8%) for final evaluation
 │
 ├── 📚 INFRASTRUCTURE
 ├── src/
@@ -221,27 +226,40 @@ Successfully downloaded all **933 questions** across **45 ESG documents**.
 - [x] Clean production codebase organization
 - [x] **DSPy baseline established at 45.1% (+3.8% over ColBERT, 108.7% of MMESGBench target)**
 
-### 🔄 Phase 1 - DSPy Enhancement (IN PROGRESS)
-**Status**: Train/Dev/Test splits prepared for GEPA optimization
+### 🔄 Phase 1 - DSPy Optimization (IN PROGRESS)
+**Status**: Phase 1a (MIPROv2) in progress - stratified splits created and validated
+
+**Optimization Strategy**:
+- **Phase 1a**: MIPROv2 (Multi-prompt Instruction Proposal Optimizer v2) - current phase
+- **Phase 1b**: GEPA (Reflective prompt evolution) - planned after MIPROv2 completion
 
 **Dataset Splits** (20/10/70 stratified by Evidence Type × Difficulty):
-- **Train**: 186 questions (~20%) - For DSPy/GEPA prompt optimization
-- **Dev**: 93 questions (~10%) - For validation during optimization
-- **Test**: 654 questions (~70%) - For final evaluation and comparison
+- **Train**: 178 questions (19.2%) - For MIPROv2/GEPA prompt optimization
+- **Dev**: 84 questions (9.0%) - For validation during optimization
+- **Test**: 667 questions (71.8%) - For final evaluation and comparison
+- **Unique Questions**: 929 (4 duplicates removed from original 933)
 
 **Stratification Strategy**:
-- Evidence Types: Pure-text (42.4%), Generalized-text (24.5%), Table (13.0%), Chart (10.3%), Image (9.8%)
-- Difficulty Levels: Easy/Medium/Hard (performance-based terciles within each evidence type)
+- Evidence Types: Pure-text (44.8%), Unknown (16.0%), Table (11.7%), Generalized-text (11.5%), Image (8.5%), Chart (7.4%)
+- Difficulty Levels: Easy (32.5%), Medium (41.1%), Hard (26.4%) - based on ColBERT baseline performance
+- **Validation**: No data leakage, balanced evidence type distribution across splits
 - **Details**: See `DSPy_Train_Dev_Test_Split_Plan.md` for complete split methodology
 
 **Implementation Tasks**:
-- [ ] Create stratified splits using evidence type × difficulty matrix
-- [ ] Validate split quality (distribution, no data leakage, document diversity)
-- [ ] Baseline evaluation on splits (verify ~41.3% on all splits)
-- [ ] Wrap ColBERT retrieval in DSPy signatures
-- [ ] Apply GEPA optimizer on training set
-- [ ] Final evaluation on test set
-- [ ] Target: Exceed 41.5% baseline, aim for 42-43% accuracy
+- [x] Create stratified splits using evidence type × difficulty matrix
+- [x] Validate split quality (distribution, no data leakage, document diversity)
+- [x] Update production scripts to use `mmesgbench_dataset_corrected.json`
+- [ ] **Phase 1a: MIPROv2 Optimization** (current)
+  - [ ] Wrap ColBERT retrieval in DSPy signatures (already done in existing code)
+  - [ ] Apply MIPROv2 optimizer on training set (178 questions)
+  - [ ] Evaluate on dev set and tune hyperparameters
+  - [ ] Target: 46-47% accuracy (+1-2% over 45.1% baseline)
+- [ ] **Phase 1b: GEPA Optimization** (planned)
+  - [ ] Apply GEPA optimizer on training set
+  - [ ] Compare MIPROv2 vs GEPA performance
+  - [ ] Select best optimizer configuration
+- [ ] Final evaluation on test set (667 questions)
+- [ ] **Overall Target**: Exceed 45.1% baseline, aim for 46-48% accuracy
 
 ### 🔮 Phase 2 - Comparative Analysis (Future)
 - [ ] Fine-tuning approaches (LoRA + small-RL)
