@@ -1,0 +1,64 @@
+/Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: 'dlopen(/Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/image.so, 0x0006): Symbol not found: __ZN3c1017RegisterOperatorsD1Ev
+  Referenced from: <C1CC76AA-CD55-3E10-9064-29676E3E2535> /Users/victoryim/anaconda3/lib/python3.11/site-packages/torchvision/image.so
+  Expected in:     <6B8AC17B-04CC-36D0-BD01-780381EFB0CC> /Users/victoryim/anaconda3/lib/python3.11/site-packages/torch/lib/libtorch_cpu.dylib'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+================================================================================
+Phase 1a: MIPROv2 Optimization for MMESGBench
+================================================================================
+
+Baseline: 45.1% accuracy (DSPy with default prompts)
+Target: 46-47% accuracy (+1-2% improvement)
+
+📋 Setting up DSPy environment...
+✅ DSPy configured with Qwen Max
+   Model: qwen-max
+   Temperature: 0.0
+   Max tokens: 1024
+
+📊 Loading stratified dataset splits...
+✅ Loaded 178 questions from splits/train.json
+✅ Loaded 84 questions from splits/dev.json
+
+📈 Dataset Summary:
+   Training: 178 questions (20%)
+   Dev: 84 questions (10%)
+   Stratified by: Evidence Type × Difficulty
+
+================================================================================
+MIPROv2 Optimization
+================================================================================
+
+📋 Initializing baseline RAG module...
+🔍 Initializing ColBERT retriever (existing 41.3% baseline)...
+✅ ColBERT retriever ready
+✅ MMESGBenchRAG module initialized
+   • Retriever: ColBERT (41.3% baseline)
+   • Stage 1: ChainOfThought reasoning
+   • Stage 2: Answer extraction
+
+📊 Evaluating baseline on training set...
+Traceback (most recent call last):
+  File "/Users/victoryim/Local_Git/CC/dspy_implementation/miprov2_optimization.py", line 322, in <module>
+    main()
+  File "/Users/victoryim/Local_Git/CC/dspy_implementation/miprov2_optimization.py", line 289, in main
+    optimized_rag, dev_results = optimize_with_miprov2(
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/Local_Git/CC/dspy_implementation/miprov2_optimization.py", line 110, in optimize_with_miprov2
+    pred = baseline_rag(
+           ^^^^^^^^^^^^^
+  File "/Users/victoryim/anaconda3/lib/python3.11/site-packages/dspy/utils/callback.py", line 326, in sync_wrapper
+    return fn(instance, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/anaconda3/lib/python3.11/site-packages/dspy/primitives/module.py", line 78, in __call__
+    return self.forward(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/Local_Git/CC/dspy_implementation/dspy_rag_module.py", line 58, in forward
+    context = self.retriever.retrieve(doc_id, question, top_k=5)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/Local_Git/CC/dspy_implementation/dspy_retriever.py", line 57, in retrieve
+    chunks = self.retriever.retrieve(doc_id, question, top_k=top_k)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/victoryim/Local_Git/CC/colbert_full_dataset_evaluation.py", line 204, in retrieve
+    similarities = np.dot(query_embedding, self.embeddings[doc_id].T)[0]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: shapes (1,384) and (0,) not aligned: 384 (dim 1) != 0 (dim 0)
