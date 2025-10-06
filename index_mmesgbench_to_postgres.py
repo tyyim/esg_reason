@@ -146,16 +146,31 @@ def index_documents_to_postgres(doc_ids: List[str], collection_name: str = "MMES
     # Create vector store and index documents
     print(f"\n🔄 Creating/updating PGVector collection: {collection_name}")
     print(f"   Connection: {connection_string.split('@')[1] if '@' in connection_string else 'localhost'}")
+    print(f"   Total chunks to embed: {len(all_documents)}")
 
     try:
-        # Create vector store (will create collection if doesn't exist)
-        vector_store = PGVector.from_documents(
-            documents=all_documents,
-            embedding=embeddings,
-            collection_name=collection_name,
-            connection_string=connection_string,
-            pre_delete_collection=False  # Don't delete existing collection
-        )
+        # Process in batches to show progress and avoid timeouts
+        batch_size = 100
+        total_batches = (len(all_documents) + batch_size - 1) // batch_size
+
+        print(f"\n🔄 Processing in {total_batches} batches of {batch_size} chunks...")
+
+        vector_store = None
+        for i in tqdm(range(0, len(all_documents), batch_size), desc="Indexing batches"):
+            batch = all_documents[i:i+batch_size]
+
+            if vector_store is None:
+                # First batch: create vector store
+                vector_store = PGVector.from_documents(
+                    documents=batch,
+                    embedding=embeddings,
+                    collection_name=collection_name,
+                    connection_string=connection_string,
+                    pre_delete_collection=False
+                )
+            else:
+                # Subsequent batches: add to existing store
+                vector_store.add_documents(batch)
 
         print(f"\n✅ Successfully indexed {len(all_documents)} chunks to PostgreSQL!")
         print(f"   Collection: {collection_name}")
