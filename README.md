@@ -226,42 +226,68 @@ Successfully downloaded all **933 questions** across **45 ESG documents**.
 - [x] Clean production codebase organization
 - [x] **DSPy baseline established at 45.1% (+3.8% over ColBERT, 108.7% of MMESGBench target)**
 
-### 🔄 Phase 1 - DSPy Optimization (IN PROGRESS)
-**Status**: Phase 1a (MIPROv2) in progress - stratified splits created and validated
+### 🔄 Phase 1 - Enhanced DSPy Optimization with Query Generation (IN PROGRESS)
+**Status**: Phase 1a (Enhanced MIPROv2) - **IMPLEMENTATION COMPLETE, READY TO RUN**
 
-**Optimization Strategy**:
-- **Phase 1a**: MIPROv2 (Multi-prompt Instruction Proposal Optimizer v2) - current phase
-- **Phase 1b**: GEPA (Reflective prompt evolution) - planned after MIPROv2 completion
+**🎯 Key Innovation: Query Generation Optimization**
+Based on DSPy best practices research, we've redesigned the RAG architecture to address the **retrieval bottleneck**:
+- **Research Finding**: Retrieval bottleneck accounts for 90% of accuracy issues
+- **Previous Approach**: Only optimized reasoning + extraction prompts (missing root cause)
+- **Enhanced Approach**: Now optimizes **query generation → retrieval → reasoning → extraction**
+
+**Architecture Redesign**:
+```
+OLD: Question → Retrieval → Reasoning → Extraction
+NEW: Question → Query Generation → Optimized Retrieval → Reasoning → Extraction
+                ↑ NOW OPTIMIZABLE
+```
+
+**Expected Improvements**:
+- **Retrieval accuracy**: 37% → 50-60% (+13-23% improvement)
+- **End-to-end accuracy**: 45% → 48-53% (+3-8% improvement)
+- **Method**: MIPROv2 optimizes all 3 stages (query + reasoning + extraction)
 
 **Dataset Splits** (20/10/70 stratified):
-- **Train**: 186 questions (20%) - For MIPROv2/GEPA prompt optimization
-- **Dev**: 93 questions (10%) - For validation during optimization
-- **Test**: 654 questions (70%) - For final evaluation and comparison
+- **Train**: 186 questions (20%) - For MIPROv2 optimization
+- **Dev**: 93 questions (10%) - For validation with separate retrieval/answer metrics
+- **Test**: 654 questions (70%) - For final evaluation
 - **Total**: 933 questions
 
-**Stratification Strategy**:
-- Evidence Types: Pure-text (44.8%), Unknown (16.0%), Table (11.7%), Generalized-text (11.5%), Image (8.5%), Chart (7.4%)
-- Difficulty Levels: Easy (32.5%), Medium (41.1%), Hard (26.4%) - based on ColBERT baseline performance
-- **Validation**: No data leakage, balanced evidence type distribution across splits
-- **Details**: See `DSPy_Train_Dev_Test_Split_Plan.md` for complete split methodology
+**Enhanced Components Implemented**:
+- [x] **Query Generation Module** (`dspy_signatures_enhanced.py`) - NEW optimizable component
+- [x] **Enhanced RAG Pipeline** (`dspy_rag_enhanced.py`) - 4-stage architecture
+- [x] **Enhanced Metrics** (`dspy_metrics_enhanced.py`) - Separate retrieval + answer + e2e metrics
+- [x] **MLFlow Integration** (`mlflow_tracking.py`) - Experiment tracking and visualization
+- [x] **Enhanced Optimization Script** (`enhanced_miprov2_optimization.py`) - Complete pipeline
 
-**Implementation Tasks**:
-- [x] Create dataset splits (20/10/70)
-- [x] Index all 45 documents to PostgreSQL with Qwen embeddings (54,608 chunks)
-- [x] Establish Qwen baseline on wrong 80% split: 55.8% (incorrect split - to be redone)
-- [x] Fix dataset split to correct 20/10/70 distribution
-- [x] Document MIPROv2 architecture (see `MIPROv2_Architecture_Diagram.md`)
-- [ ] **Phase 1a: MIPROv2 Optimization** (current)
-  - [ ] Re-establish baseline on correct 186 questions (20% split)
-  - [ ] Apply MIPROv2 optimizer on training set (186 questions)
-  - [ ] Evaluate on dev set (93 questions) and tune hyperparameters
-  - [ ] Target: Baseline + 1-2% improvement via optimized prompts
-- [ ] **Phase 1b: GEPA Optimization** (planned)
-  - [ ] Apply GEPA optimizer on training set
-  - [ ] Compare MIPROv2 vs GEPA performance
-  - [ ] Select best optimizer configuration
-- [ ] Final evaluation on test set (667 questions)
-- [ ] **Overall Target**: Exceed 45.1% baseline, aim for 46-48% accuracy
+**Implementation Status**:
+- [x] Research DSPy best practices (RAG, agents, multi-hop search)
+- [x] Redesign architecture with query optimization
+- [x] Implement all enhanced components (signatures, RAG, metrics, MLFlow)
+- [x] Fix API compatibility and MLFlow issues
+- [x] Create comprehensive documentation
+- [ ] **Phase 1a: Enhanced MIPROv2 Optimization** (ready to run)
+  - [ ] Run enhanced optimization pipeline (~45-90 minutes)
+  - [ ] Evaluate with separate retrieval/answer metrics
+  - [ ] Target: +3-8% absolute improvement via query + prompt optimization
+- [ ] **Phase 1b: GEPA Optimization** (optional, after Phase 1a results)
+  - [ ] Apply GEPA optimizer if MIPROv2 shows promise
+  - [ ] Compare optimization approaches
+- [ ] Final evaluation on test set (654 questions)
+
+**Documentation**:
+- `DSPy_RAG_Redesign_Plan.md` - Complete architecture redesign with Phase 1 & 2
+- `ENHANCED_RAG_IMPLEMENTATION_COMPLETE.md` - Implementation guide and status
+- `MIPROv2_Architecture_Diagram.md` - Original architecture (to be updated)
+
+**To Run Optimization**:
+```bash
+# Run enhanced optimization (45-90 minutes)
+python dspy_implementation/enhanced_miprov2_optimization.py
+
+# Monitor with MLFlow
+mlflow ui  # Then open http://localhost:5000
+```
 
 ### 🔮 Phase 2 - Comparative Analysis (Future)
 - [ ] Fine-tuning approaches (LoRA + small-RL)

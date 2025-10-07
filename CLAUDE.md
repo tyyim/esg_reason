@@ -200,27 +200,65 @@ PDF → Images (144 DPI) → ColPali embeddings → Top-5 pages → Qwen-VL Max 
 - [x] Evidence pages (61, 116, 25) successfully retrieved with visual similarity scores
 - [x] Two-stage extraction working for both approaches with identical performance
 
-### Phase 1 Ready (DSPy Integration)
-- [ ] Wrap retrieval approaches in DSPy modules
-- [ ] Maintain evaluation compatibility with MMESGBench
-- [ ] Implement GEPA optimizer on top of working baseline
-- [ ] Document efficiency improvements
+### Phase 1 - Enhanced DSPy with Query Optimization ✅ **READY TO RUN**
+- [x] Research DSPy best practices (identified retrieval bottleneck)
+- [x] Redesign RAG architecture with query generation optimization
+- [x] Implement enhanced components (signatures, RAG, metrics, MLFlow)
+- [x] Fix all compatibility issues
+- [x] Create comprehensive documentation
+- [ ] Run enhanced MIPROv2 optimization (~45-90 minutes)
+- [ ] Evaluate results with separate retrieval/answer/e2e metrics
 
 ## 💡 **For Future Claude Sessions**
 
-### Phase 0B COMPLETED ✅ - Ready for Phase 1
-1. **COMPLETED**: Both retrieval implementations tested and validated
-2. **COMPLETED**: Evidence retrieval confirmed - pages 61, 116, 25 accessed by visual approach
-3. **COMPLETED**: Full AR6 evaluation completed for both ColBERT (40.0%) and ColPali (40.0%)
-4. **COMPLETED**: Performance analysis shows 2x improvement over sequential baseline (20% → 40%)
+### Phase 0B COMPLETED ✅ - DSPy Baseline at 45.1%
+1. **COMPLETED**: Both retrieval implementations tested (ColBERT 40.0%, ColPali 40.0%)
+2. **COMPLETED**: DSPy baseline established at 45.1% (+3.8% over ColBERT)
+3. **COMPLETED**: Full dataset evaluation on 933 questions
+4. **COMPLETED**: All 45 documents indexed to PostgreSQL (54,608 chunks)
 
-### Key Production Files (Completed)
-- `colbert_text_only_evaluation.py` - ColBERT Text RAG (40.0% accuracy) ✅
-- `robust_colpali_evaluation.py` - ColPali Visual RAG (40.0% accuracy) ✅
-- `run_colbert_evaluation.py` - Focused ColBERT command
-- `run_colpali_evaluation.py` - Focused ColPali command with checkpoints
-- `colbert_text_only_results.json` - Complete ColBERT evaluation results
-- `colpali_checkpoint.json` - Complete ColPali evaluation results
+### Phase 1a READY ✅ - Enhanced Architecture Implemented
+**Critical Innovation**: Redesigned based on DSPy best practices to address retrieval bottleneck
 
-### Next Phase Ready: Phase 1 - DSPy Integration
-**DECISION POINT**: Both retrieval approaches validated at 40.0% accuracy (legitimate baseline for enhancement). Ready to proceed with DSPy/GEPA optimization on working retrieval pipeline.
+**Key Insight from Research**:
+- Retrieval bottleneck = 90% of accuracy issues
+- Only 37% retrieval accuracy with raw queries
+- Multi-hop RAG improves recall from 30% → 60%
+
+**Solution Implemented**:
+- **Query Generation Module**: Optimizable query reformulation BEFORE retrieval
+- **Enhanced Metrics**: Separate retrieval + answer + end-to-end accuracy
+- **MLFlow Tracking**: Experiment tracking and visualization
+- **4-Stage Pipeline**: Query Gen → Retrieval → Reasoning → Extraction
+
+**Expected Improvements**:
+- Retrieval: 37% → 50-60% (+13-23%)
+- End-to-end: 45% → 48-53% (+3-8%)
+
+### Key Production Files (Phase 1a Implementation)
+**Enhanced Components**:
+- `DSPy_RAG_Redesign_Plan.md` - Complete redesign plan with Phases 1 & 2
+- `ENHANCED_RAG_IMPLEMENTATION_COMPLETE.md` - Implementation guide
+- `dspy_implementation/dspy_signatures_enhanced.py` - QueryGeneration + signatures
+- `dspy_implementation/dspy_rag_enhanced.py` - Enhanced & baseline RAG modules
+- `dspy_implementation/dspy_metrics_enhanced.py` - Retrieval + answer + e2e metrics
+- `dspy_implementation/mlflow_tracking.py` - Experiment tracking
+- `dspy_implementation/enhanced_miprov2_optimization.py` - Complete pipeline
+
+**Original Components** (still valid):
+- `colbert_text_only_evaluation.py` - ColBERT Text RAG (40.0% accuracy)
+- `dspy_implementation/evaluate_full_dataset.py` - DSPy baseline (45.1%)
+- `mmesgbench_dataset_corrected.json` - Authoritative dataset (933 questions)
+
+### Next Action: Run Enhanced Optimization
+```bash
+# Execute Phase 1a optimization
+python dspy_implementation/enhanced_miprov2_optimization.py
+
+# Monitor progress
+mlflow ui  # Open http://localhost:5000
+tail -f enhanced_optimization.log
+```
+
+**Expected Runtime**: 45-90 minutes
+**Expected Result**: 3-8% improvement via query + prompt optimization
