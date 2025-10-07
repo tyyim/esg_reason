@@ -233,11 +233,11 @@ Successfully downloaded all **933 questions** across **45 ESG documents**.
 - **Phase 1a**: MIPROv2 (Multi-prompt Instruction Proposal Optimizer v2) - current phase
 - **Phase 1b**: GEPA (Reflective prompt evolution) - planned after MIPROv2 completion
 
-**Dataset Splits** (20/10/70 stratified by Evidence Type × Difficulty):
-- **Train**: 178 questions (19.2%) - For MIPROv2/GEPA prompt optimization
-- **Dev**: 84 questions (9.0%) - For validation during optimization
-- **Test**: 667 questions (71.8%) - For final evaluation and comparison
-- **Unique Questions**: 929 (4 duplicates removed from original 933)
+**Dataset Splits** (20/10/70 stratified):
+- **Train**: 186 questions (20%) - For MIPROv2/GEPA prompt optimization
+- **Dev**: 93 questions (10%) - For validation during optimization
+- **Test**: 654 questions (70%) - For final evaluation and comparison
+- **Total**: 933 questions
 
 **Stratification Strategy**:
 - Evidence Types: Pure-text (44.8%), Unknown (16.0%), Table (11.7%), Generalized-text (11.5%), Image (8.5%), Chart (7.4%)
@@ -246,14 +246,16 @@ Successfully downloaded all **933 questions** across **45 ESG documents**.
 - **Details**: See `DSPy_Train_Dev_Test_Split_Plan.md` for complete split methodology
 
 **Implementation Tasks**:
-- [x] Create stratified splits using evidence type × difficulty matrix
-- [x] Validate split quality (distribution, no data leakage, document diversity)
-- [x] Update production scripts to use `mmesgbench_dataset_corrected.json`
+- [x] Create dataset splits (20/10/70)
+- [x] Index all 45 documents to PostgreSQL with Qwen embeddings (54,608 chunks)
+- [x] Establish Qwen baseline on wrong 80% split: 55.8% (incorrect split - to be redone)
+- [x] Fix dataset split to correct 20/10/70 distribution
+- [x] Document MIPROv2 architecture (see `MIPROv2_Architecture_Diagram.md`)
 - [ ] **Phase 1a: MIPROv2 Optimization** (current)
-  - [ ] Wrap ColBERT retrieval in DSPy signatures (already done in existing code)
-  - [ ] Apply MIPROv2 optimizer on training set (178 questions)
-  - [ ] Evaluate on dev set and tune hyperparameters
-  - [ ] Target: 46-47% accuracy (+1-2% over 45.1% baseline)
+  - [ ] Re-establish baseline on correct 186 questions (20% split)
+  - [ ] Apply MIPROv2 optimizer on training set (186 questions)
+  - [ ] Evaluate on dev set (93 questions) and tune hyperparameters
+  - [ ] Target: Baseline + 1-2% improvement via optimized prompts
 - [ ] **Phase 1b: GEPA Optimization** (planned)
   - [ ] Apply GEPA optimizer on training set
   - [ ] Compare MIPROv2 vs GEPA performance
