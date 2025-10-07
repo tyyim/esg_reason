@@ -72,15 +72,15 @@ class MMESGBenchDataset:
 
         return examples
 
-    def create_splits(self, train_ratio: float = 0.8, dev_ratio: float = 0.1,
-                     test_ratio: float = 0.1, seed: int = 42) -> Dict[str, List[dspy.Example]]:
+    def create_splits(self, train_ratio: float = 0.2, dev_ratio: float = 0.1,
+                     test_ratio: float = 0.7, seed: int = 42) -> Dict[str, List[dspy.Example]]:
         """
         Create stratified train/dev/test splits
 
         Args:
-            train_ratio: Proportion for training (default: 0.8)
-            dev_ratio: Proportion for development (default: 0.1)
-            test_ratio: Proportion for test (default: 0.1)
+            train_ratio: Proportion for training (default: 0.2 = 20%)
+            dev_ratio: Proportion for development (default: 0.1 = 10%)
+            test_ratio: Proportion for test (default: 0.7 = 70%)
             seed: Random seed for reproducibility
 
         Returns:

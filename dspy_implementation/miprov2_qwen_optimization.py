@@ -113,12 +113,9 @@ def optimize_with_miprov2(train_set, dev_set, num_candidates: int = 10,
         verbose=verbose
     )
 
-    # Run optimization (use subset for efficiency)
-    optimization_size = min(100, len(train_set))  # Use 100 questions for optimization
-    train_subset = train_set[:optimization_size]
-
+    # Use full train set for optimization (it's now only 20% = ~187 questions)
     print(f"\n🚀 Running MIPROv2 optimization...")
-    print(f"   Optimizing on {optimization_size} training questions")
+    print(f"   Optimizing on {len(train_set)} training questions (20% of dataset)")
     print(f"   This will take approximately 30-60 minutes...")
     print(f"   Progress will be saved automatically by DSPy\n")
 
@@ -128,11 +125,10 @@ def optimize_with_miprov2(train_set, dev_set, num_candidates: int = 10,
     try:
         optimized_rag = optimizer.compile(
             student=baseline_rag,
-            trainset=train_subset,
+            trainset=train_set,
             num_trials=20,  # Number of optimization trials
             max_bootstrapped_demos=4,  # Max few-shot examples per prompt
-            max_labeled_demos=4,  # Max labeled examples
-            eval_kwargs={'num_threads': 1, 'display_progress': True}
+            max_labeled_demos=4  # Max labeled examples
         )
 
         print("\n✅ MIPROv2 optimization completed!")
@@ -191,8 +187,8 @@ def main():
     print("MIPROv2 Optimization for MMESGBench (Qwen Baseline)")
     print("=" * 80)
     print(f"\nStarted: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"\nBaseline: 55.8% accuracy (PostgreSQL + Qwen embeddings)")
-    print(f"Target: 57-58% accuracy (+1-2% improvement)")
+    print(f"\nBaseline: TBD (PostgreSQL + Qwen embeddings on 20% train split)")
+    print(f"Target: Baseline + 1-2% improvement")
 
     # Initialize DSPy
     print(f"\n📋 Setting up DSPy environment...")
@@ -208,9 +204,9 @@ def main():
     test_set = dataset.test_set
 
     print(f"\n📈 Dataset Summary:")
-    print(f"   Training: {len(train_set)} questions (80%)")
+    print(f"   Training: {len(train_set)} questions (20%)")
     print(f"   Dev: {len(dev_set)} questions (10%)")
-    print(f"   Test: {len(test_set)} questions (10%)")
+    print(f"   Test: {len(test_set)} questions (70%)")
     print(f"   Documents: 45/45 (100% coverage)")
     print(f"   Total chunks: 54,608")
 
