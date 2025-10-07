@@ -139,7 +139,10 @@ def run_qwen_baseline_train(max_questions=None):
         acc = stats['accuracy']
         correct = stats['correct']
         total = stats['total']
-        print(f"   {fmt:6s}: {acc:6.1%} ({correct:3d}/{total:3d})")
+        if acc is not None:
+            print(f"   {fmt:6s}: {acc:6.1%} ({correct:3d}/{total:3d})")
+        else:
+            print(f"   {fmt:6s}: N/A     ({correct:3d}/{total:3d})")
 
     # Baseline comparison
     previous_baseline = 0.451  # 45.1% with SentenceTransformer
