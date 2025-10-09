@@ -220,67 +220,100 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
         desc="Dev evaluation (optimized)"
     )
 
-    print(f"\n📈 Dev Set Results (Optimized):")
-    print(f"   Retrieval accuracy: {dev_results['retrieval_accuracy']:.1%} " +
-          f"({dev_results['retrieval_correct']}/{dev_results['total']})")
-    print(f"   Answer accuracy: {dev_results['answer_accuracy']:.1%} " +
-          f"({dev_results['answer_correct']}/{dev_results['total']})")
-    print(f"   End-to-end accuracy: {dev_results['end_to_end_accuracy']:.1%} " +
-          f"({dev_results['end_to_end_correct']}/{dev_results['total']})")
+    # Log to MLFlow FIRST (before printing, so it happens even if print crashes)
+    print("\n📊 Logging results to MLFlow...")
+    try:
+        mlflow_tracker.log_final_results(dev_results)
 
-    # Print format breakdown
-    print(f"\n📋 Format Breakdown (Dev Set):")
-    for fmt, stats in dev_results['by_format'].items():
-        fmt_str = str(fmt) if fmt is not None else "None"
-        print(f"   {fmt_str:6s}:")
-        print(f"      Retrieval: {stats['retrieval_accuracy']:6.1%} ({stats['retrieval_correct']}/{stats['total']})")
-        print(f"      Answer:    {stats['answer_accuracy']:6.1%} ({stats['answer_correct']}/{stats['total']})")
-        print(f"      E2E:       {stats['end_to_end_accuracy']:6.1%} ({stats['end_to_end_correct']}/{stats['total']})")
+        # Save predictions as artifact
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            predictions_data = [
+                {
+                    'question': ex.question,
+                    'answer': pred.answer if hasattr(pred, 'answer') else None,
+                    'context': pred.context if hasattr(pred, 'context') else None,
+                    'doc_id': ex.doc_id,
+                    'ground_truth': ex.answer,
+                    'evidence_pages': ex.evidence_pages
+                }
+                for ex, pred in zip(dev_set, dev_predictions)
+            ]
+            json.dump(predictions_data, f, indent=2)
+            predictions_file = f.name
 
-    # Log to MLFlow
-    mlflow_tracker.log_final_results(dev_results)
+        mlflow_tracker.client.log_artifact(mlflow_tracker.run_id, predictions_file, "predictions")
+        print(f"   ✅ MLFlow logging complete (run: {mlflow_tracker.run_id})")
+    except Exception as e:
+        print(f"   ⚠️  MLFlow logging error: {e}")
+
+    # Print results (wrapped in try-except to not crash the whole script)
+    try:
+        print(f"\n📈 Dev Set Results (Optimized):")
+        print(f"   Retrieval accuracy: {dev_results['retrieval_accuracy']:.1%} " +
+              f"({dev_results['retrieval_correct']}/{dev_results['total']})")
+        print(f"   Answer accuracy: {dev_results['answer_accuracy']:.1%} " +
+              f"({dev_results['answer_correct']}/{dev_results['total']})")
+        print(f"   End-to-end accuracy: {dev_results['end_to_end_accuracy']:.1%} " +
+              f"({dev_results['end_to_end_correct']}/{dev_results['total']})")
+
+        # Print format breakdown
+        print(f"\n📋 Format Breakdown (Dev Set):")
+        for fmt, stats in dev_results['by_format'].items():
+            fmt_str = str(fmt) if fmt is not None else "None"
+            print(f"   {fmt_str:6s}:")
+            print(f"      Retrieval: {stats['retrieval_accuracy']:6.1%} ({stats['retrieval_correct']}/{stats['total']})")
+            print(f"      Answer:    {stats['answer_accuracy']:6.1%} ({stats['answer_correct']}/{stats['total']})")
+            print(f"      E2E:       {stats['end_to_end_accuracy']:6.1%} ({stats['end_to_end_correct']}/{stats['total']})")
+    except Exception as e:
+        print(f"\n⚠️  Error printing results: {e}")
+        print(f"   Results still logged to MLFlow successfully!")
 
     # ==================================================
     # Step 5: Comparison and Analysis
     # ==================================================
-    print("\n" + "=" * 80)
-    print("COMPARISON: Baseline vs Enhanced vs Optimized")
-    print("=" * 80)
+    try:
+        print("\n" + "=" * 80)
+        print("COMPARISON: Baseline vs Enhanced vs Optimized")
+        print("=" * 80)
 
-    print(f"\n📊 Retrieval Accuracy:")
-    print(f"   True Baseline (no query opt):  {baseline_results['retrieval_accuracy']:.1%}")
-    print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['retrieval_accuracy']:.1%}")
-    print(f"   Optimized (MIPROv2):           {dev_results['retrieval_accuracy']:.1%}")
-    retrieval_gain = dev_results['retrieval_accuracy'] - baseline_results['retrieval_accuracy']
-    print(f"   Improvement: {retrieval_gain:+.1%}")
+        print(f"\n📊 Retrieval Accuracy:")
+        print(f"   True Baseline (no query opt):  {baseline_results['retrieval_accuracy']:.1%}")
+        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['retrieval_accuracy']:.1%}")
+        print(f"   Optimized (MIPROv2):           {dev_results['retrieval_accuracy']:.1%}")
+        retrieval_gain = dev_results['retrieval_accuracy'] - baseline_results['retrieval_accuracy']
+        print(f"   Improvement: {retrieval_gain:+.1%}")
 
-    print(f"\n📊 Answer Accuracy:")
-    print(f"   True Baseline (no query opt):  {baseline_results['answer_accuracy']:.1%}")
-    print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['answer_accuracy']:.1%}")
-    print(f"   Optimized (MIPROv2):           {dev_results['answer_accuracy']:.1%}")
-    answer_gain = dev_results['answer_accuracy'] - baseline_results['answer_accuracy']
-    print(f"   Improvement: {answer_gain:+.1%}")
+        print(f"\n📊 Answer Accuracy:")
+        print(f"   True Baseline (no query opt):  {baseline_results['answer_accuracy']:.1%}")
+        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['answer_accuracy']:.1%}")
+        print(f"   Optimized (MIPROv2):           {dev_results['answer_accuracy']:.1%}")
+        answer_gain = dev_results['answer_accuracy'] - baseline_results['answer_accuracy']
+        print(f"   Improvement: {answer_gain:+.1%}")
 
-    print(f"\n📊 End-to-End Accuracy:")
-    print(f"   True Baseline (no query opt):  {baseline_results['end_to_end_accuracy']:.1%}")
-    print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['end_to_end_accuracy']:.1%}")
-    print(f"   Optimized (MIPROv2):           {dev_results['end_to_end_accuracy']:.1%}")
-    e2e_gain = dev_results['end_to_end_accuracy'] - baseline_results['end_to_end_accuracy']
-    print(f"   Improvement: {e2e_gain:+.1%}")
+        print(f"\n📊 End-to-End Accuracy:")
+        print(f"   True Baseline (no query opt):  {baseline_results['end_to_end_accuracy']:.1%}")
+        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['end_to_end_accuracy']:.1%}")
+        print(f"   Optimized (MIPROv2):           {dev_results['end_to_end_accuracy']:.1%}")
+        e2e_gain = dev_results['end_to_end_accuracy'] - baseline_results['end_to_end_accuracy']
+        print(f"   Improvement: {e2e_gain:+.1%}")
 
-    # Log comparison to MLFlow
-    mlflow_tracker.log_comparison(
-        baseline_metrics=baseline_results,
-        optimized_metrics=dev_results
-    )
+        # Log comparison to MLFlow
+        mlflow_tracker.log_comparison(
+            baseline_metrics=baseline_results,
+            optimized_metrics=dev_results
+        )
 
-    # Determine success
-    if e2e_gain >= 0.03:
-        print(f"\n✅ SUCCESS: Achieved target improvement (+3% or more)!")
-    elif e2e_gain > 0:
-        print(f"\n⚠️  Minor improvement, consider more optimization")
-    else:
-        print(f"\n⚠️  No improvement, may need architecture changes")
+        # Determine success
+        if e2e_gain >= 0.03:
+            print(f"\n✅ SUCCESS: Achieved target improvement (+3% or more)!")
+        elif e2e_gain > 0:
+            print(f"\n⚠️  Minor improvement, consider more optimization")
+        else:
+            print(f"\n⚠️  No improvement, may need architecture changes")
+    except Exception as e:
+        print(f"\n⚠️  Error in comparison analysis: {e}")
+        print(f"   Results already logged to MLFlow")
 
     return optimized_rag, dev_results, dev_predictions
 
@@ -386,16 +419,17 @@ def main():
             }
         }
 
-        with open(results_file, 'w') as f:
-            json.dump(detailed_results, f, indent=2)
+        try:
+            with open(results_file, 'w') as f:
+                json.dump(detailed_results, f, indent=2)
 
-        print(f"\n💾 Detailed results saved to: {results_file}")
+            print(f"\n💾 Detailed results saved to: {results_file}")
 
-        # Log artifact to MLFlow
-        tracker.log_final_results(
-            metrics=dev_results,
-            artifacts={'results': results_file}
-        )
+            # Log detailed results artifact to MLFlow
+            tracker.client.log_artifact(tracker.run_id, results_file, "results")
+            print(f"   ✅ Results artifact logged to MLFlow")
+        except Exception as e:
+            print(f"   ⚠️  Could not save/log detailed results: {e}")
 
     finally:
         # Always end MLFlow run
