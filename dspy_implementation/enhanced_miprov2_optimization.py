@@ -231,7 +231,8 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     # Print format breakdown
     print(f"\n📋 Format Breakdown (Dev Set):")
     for fmt, stats in dev_results['by_format'].items():
-        print(f"   {fmt:6s}:")
+        fmt_str = str(fmt) if fmt is not None else "None"
+        print(f"   {fmt_str:6s}:")
         print(f"      Retrieval: {stats['retrieval_accuracy']:6.1%} ({stats['retrieval_correct']}/{stats['total']})")
         print(f"      Answer:    {stats['answer_accuracy']:6.1%} ({stats['answer_correct']}/{stats['total']})")
         print(f"      E2E:       {stats['end_to_end_accuracy']:6.1%} ({stats['end_to_end_correct']}/{stats['total']})")
