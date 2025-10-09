@@ -179,6 +179,7 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 
     optimizer = MIPROv2(
         metric=mmesgbench_end_to_end_metric,  # Optimize for both retrieval + answer
+        auto=None,  # Disable auto mode to use manual parameters
         num_candidates=num_candidates,
         init_temperature=init_temperature,
         verbose=True
