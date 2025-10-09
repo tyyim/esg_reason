@@ -59,12 +59,12 @@ def retrieval_accuracy(example, prediction, trace=None) -> float:
             f"pg {page_num}",
             f"pg. {page_num}"
         ]
-        if any(pattern in context.lower() for pattern in patterns):
+        # Convert patterns to lowercase for case-insensitive matching
+        if any(pattern.lower() in context.lower() for pattern in patterns):
             return 1.0
 
-    # If no explicit page references, assume retrieval worked
-    # (chunks may not include page metadata)
-    return 1.0
+    # No matching evidence pages found - retrieval failed
+    return 0.0
 
 
 def answer_accuracy(example, prediction, trace=None) -> float:
