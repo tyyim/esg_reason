@@ -1,5 +1,8 @@
 # CLAUDE.md - ESG Reasoning and Green Finance Research Project
 
+> **Maintenance Guidelines**: See `.claude/CLAUDE_MD_GUIDELINES.md` for how to maintain this file.
+> **Key Principle**: Keep this concise - scannable in 30 seconds. Detailed investigations go in separate docs.
+
 ## 🎯 **Current Project Focus**
 
 **PRIMARY OBJECTIVE**: Replicate MMESGBench's **retrieval-augmented approaches** (ColBERT Text RAG + ColPali Visual RAG) to establish baseline, then enhance with DSPy/GEPA optimization.
@@ -211,29 +214,32 @@ PDF → Images (144 DPI) → ColPali embeddings → Top-5 pages → Qwen-VL Max 
 
 ## 💡 **For Future Claude Sessions**
 
-### Phase 0B COMPLETED ✅ - DSPy Baseline at 45.1%
+### Phase 0B COMPLETED ✅
 1. **COMPLETED**: Both retrieval implementations tested (ColBERT 40.0%, ColPali 40.0%)
-2. **COMPLETED**: DSPy baseline established at 45.1% (+3.8% over ColBERT)
-3. **COMPLETED**: Full dataset evaluation on 933 questions
-4. **COMPLETED**: All 45 documents indexed to PostgreSQL (54,608 chunks)
+2. **COMPLETED**: All 45 documents indexed to PostgreSQL (54,608 chunks)
+3. **CRITICAL BUG FIXED** (Oct 9, 2025): Retrieval metric was returning 1.0 instead of 0.0 for failures
+   - Previous baselines (39.9%, 41.3%, 45.1%) were INVALID - calculated with broken metric
+   - **True baseline with fixed metrics**: **38.7%** (36/93 on dev set)
+   - Details in `PHASE_1A_FINDINGS.md` and `BASELINE_COMPARISON.md`
 
-### Phase 1a READY ✅ - Enhanced Architecture Implemented
-**Critical Innovation**: Redesigned based on DSPy best practices to address retrieval bottleneck
+### Phase 1a READY ✅ - Enhanced Architecture + Fixed Metrics (Oct 9-10, 2025)
 
-**Key Insight from Research**:
-- Retrieval bottleneck = 90% of accuracy issues
-- Only 37% retrieval accuracy with raw queries
-- Multi-hop RAG improves recall from 30% → 60%
+**Current Baseline** (with FIXED metrics):
+- Dev set (93 questions): **38.7%** E2E | 75.3% retrieval | 49.5% answer
+- Full dataset (933 questions): Not yet evaluated with fixed metrics
 
-**Solution Implemented**:
-- **Query Generation Module**: Optimizable query reformulation BEFORE retrieval
-- **Enhanced Metrics**: Separate retrieval + answer + end-to-end accuracy
-- **MLFlow Tracking**: Experiment tracking and visualization
-- **4-Stage Pipeline**: Query Gen → Retrieval → Reasoning → Extraction
+**Key Fixes Applied**:
+1. Retrieval metric: Now correctly returns 0.0 for failures (was always 1.0)
+2. MLFlow logging: Now logs before printing + saves prediction artifacts
 
-**Expected Improvements**:
-- Retrieval: 37% → 50-60% (+13-23%)
-- End-to-end: 45% → 48-53% (+3-8%)
+**Architecture Enhancements**:
+- Query Generation Module (optimizable)
+- Enhanced Metrics (retrieval + answer + E2E)
+- MLFlow Tracking (http://localhost:5000)
+- 4-Stage Pipeline: Query Gen → Retrieval → Reasoning → Extraction
+
+**Expected Results** (dev set optimization):
+- Target: 38.7% → 43-50% (+5-12%)
 
 ### Key Production Files (Phase 1a Implementation)
 **Enhanced Components**:
