@@ -1,0 +1,214 @@
+{
+  "query_gen.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "Can ISO 26000 be used for for certification purposes? Answer Yes, No, or Not answerable",
+        "doc_type": "ESG Climate Report",
+        "reasoning": "The question is asking about the use of ISO 26000 for certification, which is a specific and well-defined topic. The search query should include the key term \"ISO 26000\" and focus on whether it can be used for certification purposes. Given that the document type is an ESG Climate Report, we should also consider including terms related to ESG and sustainability to ensure the context is relevant.",
+        "search_query": "\"ISO 26000\" AND \"certification\" AND (\"ESG\" OR \"sustainability\")"
+      },
+      {
+        "augmented": true,
+        "question": "Which emission scope includes staff commuting and waste disposal in the health sector?",
+        "doc_type": "ESG Climate Report",
+        "reasoning": "The query will be optimized to specifically look for information related to emission scopes, staff commuting, and waste disposal in the health sector. These are key terms that should help in identifying the relevant section of an ESG Climate Report that discusses the classification of these activities under specific emission scopes.",
+        "search_query": "\"emission scope staff commuting waste disposal health sector\""
+      },
+      {
+        "augmented": true,
+        "question": "How many modules are there in the full corporate questionnaire?",
+        "doc_type": "ESG Climate Report",
+        "reasoning": "The user is asking for the number of modules in a full corporate questionnaire, which is likely to be found in the methodology or structure section of an ESG Climate Report. The search query should focus on finding mentions of \"modules\" and \"corporate questionnaire\" within the context of the report's structure.",
+        "search_query": "\"full corporate questionnaire\" AND \"modules\" AND (structure OR methodology) AND \"ESG Climate Report\""
+      },
+      {
+        "augmented": true,
+        "question": "Which part of the island of Cyprus is recognized by the Republic of Türkiye according to the OECD Employment Outlook 2024?",
+        "doc_type": "ESG Climate Report",
+        "reasoning": "The original question is about geopolitical recognition, which is not directly related to ESG or climate data. However, since the user specified an ESG Climate Report and the OECD Employment Outlook 2024, it's possible they are looking for information on how this recognition might impact ESG factors or climate-related initiatives in the region. The search query will focus on finding any relevant ESG or climate-related information that might be associated with the recognition of the northern part of Cyprus by the Republic of Türkiye.",
+        "search_query": "\"ESG impact recognition northern Cyprus Republic of Türkiye OECD Employment Outlook 2024\""
+      }
+    ],
+    "signature": {
+      "instructions": "Generate optimized search query for ESG document retrieval.\n\nThis signature is optimizable - MIPROv2 will learn better instructions\nfor reformulating questions to maximize retrieval accuracy.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original user question about ESG or climate data"
+        },
+        {
+          "prefix": "Doc Type:",
+          "description": "Document type: ESG report, climate assessment, sustainability report"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this query will retrieve relevant evidence"
+        },
+        {
+          "prefix": "Search Query:",
+          "description": "Optimized retrieval query with key ESG terms, metrics, and context"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "reasoning.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "How much land in acres has been legally designated as permanently protected compared to the goal by FY23?",
+        "context": "[Page 47, score: 0.705]\n11,000 by more than 40%.\nFind out more in our Data Fact Sheet\n Image captured by Martin Tatar, Business Ops & Program Manager, Czech Republic\nEcosystems Chart 1–Meeting our target of protecting more land than we use by 2025 \nAs of FY23, Microsoft has contracted to protect 17,439 acres of land, and 15,849 acres were designated \nas permanently protected. \nTotal land protected \n15,849 acres\nMicrosoft land use footprint \n11,000 acres\nTotal land contracted \nto be protected \n17,439 \nacres\n\n[Page 46, score: 0.700]\nIn 2020, we committed to protecting more land \nthan we use by 2025. As of FY23, 15,849 acres of \nland have been legally designated as permanently \nprotected. We have exceeded our land protection \ntarget of 11,000 by more than 40%. \nAI gives new hope and opportunity for ecosystem \nand biodiversity management at a scale previously \nnot possible. Researchers and practitioners are using \nAI to enable more reliable biodiversity monitoring \nand assessments, and to transform conservation\n\n[Page 7, score: 0.700]\nOur reuse and recycle rates of servers and \ncomponents across all cloud hardware reached \n89.4% in FY23. • \nWe reduced single-use plastics in our Microsoft \nproduct packaging to 2.7% in FY23. \n \n \n \n \nEcosystems \nTotal amount of land \nprotected in FY23 \n15,849 acres\nThis is equivalent to over \n9,000 soccer pitches. • \n15,849 acres were designated as permanently \nprotected. We exceeded our land protection \ntarget of 11,000 by more than 40%. • \nThrough the Microsoft Datacenter Community\n\n[Page 6, score: 0.699]\nlonger and approach our work at every stage with \ncircularity in mind. We are accelerating our work to \nreuse and recycle cloud hardware wherever possible, \nand launched two new Circular Centers in Quincy, \nWashington and Chicago, Illinois in 2023. \nProtecting ecosystems \nWe have committed to protect more land than \nwe use by 2025, while preserving and restoring \necosystems in the areas where we live and work. \nAs of FY23, we exceeded our land protection target\n\n[Page 47, score: 0.699]\n47\nOverview \nCustomer sustainability \nGlobal sustainability \nAppendix \nMicrosoft sustainability \n47 \nCarbon Water Waste Ecosystems \nOur approach continued \nOur targets \nTaking responsibility for our \nland footprint \nWe will take responsibility for the ecosystem \nimpacts of our direct operations by protecting \nmore land than we use by 2025. \nOur progress \n15,849 acres \npermanently protected \nWe have exceeded our land protection target of \n11,000 by more than 40%.",
+        "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+        "reasoning": "The question asks for the amount of land in acres that has been legally designated as permanently protected compared to the goal by FY23. The context provides specific details about the land protection efforts and the goals set by Microsoft.",
+        "analysis": "- **Context Analysis:**\n  - From the context, it is clear that Microsoft has a target to protect more land than it uses by 2025.\n  - As of FY23, Microsoft has contracted to protect 17,439 acres of land.\n  - Out of this, 15,849 acres have been legally designated as permanently protected.\n  - The goal was to protect 11,000 acres, and Microsoft has exceeded this target by more than 40%.\n\n- **Comparison to the Goal:**\n  - The goal was to protect 11,000 acres.\n  - The actual amount of land that has been legally designated as permanently protected is 15,849 acres.\n  - This means Microsoft has exceeded the goal by 15,849 - 11,000 = 4,849 acres.\n  - The percentage by which the goal has been exceeded is (4,849 / 11,000) * 100 ≈ 44.08%, which is indeed more than 40%.\n\n- **Conclusion:**\n  - By FY23, 15,849 acres of land have been legally designated as permanently protected, exceeding the goal of 11,000 acres by 4,849 acres or approximately 44.08%."
+      },
+      {
+        "augmented": true,
+        "question": "What is the difference in DEI data completion rates between 2022 and 2023?",
+        "context": "[Page 53, score: 0.789]\nDEI data and pay gap report. \nOur completion rates for employee DEI data have increased \nto an average of 91% across fields, up from 86% in 2022. \nThe 2024 DEI data and pay gap report shows reductions in \nboth gender and ethnicity pay gaps and steady progress in \ngrowing our Black, Indigenous and People of Colour and \nLGBTQ+ employee populations. \nOur December 2023 employee engagement survey revealed \nconsistent scores across three DEI-focused questions from \nthe previous year.\nTelling our story\n\n[Page 68, score: 0.699]\ncompletion rates for employee DEI data which enabled \ntarget setting and tracking. The 2024 pay gap report \nshowed a decrease in gender and ethnicity pay gaps \nand an increase in the proportion of Black and LGBTQ+ \nemployees. \n\t\n■\nAnnual pay review. This was aligned with the reward \npolicy for employees. The committee supported \nbenchmarking roles for consistency and to offer a \ncompetitive package to current and future employees. \nThe 2023 pay review was recommended for Board \napproval.\n\t\n■\n\n[Page 53, score: 0.694]\nthe previous year.\nTelling our story\nWe continue to engage our people through our events and \ncommunication campaigns designed to raise awareness \nand educate on various DEI issues. These initiatives help \nus share our DEI journey and reinforce our commitment to \nfostering a diverse and inclusive workplace.\nOrganisational target \n2022 \n2023 \nMaintain a minimum of \n50% female, gender non-\nconforming or non-binary \nemployees at every level  \nAchieved \nAchieved  \nA year-on-year increase in\n\n[Page 53, score: 0.675]\non this initiative. The Gender Balance Network marked \nInternational Women’s Day in 2023 with an event focused on \ntackling bias, while our Disability Network has developed \nguidance for requesting disability-related adjustments and \norganising disability-inclusive events.\nMeasuring our impact\nWe have made substantial progress in tracking and \nimproving our DEI efforts. \nWe set targets in 2022 and report on them annually in our \nDEI data and pay gap report.\n\n[Page 68, score: 0.672]\ndirection and articulate clearly how the PRI is both \nmission-driven and signatory-centric. The committee \nwelcomed the formation of the Employee Engagement \nCommittee (EEC), including elected representatives, in \nFebruary 2024. The EEC will engage with the committee \nin future meetings.   \n\t\n■\nDiversity, equity and inclusion. Whilst recognising the \nneed for further progress the committee was pleased \nwith the DEI progress over the year. This included high",
+        "doc_id": "PRI 2024.pdf",
+        "reasoning": "The DEI data completion rates for 2022 and 2023 are provided in the context, and we can calculate the difference by subtracting the 2022 rate from the 2023 rate.",
+        "analysis": "The context states that the completion rates for employee DEI data have increased to an average of 91% across fields in 2023, up from 86% in 2022. To find the difference in DEI data completion rates between 2022 and 2023, we subtract the 2022 rate from the 2023 rate:\n- 2023 completion rate: 91%\n- 2022 completion rate: 86%\n- Difference: 91% - 86% = 5%\n\nTherefore, the difference in DEI data completion rates between 2022 and 2023 is 5 percentage points."
+      },
+      {
+        "doc_id": "Gender 2024.pdf",
+        "question": "Which five countries have the highest percentage of girls proficient in advanced programming as of 2023?",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "Governance-related Standards"
+      },
+      {
+        "doc_id": "Microsoft-CDP-2024-Response.pdf",
+        "question": "Does Microsoft’s emissions reduction target include any land-related emissions? Answer Yes, No, or Not answerable",
+        "answer": "No",
+        "answer_format": "Str",
+        "evidence_pages": [
+          70,
+          73,
+          81,
+          85,
+          92
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)",
+          "Generalized-text (Layout)"
+        ],
+        "doc_type": "CDP Climate Responses"
+      }
+    ],
+    "signature": {
+      "instructions": "Analyze ESG document context and provide detailed reasoning.\n\nStage 1 of two-stage extraction: Generate chain-of-thought analysis\nover retrieved context to answer ESG questions.",
+      "fields": [
+        {
+          "prefix": "Context:",
+          "description": "Retrieved chunks from ESG documents"
+        },
+        {
+          "prefix": "Question:",
+          "description": "ESG question to answer"
+        },
+        {
+          "prefix": "Doc Id:",
+          "description": "Source document identifier"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Detailed chain-of-thought reasoning analyzing the context to answer the question"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "extraction": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "Does Microsoft’s emissions reduction target include any land-related emissions? Answer Yes, No, or Not answerable",
+        "analysis": "The context provided explicitly states that Microsoft's emissions reduction target does not cover any land-related emissions. This is indicated in the following excerpt from the document:\n\n- \"(7.53.1.78) Land-related emissions covered by target\n  ☑ No, it does not cover any land-related emissions (e.g. non-FLAG SBT)\"\n\nThis direct statement confirms that the target set by Microsoft for reducing emissions does not include land-related emissions. Therefore, the answer to the question is \"No.\"",
+        "answer_format": "Str",
+        "extracted_answer": "No"
+      },
+      {
+        "doc_id": "Microsoft-CDP-2024-Response.pdf",
+        "question": "What percentage of total emissions covered by Microsoft’s 2030 target is made up of Scope 3 emissions in the reporting year?",
+        "answer": "0.9649",
+        "answer_format": "Float",
+        "evidence_pages": [
+          79
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)"
+        ],
+        "doc_type": "CDP Climate Responses"
+      },
+      {
+        "doc_id": "PRI 2024.pdf",
+        "question": "What is the difference in DEI data completion rates between 2022 and 2023?",
+        "answer": "5%",
+        "answer_format": "Float",
+        "evidence_pages": [
+          53
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "WELL 2020.pdf",
+        "question": "What is the maximum allowed concentration (in mg/L) of benzene in drinking water according to the WELL Building Standard?",
+        "answer": "0.01",
+        "answer_format": "Float",
+        "evidence_pages": [
+          52
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)"
+        ],
+        "doc_type": "Environment-related Standards"
+      }
+    ],
+    "signature": {
+      "instructions": "Given the chain-of-thought analysis, extract the final answer in the specified format (Int, Float, Str, or List). Ensure the answer is clear and directly addresses the original question.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original ESG question"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Chain-of-thought reasoning from Stage 1"
+        },
+        {
+          "prefix": "Answer Format:",
+          "description": "Required answer format: Int, Float, Str, or List"
+        },
+        {
+          "prefix": "Extracted Answer:",
+          "description": "Final answer in specified format (only the answer value, no explanation)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
