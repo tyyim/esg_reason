@@ -21,6 +21,7 @@ from datetime import datetime
 from tqdm import tqdm
 import dspy
 from dspy.teleprompt import MIPROv2
+import mlflow
 
 # Add parent directory to path
 project_root = Path(__file__).parent.parent
@@ -239,8 +240,9 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
             json.dump(predictions_data, f, indent=2)
             predictions_file = f.name
 
-        mlflow_tracker.client.log_artifact(mlflow_tracker.run_id, predictions_file, "predictions")
+        mlflow.log_artifact(predictions_file, "predictions")
         print(f"   ✅ MLFlow logging complete (run: {mlflow_tracker.run_id})")
+        print(f"   ✅ Predictions artifact saved")
     except Exception as e:
         print(f"   ⚠️  MLFlow logging error: {e}")
 
@@ -423,7 +425,7 @@ def main():
             print(f"\n💾 Detailed results saved to: {results_file}")
 
             # Log detailed results artifact to MLFlow
-            tracker.client.log_artifact(tracker.run_id, results_file, "results")
+            mlflow.log_artifact(results_file, "results")
             print(f"   ✅ Results artifact logged to MLFlow")
         except Exception as e:
             print(f"   ⚠️  Could not save/log detailed results: {e}")
