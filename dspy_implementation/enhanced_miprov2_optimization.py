@@ -156,7 +156,7 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     # Step 3: Configure and Run MIPROv2 Optimization
     # ==================================================
     print(f"\n🔧 Step 3: Configuring MIPROv2 optimizer...")
-    print(f"   Auto mode: light (6 trials, ~15-30 min)")
+    print(f"   Auto mode: medium (12 trials, ~45-90 min)")
     print(f"   Temperature: {init_temperature}")
     print(f"   Metric: End-to-end accuracy (retrieval + answer)")
     print(f"   Training set: {len(train_set)} questions")
@@ -169,7 +169,7 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     # Log optimization config
     mlflow_tracker.log_params({
         'optimizer': 'MIPROv2',
-        'auto_mode': 'light',
+        'auto_mode': 'medium',
         'init_temperature': init_temperature,
         'max_bootstrapped_demos': 4,
         'max_labeled_demos': 4,
@@ -179,13 +179,13 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 
     optimizer = MIPROv2(
         metric=mmesgbench_end_to_end_metric,  # Optimize for both retrieval + answer
-        auto="light",  # Light mode: 6 trials, ~15-30 min (validate workflow first)
+        auto="medium",  # Medium mode: 12 trials, ~45-90 min (production quality)
         init_temperature=init_temperature,
         verbose=True
     )
 
     print(f"\n🚀 Running MIPROv2 optimization...")
-    print(f"   Mode: auto='light' (6 trials, ~15-30 minutes)")
+    print(f"   Mode: auto='medium' (12 trials, ~45-90 minutes)")
     print(f"   Training on {len(train_set)} questions (20% of dataset)")
     print(f"   Progress tracked in MLFlow\\n")
 
