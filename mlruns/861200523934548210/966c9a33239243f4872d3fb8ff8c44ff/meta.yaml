@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/victoryim/Local_Git/CC/mlruns/861200523934548210/966c9a33239243f4872d3fb8ff8c44ff/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '861200523934548210'
+lifecycle_stage: active
+run_id: 966c9a33239243f4872d3fb8ff8c44ff
+run_name: enhanced_rag_query_optimization_20251012_004403
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760201043600
+status: 1
+tags: []
+user_id: victoryim

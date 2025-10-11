@@ -94,26 +94,26 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
         Tuple of (optimized_rag, dev_results)
     """
     print("\n" + "=" * 80)
-    print("ENHANCED MIPROV2 OPTIMIZATION - Query Generation + RAG")
+    print("BASELINE MIPROV2 OPTIMIZATION - Reasoning + Extraction Only")
     print("=" * 80)
 
     # ==================================================
-    # Step 1: Evaluate True Baseline (no query optimization)
+    # Step 1: Evaluate True Baseline on Dev Set (for fair comparison)
     # ==================================================
-    print("\n📊 Step 1: Evaluating TRUE BASELINE (no query optimization)...")
+    print("\n📊 Step 1: Evaluating TRUE BASELINE on dev set...")
     print("   This uses raw questions for retrieval (current approach)")
+    print(f"   Dev set: {len(dev_set)} questions")
 
     baseline_rag = BaselineMMESGBenchRAG()
 
-    # Evaluate on small train sample
-    sample_size = min(20, len(train_set))
+    # Evaluate on full dev set for fair comparison
     baseline_results, _ = evaluate_rag_with_metrics(
         baseline_rag,
-        train_set[:sample_size],
-        desc="Baseline eval (no query opt)"
+        dev_set,
+        desc="Baseline eval on dev set"
     )
 
-    print(f"\n📈 True Baseline Results (sample of {sample_size}):")
+    print(f"\n📈 True Baseline Results (dev set):")
     print(f"   Retrieval accuracy: {baseline_results['retrieval_accuracy']:.1%}")
     print(f"   Answer accuracy: {baseline_results['answer_accuracy']:.1%}")
     print(f"   End-to-end accuracy: {baseline_results['end_to_end_accuracy']:.1%}")
@@ -132,60 +132,51 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     )
 
     # ==================================================
-    # Step 2: Initialize Enhanced RAG (with query gen, default prompts)
+    # Step 2: Skip Enhanced RAG - Use Baseline for Optimization
     # ==================================================
-    print("\n📊 Step 2: Initializing ENHANCED RAG (with query optimization)...")
-    print("   This includes query generation module (to be optimized)")
+    print("\n📊 Step 2: Using BASELINE RAG for optimization...")
+    print("   Optimizing only: Reasoning + Extraction prompts")
+    print("   NOT optimizing: Query generation (keeping raw questions)")
 
-    enhanced_rag = EnhancedMMESGBenchRAG(enable_query_optimization=True)
+    # Use baseline RAG for optimization (no query generation)
+    rag_to_optimize = BaselineMMESGBenchRAG()
 
-    # Evaluate enhanced RAG before optimization
-    print("\n📊 Evaluating enhanced RAG (before optimization)...")
-    enhanced_baseline_results, _ = evaluate_rag_with_metrics(
-        enhanced_rag,
-        train_set[:sample_size],
-        desc="Enhanced baseline (default prompts)"
-    )
-
-    print(f"\n📈 Enhanced Baseline Results (before optimization):")
-    print(f"   Retrieval accuracy: {enhanced_baseline_results['retrieval_accuracy']:.1%}")
-    print(f"   Answer accuracy: {enhanced_baseline_results['answer_accuracy']:.1%}")
-    print(f"   End-to-end accuracy: {enhanced_baseline_results['end_to_end_accuracy']:.1%}")
+    print(f"\n📈 Baseline to be optimized:")
+    print(f"   Retrieval accuracy: {baseline_results['retrieval_accuracy']:.1%}")
+    print(f"   Answer accuracy: {baseline_results['answer_accuracy']:.1%}")
+    print(f"   End-to-end accuracy: {baseline_results['end_to_end_accuracy']:.1%}")
 
     # ==================================================
     # Step 3: Configure and Run MIPROv2 Optimization
     # ==================================================
     print(f"\n🔧 Step 3: Configuring MIPROv2 optimizer...")
-    print(f"   Auto mode: medium (12 trials, ~45-90 min)")
+    print(f"   Auto mode: light (6 trials, ~20-30 min)")
     print(f"   Temperature: {init_temperature}")
     print(f"   Metric: End-to-end accuracy (retrieval + answer)")
     print(f"   Training set: {len(train_set)} questions")
 
-    print("\n🎯 Optimizing 3 components:")
-    print("   1. Query generation (NEW - optimize retrieval)")
-    print("   2. ESG reasoning (existing - optimize analysis)")
-    print("   3. Answer extraction (existing - optimize extraction)")
+    print("\n🎯 Optimizing 2 components:")
+    print("   1. ESG reasoning (optimize analysis prompts)")
+    print("   2. Answer extraction (optimize extraction prompts)")
 
     # Log optimization config
     mlflow_tracker.log_params({
         'optimizer': 'MIPROv2',
-        'auto_mode': 'medium',
+        'auto_mode': 'light',
         'init_temperature': init_temperature,
-        'max_bootstrapped_demos': 4,
-        'max_labeled_demos': 4,
         'train_size': len(train_set),
         'query_optimization': True
     })
 
     optimizer = MIPROv2(
         metric=mmesgbench_end_to_end_metric,  # Optimize for both retrieval + answer
-        auto="medium",  # Medium mode: 12 trials, ~45-90 min (production quality)
+        auto="light",  # Light mode: 6 trials, ~20-30 min (testing)
         init_temperature=init_temperature,
         verbose=True
     )
 
     print(f"\n🚀 Running MIPROv2 optimization...")
-    print(f"   Mode: auto='medium' (12 trials, ~45-90 minutes)")
+    print(f"   Mode: auto='light' (6 trials, ~20-30 minutes)")
     print(f"   Training on {len(train_set)} questions (20% of dataset)")
     print(f"   Progress tracked in MLFlow\\n")
 
@@ -195,7 +186,7 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
         # When using auto mode, don't pass max_bootstrapped_demos/max_labeled_demos
         # as they are automatically configured
         optimized_rag = optimizer.compile(
-            student=enhanced_rag,
+            student=rag_to_optimize,
             trainset=train_set
         )
 
@@ -203,8 +194,8 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 
     except Exception as e:
         print(f"\n⚠️  Optimization failed: {e}")
-        print(f"   Falling back to enhanced baseline")
-        optimized_rag = enhanced_rag
+        print(f"   Falling back to baseline")
+        optimized_rag = rag_to_optimize
 
     # ==================================================
     # Step 4: Evaluate Optimized Model on Dev Set
@@ -273,26 +264,23 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     # ==================================================
     try:
         print("\n" + "=" * 80)
-        print("COMPARISON: Baseline vs Enhanced vs Optimized")
+        print("COMPARISON: Baseline vs Optimized")
         print("=" * 80)
 
         print(f"\n📊 Retrieval Accuracy:")
-        print(f"   True Baseline (no query opt):  {baseline_results['retrieval_accuracy']:.1%}")
-        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['retrieval_accuracy']:.1%}")
+        print(f"   Baseline (default prompts):    {baseline_results['retrieval_accuracy']:.1%}")
         print(f"   Optimized (MIPROv2):           {dev_results['retrieval_accuracy']:.1%}")
         retrieval_gain = dev_results['retrieval_accuracy'] - baseline_results['retrieval_accuracy']
         print(f"   Improvement: {retrieval_gain:+.1%}")
 
         print(f"\n📊 Answer Accuracy:")
-        print(f"   True Baseline (no query opt):  {baseline_results['answer_accuracy']:.1%}")
-        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['answer_accuracy']:.1%}")
+        print(f"   Baseline (default prompts):    {baseline_results['answer_accuracy']:.1%}")
         print(f"   Optimized (MIPROv2):           {dev_results['answer_accuracy']:.1%}")
         answer_gain = dev_results['answer_accuracy'] - baseline_results['answer_accuracy']
         print(f"   Improvement: {answer_gain:+.1%}")
 
         print(f"\n📊 End-to-End Accuracy:")
-        print(f"   True Baseline (no query opt):  {baseline_results['end_to_end_accuracy']:.1%}")
-        print(f"   Enhanced Baseline (default):   {enhanced_baseline_results['end_to_end_accuracy']:.1%}")
+        print(f"   Baseline (default prompts):    {baseline_results['end_to_end_accuracy']:.1%}")
         print(f"   Optimized (MIPROv2):           {dev_results['end_to_end_accuracy']:.1%}")
         e2e_gain = dev_results['end_to_end_accuracy'] - baseline_results['end_to_end_accuracy']
         print(f"   Improvement: {e2e_gain:+.1%}")
@@ -320,13 +308,13 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 def main():
     """Main execution flow."""
     print("=" * 80)
-    print("ENHANCED MIPROV2 OPTIMIZATION - MMESGBench RAG")
+    print("BASELINE MIPROV2 OPTIMIZATION - MMESGBench RAG")
     print("=" * 80)
     print(f"\nStarted: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    print(f"\n🎯 Key Innovation: Query Generation Optimization")
-    print(f"   Research shows: Retrieval bottleneck = 90% of accuracy issues")
-    print(f"   Our approach: Optimize query generation BEFORE retrieval")
+    print(f"\n🎯 Test: Baseline Prompt Optimization")
+    print(f"   Optimizing: Reasoning + Extraction prompts")
+    print(f"   NOT optimizing: Query generation (testing simplified approach first)")
 
     # Initialize DSPy
     print(f"\n📋 Setting up DSPy environment...")
@@ -350,15 +338,15 @@ def main():
 
     # Initialize MLFlow tracking
     print(f"\n📊 Initializing MLFlow tracking...")
-    tracker = DSPyMLFlowTracker(experiment_name="MMESGBench_Enhanced_Optimization")
+    tracker = DSPyMLFlowTracker(experiment_name="MMESGBench_Baseline_Optimization")
 
-    run_name = create_run_name("enhanced_rag_query_optimization")
+    run_name = create_run_name("baseline_rag_prompt_optimization")
     tracker.start_run(
         run_name=run_name,
         tags={
             'optimizer': 'MIPROv2',
-            'query_optimization': 'true',
-            'phase': 'query_generation',
+            'query_optimization': 'false',
+            'phase': 'baseline_prompts_only',
             'model': 'qwen-max'
         }
     )
@@ -378,30 +366,29 @@ def main():
         os.makedirs("dspy_implementation/optimized_modules", exist_ok=True)
 
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        module_path = f"dspy_implementation/optimized_modules/enhanced_rag_{timestamp}.json"
+        module_path = f"dspy_implementation/optimized_modules/baseline_rag_{timestamp}.json"
 
         try:
             optimized_rag.save(module_path)
             print(f"   Saved to: {module_path}")
-            tracker.log_model_artifact({'module_path': module_path}, "enhanced_rag_module")
+            tracker.log_model_artifact({'module_path': module_path}, "baseline_rag_module")
         except Exception as e:
             print(f"   ⚠️  Could not save module: {e}")
 
         # Save detailed results
-        results_file = f"enhanced_rag_results_{timestamp}.json"
+        results_file = f"baseline_rag_results_{timestamp}.json"
 
         detailed_results = {
             "timestamp": datetime.now().isoformat(),
             "run_name": run_name,
-            "architecture": "Enhanced RAG with Query Generation",
+            "architecture": "Baseline RAG (no query generation)",
             "optimization": {
                 "method": "MIPROv2",
                 "train_size": len(train_set),
                 "dev_size": len(dev_set),
-                "num_candidates": 10,
+                "auto_mode": "light",
                 "init_temperature": 1.0,
                 "optimized_components": [
-                    "QueryGeneration",
                     "ESGReasoning",
                     "AnswerExtraction"
                 ]
@@ -448,7 +435,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Run enhanced MIPROv2 optimization with query generation"
+        description="Run baseline MIPROv2 optimization (reasoning + extraction prompts only)"
     )
     parser.add_argument(
         "--num-candidates",
@@ -468,7 +455,7 @@ if __name__ == "__main__":
     # Run optimization
     optimized_module, results = main()
 
-    print("\n✅ Enhanced MIPROv2 optimization pipeline complete!")
+    print("\n✅ Baseline MIPROv2 optimization pipeline complete!")
     print(f"   Dev end-to-end accuracy: {results['end_to_end_accuracy']:.1%}")
     print(f"   Dev retrieval accuracy: {results['retrieval_accuracy']:.1%}")
     print(f"   Dev answer accuracy: {results['answer_accuracy']:.1%}")
