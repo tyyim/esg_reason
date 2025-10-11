@@ -165,7 +165,7 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
         'auto_mode': 'light',
         'init_temperature': init_temperature,
         'train_size': len(train_set),
-        'query_optimization': True
+        'query_optimization': False  # Not optimizing query generation in this test
     })
 
     optimizer = MIPROv2(

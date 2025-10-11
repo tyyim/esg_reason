@@ -7,13 +7,16 @@
 
 ## 🎯 Current Focus
 
-**Phase 1a**: DSPy MIPROv2 optimization on dev set (93 questions)
+**Phase 1a Test**: Baseline prompt optimization (reasoning + extraction only, NO query generation)
 
-**Status**: Ready to run optimization (~45-90 min)
+**Status**: Ready to run - Configuration verified ✅
 
-**Current Baseline** (Oct 9, 2025 - with FIXED metrics):
-- **Dev set**: 38.7% E2E | 75.3% retrieval | 49.5% answer
-- **Target**: 43-50% E2E after optimization
+**Current Baseline** (Oct 12, 2025 - Full dataset with "Not answerable" fix):
+- **Full dataset (933)**: 55.6% accuracy (519/933 correct)
+- **Dev set (93)**: TBD (will evaluate as part of optimization)
+- **Target**: +3-5% improvement from prompt optimization alone
+
+**What We're Testing**: Can MIPROv2 optimize reasoning + extraction prompts to improve baseline?
 
 ---
 
@@ -80,15 +83,31 @@ qwen-max (LLM) | text-embedding-v4 (embeddings)
 
 ## ⚠️ Known Issues & Fixes
 
+### FIXED (Oct 12, 2025)
+1. **"Not answerable" handling**: DSPy signatures didn't explicitly instruct model to output "Not answerable"
+   - **Impact**: 0% accuracy on 150 "Not answerable" questions
+   - **Fix**: Updated ESGReasoning and AnswerExtraction signatures with explicit instructions
+   - **Result**: 37.3% → 55.6% accuracy (+18.3%)
+
+### FIXED (Oct 11, 2025)
+2. **Baseline calculation**: Was merging files instead of substituting corrected results
+   - **Fix**: Created `substitute_corrected_results.py` to properly substitute 16 questions
+   - **Corrected MMESGBench baseline**: 40.51% (vs our 55.6%)
+
 ### FIXED (Oct 9, 2025)
-1. **Retrieval metric bug**: Was always returning 1.0 → Now correctly returns 0.0 for failures
+3. **Retrieval metric bug**: Was always returning 1.0 → Now correctly returns 0.0 for failures
    - **Impact**: ALL previous baselines (39.9%, 41.3%, 45.1%) were INVALID
    - **True baseline**: 38.7% (dev set with fixed metrics)
 
-2. **MLFlow logging**: Script crashed before logging → Now logs BEFORE printing + saves artifacts
+4. **MLFlow logging**: Script crashed before logging → Now logs BEFORE printing + saves artifacts
 
 ### Active
 - None currently blocking optimization
+
+### Process Improvements (Oct 12, 2025)
+- ✅ Created CHANGELOG.md to track all changes
+- ✅ Established workflow: Read CLAUDE.md → Update docs → Verify config → Run → Document
+- ⏳ TODO: Clean up debug scripts (move to archive/)
 
 ---
 
