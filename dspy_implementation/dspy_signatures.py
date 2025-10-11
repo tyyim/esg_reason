@@ -18,6 +18,10 @@ class ESGReasoning(dspy.Signature):
     using the top-5 retrieved document chunks from ColBERT retrieval.
 
     Aligned with MMESGBench paper's first stage of two-stage extraction.
+
+    IMPORTANT: If the context does not contain sufficient information to answer
+    the question, clearly state in your analysis that the question cannot be
+    answered from the given context.
     """
 
     question: str = dspy.InputField(
@@ -32,7 +36,8 @@ class ESGReasoning(dspy.Signature):
 
     analysis: str = dspy.OutputField(
         desc="Detailed reasoning and analysis based on the provided context. "
-             "Should explain the answer and reference specific information from the context."
+             "Should explain the answer and reference specific information from the context. "
+             "If context lacks sufficient information, clearly state the question cannot be answered."
     )
 
 

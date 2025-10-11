@@ -35,6 +35,10 @@ class ESGReasoning(dspy.Signature):
 
     Stage 1 of two-stage extraction: Generate chain-of-thought analysis
     over retrieved context to answer ESG questions.
+
+    IMPORTANT: If the context does not contain sufficient information to answer
+    the question, clearly state in your analysis that the question cannot be
+    answered from the given context.
     """
     context = dspy.InputField(
         desc="Retrieved chunks from ESG documents"
@@ -47,7 +51,7 @@ class ESGReasoning(dspy.Signature):
     )
 
     analysis = dspy.OutputField(
-        desc="Detailed chain-of-thought reasoning analyzing the context to answer the question"
+        desc="Detailed chain-of-thought reasoning analyzing the context to answer the question. If context lacks sufficient information, clearly state the question cannot be answered."
     )
 
 
@@ -57,6 +61,14 @@ class AnswerExtraction(dspy.Signature):
 
     Stage 2 of two-stage extraction: Extract final answer in specified format
     (Int, Float, Str, List) from the chain-of-thought analysis.
+
+    CRITICAL INSTRUCTIONS:
+    - Extract answer in the specified format: Int, Float, Str, or List
+    - If the analysis indicates the question cannot be answered from the context,
+      respond with exactly: "Not answerable"
+    - If the analysis indicates it cannot read/understand images or documents,
+      respond with exactly: "Fail to answer"
+    - Otherwise, provide only the answer value without explanation
     """
     question = dspy.InputField(
         desc="Original ESG question"
@@ -69,7 +81,7 @@ class AnswerExtraction(dspy.Signature):
     )
 
     extracted_answer = dspy.OutputField(
-        desc="Final answer in specified format (only the answer value, no explanation)"
+        desc='Final answer in specified format, or "Not answerable" if context lacks information, or "Fail to answer" if documents cannot be read'
     )
 
 

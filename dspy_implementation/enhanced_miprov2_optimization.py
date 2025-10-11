@@ -192,11 +192,11 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     os.makedirs("checkpoints", exist_ok=True)
 
     try:
+        # When using auto mode, don't pass max_bootstrapped_demos/max_labeled_demos
+        # as they are automatically configured
         optimized_rag = optimizer.compile(
             student=enhanced_rag,
-            trainset=train_set,
-            max_bootstrapped_demos=4,
-            max_labeled_demos=4
+            trainset=train_set
         )
 
         print("\n✅ MIPROv2 optimization completed!")
