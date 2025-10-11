@@ -30,7 +30,7 @@ sys.path.insert(0, str(project_root))
 import dspy
 from dspy_implementation.dspy_rag_enhanced import BaselineMMESGBenchRAG
 from dspy_implementation.dspy_dataset import MMESGBenchDataset
-from dspy_implementation.dspy_metrics_enhanced import evaluate_answer
+from mmesgbench_exact_evaluation import evaluate_prediction_mmesgbench
 
 # Configure logging
 logging.basicConfig(
@@ -155,7 +155,7 @@ class BasicDSPyEvaluator:
                 sample_id = question_data.get('sample_id', question_data.get('id', 'unknown'))
                 question = question_data['question']
                 doc_id = question_data['doc_id']
-                ground_truth = question_data['ground_truth']
+                ground_truth = question_data['answer']  # Dataset uses 'answer' not 'ground_truth'
                 answer_format = question_data['answer_format']
 
                 # Run DSPy RAG module (synchronous call wrapped in async)
@@ -171,12 +171,17 @@ class BasicDSPyEvaluator:
 
                 predicted_answer = prediction.answer
 
-                # Evaluate
-                is_correct, e2e_metrics = evaluate_answer(
+                # Evaluate using MMESGBench exact logic
+                is_correct, exact_match, f1_score = evaluate_prediction_mmesgbench(
                     predicted_answer=predicted_answer,
                     ground_truth=ground_truth,
                     answer_format=answer_format
                 )
+
+                e2e_metrics = {
+                    "exact_match": exact_match,
+                    "f1_score": f1_score
+                }
 
                 result = {
                     "sample_id": sample_id,
