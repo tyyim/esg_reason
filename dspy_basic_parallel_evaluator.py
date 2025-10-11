@@ -79,12 +79,13 @@ class BasicDSPyEvaluator:
         if not api_key:
             raise ValueError("DASHSCOPE_API_KEY not found in environment")
 
-        # Initialize Qwen LLM
+        # Initialize Qwen LLM with OpenAI-compatible interface
         qwen_lm = dspy.LM(
-            model="qwen/qwen-max",
+            model="openai/qwen-max",
             api_key=api_key,
             api_base="https://dashscope.aliyuncs.com/compatible-mode/v1",
-            model_type="chat"
+            temperature=0.0,
+            max_tokens=1024
         )
 
         dspy.configure(lm=qwen_lm)
@@ -207,7 +208,7 @@ class BasicDSPyEvaluator:
                     "question": question_data['question'],
                     "doc_id": question_data['doc_id'],
                     "answer_format": question_data['answer_format'],
-                    "ground_truth": question_data['ground_truth'],
+                    "ground_truth": question_data['answer'],  # Dataset uses 'answer'
                     "predicted_answer": "ERROR",
                     "is_correct": False,
                     "error": str(e),
