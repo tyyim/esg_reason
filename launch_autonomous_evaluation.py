@@ -23,7 +23,7 @@ def check_dependencies():
     """Check if required files exist"""
     required_files = [
         "./MMESGBench/dataset/samples.json",
-        "./autonomous_colbert_evaluator.py"
+        "./archive_scripts/autonomous_colbert_evaluator.py"
     ]
 
     missing_files = []
@@ -50,7 +50,7 @@ def run_evaluation():
     try:
         # Run the evaluation
         result = subprocess.run([
-            sys.executable, "autonomous_colbert_evaluator.py"
+            sys.executable, "archive_scripts/autonomous_colbert_evaluator.py"
         ], check=True)
 
         print("\n🎉 Evaluation completed successfully!")
