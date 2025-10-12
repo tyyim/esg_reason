@@ -1,0 +1,254 @@
+{
+  "baseline": {
+    "strict_correct": 23,
+    "relaxed_correct": 36,
+    "false_negatives": [
+      {
+        "idx": 1,
+        "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kW",
+        "format": "Float",
+        "gold": "10%",
+        "predicted": "10.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 7,
+        "question": "What percentage of the green bond market is investment grade according to the Cl",
+        "format": "Float",
+        "gold": "82%",
+        "predicted": "82.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 9,
+        "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the ",
+        "format": "Float",
+        "gold": "55%",
+        "predicted": "55.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 15,
+        "question": "How is the percentage of renewable energy purchased calculated? Give the calcula",
+        "format": "Str",
+        "gold": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+        "predicted": "(annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+        "reason": "Semantic match (73% overlap)"
+      },
+      {
+        "idx": 18,
+        "question": "What is Microsoft's mission?",
+        "format": "Str",
+        "gold": "to empower every person and every organization on the planet to achieve more",
+        "predicted": "\"Empower every person and every organization on the planet to achieve more\"",
+        "reason": "Semantic match (80% overlap)"
+      },
+      {
+        "idx": 25,
+        "question": "What is the recommended time horizon companies should use when selecting scenari",
+        "format": "Str",
+        "gold": "At least ten years",
+        "predicted": "at least ten years into the future",
+        "reason": "Semantic match (100% overlap)"
+      },
+      {
+        "idx": 27,
+        "question": "What percentage of workers have the green skills needed for a green transition?",
+        "format": "Float",
+        "gold": "12.5%",
+        "predicted": "12.5",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 29,
+        "question": "What percentage of the way was AWS toward achieving its water positive goal at t",
+        "format": "Float",
+        "gold": "41%",
+        "predicted": "41.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 40,
+        "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+        "format": "Str",
+        "gold": "75% by weight of product",
+        "predicted": "In LEED v4.1, GS Benchmark assessments are now rewarded for 75% by weight of the product (valued at 1 product) or for 95% by weight, simplifying the process and shifting emphasis to a higher percentage of the product being assessed.",
+        "reason": "Semantic match (100% overlap)"
+      },
+      {
+        "idx": 60,
+        "question": "According to the change log, on which dates was the content related to Data Sour",
+        "format": "Str",
+        "gold": "12.06.2024 and 13.12.2024",
+        "predicted": "12.06.2024, 13.12.2024",
+        "reason": "Contains all key information (verbose)"
+      }
+    ],
+    "by_format": {
+      "Str": {
+        "total": 34,
+        "strict_correct": 11,
+        "relaxed_correct": 17,
+        "fn_count": 6
+      },
+      "Float": {
+        "total": 13,
+        "strict_correct": 1,
+        "relaxed_correct": 8,
+        "fn_count": 7
+      },
+      "List": {
+        "total": 13,
+        "strict_correct": 0,
+        "relaxed_correct": 0,
+        "fn_count": 0
+      },
+      "Int": {
+        "total": 19,
+        "strict_correct": 11,
+        "relaxed_correct": 11,
+        "fn_count": 0
+      },
+      "null": {
+        "total": 14,
+        "strict_correct": 0,
+        "relaxed_correct": 0,
+        "fn_count": 0
+      }
+    }
+  },
+  "optimized": {
+    "strict_correct": 31,
+    "relaxed_correct": 47,
+    "false_negatives": [
+      {
+        "idx": 1,
+        "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kW",
+        "format": "Float",
+        "gold": "10%",
+        "predicted": "10.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 7,
+        "question": "What percentage of the green bond market is investment grade according to the Cl",
+        "format": "Float",
+        "gold": "82%",
+        "predicted": "82.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 9,
+        "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the ",
+        "format": "Float",
+        "gold": "55%",
+        "predicted": "55.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 13,
+        "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023",
+        "format": "Float",
+        "gold": "94%",
+        "predicted": "94.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 15,
+        "question": "How is the percentage of renewable energy purchased calculated? Give the calcula",
+        "format": "Str",
+        "gold": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+        "predicted": "% energy generated or purchased = annual quantity of renewable energy in kWh / annual building site energy use in kWh",
+        "reason": "Semantic match (87% overlap)"
+      },
+      {
+        "idx": 25,
+        "question": "What is the recommended time horizon companies should use when selecting scenari",
+        "format": "Str",
+        "gold": "At least ten years",
+        "predicted": "at least ten years into the future, with common reference points being 2030 and 2050",
+        "reason": "Semantic match (100% overlap)"
+      },
+      {
+        "idx": 27,
+        "question": "What percentage of workers have the green skills needed for a green transition?",
+        "format": "Float",
+        "gold": "12.5%",
+        "predicted": "12.5",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 29,
+        "question": "What percentage of the way was AWS toward achieving its water positive goal at t",
+        "format": "Float",
+        "gold": "41%",
+        "predicted": "41.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 35,
+        "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+        "format": "List",
+        "gold": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+        "predicted": "[\"SSP1 (sustainability)\", \"SSP2 (middle of the road)\", \"SSP3 (regional rivalry)\", \"SSP4 (inequality)\", \"SSP5 (rapid growth)\"]",
+        "reason": "List match (quote style differs)"
+      },
+      {
+        "idx": 40,
+        "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+        "format": "Str",
+        "gold": "75% by weight of product",
+        "predicted": "The weighting of GS Benchmark assessments changes from a cost-based system (100% and 150% of cost) in LEED v4 to a percentage-by-weight system (75% and 95% by weight) in LEED v4.1, with both percentages being valued at 1 product.",
+        "reason": "Contains all key information (verbose)"
+      }
+    ],
+    "by_format": {
+      "Str": {
+        "total": 34,
+        "strict_correct": 9,
+        "relaxed_correct": 16,
+        "fn_count": 7
+      },
+      "Float": {
+        "total": 13,
+        "strict_correct": 1,
+        "relaxed_correct": 9,
+        "fn_count": 8
+      },
+      "List": {
+        "total": 13,
+        "strict_correct": 0,
+        "relaxed_correct": 1,
+        "fn_count": 1
+      },
+      "Int": {
+        "total": 19,
+        "strict_correct": 11,
+        "relaxed_correct": 11,
+        "fn_count": 0
+      },
+      "null": {
+        "total": 14,
+        "strict_correct": 10,
+        "relaxed_correct": 10,
+        "fn_count": 0
+      }
+    }
+  },
+  "comparison": {
+    "baseline_strict": 23,
+    "baseline_relaxed": 36,
+    "optimized_strict": 31,
+    "optimized_relaxed": 47,
+    "total": 93,
+    "degraded_questions": [],
+    "improved_questions": [],
+    "by_format": {},
+    "baseline_strict_pct": 24.731182795698924,
+    "baseline_relaxed_pct": 38.70967741935484,
+    "optimized_strict_pct": 33.33333333333333,
+    "optimized_relaxed_pct": 50.53763440860215,
+    "strict_delta": 8.602150537634405,
+    "relaxed_delta": 11.827956989247312
+  }
+}

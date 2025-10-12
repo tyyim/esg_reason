@@ -1,0 +1,73 @@
+====================================================================================================
+BASELINE vs OPTIMIZED COMPARISON WITH RELAXED MATCHING
+====================================================================================================
+
+📊 OVERALL RESULTS
+----------------------------------------------------------------------------------------------------
+Total questions (dev set): 93
+
+BASELINE PERFORMANCE:
+  Strict matching:  23/93 (24.7%)
+  Relaxed matching: 36/93 (38.7%)
+  False negatives:  13 (14.0%)
+
+OPTIMIZED PERFORMANCE:
+  Strict matching:  31/93 (33.3%)
+  Relaxed matching: 47/93 (50.5%)
+  False negatives:  16 (17.2%)
+
+PERFORMANCE CHANGE:
+  Strict:  +8.6% ✅ IMPROVED
+  Relaxed: +11.8% ✅ IMPROVED
+
+📋 PERFORMANCE BY FORMAT
+----------------------------------------------------------------------------------------------------
+
+Float (13 questions):
+  Baseline:  1/13 strict (7.7%), 8/13 relaxed (61.5%)
+  Optimized: 1/13 strict (7.7%), 9/13 relaxed (69.2%)
+  Delta:     Strict +0.0%, Relaxed +7.7%
+
+Int (19 questions):
+  Baseline:  11/19 strict (57.9%), 11/19 relaxed (57.9%)
+  Optimized: 11/19 strict (57.9%), 11/19 relaxed (57.9%)
+  Delta:     Strict +0.0%, Relaxed +0.0%
+
+List (13 questions):
+  Baseline:  0/13 strict (0.0%), 0/13 relaxed (0.0%)
+  Optimized: 0/13 strict (0.0%), 1/13 relaxed (7.7%)
+  Delta:     Strict +0.0%, Relaxed +7.7%
+
+Str (34 questions):
+  Baseline:  11/34 strict (32.4%), 17/34 relaxed (50.0%)
+  Optimized: 9/34 strict (26.5%), 16/34 relaxed (47.1%)
+  Delta:     Strict -5.9%, Relaxed -2.9%
+
+null (14 questions):
+  Baseline:  0/14 strict (0.0%), 0/14 relaxed (0.0%)
+  Optimized: 10/14 strict (71.4%), 10/14 relaxed (71.4%)
+  Delta:     Strict +71.4%, Relaxed +71.4%
+
+
+🔍 FALSE NEGATIVES BREAKDOWN
+----------------------------------------------------------------------------------------------------
+
+BASELINE FALSE NEGATIVES: 13 cases
+  Str: 6 cases
+  Float: 7 cases
+
+OPTIMIZED FALSE NEGATIVES: 16 cases
+  Str: 7 cases
+  Float: 8 cases
+  List: 1 cases
+
+
+====================================================================================================
+ROOT CAUSE ANALYSIS
+====================================================================================================
+
+✅ OPTIMIZATION IMPROVED PERFORMANCE
+
+Relaxed accuracy: 38.7% → 50.5% (+11.8%)
+
+====================================================================================================

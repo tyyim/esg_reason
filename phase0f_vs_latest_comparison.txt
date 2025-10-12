@@ -1,0 +1,63 @@
+================================================================================
+PHASE 0F vs LATEST BASELINE COMPARISON
+================================================================================
+
+📊 OVERALL RESULTS
+--------------------------------------------------------------------------------
+Total questions (dev set): 93
+Phase 0F accuracy: 0/93 (0.0%)
+Latest baseline accuracy: 0/93 (0.0%)
+Improvement: +0.0%
+
+🔄 PREDICTION CHANGES
+--------------------------------------------------------------------------------
+Both correct: 0 (0.0%)
+Both wrong: 0 (0.0%)
+Phase 0F only correct: 0 (0.0%)
+Latest only correct: 0 (0.0%)
+Net improvement: 0 questions
+
+📋 BY FORMAT
+--------------------------------------------------------------------------------
+
+Float (13 questions):
+  Phase 0F:  0/13 (0.0%)
+  Latest:    0/13 (0.0%)
+  Change:    +0.0%
+  Improved:  0 questions
+
+Int (19 questions):
+  Phase 0F:  0/19 (0.0%)
+  Latest:    0/19 (0.0%)
+  Change:    +0.0%
+  Improved:  0 questions
+
+List (13 questions):
+  Phase 0F:  0/13 (0.0%)
+  Latest:    0/13 (0.0%)
+  Change:    +0.0%
+  Improved:  0 questions
+
+Str (34 questions):
+  Phase 0F:  0/34 (0.0%)
+  Latest:    0/34 (0.0%)
+  Change:    +0.0%
+  Improved:  0 questions
+
+null (14 questions):
+  Phase 0F:  0/14 (0.0%)
+  Latest:    0/14 (0.0%)
+  Change:    +0.0%
+  Improved:  0 questions
+
+
+
+================================================================================
+ROOT CAUSE ANALYSIS
+================================================================================
+
+⚠️ DEGRADATION: 0.0%
+
+Something regressed between Phase 0F and latest baseline
+
+================================================================================
