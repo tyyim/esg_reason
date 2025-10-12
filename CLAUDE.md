@@ -1,5 +1,7 @@
 # CLAUDE.md - ESG Reasoning Research
 
+> **⚠️ START HERE**: First time this session? → Read `.claude/START_SESSION.md` (MANDATORY)
+>
 > **Maintenance**: See `.claude/CLAUDE_MD_GUIDELINES.md` | Keep concise - scannable in 30 seconds
 > **Details**: Historical findings in `PHASE_1A_FINDINGS.md`, `BASELINE_COMPARISON.md`, `Research Plan — ESG Reasoning and Green Finance.md`
 
@@ -7,16 +9,34 @@
 
 ## 🎯 Current Focus
 
-**Phase 1a Test**: Baseline prompt optimization (reasoning + extraction only, NO query generation)
+**Phase 1a-2 Test**: Baseline prompt optimization - **METHODOLOGY FLAW DISCOVERED** ⚠️
 
-**Status**: Ready to run - Configuration verified ✅
+**Status**: Root cause identified - MIPROv2 worked correctly, our evaluation was wrong
 
-**Current Baseline** (Oct 12, 2025 - Full dataset with "Not answerable" fix):
-- **Full dataset (933)**: 55.6% accuracy (519/933 correct)
-- **Dev set (93)**: TBD (will evaluate as part of optimization)
-- **Target**: +3-5% improvement from prompt optimization alone
+**What Happened** (Oct 12, 2025):
+- Ran MIPROv2 optimization on reasoning + extraction prompts (no query generation)
+- Got -3.2% degradation on our 93-question dev set
+- **BUT**: MIPROv2 actually found +3.0% improvement on ITS 100-question validation set
+- **Issue**: Dataset mismatch - optimized for one set, evaluated on different set
 
-**What We're Testing**: Can MIPROv2 optimize reasoning + extraction prompts to improve baseline?
+**Evidence of Dataset Mismatch**:
+```
+MIPROv2's valset (100 questions): 44.0% → 47.0% (+3.0% ✅)
+Our dev set (93 questions):       51.6% → 48.4% (-3.2% ❌)
+```
+
+The 7.6% baseline difference proves these are different question sets with different difficulty.
+
+**Root Cause**: Didn't provide explicit `valset` parameter, so MIPROv2 auto-sampled its own 100 questions
+
+**The Fix**: Re-run with `valset=dev_set` parameter for fair comparison
+
+**Next Decision**:
+- **Option A**: Re-run optimization with explicit valset parameter (RECOMMENDED)
+- **Option B**: Accept the 3% improvement MIPROv2 found and move to full dataset
+- **Option C**: Try different optimization approach
+
+See `OPTIMIZATION_FAILURE_ANALYSIS.md` for complete analysis
 
 ---
 
