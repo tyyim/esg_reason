@@ -1,0 +1,415 @@
+🚀 Unified Baseline Evaluator - COMPLETE EVALUATION
+Using MMESGBench's exact evaluation logic
+Evaluating ALL prediction files found in project
+================================================================================
+📚 Loading ground truth dataset from mmesgbench_dataset_corrected.json...
+✅ Loaded 933 ground truth questions
+
+📋 Will evaluate 7 prediction files:
+  ✅ DSPy_Baseline_933: dspy_implementation/full_dataset_results/baseline_results_20251010_232606.json
+  ✅ DSPy_Enhanced_933: dspy_implementation/full_dataset_results/enhanced_results_20251010_232606.json
+  ✅ MMESGBench_Corrected_933: mmesgbench_baseline_corrected.json
+  ✅ ColBERT_Optimized_933: optimized_full_dataset_mmesgbench_with_f1.json
+  ✅ Baseline_Dev_93: baseline_dev_predictions.json
+  ✅ Optimized_Dev_93: optimized_predictions.json
+  ✅ ColBERT_Corrected_47: corrected_evaluation_results/colbert_corrected_evaluation.json
+
+📂 Loading predictions from dspy_implementation/full_dataset_results/baseline_results_20251010_232606.json...
+✅ Loaded 933 predictions
+
+============================================================
+🔍 Evaluating: DSPy_Baseline_933
+============================================================
+Total predictions: 933
+Three years of total energy consumption data GHG emissions per megawatt-hour
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+Green-e Certified EECS EKOenergy
+Mathematics English language Engineering and technology
+
+============================================================
+📊 EVALUATION RESULTS: DSPy_Baseline_933
+============================================================
+
+🎯 Overall Accuracy (933 questions):
+  Retrieval Accuracy: 16.1% (150/933)
+  Answer Accuracy:    40.5% (378/933)
+  End-to-End (E2E):   0.0% (0/933)
+
+📋 By Format:
+  Float (147 questions):
+    Retrieval: 0.0% (0/147)
+    Answer:    58.5% (86/147)
+    E2E:       0.0% (0/147)
+  Int (205 questions):
+    Retrieval: 0.0% (0/205)
+    Answer:    58.5% (120/205)
+    E2E:       0.0% (0/205)
+  List (132 questions):
+    Retrieval: 0.0% (0/132)
+    Answer:    35.6% (47/132)
+    E2E:       0.0% (0/132)
+  Str (299 questions):
+    Retrieval: 0.0% (0/299)
+    Answer:    41.8% (125/299)
+    E2E:       0.0% (0/299)
+  null (150 questions):
+    Retrieval: 100.0% (150/150)
+    Answer:    0.0% (0/150)
+    E2E:       0.0% (0/150)
+
+============================================================
+
+💾 Results saved to: unified_eval_DSPy_Baseline_933.json
+📂 Loading predictions from dspy_implementation/full_dataset_results/enhanced_results_20251010_232606.json...
+✅ Loaded 933 predictions
+
+============================================================
+🔍 Evaluating: DSPy_Enhanced_933
+============================================================
+Total predictions: 933
+Three years of total energy consumption data GHG emissions per megawatt-hour
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+[Building resilience, ensuring equal rights and access to resources, mobilizing resources, involving a broad range of stakeholders]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+[Policies, Procedures and Records, Social Performance Team, Identification and Assessment of Risks, Monitoring, Internal Involvement, Complaint Management and Resolution, External Verification and Stakeholder Engagement, Corrective and Preventive Actions, Training and Capacity Building, Management Review]
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+[Developing and Maintaining Strong Policies and Standards, Responsible Supply Chain, Human Rights, Community Impact, Supplier Diversity]
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+Green-e Certified EECS EKOenergy
+Mathematics English language Engineering and technology
+
+============================================================
+📊 EVALUATION RESULTS: DSPy_Enhanced_933
+============================================================
+
+🎯 Overall Accuracy (933 questions):
+  Retrieval Accuracy: 16.1% (150/933)
+  Answer Accuracy:    37.3% (348/933)
+  End-to-End (E2E):   0.0% (0/933)
+
+📋 By Format:
+  Float (147 questions):
+    Retrieval: 0.0% (0/147)
+    Answer:    57.1% (84/147)
+    E2E:       0.0% (0/147)
+  Int (205 questions):
+    Retrieval: 0.0% (0/205)
+    Answer:    53.7% (110/205)
+    E2E:       0.0% (0/205)
+  List (132 questions):
+    Retrieval: 0.0% (0/132)
+    Answer:    29.5% (39/132)
+    E2E:       0.0% (0/132)
+  Str (299 questions):
+    Retrieval: 0.0% (0/299)
+    Answer:    38.5% (115/299)
+    E2E:       0.0% (0/299)
+  null (150 questions):
+    Retrieval: 100.0% (150/150)
+    Answer:    0.0% (0/150)
+    E2E:       0.0% (0/150)
+
+============================================================
+
+💾 Results saved to: unified_eval_DSPy_Enhanced_933.json
+📂 Loading predictions from mmesgbench_baseline_corrected.json...
+✅ Loaded 933 predictions
+
+============================================================
+🔍 Evaluating: MMESGBench_Corrected_933
+============================================================
+Total predictions: 933
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['International Level', 'National Level', 'Sub]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Substantially reduce global disaster mortality by 2030, aiming to lower the average per 100,000 global mortality rate in the decade 2020-2030 compared to the period 2005-2015.', 'Substantially reduce the number of affected people globally by 2030, aiming to lower the average global figure per 100,000 in the decade 2020-2030 compared to the period 2005-2015.', 'Reduce direct disaster economic loss in relation to global gross domestic product (GDP) by 2030.', 'Substantially reduce disaster damage to critical infrastructure and disruption of basic services, among them health and educational facilities, including through developing their resilience by 2030.', 'Substantially increase the number of countries with national and local disaster risk reduction strategies by 2020.', 'Substantially enhance international cooperation to developing countries through adequate and sustainable support to complement their national actions for implementation of the present Framework by 2030]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Flexible, multi-sectoral, inclusive, and long-term planning and implementation of adaptation actions', 'Increased social safety nets to build adaptive capacities and reduce socioeconomic vulnerability', 'Addressing systemic barriers such as limited resources, lack of private-sector and civic engagement, and insufficient mobilization of finance', 'Enhancing political commitment and a sense of urgency', 'Promoting and accelerating the commitment and follow-through by the private sector', 'Transitioning from incremental to transformational adaptation', 'Overcoming financial, governance, institutional, and policy constraints', 'Integrating climate adaptation into social protection programs', 'Meaningful participation and inclusive planning, informed by cultural values, Indigenous Knowledge, local knowledge, and scientific knowledge', 'Mainstreaming adaptation into institutional budget and policy planning cycles, statutory planning, monitoring, and evaluation frameworks', 'Utilizing instruments that incorporate adaptation such as policy and legal frameworks, behavioral incentives, and economic instruments that address market failures', 'Fostering international cooperation to enhance institutional adaptive capacity and sustainable development', 'Enhancing climate literacy at all levels and improving the availability of data and information', 'Addressing inequities and poverty to reduce vulnerability and enhance]
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+⚠️  Warning: Question not found in ground truth: According to the table about total gross global Sc...
+Green-e Certified EECS EKOenergy
+⚠️  Warning: Question not found in ground truth: How many PPAs related projects has Microsoft signe...
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['On-site renewable energy generation; Submit documentation: Documentation of on-site renewable energy generation (e.g., solar, wind, geothermal, etc.). Proof of retention of environmental attributes (e.g., Renewable Energy Certificates, RECs) associated with the on-site renewable energy generation. If applicable, documentation of captured bio-methane that is both captured and used on-site.', 'New off-site renewable energy; Submit documentation: Documentation of off-site renewable electricity that has been produced by a generation asset(s) built within the last five years or contracted to be operational within two years of building occupancy. Green-e Energy certification or equivalent for one-time purchase and delivery of EACs (Energy Attribute Certificates) if more than 100% of the project’s annual electricity use is being procured. Proof that all environmental attributes (e.g., RECs) associated with the off-site renewable energy are retired on behalf of the LEED project. Documentation of the contract length, which should be at least 10 years (or pro-rated documentation for shorter contract lengths).', 'Off-site renewable energy; Submit documentation: Documentation of off-site renewable electricity that is Green-e Energy certified or equivalent. For captured bio-methane, documentation of its procurement]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Estate and Facilities: New Hospitals: Construct 40 new hospitals to Net Zero standards, using innovative, low-carbon materials and designs. These facilities will be digitally flexible to support future models of care. ', 'Travel and Transport: Zero-Emissions Ambulances: Test a first-of-its-kind zero-emissions emergency ambulance in the UK by 2022. ', 'Medicines and Supply Chain: Supplier Collaboration: Work with suppliers to ensure they meet or exceed the NHS’s commitment to net zero emissions. ', 'Engagement and Advocacy: Staff Engagement: Engage 1.3 million NHS staff in the net zero ambitions through awareness, training, and encouraging individual actions. COP-26 Exhibition: Exhibit at COP-26 to showcase work and campaigns. ', 'GHG Emission Reduction: Scope 1, 2, and 3 Emissions: Expand on the Greenhouse Gas Protocol’s three scopes of emissions, including patient and visitor travel. ', 'Innovation and Research: Modeling and Data: Use a hybrid approach combining bottom-up and top-down methods to model the NHS’s carbon footprint for better]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Societal Factors', 'Environmental Factors', 'Legal Factors', 'Cultural Factors', 'Political Factors', 'Economic Factors', 'Organizational Diversity]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Definition, assessment, enforcement, and support of GHG accounting and reporting standards', 'Provision of standards and guidance on GHG accounting and reporting', 'Support for practitioners through implementation resources, such as capacity-building', 'Development of detailed accounting guidance on market-based approaches', 'Provision of clear guidance on the accounting and reporting of market-based approaches to facilitate further alignment with other programs', 'Development of guidance that is sufficiently clear to be used in isolation, even for companies not participating in specific programs', 'Provision of global guidance to avoid market fragmentation and ensure consistency across different localities', 'Development of requirements and guidance for quantifying GHG impacts of projects, actions, and market instruments', 'Collaboration with other key programs and initiatives (e.g., SBTi) to ensure alignment and coordination', 'Refinement of its governance model to meet the needs of a rapidly changing GHG accounting and reporting landscape', 'Provision of implementation resources, such as data, tools, and supporting documentation, to help practitioners', 'Active engagement with stakeholders to resolve accounting questions or disagreements and provide interpretation support', 'Monitoring the consistency and accuracy of accounting practices to ensure effective implementation', 'Facilitation of collaboration and alignment within the ecosystem to reduce confusion, prevent]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Technical Uncertainty and Complexity', 'Potential for Misrepresentation]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Large companies: Category A, 12 months', 'Medium companies: Category A, 12 months', 'Small and micro companies: Category B,]
+Mathematics English language Engineering and technology
+Three years of total energy consumption data GHG emissions per megawatt-hour
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Determine and document all applicable compliance obligations, including legal and other requirements', 'Assign roles and responsibilities for ensuring operations comply with these obligations', 'Conduct regular compliance audits or reviews to assess adherence to obligations', 'Implement a system for monitoring, measuring, and recording compliance performance', 'Evaluate the effectiveness of the compliance management system through periodic management reviews', 'Take corrective actions on any nonconformities identified during]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['The status of actions from previous management reviews.', 'Changes in external and internal issues that are relevant to the anti-bribery management system.', 'Information on the performance of the anti]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['reaching net-zero carbon across its operations by 2040', 'power its operations with 100% renewable energy by 2025', 'purchase 100,000 electric delivery vehicles, with the first 10,000 hitting the]
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+
+============================================================
+📊 EVALUATION RESULTS: MMESGBench_Corrected_933
+============================================================
+
+🎯 Overall Accuracy (933 questions):
+  Retrieval Accuracy: 16.1% (150/933)
+  Answer Accuracy:    37.4% (349/933)
+  End-to-End (E2E):   8.0% (75/933)
+
+📋 By Format:
+  Float (147 questions):
+    Retrieval: 0.0% (0/147)
+    Answer:    38.8% (57/147)
+    E2E:       0.0% (0/147)
+  Int (205 questions):
+    Retrieval: 0.0% (0/205)
+    Answer:    43.9% (90/205)
+    E2E:       0.0% (0/205)
+  List (132 questions):
+    Retrieval: 0.0% (0/132)
+    Answer:    27.3% (36/132)
+    E2E:       0.0% (0/132)
+  Str (297 questions):
+    Retrieval: 0.0% (0/297)
+    Answer:    30.6% (91/297)
+    E2E:       0.0% (0/297)
+  null (150 questions):
+    Retrieval: 100.0% (150/150)
+    Answer:    50.0% (75/150)
+    E2E:       50.0% (75/150)
+
+============================================================
+
+💾 Results saved to: unified_eval_MMESGBench_Corrected_933.json
+📂 Loading predictions from optimized_full_dataset_mmesgbench_with_f1.json...
+✅ Loaded 933 predictions
+
+============================================================
+🔍 Evaluating: ColBERT_Optimized_933
+============================================================
+Total predictions: 933
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['International Level', 'National Level', 'Sub]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Substantially reduce global disaster mortality by 2030, aiming to lower the average per 100,000 global mortality rate in the decade 2020-2030 compared to the period 2005-2015.', 'Substantially reduce the number of affected people globally by 2030, aiming to lower the average global figure per 100,000 in the decade 2020-2030 compared to the period 2005-2015.', 'Reduce direct disaster economic loss in relation to global gross domestic product (GDP) by 2030.', 'Substantially reduce disaster damage to critical infrastructure and disruption of basic services, among them health and educational facilities, including through developing their resilience by 2030.', 'Substantially increase the number of countries with national and local disaster risk reduction strategies by 2020.', 'Substantially enhance international cooperation to developing countries through adequate and sustainable support to complement their national actions for implementation of the present Framework by 2030]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Flexible, multi-sectoral, inclusive, and long-term planning and implementation of adaptation actions', 'Increased social safety nets to build adaptive capacities and reduce socioeconomic vulnerability', 'Addressing systemic barriers such as limited resources, lack of private-sector and civic engagement, and insufficient mobilization of finance', 'Enhancing political commitment and a sense of urgency', 'Promoting and accelerating the commitment and follow-through by the private sector', 'Transitioning from incremental to transformational adaptation', 'Overcoming financial, governance, institutional, and policy constraints', 'Integrating climate adaptation into social protection programs', 'Meaningful participation and inclusive planning, informed by cultural values, Indigenous Knowledge, local knowledge, and scientific knowledge', 'Mainstreaming adaptation into institutional budget and policy planning cycles, statutory planning, monitoring, and evaluation frameworks', 'Utilizing instruments that incorporate adaptation such as policy and legal frameworks, behavioral incentives, and economic instruments that address market failures', 'Fostering international cooperation to enhance institutional adaptive capacity and sustainable development', 'Enhancing climate literacy at all levels and improving the availability of data and information', 'Addressing inequities and poverty to reduce vulnerability and enhance]
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+⚠️  Warning: Question not found in ground truth: According to the table about total gross global Sc...
+Green-e Certified EECS EKOenergy
+⚠️  Warning: Question not found in ground truth: How many PPAs related projects has Microsoft signe...
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['On-site renewable energy generation; Submit documentation: Documentation of on-site renewable energy generation (e.g., solar, wind, geothermal, etc.). Proof of retention of environmental attributes (e.g., Renewable Energy Certificates, RECs) associated with the on-site renewable energy generation. If applicable, documentation of captured bio-methane that is both captured and used on-site.', 'New off-site renewable energy; Submit documentation: Documentation of off-site renewable electricity that has been produced by a generation asset(s) built within the last five years or contracted to be operational within two years of building occupancy. Green-e Energy certification or equivalent for one-time purchase and delivery of EACs (Energy Attribute Certificates) if more than 100% of the project’s annual electricity use is being procured. Proof that all environmental attributes (e.g., RECs) associated with the off-site renewable energy are retired on behalf of the LEED project. Documentation of the contract length, which should be at least 10 years (or pro-rated documentation for shorter contract lengths).', 'Off-site renewable energy; Submit documentation: Documentation of off-site renewable electricity that is Green-e Energy certified or equivalent. For captured bio-methane, documentation of its procurement]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Estate and Facilities: New Hospitals: Construct 40 new hospitals to Net Zero standards, using innovative, low-carbon materials and designs. These facilities will be digitally flexible to support future models of care. ', 'Travel and Transport: Zero-Emissions Ambulances: Test a first-of-its-kind zero-emissions emergency ambulance in the UK by 2022. ', 'Medicines and Supply Chain: Supplier Collaboration: Work with suppliers to ensure they meet or exceed the NHS’s commitment to net zero emissions. ', 'Engagement and Advocacy: Staff Engagement: Engage 1.3 million NHS staff in the net zero ambitions through awareness, training, and encouraging individual actions. COP-26 Exhibition: Exhibit at COP-26 to showcase work and campaigns. ', 'GHG Emission Reduction: Scope 1, 2, and 3 Emissions: Expand on the Greenhouse Gas Protocol’s three scopes of emissions, including patient and visitor travel. ', 'Innovation and Research: Modeling and Data: Use a hybrid approach combining bottom-up and top-down methods to model the NHS’s carbon footprint for better]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Societal Factors', 'Environmental Factors', 'Legal Factors', 'Cultural Factors', 'Political Factors', 'Economic Factors', 'Organizational Diversity]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Definition, assessment, enforcement, and support of GHG accounting and reporting standards', 'Provision of standards and guidance on GHG accounting and reporting', 'Support for practitioners through implementation resources, such as capacity-building', 'Development of detailed accounting guidance on market-based approaches', 'Provision of clear guidance on the accounting and reporting of market-based approaches to facilitate further alignment with other programs', 'Development of guidance that is sufficiently clear to be used in isolation, even for companies not participating in specific programs', 'Provision of global guidance to avoid market fragmentation and ensure consistency across different localities', 'Development of requirements and guidance for quantifying GHG impacts of projects, actions, and market instruments', 'Collaboration with other key programs and initiatives (e.g., SBTi) to ensure alignment and coordination', 'Refinement of its governance model to meet the needs of a rapidly changing GHG accounting and reporting landscape', 'Provision of implementation resources, such as data, tools, and supporting documentation, to help practitioners', 'Active engagement with stakeholders to resolve accounting questions or disagreements and provide interpretation support', 'Monitoring the consistency and accuracy of accounting practices to ensure effective implementation', 'Facilitation of collaboration and alignment within the ecosystem to reduce confusion, prevent]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Technical Uncertainty and Complexity', 'Potential for Misrepresentation]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Large companies: Category A, 12 months', 'Medium companies: Category A, 12 months', 'Small and micro companies: Category B,]
+Mathematics English language Engineering and technology
+Three years of total energy consumption data GHG emissions per megawatt-hour
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['Determine and document all applicable compliance obligations, including legal and other requirements', 'Assign roles and responsibilities for ensuring operations comply with these obligations', 'Conduct regular compliance audits or reviews to assess adherence to obligations', 'Implement a system for monitoring, measuring, and recording compliance performance', 'Evaluate the effectiveness of the compliance management system through periodic management reviews', 'Take corrective actions on any nonconformities identified during]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['The status of actions from previous management reviews.', 'Changes in external and internal issues that are relevant to the anti-bribery management system.', 'Information on the performance of the anti]
+safe_literal_eval: 无法解析答案，经过修正后依然失败。修正后的字符串为：
+['reaching net-zero carbon across its operations by 2040', 'power its operations with 100% renewable energy by 2025', 'purchase 100,000 electric delivery vehicles, with the first 10,000 hitting the]
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+
+============================================================
+📊 EVALUATION RESULTS: ColBERT_Optimized_933
+============================================================
+
+🎯 Overall Accuracy (933 questions):
+  Retrieval Accuracy: 16.1% (150/933)
+  Answer Accuracy:    36.8% (343/933)
+  End-to-End (E2E):   8.0% (75/933)
+
+📋 By Format:
+  Float (147 questions):
+    Retrieval: 0.0% (0/147)
+    Answer:    38.1% (56/147)
+    E2E:       0.0% (0/147)
+  Int (205 questions):
+    Retrieval: 0.0% (0/205)
+    Answer:    42.4% (87/205)
+    E2E:       0.0% (0/205)
+  List (132 questions):
+    Retrieval: 0.0% (0/132)
+    Answer:    27.3% (36/132)
+    E2E:       0.0% (0/132)
+  Str (297 questions):
+    Retrieval: 0.0% (0/297)
+    Answer:    30.0% (89/297)
+    E2E:       0.0% (0/297)
+  null (150 questions):
+    Retrieval: 100.0% (150/150)
+    Answer:    50.0% (75/150)
+    E2E:       50.0% (75/150)
+
+============================================================
+
+💾 Results saved to: unified_eval_ColBERT_Optimized_933.json
+📂 Loading predictions from baseline_dev_predictions.json...
+✅ Loaded 93 predictions
+
+============================================================
+🔍 Evaluating: Baseline_Dev_93
+============================================================
+Total predictions: 93
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+
+============================================================
+📊 EVALUATION RESULTS: Baseline_Dev_93
+============================================================
+
+🎯 Overall Accuracy (93 questions):
+  Retrieval Accuracy: 15.1% (14/93)
+  Answer Accuracy:    45.2% (42/93)
+  End-to-End (E2E):   0.0% (0/93)
+
+📋 By Format:
+  Float (13 questions):
+    Retrieval: 0.0% (0/13)
+    Answer:    76.9% (10/13)
+    E2E:       0.0% (0/13)
+  Int (19 questions):
+    Retrieval: 0.0% (0/19)
+    Answer:    57.9% (11/19)
+    E2E:       0.0% (0/19)
+  List (13 questions):
+    Retrieval: 0.0% (0/13)
+    Answer:    30.8% (4/13)
+    E2E:       0.0% (0/13)
+  Str (34 questions):
+    Retrieval: 0.0% (0/34)
+    Answer:    50.0% (17/34)
+    E2E:       0.0% (0/34)
+  null (14 questions):
+    Retrieval: 100.0% (14/14)
+    Answer:    0.0% (0/14)
+    E2E:       0.0% (0/14)
+
+============================================================
+
+💾 Results saved to: unified_eval_Baseline_Dev_93.json
+📂 Loading predictions from optimized_predictions.json...
+✅ Loaded 93 predictions
+
+============================================================
+🔍 Evaluating: Optimized_Dev_93
+============================================================
+Total predictions: 93
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+Bamboo Recycled paper pulp Sugar cane fibers Sustainably sourced raw fiber
+
+============================================================
+📊 EVALUATION RESULTS: Optimized_Dev_93
+============================================================
+
+🎯 Overall Accuracy (93 questions):
+  Retrieval Accuracy: 71.0% (66/93)
+  Answer Accuracy:    51.6% (48/93)
+  End-to-End (E2E):   43.0% (40/93)
+
+📋 By Format:
+  Float (13 questions):
+    Retrieval: 69.2% (9/13)
+    Answer:    76.9% (10/13)
+    E2E:       61.5% (8/13)
+  Int (19 questions):
+    Retrieval: 78.9% (15/19)
+    Answer:    57.9% (11/19)
+    E2E:       52.6% (10/19)
+  List (13 questions):
+    Retrieval: 76.9% (10/13)
+    Answer:    38.5% (5/13)
+    E2E:       30.8% (4/13)
+  Str (34 questions):
+    Retrieval: 52.9% (18/34)
+    Answer:    35.3% (12/34)
+    E2E:       23.5% (8/34)
+  null (14 questions):
+    Retrieval: 100.0% (14/14)
+    Answer:    71.4% (10/14)
+    E2E:       71.4% (10/14)
+
+============================================================
+
+💾 Results saved to: unified_eval_Optimized_Dev_93.json
+📂 Loading predictions from corrected_evaluation_results/colbert_corrected_evaluation.json...
+✅ Loaded 47 predictions
+
+============================================================
+🔍 Evaluating: ColBERT_Corrected_47
+============================================================
+Total predictions: 47
+⚠️  Evaluation error for List: unterminated string literal (detected at line 1) (<string>, line 1)
+⚠️  Warning: Question not found in ground truth: According to the table about total gross global Sc...
+⚠️  Warning: Question not found in ground truth: How many PPAs related projects has Microsoft signe...
+Green-e Certified EECS EKOenergy
+
+============================================================
+📊 EVALUATION RESULTS: ColBERT_Corrected_47
+============================================================
+
+🎯 Overall Accuracy (47 questions):
+  Retrieval Accuracy: 17.0% (8/47)
+  Answer Accuracy:    46.8% (22/47)
+  End-to-End (E2E):   14.9% (7/47)
+
+📋 By Format:
+  Float (7 questions):
+    Retrieval: 0.0% (0/7)
+    Answer:    28.6% (2/7)
+    E2E:       0.0% (0/7)
+  Int (9 questions):
+    Retrieval: 0.0% (0/9)
+    Answer:    55.6% (5/9)
+    E2E:       0.0% (0/9)
+  List (5 questions):
+    Retrieval: 0.0% (0/5)
+    Answer:    0.0% (0/5)
+    E2E:       0.0% (0/5)
+  Str (16 questions):
+    Retrieval: 0.0% (0/16)
+    Answer:    50.0% (8/16)
+    E2E:       0.0% (0/16)
+  null (8 questions):
+    Retrieval: 100.0% (8/8)
+    Answer:    87.5% (7/8)
+    E2E:       87.5% (7/8)
+
+============================================================
+
+💾 Results saved to: unified_eval_ColBERT_Corrected_47.json
+
+====================================================================================================
+📊 COMPARISON TABLE - All Evaluations with Unified Evaluator
+====================================================================================================
+Baseline                       Dataset      Retrieval       Answer          E2E             Notes          
+----------------------------------------------------------------------------------------------------
+ColBERT_Corrected_47           47 q               N/A            46.8%        N/A     ⚠️ Answer only 
+Baseline_Dev_93                93 q               N/A            45.2%        N/A     ⚠️ Answer only 
+Optimized_Dev_93               93 q                71.0%         51.6%         43.0%  ✅ E2E          
+ColBERT_Optimized_933          933 q              N/A            36.8%        N/A     ⚠️ Answer only 
+DSPy_Baseline_933              933 q              N/A            40.5%        N/A     ⚠️ Answer only 
+DSPy_Enhanced_933              933 q              N/A            37.3%        N/A     ⚠️ Answer only 
+MMESGBench_Corrected_933       933 q              N/A            37.4%        N/A     ⚠️ Answer only 
+====================================================================================================
+
+💾 Comparison results saved to: unified_evaluation_comparison.json
+
+✅ Unified evaluation completed!
+All results use MMESGBench's exact evaluation logic for fair comparison.

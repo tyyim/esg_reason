@@ -315,38 +315,57 @@ def load_predictions_file(file_path: str) -> Tuple[List[Dict[str, Any]], str]:
 
 def main():
     """Main evaluation function"""
-    print("🚀 Unified Baseline Evaluator")
+    print("🚀 Unified Baseline Evaluator - COMPLETE EVALUATION")
     print("Using MMESGBench's exact evaluation logic")
-    print("=" * 60)
+    print("Evaluating ALL prediction files found in project")
+    print("=" * 80)
 
     # Initialize evaluator
     evaluator = UnifiedBaselineEvaluator()
 
-    # List of prediction files to evaluate
+    # List of ALL prediction files to evaluate (with friendly names)
     prediction_files = [
-        # Phase 0F - DSPy full dataset (933 questions)
-        'dspy_implementation/full_dataset_results/baseline_results_20251010_232606.json',
+        # Full dataset evaluations (933 questions)
+        ('dspy_implementation/full_dataset_results/baseline_results_20251010_232606.json',
+         'DSPy_Baseline_933'),
+        ('dspy_implementation/full_dataset_results/enhanced_results_20251010_232606.json',
+         'DSPy_Enhanced_933'),
+        ('mmesgbench_baseline_corrected.json',
+         'MMESGBench_Corrected_933'),
+        ('optimized_full_dataset_mmesgbench_with_f1.json',
+         'ColBERT_Optimized_933'),
 
-        # MIPROv2 baseline (93 dev questions)
-        'baseline_rag_results_20251012_023850.json',
+        # Dev set evaluations (93 questions)
+        ('baseline_dev_predictions.json',
+         'Baseline_Dev_93'),
+        ('optimized_predictions.json',
+         'Optimized_Dev_93'),
 
-        # Optimized model (93 dev questions)
-        'optimized_predictions.json',
-
-        # Baseline dev predictions (93 dev questions, extracted)
-        'baseline_dev_predictions.json',
+        # Subset evaluation (47 questions)
+        ('corrected_evaluation_results/colbert_corrected_evaluation.json',
+         'ColBERT_Corrected_47'),
     ]
 
     all_results = {}
+    print(f"\n📋 Will evaluate {len(prediction_files)} prediction files:")
+    for pred_file, name in prediction_files:
+        status = "✅" if Path(pred_file).exists() else "❌"
+        print(f"  {status} {name}: {pred_file}")
+    print()
 
     # Evaluate each prediction file
-    for pred_file in prediction_files:
+    for pred_file, friendly_name in prediction_files:
         if not Path(pred_file).exists():
-            print(f"⚠️  Skipping {pred_file} (file not found)")
+            print(f"\n⚠️  Skipping {friendly_name}: {pred_file} (file not found)")
             continue
 
         try:
             predictions, pred_name = load_predictions_file(pred_file)
+
+            # Use friendly name if provided
+            if friendly_name:
+                pred_name = friendly_name
+
             results = evaluator.evaluate_predictions(predictions, pred_name)
             all_results[pred_name] = results
 
@@ -357,27 +376,38 @@ def main():
             print(f"💾 Results saved to: {output_file}")
 
         except Exception as e:
-            print(f"❌ Error evaluating {pred_file}: {e}")
+            print(f"\n❌ Error evaluating {friendly_name}: {e}")
             import traceback
             traceback.print_exc()
 
     # Print comparison table
-    print("\n" + "=" * 80)
+    print("\n" + "=" * 100)
     print("📊 COMPARISON TABLE - All Evaluations with Unified Evaluator")
-    print("=" * 80)
-    print(f"{'Baseline':<40} {'Dataset':<15} {'Retrieval':<12} {'Answer':<12} {'E2E':<12}")
-    print("-" * 80)
+    print("=" * 100)
+    print(f"{'Baseline':<30} {'Dataset':<12} {'Retrieval':<15} {'Answer':<15} {'E2E':<15} {'Notes':<15}")
+    print("-" * 100)
 
-    for name, results in all_results.items():
+    # Sort by dataset size, then name
+    sorted_results = sorted(all_results.items(),
+                           key=lambda x: (x[1]['total_questions'], x[0]))
+
+    for name, results in sorted_results:
         dataset_size = results['total_questions']
         retr_acc = results['retrieval_accuracy']
         ans_acc = results['answer_accuracy']
         e2e_acc = results['end_to_end_accuracy']
 
-        print(f"{name:<40} {str(dataset_size)+' q':<15} "
-              f"{retr_acc:>10.1%}  {ans_acc:>10.1%}  {e2e_acc:>10.1%}")
+        # Determine if we have context (can calculate E2E)
+        has_context = retr_acc > 0.2  # If retrieval > 20%, we likely have context
 
-    print("=" * 80)
+        retr_str = f"{retr_acc:>12.1%}" if has_context else "      N/A   "
+        e2e_str = f"{e2e_acc:>12.1%}" if has_context else "      N/A   "
+        note = "✅ E2E" if has_context else "⚠️ Answer only"
+
+        print(f"{name:<30} {str(dataset_size)+' q':<12} "
+              f"{retr_str}  {ans_acc:>12.1%}  {e2e_str}  {note:<15}")
+
+    print("=" * 100)
 
     # Save comparison results
     comparison_file = 'unified_evaluation_comparison.json'
