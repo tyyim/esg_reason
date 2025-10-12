@@ -1,0 +1,321 @@
+{
+  "false_negatives": [
+    {
+      "idx": 0,
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "format": "Str",
+      "gold": "Seller reports Scope 1, buyer reports Scope 2",
+      "predicted": "The selling organization reports the direct emissions from generating the electricity under scope 1, and the purchasing organization reports the emissions associated with the purchased electricity under scope 2.",
+      "reason": "Semantic match (83% overlap)"
+    },
+    {
+      "idx": 1,
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "format": "Float",
+      "gold": "10%",
+      "predicted": "10.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 7,
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "doc_id": "LSEG ESG.pdf",
+      "format": "Float",
+      "gold": "82%",
+      "predicted": "82.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 9,
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "doc_id": "WELL 2020.pdf",
+      "format": "Float",
+      "gold": "55%",
+      "predicted": "55.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 13,
+      "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "format": "Float",
+      "gold": "94%",
+      "predicted": "94.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 15,
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "doc_id": "LEED 2025.pdf",
+      "format": "Str",
+      "gold": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "predicted": "% energy generated or purchased = annual quantity of renewable energy in kWh / annual building site energy use in kWh",
+      "reason": "Semantic match (87% overlap)"
+    },
+    {
+      "idx": 25,
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "format": "Str",
+      "gold": "At least ten years",
+      "predicted": "at least ten years into the future, with common reference points being 2030 and 2050",
+      "reason": "Semantic match (100% overlap)"
+    },
+    {
+      "idx": 27,
+      "question": "What percentage of workers have the green skills needed for a green transition?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "format": "Float",
+      "gold": "12.5%",
+      "predicted": "12.5",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 29,
+      "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "format": "Float",
+      "gold": "41%",
+      "predicted": "41.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 35,
+      "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "format": "List",
+      "gold": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+      "predicted": "[\"SSP1 (sustainability)\", \"SSP2 (middle of the road)\", \"SSP3 (regional rivalry)\", \"SSP4 (inequality)\", \"SSP5 (rapid growth)\"]",
+      "reason": "List match (quote style differs)"
+    },
+    {
+      "idx": 40,
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "doc_id": "LEED 2025.pdf",
+      "format": "Str",
+      "gold": "75% by weight of product",
+      "predicted": "The weighting of GS Benchmark assessments changes from a cost-based system (100% and 150% of cost) in LEED v4 to a percentage-by-weight system (75% and 95% by weight) in LEED v4.1, with both percentages being valued at 1 product.",
+      "reason": "Contains all key information (verbose)"
+    },
+    {
+      "idx": 41,
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "format": "Str",
+      "gold": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "predicted": "reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement",
+      "reason": "Semantic match (83% overlap)"
+    },
+    {
+      "idx": 42,
+      "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+      "doc_id": "SA8000 2016.pdf",
+      "format": "Str",
+      "gold": "No",
+      "predicted": "Not answerable",
+      "reason": "Contains all key information (verbose)"
+    },
+    {
+      "idx": 66,
+      "question": "What is the minimum percentage of project area required for WELL Core certification?",
+      "doc_id": "WELL 2020.pdf",
+      "format": "Float",
+      "gold": "75%",
+      "predicted": "75.0",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 70,
+      "question": "Who captured the image on page 3 and what is their role?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "format": "Str",
+      "gold": "Erika Basham, Director of Sustainability Product Strategy",
+      "predicted": "Erika Basham, Director of Sustainability, Product Strategy, United States",
+      "reason": "Contains all key information (verbose)"
+    },
+    {
+      "idx": 84,
+      "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+      "doc_id": "OECD Employment.pdf",
+      "format": "Float",
+      "gold": "12.8%",
+      "predicted": "12.8",
+      "reason": "Missing % sign (number correct)"
+    },
+    {
+      "idx": 86,
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "doc_id": "WHO Social.pdf",
+      "format": "Str",
+      "gold": "Premature death",
+      "predicted": "ill health and premature death",
+      "reason": "Semantic match (100% overlap)"
+    }
+  ],
+  "by_format": {
+    "Float": [
+      {
+        "idx": 1,
+        "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+        "doc_id": "GHG Public.pdf",
+        "format": "Float",
+        "gold": "10%",
+        "predicted": "10.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 7,
+        "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+        "doc_id": "LSEG ESG.pdf",
+        "format": "Float",
+        "gold": "82%",
+        "predicted": "82.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 9,
+        "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+        "doc_id": "WELL 2020.pdf",
+        "format": "Float",
+        "gold": "55%",
+        "predicted": "55.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 13,
+        "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+        "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+        "format": "Float",
+        "gold": "94%",
+        "predicted": "94.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 27,
+        "question": "What percentage of workers have the green skills needed for a green transition?",
+        "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+        "format": "Float",
+        "gold": "12.5%",
+        "predicted": "12.5",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 29,
+        "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+        "doc_id": "2023-amazon-sustainability-report.pdf",
+        "format": "Float",
+        "gold": "41%",
+        "predicted": "41.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 66,
+        "question": "What is the minimum percentage of project area required for WELL Core certification?",
+        "doc_id": "WELL 2020.pdf",
+        "format": "Float",
+        "gold": "75%",
+        "predicted": "75.0",
+        "reason": "Missing % sign (number correct)"
+      },
+      {
+        "idx": 84,
+        "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+        "doc_id": "OECD Employment.pdf",
+        "format": "Float",
+        "gold": "12.8%",
+        "predicted": "12.8",
+        "reason": "Missing % sign (number correct)"
+      }
+    ],
+    "Int": [],
+    "List": [
+      {
+        "idx": 35,
+        "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+        "doc_id": "ipcc-ar6-wg3.pdf",
+        "format": "List",
+        "gold": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+        "predicted": "[\"SSP1 (sustainability)\", \"SSP2 (middle of the road)\", \"SSP3 (regional rivalry)\", \"SSP4 (inequality)\", \"SSP5 (rapid growth)\"]",
+        "reason": "List match (quote style differs)"
+      }
+    ],
+    "Str": [
+      {
+        "idx": 0,
+        "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+        "doc_id": "GHG Public.pdf",
+        "format": "Str",
+        "gold": "Seller reports Scope 1, buyer reports Scope 2",
+        "predicted": "The selling organization reports the direct emissions from generating the electricity under scope 1, and the purchasing organization reports the emissions associated with the purchased electricity under scope 2.",
+        "reason": "Semantic match (83% overlap)"
+      },
+      {
+        "idx": 15,
+        "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+        "doc_id": "LEED 2025.pdf",
+        "format": "Str",
+        "gold": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+        "predicted": "% energy generated or purchased = annual quantity of renewable energy in kWh / annual building site energy use in kWh",
+        "reason": "Semantic match (87% overlap)"
+      },
+      {
+        "idx": 25,
+        "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+        "doc_id": "TCFD Guidence 2020.pdf",
+        "format": "Str",
+        "gold": "At least ten years",
+        "predicted": "at least ten years into the future, with common reference points being 2030 and 2050",
+        "reason": "Semantic match (100% overlap)"
+      },
+      {
+        "idx": 40,
+        "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+        "doc_id": "LEED 2025.pdf",
+        "format": "Str",
+        "gold": "75% by weight of product",
+        "predicted": "The weighting of GS Benchmark assessments changes from a cost-based system (100% and 150% of cost) in LEED v4 to a percentage-by-weight system (75% and 95% by weight) in LEED v4.1, with both percentages being valued at 1 product.",
+        "reason": "Contains all key information (verbose)"
+      },
+      {
+        "idx": 41,
+        "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+        "doc_id": "2023-amazon-sustainability-report.pdf",
+        "format": "Str",
+        "gold": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+        "predicted": "reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement",
+        "reason": "Semantic match (83% overlap)"
+      },
+      {
+        "idx": 42,
+        "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+        "doc_id": "SA8000 2016.pdf",
+        "format": "Str",
+        "gold": "No",
+        "predicted": "Not answerable",
+        "reason": "Contains all key information (verbose)"
+      },
+      {
+        "idx": 70,
+        "question": "Who captured the image on page 3 and what is their role?",
+        "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+        "format": "Str",
+        "gold": "Erika Basham, Director of Sustainability Product Strategy",
+        "predicted": "Erika Basham, Director of Sustainability, Product Strategy, United States",
+        "reason": "Contains all key information (verbose)"
+      },
+      {
+        "idx": 86,
+        "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+        "doc_id": "WHO Social.pdf",
+        "format": "Str",
+        "gold": "Premature death",
+        "predicted": "ill health and premature death",
+        "reason": "Semantic match (100% overlap)"
+      }
+    ],
+    "null": []
+  },
+  "total_corrections": 17
+}

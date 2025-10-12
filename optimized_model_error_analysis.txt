@@ -1,0 +1,338 @@
+================================================================================
+ERROR ANALYSIS REPORT: Optimized Model Predictions
+================================================================================
+
+📊 OVERALL SUMMARY
+--------------------------------------------------------------------------------
+Total questions: 93
+Correct: 29/93 (31.2%)
+Wrong: 64/93 (68.8%)
+
+🔍 FAILURE BREAKDOWN
+--------------------------------------------------------------------------------
+Retrieval failures: 23 (24.7%)
+  → Model retrieved wrong chunks, couldn't find evidence
+Extraction failures: 41 (44.1%)
+  → Model found evidence but extracted wrong answer
+
+📋 PERFORMANCE BY ANSWER FORMAT
+--------------------------------------------------------------------------------
+
+Float (13 questions):
+  Accuracy: 1/13 (7.7%)
+  Retrieval failures: 3
+  Extraction failures: 9
+
+Int (19 questions):
+  Accuracy: 10/19 (52.6%)
+  Retrieval failures: 4
+  Extraction failures: 5
+
+List (13 questions):
+  Accuracy: 0/13 (0.0%)
+  Retrieval failures: 3
+  Extraction failures: 10
+
+Str (34 questions):
+  Accuracy: 8/34 (23.5%)
+  Retrieval failures: 13
+  Extraction failures: 13
+
+null (Not answerable) (14 questions):
+  Accuracy: 10/14 (71.4%)
+  Retrieval failures: 0
+  Extraction failures: 4
+
+📍 RETRIEVAL FAILURE EXAMPLES (Top 10)
+================================================================================
+
+Total retrieval failures: 23
+→ Model retrieved wrong chunks, couldn't find evidence pages
+
+
+1. Q: If an organization reports an EFC of 0.66 kg CO₂/kWh and an EFG of 0.6 kg CO₂/kWh, what is the percentage of T&D loss ov...
+   Document: GHG Public.pdf
+   Format: Float
+   Gold answer: 10%
+   Predicted: 10.0
+   Evidence pages needed: [99]
+   Context preview: [Page 97, score: 0.803]
+TOTAL CO 2 EMISSIONS FROM GENERATION
+ELECTRICITY CONSUMED
+(
+)
+INDIRECT EMISSIONS
+FROM CONSUMPTION OF
+ELECTRICITY DURING T&D
+EF...
+   → WHY: Model didn't retrieve pages [99]
+
+2. Q: Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? W...
+   Document: Alibaba Group 2023 ESG Report.pdf
+   Format: List
+   Gold answer: ['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']
+   Predicted: ["Cloud Computing Data Centers", "Retail Stores", "Offices and Warehouses", "Company-Owned Transportation in Retail Operations", "Campuses"]
+   Evidence pages needed: [220]
+   Context preview: [Page 223, score: 0.748]
+222
+Restoring Our 
+Green Planet
+Supporting Our 
+People 
+ Enabling a Sustainable 
+Digital Life
+Fueling Small 
+Businesses 
+Enha...
+   → WHY: Model didn't retrieve pages [220]
+
+3. Q: To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environment...
+   Document: LEED 2025.pdf
+   Format: Int
+   Gold answer: 11
+   Predicted: 22
+   Evidence pages needed: [6, 7, 8]
+   Context preview: [Page 260, score: 0.748]
+environmental health and equity. To foster LEED expertise throughout building design, construction, 
+and operation and collab...
+   → WHY: Model didn't retrieve pages [6, 7, 8]
+
+4. Q: When was the survey completed?...
+   Document: GHG Survey.pdf
+   Format: Str
+   Gold answer: March 2023
+   Predicted: Not answerable
+   Evidence pages needed: [50]
+   Context preview: [Page 6, score: 0.666]
+relevant new research studies as they become available throughout the update process.   
+ 
+To provide feedback on the draft sur...
+   → WHY: Model didn't retrieve pages [50]
+
+5. Q: How is the percentage of renewable energy purchased calculated? Give the calculate equation...
+   Document: LEED 2025.pdf
+   Format: Str
+   Gold answer: energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)
+   Predicted: % energy generated or purchased = annual quantity of renewable energy in kWh / annual building site energy use in kWh
+   Evidence pages needed: [161]
+   Context preview: [Page 152, score: 0.822]
+152  
+ 
+U.S. Green Building Council 
+ 
+Calculations 
+Percentage of renewable energy purchased  
+ 
+Use Equation 1 to determine...
+   → WHY: Model didn't retrieve pages [161]
+
+6. Q: What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?...
+   Document: TCFD Guidence 2020.pdf
+   Format: Str
+   Gold answer: At least ten years
+   Predicted: at least ten years into the future, with common reference points being 2030 and 2050
+   Evidence pages needed: [26]
+   Context preview: [Page 76, score: 0.781]
+The Task Force on Climate-related Financial Disclosures
+it may be useful to start with a more focused 
+boundary such as a crit...
+   → WHY: Model didn't retrieve pages [26]
+
+7. Q: What does WASH refer to in the document?...
+   Document: AR6 Synthesis Report Climate Change 2023.pdf
+   Format: Str
+   Gold answer: Water, sanitation and hygiene
+   Predicted: water, sanitation and hygiene
+   Evidence pages needed: [44, 120]
+   Context preview: [Page 70, score: 0.714]
+allows reduction of risks to climatic and non-climatic stressors. Forest based adaptation includes sustainable forest manageme...
+   → WHY: Model didn't retrieve pages [44, 120]
+
+8. Q: What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer ...
+   Document: AR6 Synthesis Report Climate Change 2023.pdf
+   Format: Str
+   Gold answer: [0.8, 1.3]
+   Predicted: [0.8°C, 1.3°C]
+   Evidence pages needed: [20]
+   Context preview: [Page 8, score: 0.812]
+(2001–2020) was 0.99 [0.84 to 1.10]°C higher than 1850–1900. Global 
+surface temperature has increased faster since 1970 than i...
+   → WHY: Model didn't retrieve pages [20]
+
+9. Q: What are the initial set of SSP narratives? Write the answer in list format....
+   Document: ipcc-ar6-wg3.pdf
+   Format: List
+   Gold answer: ['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']
+   Predicted: ["SSP1 (sustainability)", "SSP2 (middle of the road)", "SSP3 (regional rivalry)", "SSP4 (inequality)", "SSP5 (rapid growth)"]
+   Evidence pages needed: [91, 318]
+   Context preview: [Page 104, score: 0.733]
+26 
+The initial set of SSP narratives described worlds with different challenges to mitigation and adaptation: 
+27 
+SSP1 (sus...
+   → WHY: Model didn't retrieve pages [91, 318]
+
+10. Q: What are the potential risks and impacts of enhanced weathering (EW)?...
+   Document: ipcc-ar6-wg3.pdf
+   Format: Str
+   Gold answer: Mining impacts; air quality impacts of rock dust when spreading on soil.
+   Predicted: Local impacts from mining rocks, air quality impacts from spreading rock dust on soil, additional energy generation and associated emissions which could reduce the net carbon dioxide removal unless low-carbon power is used.
+   Evidence pages needed: [128]
+   Context preview: [Page 2027, score: 0.712]
+37 
+Lenton (2014). Beerling et al. (2020) estimate that up to 2 GtCO2 yr–1 could be removed by 2050 by 
+38 
+spreading basalt...
+   → WHY: Model didn't retrieve pages [128]
+
+
+🔤 EXTRACTION FAILURE EXAMPLES (Top 10)
+================================================================================
+
+Total extraction failures: 41
+→ Model found correct evidence but extracted wrong answer
+
+
+1. Q: How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?...
+   Document: GHG Public.pdf
+   Format: Str
+   Gold answer: Seller reports Scope 1, buyer reports Scope 2
+   Predicted: The selling organization reports the direct emissions from generating the electricity under scope 1, and the purchasing organization reports the emissions associated with the purchased electricity under scope 2.
+   Evidence was retrieved: ✓
+   Context preview: [Page 31, score: 0.819]
+controls the T&D system. Organization C consumes
+5 MWh of electricity in its T&D system and sells the
+remaining 95 MWh to Orga...
+   → WHY: Model had evidence but failed to extract correct answer
+
+2. Q: Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?...
+   Document: SASB Agricultural Products.pdf
+   Format: Str
+   Gold answer: WRI Water Risk Atlas tool
+   Predicted: Not answerable
+   Evidence was retrieved: ✓
+   Context preview: [Page 29, score: 0.722]
+FB-AG-440a.2. Percentage of agricultural products sourced from regions with High
+or Extremely High Baseline Water Stress
+1
+The...
+   → WHY: Model had evidence but failed to extract correct answer
+
+3. Q: According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures...
+   Document: SASB Health Care Distributors.pdf
+   Format: Str
+   Gold answer: Counterfeit Drugs
+   Predicted: Fleet Fuel Management
+   Evidence was retrieved: ✓
+   Context preview: [Page 4, score: 0.664]
+2. Disclosure topics – which describe specific sustainability-related risks or opportunities associated with the
+activities con...
+   → WHY: Model had evidence but failed to extract correct answer
+
+4. Q: How many types of proportional scoring are mentioned in the document?...
+   Document: CDP Full Corporate Scoring Introduction 2024.pdf
+   Format: Int
+   Gold answer: 3
+   Predicted: 2
+   Evidence was retrieved: ✓
+   Context preview: [Page 13, score: 0.766]
+Proportional scoring 
+In some instances, responses are scored in proportion to the amount of data that is disclosed.  
+This sc...
+   → WHY: Model had evidence but failed to extract correct answer
+
+5. Q: What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?...
+   Document: LSEG ESG.pdf
+   Format: Float
+   Gold answer: 82%
+   Predicted: 82.0
+   Evidence was retrieved: ✓
+   Context preview: [Page 23, score: 0.846]
+According to the Climate Bonds Initiative’s State 
+of the Market 2016 report15, over $42bn of green bonds 
+were listed in 2015...
+   → WHY: Model had evidence but failed to extract correct answer
+
+6. Q: To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area pe...
+   Document: WELL 2020.pdf
+   Format: Float
+   Gold answer: 55%
+   Predicted: 55.0
+   Evidence was retrieved: ✓
+   Context preview: [Page 119, score: 0.790]
+For All Spaces except Dwelling Units:
+The project demonstrates, through computer simulations, that the following conditions a...
+   → WHY: Model had evidence but failed to extract correct answer
+
+7. Q: What is the pass rate of special unannounced inspections for suppliers in FY2023?...
+   Document: Alibaba Group 2023 ESG Report.pdf
+   Format: Float
+   Gold answer: 94%
+   Predicted: 94.0
+   Evidence was retrieved: ✓
+   Context preview: [Page 143, score: 0.781]
+compliance risks and eliminate potential for actual 
+asset losses. We perform risk identification and audits 
+throughout the ...
+   → WHY: Model had evidence but failed to extract correct answer
+
+8. Q: What are the key actors involved in the revitalized Global Partnership for Sustainable Development? Write the answer in ...
+   Document: SDG Agenda.pdf
+   Format: List
+   Gold answer: ['Governments', 'private sector', 'civil society']
+   Predicted: ["Member States", "Civil society", "The private sector", "The scientific community", "United Nations entities", "Other stakeholders"]
+   Evidence was retrieved: ✓
+   Context preview: [Page 14, score: 0.696]
+Goals+and+targets.+The+Agenda,+including+the+Sustainable+Development+Goals,+can+be+met+
+within+ the+ framework+ of+ a+ revital...
+   → WHY: Model had evidence but failed to extract correct answer
+
+9. Q: How many components are listed for an effective management system in SA8000?...
+   Document: SA8000 2016.pdf
+   Format: Int
+   Gold answer: 10
+   Predicted: 9
+   Evidence was retrieved: ✓
+   Context preview: [Page 26, score: 0.846]
+SA8000 requires organisations to implement an effective management system to manage social performance for 
+Elements 1-8. Plea...
+   → WHY: Model had evidence but failed to extract correct answer
+
+10. Q: What are the key components of an effective management system according to SA8000?...
+   Document: SA8000 2016.pdf
+   Format: None
+   Gold answer: Not answerable
+   Predicted: - Policies, Procedures and Records
+- Social Performance Team
+- Identification and Assessment of Risks
+- Monitoring
+- Internal Involvement
+- Complaint Management and Resolution
+- External Verification and Stakeholder Engagement
+- Corrective and Preventive Actions
+- Training and Capacity Building
+   Evidence was retrieved: ✓
+   Context preview: [Page 95, score: 0.854]
+address the distinctive necessary aspects of a management system that is being used for social performance, as 
+opposed to env...
+   → WHY: Model had evidence but failed to extract correct answer
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+⚠️  PRIMARY ISSUE: EXTRACTION (41 failures)
+   - 41 questions failed at extraction stage
+   - 23 questions failed at retrieval stage
+   - Extraction accounts for 64.1% of all failures
+   - DIAGNOSIS: Optimized prompts had evidence but extracted wrong answers
+   - May need better instruction tuning or few-shot examples
+
+RECOMMENDATION:
+  → Overall accuracy: 31.2% on dev set
+  → Focus on improving EXTRACTION:
+    1. Analyze extraction failures to identify patterns
+    2. Add more few-shot examples for extraction signature
+    3. Try different instruction prompts for AnswerExtraction
+    4. Consider re-running MIPROv2 with explicit valset parameter
+
+================================================================================
