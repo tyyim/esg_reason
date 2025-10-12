@@ -116,14 +116,19 @@ python calculate_f1_score.py
 
 ## 📊 Final Phase 0 Results
 
+> **📋 Complete Baseline Reference**: See [`BASELINE_REFERENCE.md`](BASELINE_REFERENCE.md) for comprehensive baseline comparisons across all evaluations, datasets, and metrics with detailed explanations of E2E vs Answer accuracy.
+
 ### MMESGBench Full Dataset Performance (933 Questions)
 
 | Metric | Result | Target | Achievement |
 |--------|--------|--------|--------------|
-| **DSPy Baseline** | **45.1%** (421/933) | 41.5% | **108.7%** ✅ |
-| **ColBERT Baseline** | 41.3% (385/933) | 41.5% | 99.5% ✅ |
-| **DSPy Improvement** | **+3.8%** | - | **Automated prompt engineering** ✅ |
+| **ColBERT Baseline (E2E)** | **41.3%** (385/933) | 41.5% | 99.5% ✅ |
+| **DSPy Baseline (E2E)** | 37.3% (348/933) | 41.5% | 89.9% |
+| **DSPy Baseline (Answer)** | **45.7%** (426/933) | - | Better extraction ✅ |
+| **DSPy Retrieval** | **75.6%** (705/933) | - | Excellent ✅ |
 | **F1 Score** | ~41.5% | - | Strong ✅ |
+
+**Note**: DSPy achieves excellent retrieval (75.6%) but answer extraction needs optimization. E2E accuracy (37.3%) < ColBERT (41.3%) despite better answer extraction. Phase 1 focuses on query generation + prompt optimization to improve E2E performance.
 
 ### **Document Correction Impact**
 
@@ -228,6 +233,8 @@ Successfully downloaded all **933 questions** across **45 ESG documents**.
 
 ### 🔄 Phase 1 - Enhanced DSPy Optimization with Query Generation (IN PROGRESS)
 **Status**: Phase 1a (Enhanced MIPROv2) - **IMPLEMENTATION COMPLETE, READY TO RUN**
+
+> **📊 Baseline for Optimization**: MIPROv2 baseline on dev set (93 questions) = **48.4%** E2E strict / **~51.6%** E2E relaxed. Previous optimization attempt degraded to 50.5% (-1.1%). See [`BASELINE_REFERENCE.md`](BASELINE_REFERENCE.md) for full details.
 
 **🎯 Key Innovation: Query Generation Optimization**
 Based on DSPy best practices research, we've redesigned the RAG architecture to address the **retrieval bottleneck**:
