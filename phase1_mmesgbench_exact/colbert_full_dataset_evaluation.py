@@ -246,6 +246,13 @@ Answer format: String
                 stage1_text = stage1_response.choices[0].message.content
                 break  # Success, exit retry loop
             except Exception as e:
+                error_str = str(e)
+                # Check for content inspection failures (Qwen API content filter)
+                if "data_inspection_failed" in error_str:
+                    logger.warning(f"Stage 1 content inspection failed (attempt {attempt + 1}): Content flagged by API")
+                    # Don't retry on content inspection failures - skip immediately
+                    return {"response": "Fail to answer", "extracted_response": "Fail to answer", "predicted_answer": "Fail to answer"}
+
                 logger.warning(f"Stage 1 attempt {attempt + 1} failed: {e}")
                 if attempt == 2:  # Last attempt
                     logger.error(f"Stage 1 generation failed after 3 attempts: {e}")
@@ -272,6 +279,13 @@ Answer format: String
                 extracted_text = stage2_response.choices[0].message.content
                 break  # Success, exit retry loop
             except Exception as e:
+                error_str = str(e)
+                # Check for content inspection failures (Qwen API content filter)
+                if "data_inspection_failed" in error_str:
+                    logger.warning(f"Stage 2 content inspection failed (attempt {attempt + 1}): Content flagged by API")
+                    # Don't retry on content inspection failures - skip immediately
+                    return {"response": stage1_text, "extracted_response": "Fail to answer", "predicted_answer": "Fail to answer"}
+
                 logger.warning(f"Stage 2 attempt {attempt + 1} failed: {e}")
                 if attempt == 2:  # Last attempt
                     logger.error(f"Stage 2 extraction failed after 3 attempts: {e}")
