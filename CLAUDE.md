@@ -1,85 +1,85 @@
-# CLAUDE.md - ESG Reasoning Research
+# CLAUDE.md - Project Guidelines
 
-> **⚠️ START HERE**: First time this session? → Read `.claude/START_SESSION.md` (MANDATORY)
->
-> **Maintenance**: See `.claude/CLAUDE_MD_GUIDELINES.md` | Keep concise - scannable in 30 seconds
-> **Details**: Historical findings in `PHASE_1A_FINDINGS.md`, `BASELINE_COMPARISON.md`, `Research Plan — ESG Reasoning and Green Finance.md`
+## 🎯 Project: ESG Reasoning with DSPy Optimization
+
+Replicate MMESGBench baselines, then optimize with DSPy to improve ESG question answering accuracy.
 
 ---
 
-## 🎯 Current Focus
+## 📊 Current Status (2025-10-13)
 
-**Phase 1a-2 Test**: Baseline prompt optimization - **METHODOLOGY FLAW DISCOVERED** ⚠️
+**✅ Project refactored** - Old code archived to `archive_old_project/`
 
-**Status**: Root cause identified - MIPROv2 worked correctly, our evaluation was wrong
+**Key Discoveries**:
+- Dataset corrections: Microsoft 2023→2024, UN Gender, ISO14001
+- **ANLS 0.5**: MMESGBench uses fuzzy matching (50% similarity threshold)
+- **PRIMARY METRIC**: Answer accuracy (for MMESGBench comparison)
+- **RESEARCH METRICS**: Retrieval & E2E accuracy (for our analysis)
 
-**What Happened** (Oct 12, 2025):
-- Ran MIPROv2 optimization on reasoning + extraction prompts (no query generation)
-- Got -3.2% degradation on our 93-question dev set
-- **BUT**: MIPROv2 actually found +3.0% improvement on ITS 100-question validation set
-- **Issue**: Dataset mismatch - optimized for one set, evaluated on different set
+---
 
-**Evidence of Dataset Mismatch**:
+## 🏗️ Implementation Plan (4 Phases)
+
+### Phase 1: MMESGBench Exact Replication
+- **Goal**: ColBERT + Sentence Transformer (their exact approach)
+- **Target**: ~40% answer accuracy
+- **Location**: `phase1_mmesgbench_exact/` (TO BE CREATED)
+
+### Phase 2: Qwen + PGvector Baseline
+- **Goal**: Use existing Qwen embeddings + semantic search (NO ColBERT)
+- **Data**: Existing PGvector (54,608 chunks) - **no re-parsing needed**
+- **Target**: ~42% answer accuracy
+- **Location**: `phase2_qwen_pgvector/` (TO BE CREATED)
+
+### Phase 3a: DSPy Prompt Optimization (No Query Gen)
+- **Goal**: Optimize reasoning + extraction prompts only
+- **Target**: ~45% answer accuracy (+3% over Phase 2)
+- **Location**: `phase3a_dspy_prompts/` (TO BE CREATED)
+
+### Phase 3b: DSPy Query Generation
+- **Goal**: Add query generation optimization
+- **Target**: ~47% answer accuracy (+2% over Phase 3a)
+- **Location**: `phase3b_dspy_query_gen/` (TO BE CREATED)
+
+**Total Expected Improvement**: 40% → 47% (+7% answer accuracy)
+
+See `PROJECT_REFACTORING_PLAN.md` for complete details.
+
+---
+
+## 📁 Project Structure
+
 ```
-MIPROv2's valset (100 questions): 44.0% → 47.0% (+3.0% ✅)
-Our dev set (93 questions):       51.6% → 48.4% (-3.2% ❌)
-```
-
-The 7.6% baseline difference proves these are different question sets with different difficulty.
-
-**Root Cause**: Didn't provide explicit `valset` parameter, so MIPROv2 auto-sampled its own 100 questions
-
-**The Fix**: Re-run with `valset=dev_set` parameter for fair comparison
-
-**Next Decision**:
-- **Option A**: Re-run optimization with explicit valset parameter (RECOMMENDED)
-- **Option B**: Accept the 3% improvement MIPROv2 found and move to full dataset
-- **Option C**: Try different optimization approach
-
-See `OPTIMIZATION_FAILURE_ANALYSIS.md` for complete analysis
-
----
-
-## 📁 Critical Files
-
-### Production Scripts
-- `dspy_implementation/enhanced_miprov2_optimization.py` - Phase 1a optimization (RUN THIS)
-- `quick_dev_eval.py` - Quick baseline evaluation (dev set)
-- `colbert_text_only_evaluation.py` - ColBERT baseline (40.0%)
-
-### Core Implementation
-- `dspy_implementation/dspy_rag_enhanced.py` - Enhanced + Baseline RAG modules
-- `dspy_implementation/dspy_metrics_enhanced.py` - Retrieval + answer + E2E metrics (FIXED Oct 9)
-- `dspy_implementation/dspy_signatures_enhanced.py` - Query generation signatures
-- `dspy_implementation/mlflow_tracking.py` - Experiment tracking
-
-### Datasets
-- `mmesgbench_dataset_corrected.json` - Authoritative 933 questions
-- `dspy_implementation/data_splits/` - train (186), dev (93), test (654)
-
-### Documentation
-- `PHASE_1A_FINDINGS.md` - Critical bugs discovered Oct 9, 2025
-- `BASELINE_COMPARISON.md` - Dev vs full dataset comparison
-- `DSPy_RAG_Redesign_Plan.md` - Architecture design
-
----
-
-## 🚀 Key Commands
-
-```bash
-# Environment
-cd /Users/victoryim/Local_Git/CC
-conda activate esg_reasoning
-
-# Phase 1a Optimization (NEXT STEP)
-python dspy_implementation/enhanced_miprov2_optimization.py 2>&1 | tee logs/phase1a_$(date +%Y%m%d_%H%M%S).log
-
-# Monitor
-mlflow ui  # http://localhost:5000
-tail -f logs/phase1a_*.log
-
-# Quick Baseline Check
-python quick_dev_eval.py
+CC/
+├── 📝 Essential Documentation
+├── CLAUDE.md                        # This file (quick reference)
+├── CHANGELOG.md                     # Progress tracking
+├── PROJECT_REFACTORING_PLAN.md      # Complete implementation plan
+├── ANLS_EVALUATION_EXPLAINED.md     # Evaluation methodology
+├── Research Plan.md                  # Research proposal (Notion sync)
+│
+├── 📊 Core Data
+├── mmesgbench_dataset_corrected.json # 933 QA pairs (authoritative)
+├── source_documents/                 # 45 ESG PDF documents
+│
+├── 🏗️ Core Infrastructure (Preserved)
+├── src/                              # Core Python modules
+├── MMESGBench/                       # Reference benchmark
+│
+├── 🔧 Phase Implementations (TO BE CREATED)
+├── phase1_mmesgbench_exact/         # Phase 1
+├── phase2_qwen_pgvector/            # Phase 2
+├── phase3a_dspy_prompts/            # Phase 3a
+├── phase3b_dspy_query_gen/          # Phase 3b
+├── unified_evaluator/               # Shared evaluation
+│
+└── 🗄️ Archive
+    └── archive_old_project/          # All old work (for reference)
+        ├── code_old/                  # Old Python scripts
+        ├── results_old/               # Old JSON results
+        ├── documentation_old/         # Old documentation
+        ├── analysis_old/              # Old analysis
+        └── logs_old/                  # Old logs
 ```
 
 ---
@@ -87,74 +87,72 @@ python quick_dev_eval.py
 ## 🔧 Environment
 
 ```bash
-# .env
-DASHSCOPE_API_KEY=your_key_here
+cd /Users/victoryim/Local_Git/CC
+conda activate esg_reasoning
+
+# .env variables
+DASHSCOPE_API_KEY=your_key
 PG_URL=postgresql://user:pass@host:port/database
 ESG_COLLECTION_NAME=MMESG
 
-# Database
-PostgreSQL + pgvector: 54,608 chunks from 45 documents
-
-# Models
-qwen-max (LLM) | text-embedding-v4 (embeddings)
+# Database: PostgreSQL + pgvector (54,608 chunks from 45 documents)
+# Models: qwen-max (LLM), text-embedding-v4 (embeddings)
 ```
 
 ---
 
-## ⚠️ Known Issues & Fixes
+## 📊 Evaluation Methodology
 
-### FIXED (Oct 12, 2025)
-1. **"Not answerable" handling**: DSPy signatures didn't explicitly instruct model to output "Not answerable"
-   - **Impact**: 0% accuracy on 150 "Not answerable" questions
-   - **Fix**: Updated ESGReasoning and AnswerExtraction signatures with explicit instructions
-   - **Result**: 37.3% → 55.6% accuracy (+18.3%)
+### PRIMARY METRIC: Answer Accuracy (MMESGBench comparison)
+- Uses MMESGBench's exact `eval_score()` function
+- **ANLS 0.5**: Fuzzy matching with 50% similarity threshold
+- Allows typos, formatting differences (e.g., "North America" = "north america" = "Noth America")
 
-### FIXED (Oct 11, 2025)
-2. **Baseline calculation**: Was merging files instead of substituting corrected results
-   - **Fix**: Created `substitute_corrected_results.py` to properly substitute 16 questions
-   - **Corrected MMESGBench baseline**: 40.51% (vs our 55.6%)
+### RESEARCH METRICS (our analysis only)
+- **Retrieval Accuracy**: % questions with all evidence pages retrieved
+- **E2E Accuracy**: Both retrieval AND answer correct
 
-### FIXED (Oct 9, 2025)
-3. **Retrieval metric bug**: Was always returning 1.0 → Now correctly returns 0.0 for failures
-   - **Impact**: ALL previous baselines (39.9%, 41.3%, 45.1%) were INVALID
-   - **True baseline**: 38.7% (dev set with fixed metrics)
+### Evaluation Code:
+```python
+from MMESGBench.src.eval.eval_score import eval_score
 
-4. **MLFlow logging**: Script crashed before logging → Now logs BEFORE printing + saves artifacts
-
-### Active
-- None currently blocking optimization
-
-### Process Improvements (Oct 12, 2025)
-- ✅ Created CHANGELOG.md to track all changes
-- ✅ Established workflow: Read CLAUDE.md → Update docs → Verify config → Run → Document
-- ⏳ TODO: Clean up debug scripts (move to archive/)
-
----
-
-## 📊 Phase 1a Architecture
-
-**4-Stage Pipeline** (all optimizable via MIPROv2):
-1. Query Generation → optimize retrieval queries
-2. Retrieval → PostgreSQL + pgvector (top-5 chunks)
-3. ESG Reasoning → Chain-of-thought analysis
-4. Answer Extraction → Structured format extraction
-
-**Metrics** (separate tracking):
-- Retrieval accuracy (evidence pages found)
-- Answer accuracy (correct answer extracted)
-- End-to-end accuracy (both correct)
-
----
-
-## 🎯 Next Action
-
-Run Phase 1a optimization:
-```bash
-# Start optimization
-python dspy_implementation/enhanced_miprov2_optimization.py 2>&1 | tee logs/phase1a_$(date +%Y%m%d_%H%M%S).log
-
-# Expected: 45-90 minutes
-# Target: 38.7% → 43-50% on dev set
+answer_score = eval_score(gt, pred, answer_type)
+answer_correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 ```
 
-After dev set optimization, validate on full 933 questions for MMESGBench comparison.
+See `ANLS_EVALUATION_EXPLAINED.md` for complete details.
+
+---
+
+## 🚀 Next Steps
+
+1. ✅ **Cleanup complete** - Old work archived
+2. ⏳ Implement unified evaluator
+3. ⏳ Implement Phase 1 (MMESGBench exact replication)
+4. ⏳ Implement Phase 2 (Qwen + PGvector)
+5. ⏳ Implement Phase 3a (DSPy prompts)
+6. ⏳ Implement Phase 3b (DSPy query gen)
+7. ⏳ Generate unified comparison table
+
+---
+
+## 📝 Documentation Index
+
+- **CLAUDE.md** (this file) - Quick project guidelines
+- **CHANGELOG.md** - Historical progress tracking
+- **PROJECT_REFACTORING_PLAN.md** - Complete 4-phase implementation plan
+- **ANLS_EVALUATION_EXPLAINED.md** - Evaluation methodology reference
+- **Research Plan.md** - Research proposal (sync with Notion occasionally)
+
+---
+
+## 💡 Key Reminders
+
+- **Answer accuracy** is PRIMARY metric (not retrieval or E2E)
+- **ANLS 0.5** allows fuzzy matching for fair comparison
+- Phase 2 uses **existing PGvector data** (no re-parsing!)
+- All old code preserved in `archive_old_project/`
+
+---
+
+**Last Updated**: 2025-10-13 (Project refactoring and cleanup)

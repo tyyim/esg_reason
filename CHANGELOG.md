@@ -1,5 +1,125 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-10-13 - Project Refactoring & Cleanup ✅ COMPLETE
+
+### Major Refactoring
+**Decided to start fresh with clean implementation based on lessons learned.**
+
+### Actions Taken
+
+#### 1. Archive Old Work ✅
+Moved all old work to `archive_old_project/`:
+   - Old Python scripts → `code_old/` (22 scripts)
+   - Old JSON results → `results_old/` (22 files)
+   - Old documentation → `documentation_old/` (30+ files)
+   - Old analysis files → `analysis_old/`
+   - Old logs → `logs_old/`
+
+#### 2. Streamlined Documentation ✅
+Kept only essential files:
+   - **CLAUDE.md** - Concise project guidelines
+   - **CHANGELOG.md** - This file (progress tracking)
+   - **PROJECT_REFACTORING_PLAN.md** - 4-phase implementation plan
+   - **ANLS_EVALUATION_EXPLAINED.md** - Evaluation methodology reference
+   - **REFACTORING_MAPPING.md** - Code mapping from archive to phases
+   - **RUN_ALL_PHASES.md** - Quick start guide
+   - **Research Plan.md** - Research proposal (for occasional Notion sync)
+
+#### 3. Created Clean Phase Structure ✅
+Organized working code from archive into 4 phases:
+
+**Phase 1: MMESGBench Exact Replication** (`phase1_mmesgbench_exact/`)
+- Copied: `colbert_full_dataset_evaluation.py` → `colbert_evaluator.py`
+- Target: ~40% answer accuracy
+- Run: `./run_phase1.sh`
+
+**Phase 2: Qwen + PGvector Baseline** (`phase2_qwen_pgvector/`)
+- Copied: `quick_dev_eval.py` → `baseline_evaluator.py`
+- Uses existing PGvector data (NO re-parsing)
+- Target: ~42% answer accuracy
+- Run: `./run_phase2.sh`
+
+**Phase 3a: DSPy Prompt Optimization** (`phase3a_dspy_prompts/`)
+- Config: `config_phase3a.yaml` (query_optimization: false)
+- Optimizes: ESGReasoning + AnswerExtraction only
+- Target: ~45% answer accuracy
+- Run: `./run_phase3a.sh`
+
+**Phase 3b: DSPy Query Generation** (`phase3b_dspy_query_gen/`)
+- Config: `config_phase3b.yaml` (query_optimization: true)
+- Optimizes: QueryGeneration + ESGReasoning + AnswerExtraction
+- Target: ~47% answer accuracy
+- Run: `./run_phase3b.sh`
+
+**Unified Evaluator** (`unified_evaluator/`)
+- Copied: `unified_baseline_evaluator.py` → `evaluator.py`
+- Uses MMESGBench's exact `eval_score()` function
+- Provides consistent evaluation across all phases
+
+#### 4. Created Run Scripts ✅
+Simple execution commands for each phase:
+- `run_phase1.sh` - ColBERT baseline (~10-15 min)
+- `run_phase2.sh` - Qwen baseline (~10-15 min)
+- `run_phase3a.sh` - DSPy prompts (~20-30 min)
+- `run_phase3b.sh` - DSPy query gen (~30-45 min)
+
+#### 5. Preserved Core Infrastructure ✅
+   - `src/` - Core Python modules
+   - `dspy_implementation/` - DSPy modules (already exists, used by Phase 3)
+   - `MMESGBench/` - Reference benchmark
+   - `mmesgbench_dataset_corrected.json` - Authoritative dataset
+   - `source_documents/` - 45 ESG PDFs
+
+### New Implementation Plan (4 Phases)
+
+**Phase 1**: MMESGBench exact replication (ColBERT + Sentence Transformer)
+- Target: ~40% answer accuracy
+- Location: `phase1_mmesgbench_exact/` (to be created)
+
+**Phase 2**: Qwen + PGvector baseline (use existing data, no re-parsing)
+- Target: ~42% answer accuracy
+- Location: `phase2_qwen_pgvector/` (to be created)
+
+**Phase 3a**: DSPy prompt optimization (reasoning + extraction, NO query gen)
+- Target: ~45% answer accuracy
+- Location: `phase3a_dspy_prompts/` (to be created)
+
+**Phase 3b**: DSPy query generation (add query optimization)
+- Target: ~47% answer accuracy
+- Location: `phase3b_dspy_query_gen/` (to be created)
+
+**Total Expected Improvement**: 40% → 47% (+7% answer accuracy)
+
+### Key Insights Documented
+
+1. **ANLS 0.5 Fuzzy Matching**:
+   - MMESGBench uses fuzzy string matching with 50% similarity threshold
+   - Allows typos, formatting differences while maintaining quality
+   - Documented in `ANLS_EVALUATION_EXPLAINED.md`
+
+2. **PRIMARY vs RESEARCH Metrics**:
+   - **PRIMARY**: Answer accuracy (for MMESGBench comparison)
+   - **RESEARCH**: Retrieval & E2E accuracy (for our analysis only)
+
+3. **Dataset Corrections Applied**:
+   - Microsoft CDP: 2023 → 2024 version
+   - UN Gender: Correct file downloaded
+   - ISO14001: Fixed filename reference
+
+### Why Refactoring?
+- Previous implementation was confusing with too many scripts and results
+- Multiple failed optimization attempts with unclear baselines
+- Need clean separation between phases for fair comparison
+- Want to ensure exact MMESGBench replication before optimization
+
+### Files Preserved
+- Core infrastructure (src/, MMESGBench/)
+- Authoritative dataset and source documents
+- Essential documentation only
+- All old work archived for reference
+
+---
+
 ## 2025-10-12 - Workflow Enforcement System
 
 ### Problem Identified
