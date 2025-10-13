@@ -10,8 +10,11 @@ echo "=========================================="
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate esg_reasoning
 
-# Run ColBERT evaluator (sequential version with all best practices)
-python phase1_mmesgbench_exact/colbert_evaluator.py
+# Export API key
+export DASHSCOPE_API_KEY=$(grep DASHSCOPE_API_KEY .env | cut -d'=' -f2)
+
+# Run ColBERT evaluator (parallel version for speed)
+python phase1_mmesgbench_exact/colbert_evaluator_parallel.py
 
 echo ""
 echo "✅ Phase 1 complete!"
