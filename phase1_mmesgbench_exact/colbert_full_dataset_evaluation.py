@@ -131,7 +131,10 @@ Answer format: String
             "Microsoft CDP Climate Change Response 2023.pdf": "Microsoft-CDP-2024-Response.pdf",
             "Microsoft CDP Climate Change Response 2024.pdf": "Microsoft-CDP-2024-Response.pdf",  # Corrected GT uses 2024
             "ISO 14001.pdf": "ISO-14001-2015.pdf",
-            "Gender 2024.pdf": "Gender 2024.pdf"  # Now using correct Gender 2024.pdf
+            "Gender 2024.pdf": "Gender 2024.pdf",  # Now using correct Gender 2024.pdf
+            # Fix underscore/space mismatches
+            "CDP_Full_Corporate_Scoring_Introduction_2024.pdf": "CDP Full Corporate Scoring Introduction 2024.pdf",
+            "Apple_CDP-Climate-Change-Questionnaire_2023.pdf": "Apple CDP-Climate-Change-Questionnaire 2023.pdf"
         }
 
         if doc_id in substitutions:
