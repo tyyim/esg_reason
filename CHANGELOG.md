@@ -70,6 +70,26 @@ Simple execution commands for each phase:
    - `mmesgbench_dataset_corrected.json` - Authoritative dataset
    - `source_documents/` - 45 ESG PDFs
 
+#### 6. Created Coding Best Practices Document ✅
+**File**: `CODING_BEST_PRACTICES.md`
+
+Documented mandatory patterns for all evaluation/optimization scripts:
+- **Checkpoint/Resume**: Prevent work loss from crashes (~933 questions)
+- **Structured Logging**: File + console, with emojis for visual scanning
+- **Retry Logic**: 3 attempts with exponential backoff (1s, 2s, 4s)
+- **MLFlow Tracking**: Required for Phase 2+ (params, metrics, artifacts)
+- **Progress Bars**: tqdm for long-running evaluations
+- **Structured Output**: JSON with metadata, summary, predictions
+- **Unified Evaluation**: Always use MMESGBench's exact eval_score()
+- **Error Handling**: Graceful degradation, not silent failures
+
+Reference implementations documented from archive:
+- `colbert_full_dataset_evaluation.py` - Checkpoint/resume example
+- `mlflow_tracking.py` - MLFlow tracking patterns
+- `enhanced_miprov2_optimization.py` - Full optimization pipeline
+
+**Added to CLAUDE.md**: Link to best practices at top of file (mandatory reading)
+
 ### New Implementation Plan (4 Phases)
 
 **Phase 1**: MMESGBench exact replication (ColBERT + Sentence Transformer)

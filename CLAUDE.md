@@ -1,5 +1,23 @@
 # CLAUDE.md - Project Guidelines
 
+## ⚠️ **MANDATORY: Coding Standards**
+
+**ALL evaluation and optimization scripts MUST follow:**
+📘 **[CODING_BEST_PRACTICES.md](CODING_BEST_PRACTICES.md)**
+
+**Required for every script**:
+- ✅ Checkpoint/resume mechanism (>10 min evals)
+- ✅ Structured logging (file + console)
+- ✅ Retry logic with exponential backoff
+- ✅ MLFlow tracking (Phase 2+)
+- ✅ Progress bars with tqdm
+- ✅ Structured JSON output
+- ✅ MMESGBench's exact eval_score()
+
+**Reference**: `archive_old_project/code_old/colbert_full_dataset_evaluation.py`
+
+---
+
 ## 🎯 Project: ESG Reasoning with DSPy Optimization
 
 Replicate MMESGBench baselines, then optimize with DSPy to improve ESG question answering accuracy.
