@@ -10,8 +10,8 @@ echo "=========================================="
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate esg_reasoning
 
-# Run ColBERT evaluator
-python phase1_mmesgbench_exact/colbert_evaluator.py
+# Run ColBERT evaluator (parallel version for speed)
+python phase1_mmesgbench_exact/colbert_evaluator_parallel.py
 
 echo ""
 echo "✅ Phase 1 complete!"
