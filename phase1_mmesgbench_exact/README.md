@@ -47,6 +47,30 @@ python phase1_mmesgbench_exact/colbert_evaluator.py
 - Results saved to: `phase1_mmesgbench_exact/results/`
 - Checkpoint file: `colbert_checkpoint.json` (auto-resume on crashes)
 
+## ✅ Verified Baseline Results
+
+**Status**: Verified from archive (October 2025)
+
+| Metric | Value | Details |
+|--------|-------|---------|
+| **Accuracy** | **40.5%** | 378/933 questions correct |
+| **Dataset** | Corrected | With fixed document references |
+| **Evaluation** | MMESGBench | Using their exact eval_score() function |
+| **Source File** | `archive_old_project/results_old/mmesgbench_baseline_corrected.json` | Previous evaluation results |
+| **Target** | 41.5% | MMESGBench paper target |
+| **Gap** | -1.0% | Within acceptable range |
+
+**Document Corrections Applied**:
+- Microsoft CDP Climate Change Response 2023 → 2024
+- CDP Full Corporate (underscores) → (with spaces)
+- Apple CDP (underscores) → (with spaces)
+- ISO 14001 → ISO-14001-2015
+
+**Next Steps**:
+- ✅ Baseline established: 40.5%
+- ⏳ Can re-run evaluation if needed to verify
+- ⏳ Ready for Phase 2 (Qwen + PGVector) and Phase 3 (DSPy optimization)
+
 ## Features
 
 ### Checkpoint/Resume ✅
