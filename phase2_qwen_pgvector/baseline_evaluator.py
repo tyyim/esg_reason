@@ -9,8 +9,8 @@ from pathlib import Path
 from tqdm import tqdm
 import dspy
 
-# Add parent directory
-sys.path.insert(0, str(Path(__file__).parent))
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from dspy_implementation.dspy_setup import setup_dspy_qwen
 from dspy_implementation.dspy_dataset import MMESGBenchDataset

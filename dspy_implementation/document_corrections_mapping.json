@@ -1,0 +1,36 @@
+{
+  "corrections": [
+    {
+      "original": "Microsoft CDP Climate Change Response 2023.pdf",
+      "corrected": "Microsoft CDP Climate Change Response 2024.pdf",
+      "type": "ground_truth_relabel",
+      "questions_affected": 31,
+      "accuracy_before": 0.161,
+      "accuracy_after": 0.387,
+      "improvement": "+22.6%"
+    },
+    {
+      "original": "UNESCO Gender Equality Report.pdf",
+      "corrected": "Gender 2024.pdf",
+      "type": "document_replacement",
+      "questions_affected": 16,
+      "accuracy_before": 0.250,
+      "accuracy_after": 0.625,
+      "improvement": "+37.5%"
+    },
+    {
+      "original": "ISO 14001.pdf",
+      "corrected": "ISO-14001-2015.pdf",
+      "type": "filename_validated",
+      "questions_affected": 14,
+      "accuracy_before": 0.286,
+      "accuracy_after": 0.286,
+      "improvement": "0% (same document, different name)"
+    }
+  ],
+  "total_questions_affected": 61,
+  "overall_impact": "+1.4% (39.9% → 41.3%)",
+  "baseline_accuracy": 0.413,
+  "baseline_questions_correct": 385,
+  "total_questions": 933
+}

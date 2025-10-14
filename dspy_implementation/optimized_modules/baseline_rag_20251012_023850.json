@@ -1,0 +1,161 @@
+{
+  "reasoning.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "What is the maximum allowed concentration (in mg/L) of benzene in drinking water according to the WELL Building Standard?",
+        "context": "[Page 51, score: 0.754]\n3. The concentration of haloacetic acids (HAA5, sum of chloroacetic, dichloroacetic, trichloroacetic,\nbromoacetic and dibromoacetic acids) is 0.06 mg/L or less.\nNote: Multifamily residential projects may achieve WELL Certification at the Bronze or Silver level without testing in\ndwelling units, but cannot achieve Gold or Platinum without testing in dwelling units. See Sampling Rates for Multifamily\nResidential in the WELL Performance Verification Guidebook for further details.\n\n[Page 24, score: 0.751]\nWELL Certification: 1 Pt | WELL Core: 1 Pt\nFor All Spaces:\nThe following thresholds are met in occupiable spaces:\na. Acetaldehyde: 140 µg/m³ or lower.\nb. Acrylonitrile: 5 µg/m³ or lower.\nc. Benzene: 3 µg/m³ or lower.\nd. Caprolactam: 2.2 µg/m³ or lower.\ne. Formaldehyde: 9 µg/m³ or lower.\n  \nf. Naphthalene: 9 µg/m³ or lower.\n  \ng. Toluene: 300 µg/m³ or lower.\nWELL Core Guidance:\n1,2\n3\n4\n5\n6\n10\n3 7\n1,2\n2.5\n8\n10: \n9\n2.5:\n9\n10:\n9\n10\n10\n10\n10\n10\n10\n10\nPage 23 of 365\n\n[Page 52, score: 0.746]\nwith the following thresholds:\n1. Benzene: 0.01 mg/L.\n2. Benzo[a]pyrene: 0.0007 mg/L.\n3. Carbon tetrachloride: 0.004 mg/L.\n4. 1,2-Dichloroethane: 0.03 mg/L.\n5. Tetrachloroethene (Tetrachloroethylene): 0.04 mg/L.\n6. Toluene: 0.7 mg/L.\n7. Trichloroethene: 0.02 mg/L.\n8. 2,4,6-Trichlorophenol: 0.2 mg/L.\n9. Vinyl Chloride: 0.0003 mg/L.\n10. Xylenes (o-, m- and p-): 0.5 mg/L.\nOption 2: On-site testing\nThe following requirements are met:\n\n[Page 56, score: 0.740]\nImpact: By managing nuisance chemicals, projects can provide more appealing and palatable drinking water.\nPart 1 Meet Thresholds for Drinking Water Taste \nWELL Certification: 1 Pt | WELL Core: 2 Pt\nFor All Spaces:\nWater delivered to the project for human consumption meets the following thresholds:\na. Aluminum ≤ 0.2 mg/L.\nb. Chloride ≤ 250 mg/L.\nc. Copper ≤ 1 mg/L.\nd. Manganese ≤ 0.05 mg/L. \ne. Iron ≤ 0.3 mg/L.\nf. Silver≤ 0.1 mg/L.\ng. Sodium ≤ 270 mg/L.\nh. Sulfate ≤ 250 mg/L.\ni. Sulfide ≤ 0.05 mg/L.\n\n[Page 25, score: 0.736]\nMeet these requirements in the whole building. Achievement requires access to at least 10% of leased space for testing as\nidentified by the project.  \nPart 3 Meet Enhanced Thresholds for Inorganic Gases \nWELL Certification: 1 Pt | WELL Core: 1 Pt\nFor All Spaces:\nThe following thresholds are met:\na. Carbon monoxide: 7 mg/m³ [6 ppm] or lower.\nb. Nitrogen dioxide: 40 µg/m³ [21 ppb] or lower.\nWELL Core Guidance:",
+        "doc_id": "WELL 2020.pdf",
+        "reasoning": "The context provided contains information on the thresholds for various chemicals in drinking water according to the WELL Building Standard. The specific threshold for benzene is mentioned, and we need to identify this value.",
+        "analysis": "To answer the question, we need to find the maximum allowed concentration of benzene in drinking water as per the WELL Building Standard. \n\nFrom the context:\n- On page 52, it states: \"1. Benzene: 0.01 mg/L.\"\n\nThis clearly indicates that the maximum allowed concentration of benzene in drinking water is 0.01 mg/L.\n\nTherefore, the maximum allowed concentration of benzene in drinking water according to the WELL Building Standard is 0.01 mg/L."
+      },
+      {
+        "doc_id": "GHG Public.pdf",
+        "question": "How many staff hours are required to complete a full inventory report for a government agency under this protocol?",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "Environment-related Standards"
+      },
+      {
+        "doc_id": "WHO GHG.pdf",
+        "question": "Which emission scope includes staff commuting and waste disposal in the health sector?",
+        "answer": "Scope 3",
+        "answer_format": "Str",
+        "evidence_pages": [
+          9
+        ],
+        "evidence_sources": [
+          "Image"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+        "question": "What percentage of total energy consumption is from renewable sources? Please write down the answer in float format with 2 decimals.",
+        "answer": "92.28%",
+        "answer_format": "Float",
+        "evidence_pages": [
+          38
+        ],
+        "evidence_sources": [
+          "Table"
+        ],
+        "doc_type": "CDP Climate Responses"
+      }
+    ],
+    "signature": {
+      "instructions": "Analyze the provided ESG document context and generate a detailed, step-by-step chain-of-thought reasoning to answer the given ESG question. \n\n**Stage 1 of Two-Stage Extraction:**\n- **Objective:** Generate a thorough chain-of-thought analysis over the retrieved context to answer the ESG question.\n- **Inputs:**\n  - **Context:** Retrieved chunks from ESG documents.\n  - **Question:** The ESG question to be answered.\n  - **Doc Id:** The identifier of the source document.\n- **Outputs:**\n  - **Reasoning:** A step-by-step breakdown of your thought process as you analyze the context to address the question.\n  - **Analysis:** A detailed chain-of-thought reasoning that analyzes the context to answer the question. If the context lacks sufficient information to answer the question, clearly state that the question cannot be answered.\n\n**Guidelines:**\n- **Thorough Analysis:** Ensure your analysis is comprehensive and covers all relevant details from the context.\n- **Clarity and Precision:** Provide clear and precise reasoning, breaking down the steps in a logical manner.\n- **Insufficient Information:** If the context does not contain enough information to answer the question, explicitly state that the question cannot be answered from the given context.\n\n**Example:**\n- **Context:** [Page 15, score: 0.800] ... (context provided)\n- **Question:** What are the three key ways in which open text answers may be assessed?\n- **Doc Id:** CDP Full Corporate Scoring Introduction 2024.pdf\n\n**Expected Output:**\n- **Reasoning:** Let's think step by step in order to determine the three key ways in which open text answers may be assessed. The context on Page 15 directly states these methods.\n- **Analysis:** The context on Page 15 of the document \"CDP Full Corporate Scoring Introduction 2024.pdf\" explicitly lists the three key ways in which open text answers may be assessed. These are:\n  1. Providing a clear rationale\n  2. Providing an explanation\n  3. Providing an example with an accompanying timeline\n\nTherefore, the answer to the question is:\n- Providing a clear rationale\n- Providing an explanation\n- Providing an example with an accompanying timeline",
+      "fields": [
+        {
+          "prefix": "Context:",
+          "description": "Retrieved chunks from ESG documents"
+        },
+        {
+          "prefix": "Question:",
+          "description": "ESG question to answer"
+        },
+        {
+          "prefix": "Doc Id:",
+          "description": "Source document identifier"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Detailed chain-of-thought reasoning analyzing the context to answer the question. If context lacks sufficient information, clearly state the question cannot be answered."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "extraction": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "doc_id": "WHO GHG.pdf",
+        "question": "What percentage of global GHG emissions is attributed to the health sector according to the WHO report?",
+        "answer": "5%",
+        "answer_format": "Float",
+        "evidence_pages": [
+          6
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+        "question": "How many full-time equivalents are estimated to manage sustainability initiatives??",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "CDP Climate Responses"
+      },
+      {
+        "doc_id": "PRI 2024.pdf",
+        "question": "What kind of investor-led net-zero initiatives are supported by PRI? Write the answer in the list format",
+        "answer": "['Net Zero Asset Managers initiative', 'Net Zero Asset Owner Alliance', 'Net Zero Investment Consultants Initiative', 'Net Zero Financial Service Providers Alliance']",
+        "answer_format": "List",
+        "evidence_pages": [
+          31,
+          32
+        ],
+        "evidence_sources": [
+          "Generalized-text (Layout)"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+        "question": "According to the Human activities are responsible for global warming, which CO₂ source has contributed more since 1990: fossil fuels or land-use change?",
+        "answer": "land-use change",
+        "answer_format": "Str",
+        "evidence_pages": [
+          59
+        ],
+        "evidence_sources": [
+          "Image"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      }
+    ],
+    "signature": {
+      "instructions": "Extract structured answer from analysis.\n\nStage 2 of two-stage extraction: Extract final answer in specified format\n(Int, Float, Str, List) from the chain-of-thought analysis.\n\nCRITICAL INSTRUCTIONS:\n- Extract answer in the specified format: Int, Float, Str, or List\n- If the analysis indicates the question cannot be answered from the context,\n  respond with exactly: \"Not answerable\"\n- If the analysis indicates it cannot read/understand images or documents,\n  respond with exactly: \"Fail to answer\"\n- Otherwise, provide only the answer value without explanation",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original ESG question"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Chain-of-thought reasoning from Stage 1"
+        },
+        {
+          "prefix": "Answer Format:",
+          "description": "Required answer format: Int, Float, Str, or List"
+        },
+        {
+          "prefix": "Extracted Answer:",
+          "description": "Final answer in specified format, or \"Not answerable\" if context lacks information, or \"Fail to answer\" if documents cannot be read"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

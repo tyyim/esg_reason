@@ -1,0 +1,225 @@
+{
+  "query_gen.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "What is the maximum allowed concentration (in mg/L) of benzene in drinking water according to the WELL Building Standard?",
+        "doc_type": "ESG Climate Report",
+        "reasoning": "The query will be optimized to find the specific information about the maximum allowed concentration of benzene in drinking water according to the WELL Building Standard. The search terms will focus on \"benzene,\" \"drinking water,\" \"maximum allowed concentration,\" and \"WELL Building Standard\" to ensure that the retrieved document contains the relevant regulatory or standard information.",
+        "search_query": "\"benzene\" AND \"drinking water\" AND \"maximum allowed concentration\" AND \"mg/L\" AND \"WELL Building Standard\""
+      },
+      {
+        "doc_id": "GHG Public.pdf",
+        "question": "How many staff hours are required to complete a full inventory report for a government agency under this protocol?",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "Environment-related Standards"
+      },
+      {
+        "doc_id": "WHO GHG.pdf",
+        "question": "Which emission scope includes staff commuting and waste disposal in the health sector?",
+        "answer": "Scope 3",
+        "answer_format": "Str",
+        "evidence_pages": [
+          9
+        ],
+        "evidence_sources": [
+          "Image"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+        "question": "What percentage of total energy consumption is from renewable sources? Please write down the answer in float format with 2 decimals.",
+        "answer": "92.28%",
+        "answer_format": "Float",
+        "evidence_pages": [
+          38
+        ],
+        "evidence_sources": [
+          "Table"
+        ],
+        "doc_type": "CDP Climate Responses"
+      }
+    ],
+    "signature": {
+      "instructions": "Generate optimized search query for ESG document retrieval.\n\nThis signature is optimizable - MIPROv2 will learn better instructions\nfor reformulating questions to maximize retrieval accuracy.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original user question about ESG or climate data"
+        },
+        {
+          "prefix": "Doc Type:",
+          "description": "Document type: ESG report, climate assessment, sustainability report"
+        },
+        {
+          "prefix": "Reasoning:",
+          "description": "Explanation of why this query will retrieve relevant evidence"
+        },
+        {
+          "prefix": "Search Query:",
+          "description": "Optimized retrieval query with key ESG terms, metrics, and context"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "reasoning.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "What is the maximum time frame for phasing out artificial ingredients under Option 1?",
+        "context": "[Page 83, score: 0.728]\nFor All Spaces:\nOption 1: Artificial ingredient phase out\nThe following requirements are met:\na. The project phases out (over a maximum of three years) the use, sale and provision of foods and beverages\ncontaining artificial ingredients listed in the table below:\nColorings\nBlue 1 (E133), Blue 2 (E132), Green 3, Orange B, Citrus Red 2, Red 3 (E127), Red 40 (E129),\nYellow 5 (E102), Yellow 6 (E110), carmine, cochineal, caramel coloring\nSweeteners\n\n[Page 83, score: 0.708]\nLabeling and phasing out the use of artificial ingredients that have been deemed ingredients of concern is another way\nto help individuals avoid consumption of potentially harmful additives. Fortunately, many food companies are phasing\nout artificial ingredients or reformulating recipes to remove them, a trend partly driven by growing consumer demand\nand an increased desire for nutritional transparency.\nPart 1 Limit Artificial Ingredients \nWELL Certification: 1 Pt | WELL Core: 1 Pt\nFor All Spaces:\n\n[Page 83, score: 0.655]\nN05 ARTIFICIAL INGREDIENTS | O \nWELL Certification: 1 Pt | WELL Core: 1 Pt\nIntent: Help individuals avoid artificial colors, flavors, sweeteners and preservatives in foods and beverages.\nSummary: This WELL feature requires projects to label and phase out or restrict artificial ingredients.\nIssue: Numerous artificial ingredients are typically added to highly processed foods to improve taste and extend shelf\n\n[Page 83, score: 0.640]\nb. All foods and beverages sold or provided by (or under contract with) the project owner are clearly labeled on\npackaging, nearby menus or signage to indicate whether they contain artificial ingredients listed in the table\nabove.\nOption 2: Artificial ingredient restriction\nThe following requirement is met:\na. All foods and beverages sold or provided on a daily basis by (or under contract with) the project owner do not\ncontain artificial ingredients listed in the table below:\nColorings\n\n[Page 83, score: 0.629]\napproved for use in the U.S. may also be carcinogenic, cause hypersensitivity reactions and behavioral problems or be\ninadequately tested.  In the EU, for example, foods that contain artificial dyes are required to carry label warnings that\nthey may cause hyperactivity in children.\n   \nSolutions: Sourcing packaged foods and beverages without harmful artificial colors, flavors, sweeteners and\npreservatives can help limit artificial ingredient consumption, as well as promote a diet of whole, natural foods.",
+        "doc_id": "WELL 2020.pdf",
+        "reasoning": "The question asks for the maximum time frame for phasing out artificial ingredients under Option 1. The context provided includes a section that specifically outlines the requirements for \"Option 1: Artificial ingredient phase out.\" Within this section, it states that the project should phase out the use, sale, and provision of foods and beverages containing artificial ingredients over a maximum of three years.",
+        "analysis": "To answer the question, I examined the context to find the specific details related to \"Option 1: Artificial ingredient phase out.\" The relevant part of the context is as follows:\n\n\"For All Spaces:\nOption 1: Artificial ingredient phase out\nThe following requirements are met:\na. The project phases out (over a maximum of three years) the use, sale and provision of foods and beverages\ncontaining artificial ingredients listed in the table below:\"\n\nThis clearly indicates that the maximum time frame for phasing out artificial ingredients under Option 1 is three years. This information directly answers the question by providing the exact duration specified in the document."
+      },
+      {
+        "augmented": true,
+        "question": "How many modules are there in the full corporate questionnaire?",
+        "context": "[Page 6, score: 0.715]\nbeen integrated into one corporate questionnaire. Through this questionnaire, organizations can \nprovide data on multiple environmental issues in a single disclosure, encouraging more holistic \nand balanced reporting. \nWhile the previously separate questionnaires have now been integrated, CDP will continue to \naward separate climate change, forests and water security scores in 2024. Each environmental \nissue area has its own separate methodology. There are 13 modules in the full corporate\n\n[Page 6, score: 0.707]\nquestionnaire. Modules 1 to 6, 12 and 13 are integrated, which means that questions in these \nmodules cover more than one environmental issue area. As such, questions in these modules will \nbe scored for multiple environmental issue areas, with a separate methodology for climate \nchange, forests and water security. Conversely, modules 7-9 are specific to an environmental \nissue area, so will only be scored for one environmental issue. Modules 10 and 11 are specific to\n\n[Page 7, score: 0.699]\nFull and SME corporate questionnaires \nCDP recognizes that Small and Medium Enterprises (SMEs) may have different reporting \ncapabilities and requirements compared to larger organizations. For this reason, CDP has two \ncorporate questionnaires: the full questionnaire and the SME questionnaire. \nThe full corporate questionnaire is suitable for large organizations and includes sector-specific \ndatapoints. Meanwhile, the SME questionnaire is tailored to the needs of SMEs and contains\n\n[Page 6, score: 0.693]\nPage 6 of 19   \n \n \n \n \n \n \n \n     @cdp | www.cdp.net \nthe elements covered in answering the questionnaires. It is important to report data in line with \nthe instructions provided in the reporting guidance, as the scoring methodology functions based \non responders providing response data in line with this guidance. \nScoring of the full corporate questionnaire \n \nScoring an integrated questionnaire \nIn 2024, the CDP corporate questionnaires on climate change, forests and water security have\n\n[Page 3, score: 0.688]\nFull and SME corporate questionnaires .................................................................................... 7 \nCDP questionnaire sectors and scoring .................................................................................... 7 \nApproach to scoring..................................................................................................................... 9",
+        "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+        "reasoning": "The full corporate questionnaire consists of 13 modules. This is explicitly stated in the context: \"There are 13 modules in the full corporate questionnaire.\"",
+        "analysis": "To answer the question, we need to identify the number of modules in the full corporate questionnaire. The context provides a clear and direct statement: \"There are 13 modules in the full corporate questionnaire.\" This information is found in the first part of the provided context, which states, \"There are 13 modules in the full corporate questionnaire.\" Therefore, the number of modules in the full corporate questionnaire is 13."
+      },
+      {
+        "doc_id": "Gender 2024.pdf",
+        "question": "Which five countries have the highest percentage of girls proficient in advanced programming as of 2023?",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "Governance-related Standards"
+      },
+      {
+        "doc_id": "WHO Social.pdf",
+        "question": "What are the key areas of social determinants that the campaign focuses on?",
+        "answer": "Not answerable",
+        "answer_format": null,
+        "evidence_pages": [],
+        "evidence_sources": [],
+        "doc_type": "Government & International Organization Documents"
+      }
+    ],
+    "signature": {
+      "instructions": "Given the retrieved context from ESG documents, the original ESG question, and the document identifier, generate a detailed chain-of-thought analysis to answer the ESG question. Your response should include the following:\n\n1. **Context Identification**: Identify the relevant parts of the context that are most pertinent to answering the question.\n2. **Key Points Extraction**: Extract and list the key points from the identified context that directly address the question.\n3. **Step-by-Step Reasoning**: Provide a step-by-step explanation of how the key points lead to the answer.\n4. **Answer Formatting**: Format the final answer in the required format (e.g., list, Yes/No, etc.) as specified in the question.\n\nYour response should be structured as follows:\n- **Reasoning**: A step-by-step explanation of how the key points lead to the answer.\n- **Analysis**: A detailed chain-of-thought reasoning that analyzes the context to answer the question.\n\nExample:\n- **Reasoning**: Let's think step by step in order to [your step-by-step reasoning here].\n- **Analysis**: [Your detailed chain-of-thought analysis here].\n\nEnsure that your reasoning and analysis are clear, logical, and provide a thorough breakdown of how the retrieved information is used to derive the answer.",
+      "fields": [
+        {
+          "prefix": "Context:",
+          "description": "Retrieved chunks from ESG documents"
+        },
+        {
+          "prefix": "Question:",
+          "description": "ESG question to answer"
+        },
+        {
+          "prefix": "Doc Id:",
+          "description": "Source document identifier"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Detailed chain-of-thought reasoning analyzing the context to answer the question"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "extraction": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "question": "Can ISO 26000 be used for for certification purposes? Answer Yes, No, or Not answerable",
+        "analysis": "The context clearly states that \"ISO 26000 is not a management system standard. It does not contain requirements and, as such, cannot be used for certification. Any offer to certify, or claims to be certified, against ISO 26000 would be a misrepresentation of its intent and purpose.\" This information is found on page 8 of the document. Therefore, the answer to the question \"Can ISO 26000 be used for certification purposes?\" is No.",
+        "answer_format": "Str",
+        "extracted_answer": "No"
+      },
+      {
+        "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+        "question": "How much land in acres has been legally designated as permanently protected compared to the goal by FY23?",
+        "answer": "15849",
+        "answer_format": "Int",
+        "evidence_pages": [
+          6,
+          7,
+          46,
+          47
+        ],
+        "evidence_sources": [
+          "Pure-text (Plain-text)",
+          "Chart"
+        ],
+        "doc_type": "Annual ESG Reports"
+      },
+      {
+        "doc_id": "NGFS 2024.pdf",
+        "question": "Which publication from NGFS on May 2023? Answer the name of the publication",
+        "answer": "Stocktake on Financial Institutions’ Transition Plans and their Relevance to Micro-prudential Authorities",
+        "answer_format": "Str",
+        "evidence_pages": [
+          8,
+          12
+        ],
+        "evidence_sources": [
+          "Generalized-text (Layout)",
+          "Image"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      },
+      {
+        "doc_id": "WHO GHG.pdf",
+        "question": "What percentage of emissions come from Pharmaceuticals in Tanzania?",
+        "answer": "35%",
+        "answer_format": "Float",
+        "evidence_pages": [
+          11
+        ],
+        "evidence_sources": [
+          "Chart"
+        ],
+        "doc_type": "Government & International Organization Documents"
+      }
+    ],
+    "signature": {
+      "instructions": "You are an ESG (Environmental, Social, and Governance) analyst responsible for providing critical information to a board of directors. Your task is to extract a structured answer from the detailed chain-of-thought analysis provided. The accuracy of your response is crucial as it will directly impact the company's strategic decisions and compliance with regulatory standards.\n\nGiven the original ESG question, the chain-of-thought reasoning (analysis), and the required answer format, carefully extract the final answer in the specified format (Int, Float, Str, or List). Ensure that the extracted answer is precise and directly addresses the question without any additional explanation.\n\n**Example:**\n\n- **Question**: What are the three key ways in which open text answers may be assessed? Write the answer in list format.\n- **Analysis**: - **Context Identification**: The relevant information is found on Page 15 of the document.\n  - **Key Points Extraction**: The three key ways in which open text answers may be assessed are:\n    1. Providing a clear rationale\n    2. Providing an explanation\n    3. Providing an example with an accompanying timeline\n  - **Answer Formatting**: The answer is formatted as a list, as requested in the question.\n- **Answer Format**: List\n- **Extracted Answer**: [\"Providing a clear rationale\", \"Providing an explanation\", \"Providing an example with an accompanying timeline\"]\n\nYour role is to ensure that the extracted answer is accurate and in the correct format, as the board of directors will use this information to make informed decisions. Any errors could have significant financial and reputational consequences for the company.",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original ESG question"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Chain-of-thought reasoning from Stage 1"
+        },
+        {
+          "prefix": "Answer Format:",
+          "description": "Required answer format: Int, Float, Str, or List"
+        },
+        {
+          "prefix": "Extracted Answer:",
+          "description": "Final answer in specified format (only the answer value, no explanation)"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.11",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}
