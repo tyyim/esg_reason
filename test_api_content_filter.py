@@ -6,11 +6,15 @@ Test script to diagnose Qwen API content inspection failures
 import os
 import json
 from openai import OpenAI
+from dotenv import load_dotenv
 
-# Load API key from environment
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API key from environment
 api_key = os.getenv("DASHSCOPE_API_KEY")
 if not api_key:
-    raise ValueError("DASHSCOPE_API_KEY not found in environment variables")
+    raise ValueError("DASHSCOPE_API_KEY not found in .env file")
 
 client = OpenAI(
     api_key=api_key,
