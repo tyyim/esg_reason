@@ -7,8 +7,10 @@ import os
 import json
 from openai import OpenAI
 
-# Load API key
-api_key = os.getenv("DASHSCOPE_API_KEY", "sk-398b62f740a643458bf06c26f0324df1")
+# Load API key from environment
+api_key = os.getenv("DASHSCOPE_API_KEY")
+if not api_key:
+    raise ValueError("DASHSCOPE_API_KEY not found in environment variables")
 
 client = OpenAI(
     api_key=api_key,

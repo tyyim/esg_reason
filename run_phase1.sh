@@ -10,8 +10,13 @@ echo "=========================================="
 source ~/anaconda3/etc/profile.d/conda.sh
 conda activate esg_reasoning
 
-# Export API key
-export DASHSCOPE_API_KEY=$(grep DASHSCOPE_API_KEY .env | cut -d'=' -f2)
+# Export API key from .env
+if [ -f .env ]; then
+    export $(grep -v '^#' .env | xargs)
+else
+    echo "Error: .env file not found"
+    exit 1
+fi
 
 # Run ColBERT evaluator (parallel version for speed)
 python phase1_mmesgbench_exact/colbert_evaluator_parallel.py
