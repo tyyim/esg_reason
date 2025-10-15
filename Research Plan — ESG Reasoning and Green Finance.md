@@ -146,3 +146,204 @@ Can DSPy/GEPA match or exceed lightweight parameter tuning (LoRA + small-RL) on 
 - Methodology comparison: DSPy/GEPA vs fine-tuning trade-offs
 - Multimodal effectiveness: Visual RAG performance on ESG documents
 - Practical deployment: Real-world ESG reasoning system demonstration
+
+---
+
+## 🔬 **Phase 3a: DSPy MIPROv2 Prompt Optimization (Completed)**
+
+**Date**: October 15, 2025
+**Status**: ❌ **Failed** - Performance degraded by -3.2%
+**Files**: `phase3a_optimization_run.log`, `baseline_rag_results_20251015_133614.json`
+
+### Experimental Setup
+
+**Baseline Configuration:**
+- **Architecture**: BaselineMMESGBenchRAG (Qwen + PGVector, no query generation)
+- **Dataset Split**: Train 186 (20%), Dev 93 (10%), Test 654 (70%)
+- **Optimization Method**: MIPROv2 with `auto="light"` mode
+- **Optimization Parameters**: 20 trials, 6 fewshot candidates, 3 instruction candidates
+- **Runtime**: ~6 minutes (bootstrap + instruction proposal + evaluation)
+
+**Baseline Performance (Dev Set - 93 questions):**
+- **Retrieval accuracy**: 75.3% (70/93 correct)
+- **Answer accuracy**: 61.3% (57/93 correct)
+- **End-to-end accuracy**: 51.6% (48/93 correct)
+
+### Results Summary
+
+**Optimized Performance (Dev Set - 93 questions):**
+- **Retrieval accuracy**: 75.3% (70/93 correct) - **No change**
+- **Answer accuracy**: 58.1% (54/93 correct) - **❌ -3.2% degradation**
+- **End-to-end accuracy**: 48.4% (45/93 correct) - **❌ -3.2% degradation**
+
+**Training Performance:**
+- Default program score: 44.0
+- Best score found: 47.0 (+3.0 on training set)
+- **Overfitting detected**: Training improved but dev set degraded
+
+### Detailed Performance Breakdown by Format
+
+| Format | Baseline Answer Acc | Optimized Answer Acc | Change | Questions Lost/Gained |
+|--------|---------------------|----------------------|--------|-----------------------|
+| **Str** | 55.9% (19/34) | 50.0% (17/34) | **-5.9%** | Lost 2 questions |
+| **Float** | 61.5% (8/13) | 69.2% (9/13) | **+7.7%** | Gained 1 question |
+| **List** | 53.8% (7/13) | 53.8% (7/13) | 0% | No change |
+| **Int** | 57.9% (11/19) | 57.9% (11/19) | 0% | No change |
+| **None** | 78.6% (11/14) | 71.4% (10/14) | **-7.1%** | Lost 1 question |
+
+**Key Observations:**
+1. **String format hit hardest**: Lost 2/34 questions (most affected by verbose prompts)
+2. **Float format improved**: Gained 1/13 questions (structured guidelines helped numerical extraction)
+3. **None format degraded**: Lost 1/14 questions (over-specification pushed toward answering unanswerable questions)
+4. **Int/List stable**: No change (these formats less sensitive to prompt variations)
+
+### Prompt Analysis: Default vs Optimized
+
+#### Default ESGReasoning Prompt (~150 characters)
+```
+Analyze ESG document context and provide detailed reasoning.
+
+[Stage 1 docstring with clear instructions]
+[IMPORTANT note about unanswerable questions]
+```
+
+**Characteristics:**
+- Concise and flexible
+- Clear task description in docstring
+- Minimal token overhead
+- Allows model to generalize across question types
+
+#### Optimized ESGReasoning Prompt (~2,157 characters)
+```
+Analyze the provided ESG document context and generate a detailed,
+step-by-step chain-of-thought reasoning to answer the given ESG question.
+
+**Stage 1 of Two-Stage Extraction:**
+- **Objective:** Generate a thorough chain-of-thought analysis...
+- **Inputs:**
+  - **Context:** Retrieved chunks from ESG documents.
+  - **Question:** The ESG question to be answered.
+  - **Doc Id:** The identifier of the source document.
+- **Outputs:**
+  - **Reasoning:** A step-by-step breakdown...
+  - **Analysis:** A detailed chain-of-thought reasoning...
+
+**Guidelines:**
+- **Thorough Analysis:** Ensure your analysis is comprehensive...
+- **Clarity and Precision:** Provide clear and precise reasoning...
+- **Insufficient Information:** If the context does not contain...
+
+**Example:**
+- **Context:** [Page 15, score: 0.800] ... (context provided)
+- **Question:** What are the three key ways...
+- **Doc Id:** CDP Full Corporate Scoring Introduction 2024.pdf
+
+**Expected Output:**
+- **Reasoning:** Let's think step by step in order to...
+- **Analysis:** The context on Page 15... [full example included]
+```
+
+**Characteristics:**
+- Added 1,200+ extra characters
+- Explicit markdown formatting (bold headers, bullet points)
+- Concrete example from training data included in prompt
+- Rigid structure with prescribed output format
+
+#### AnswerExtraction Prompt (No Change)
+The extraction prompt remained unchanged - MIPROv2 correctly identified it was already optimal.
+
+### Root Cause Analysis
+
+**Why Optimization Failed:**
+
+1. **Token Overhead Problem**
+   - Optimized prompt: 2,157 chars (1,200+ char increase)
+   - Context window space consumed by example instead of retrieved evidence
+   - Less room for actual document chunks in Qwen Max's context
+
+2. **Over-Specification & Format Rigidity**
+   - Markdown bold/bullet formatting creates rigid expectations
+   - Full example in prompt causes model to match example format exactly
+   - Reduces model's flexibility to handle edge cases and variations
+   - String questions suffered most from format matching attempts
+
+3. **Training Set Overfitting**
+   - Example chosen from 186-question training set
+   - Training score improved (44.0 → 47.0) but dev degraded (51.6% → 48.4%)
+   - Classic overfitting pattern: learns training quirks, loses generalization
+
+4. **Unanswerable Question Handling**
+   - Detailed guidelines pushed model toward attempting answers
+   - "None" format lost 1 question (11→10 correct)
+   - Over-specified prompt reduces model's confidence in saying "Not answerable"
+
+5. **Retrieval Bottleneck Ignored**
+   - Retrieval accuracy unchanged at 75.3% (70/93 correct)
+   - Prompt optimization can't fix the 25% questions with wrong context
+   - Real bottleneck is retrieval, not prompts
+
+### Lessons Learned
+
+**Critical Insights:**
+
+1. **Default Prompts Were Already Optimal**
+   - Well-designed concise prompts beat verbose structured alternatives
+   - Less is more: token budget better spent on evidence than examples
+   - DSPy's default signature design is production-ready
+
+2. **Prompt Optimization Has Limits**
+   - Can't improve beyond retrieval ceiling (75.3% retrieval accuracy)
+   - Only 25% of questions have room for prompt improvements
+   - Small training set (186) insufficient for MIPROv2 to learn generalizable patterns
+
+3. **Overfitting is Easy with Small Datasets**
+   - 186 training examples too few for meaningful prompt discovery
+   - Training improvement != dev improvement
+   - Need larger dataset or different optimization approach
+
+4. **Wrong Optimization Target**
+   - Optimizing prompts when retrieval is the bottleneck wastes effort
+   - Should optimize query generation to improve retrieval from 75% → 85%+
+   - Then answer accuracy could naturally improve from 61% → 75%+
+
+### Recommendations for Phase 3b
+
+**Strategic Pivot**: Move from prompt optimization to query optimization
+
+1. **Implement Query Generation Module**
+   - Add QueryGeneration signature before retrieval
+   - Optimize query reformulation to improve retrieval accuracy
+   - Target: 75% → 85%+ retrieval accuracy (+10%)
+
+2. **Use Enhanced Architecture**
+   - 4-stage pipeline: Query Gen → Retrieval → Reasoning → Extraction
+   - Optimize query generation prompts, keep reasoning prompts as default
+   - Focus MIPROv2 on retrieval improvement, not answer extraction
+
+3. **Expected Impact**
+   - Retrieval: 75% → 85% (+10% from query optimization)
+   - Answer: 61% → 70%+ (+9% from better context)
+   - End-to-end: 51.6% → 60%+ (+8.4% total improvement)
+
+4. **Alternative: Skip Optimization**
+   - If retrieval can't be improved, accept 51.6% baseline
+   - Move directly to fine-tuning comparison (Phase 2)
+   - Document that prompt optimization is unnecessary for this task
+
+### Files & Artifacts
+
+**Optimization Results:**
+- `phase3a_optimization_run.log` - Full optimization log with 20 trials
+- `baseline_rag_results_20251015_133614.json` - Dev set results with optimized prompts
+- `dspy_implementation/optimized_modules/baseline_rag_20251015_133614.json` - Saved optimized module
+
+**Analysis Scripts:**
+- `test_miprov2_auto.py` - Quick test to verify MIPROv2 auto mode works
+- `dspy_implementation/enhanced_miprov2_optimization.py` - Main optimization script
+
+**Key Metrics Tracked:**
+- MLFlow experiment tracking at `http://localhost:5000`
+- Retrieval + Answer + End-to-end accuracy separation
+- Per-format breakdown (Str, Float, List, Int, None)
+
+---
