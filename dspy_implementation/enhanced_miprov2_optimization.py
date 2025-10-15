@@ -170,25 +170,26 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 
     optimizer = MIPROv2(
         metric=mmesgbench_end_to_end_metric,  # Optimize for both retrieval + answer
-        auto="light",  # Light mode: 6 trials, ~20-30 min (testing)
+        num_candidates=num_candidates,
         init_temperature=init_temperature,
         verbose=True
     )
 
     print(f"\n🚀 Running MIPROv2 optimization...")
-    print(f"   Mode: auto='light' (6 trials, ~20-30 minutes)")
+    print(f"   Light mode: 6 trials (~20-30 minutes)")
     print(f"   Training on {len(train_set)} questions (20% of dataset)")
     print(f"   Progress tracked in MLFlow\\n")
 
     os.makedirs("checkpoints", exist_ok=True)
 
     try:
-        # When using auto mode, don't pass max_bootstrapped_demos/max_labeled_demos
-        # as they are automatically configured
+        # Light mode: fewer trials for faster testing
         optimized_rag = optimizer.compile(
             student=rag_to_optimize,
             trainset=train_set,
-            requires_permission_to_run=False  # Skip interactive confirmation for background execution
+            num_trials=6,  # Light mode: 6 trials (~20-30 min)
+            max_bootstrapped_demos=2,  # Reduced for speed
+            max_labeled_demos=2  # Reduced for speed
         )
 
         print("\n✅ MIPROv2 optimization completed!")
