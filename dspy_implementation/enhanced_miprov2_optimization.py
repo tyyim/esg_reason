@@ -170,27 +170,23 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
 
     optimizer = MIPROv2(
         metric=mmesgbench_end_to_end_metric,  # Optimize for both retrieval + answer
-        num_candidates=num_candidates,
-        init_temperature=init_temperature,
+        auto="light",  # Light mode: 6 trials, ~20-30 min
         verbose=True
     )
 
     print(f"\n🚀 Running MIPROv2 optimization...")
-    print(f"   Light mode: 6 trials (~20-30 minutes)")
+    print(f"   Mode: auto='light' (6 trials, ~20-30 minutes)")
     print(f"   Training on {len(train_set)} questions (20% of dataset)")
     print(f"   Progress tracked in MLFlow\\n")
 
     os.makedirs("checkpoints", exist_ok=True)
 
     try:
-        # Light mode: manual configuration (auto param not available in DSPy 3.0.3)
-        # Equivalent to auto="light": 6 trials, minibatch, val_size=100
+        # When using auto mode, don't pass manual parameters
+        # They are automatically configured by the auto setting
         optimized_rag = optimizer.compile(
             student=rag_to_optimize,
-            trainset=train_set,
-            num_trials=6,  # Light mode: 6 trials (~20-30 min)
-            max_bootstrapped_demos=2,  # Reduced for light mode
-            max_labeled_demos=2  # Reduced for light mode
+            trainset=train_set
         )
 
         print("\n✅ MIPROv2 optimization completed!")
