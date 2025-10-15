@@ -183,11 +183,14 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     os.makedirs("checkpoints", exist_ok=True)
 
     try:
-        # Use auto="light" mode - automatically configures num_trials=6, val_size=100
+        # Light mode: manual configuration (auto param not available in DSPy 3.0.3)
+        # Equivalent to auto="light": 6 trials, minibatch, val_size=100
         optimized_rag = optimizer.compile(
             student=rag_to_optimize,
             trainset=train_set,
-            auto="light"  # Light mode: 6 trials, val_size=100, ~20-30 min
+            num_trials=6,  # Light mode: 6 trials (~20-30 min)
+            max_bootstrapped_demos=2,  # Reduced for light mode
+            max_labeled_demos=2  # Reduced for light mode
         )
 
         print("\n✅ MIPROv2 optimization completed!")
