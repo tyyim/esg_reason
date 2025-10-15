@@ -187,7 +187,8 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
         # as they are automatically configured
         optimized_rag = optimizer.compile(
             student=rag_to_optimize,
-            trainset=train_set
+            trainset=train_set,
+            requires_permission_to_run=False  # Skip interactive confirmation for background execution
         )
 
         print("\n✅ MIPROv2 optimization completed!")

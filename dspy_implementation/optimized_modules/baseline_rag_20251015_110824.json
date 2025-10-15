@@ -1,0 +1,67 @@
+{
+  "reasoning.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Analyze ESG document context and provide detailed reasoning.\n\nStage 1 of two-stage extraction: Generate chain-of-thought analysis\nover retrieved context to answer ESG questions.\n\nIMPORTANT: If the context does not contain sufficient information to answer\nthe question, clearly state in your analysis that the question cannot be\nanswered from the given context.",
+      "fields": [
+        {
+          "prefix": "Context:",
+          "description": "Retrieved chunks from ESG documents"
+        },
+        {
+          "prefix": "Question:",
+          "description": "ESG question to answer"
+        },
+        {
+          "prefix": "Doc Id:",
+          "description": "Source document identifier"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Detailed chain-of-thought reasoning analyzing the context to answer the question. If context lacks sufficient information, clearly state the question cannot be answered."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "extraction": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Extract structured answer from analysis.\n\nStage 2 of two-stage extraction: Extract final answer in specified format\n(Int, Float, Str, List) from the chain-of-thought analysis.\n\nCRITICAL INSTRUCTIONS:\n- Extract answer in the specified format: Int, Float, Str, or List\n- If the analysis indicates the question cannot be answered from the context,\n  respond with exactly: \"Not answerable\"\n- If the analysis indicates it cannot read\/understand images or documents,\n  respond with exactly: \"Fail to answer\"\n- Otherwise, provide only the answer value without explanation",
+      "fields": [
+        {
+          "prefix": "Question:",
+          "description": "Original ESG question"
+        },
+        {
+          "prefix": "Analysis:",
+          "description": "Chain-of-thought reasoning from Stage 1"
+        },
+        {
+          "prefix": "Answer Format:",
+          "description": "Required answer format: Int, Float, Str, or List"
+        },
+        {
+          "prefix": "Extracted Answer:",
+          "description": "Final answer in specified format, or \"Not answerable\" if context lacks information, or \"Fail to answer\" if documents cannot be read"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.9",
+      "dspy": "2.6.27",
+      "cloudpickle": "3.1"
+    }
+  }
+}
