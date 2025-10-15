@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/victoryim/Local_Git/CC/mlruns/747071027856130845/2183d2361908439ea783c3269e8fb34c/artifacts
+end_time: 1760501664616
+entry_point_name: ''
+experiment_id: '747071027856130845'
+lifecycle_stage: active
+run_id: 2183d2361908439ea783c3269e8fb34c
+run_name: baseline_rag_prompt_optimization_20251015_120710
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1760501230606
+status: 3
+tags: []
+user_id: victoryim
