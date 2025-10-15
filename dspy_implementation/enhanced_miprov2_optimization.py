@@ -183,13 +183,11 @@ def optimize_enhanced_rag(train_set, dev_set, mlflow_tracker,
     os.makedirs("checkpoints", exist_ok=True)
 
     try:
-        # Light mode: fewer trials for faster testing
+        # Use auto="light" mode - automatically configures num_trials=6, val_size=100
         optimized_rag = optimizer.compile(
             student=rag_to_optimize,
             trainset=train_set,
-            num_trials=6,  # Light mode: 6 trials (~20-30 min)
-            max_bootstrapped_demos=2,  # Reduced for speed
-            max_labeled_demos=2  # Reduced for speed
+            auto="light"  # Light mode: 6 trials, val_size=100, ~20-30 min
         )
 
         print("\n✅ MIPROv2 optimization completed!")
