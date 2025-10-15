@@ -1,5 +1,5 @@
 artifact_uri: file:///Users/victoryim/Local_Git/CC/mlruns/747071027856130845/428cabf95607465f8f7e88ced6d3c57f/artifacts
-end_time: null
+end_time: 1760506574134
 entry_point_name: ''
 experiment_id: '747071027856130845'
 lifecycle_stage: active
@@ -9,6 +9,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1760505573420
-status: 1
+status: 3
 tags: []
 user_id: victoryim
