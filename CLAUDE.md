@@ -24,12 +24,16 @@ Replicate MMESGBench baselines, then optimize with DSPy to improve ESG question 
 
 ---
 
-## 📊 Current Status (2025-10-13)
+## 📊 Current Status (2025-10-16)
 
-**✅ Project refactored** - Old code archived to `archive_old_project/`
+**✅ Teacher-Student Optimization Complete** - See [CHANGELOG.md](CHANGELOG.md) for details
 
-**Key Discoveries**:
-- Dataset corrections: Microsoft 2023→2024, UN Gender, ISO14001
+**Latest Results**:
+- **qwen-max direct optimization**: 61.3% → 58.1% (-3.2% ❌ overfitting)
+- **Teacher-student approach**: 54.8% → 57.0% (+2.2% ✅ success!)
+- **Key Finding**: Strong models overfit on small datasets; weaker models learn better from strong prompts
+
+**Evaluation Methodology**:
 - **ANLS 0.5**: MMESGBench uses fuzzy matching (50% similarity threshold)
 - **PRIMARY METRIC**: Answer accuracy (for MMESGBench comparison)
 - **RESEARCH METRICS**: Retrieval & E2E accuracy (for our analysis)
@@ -157,10 +161,11 @@ See `ANLS_EVALUATION_EXPLAINED.md` for complete details.
 ## 📝 Documentation Index
 
 - **CLAUDE.md** (this file) - Quick project guidelines
+- **README.md** - Repository overview for humans
 - **CHANGELOG.md** - Historical progress tracking
-- **PROJECT_REFACTORING_PLAN.md** - Complete 4-phase implementation plan
+- **[Research Plan (Notion)](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)** - Complete research status (authoritative source)
 - **ANLS_EVALUATION_EXPLAINED.md** - Evaluation methodology reference
-- **Research Plan.md** - Research proposal (sync with Notion occasionally)
+- **CODING_BEST_PRACTICES.md** - Development standards
 
 ---
 
@@ -173,4 +178,12 @@ See `ANLS_EVALUATION_EXPLAINED.md` for complete details.
 
 ---
 
-**Last Updated**: 2025-10-13 (Project refactoring and cleanup)
+**Last Updated**: 2025-10-16 (Teacher-student optimization complete)
+
+---
+
+## 🔗 Links
+
+- **GitHub Repository**: [tyyim/esg_reason](https://github.com/tyyim/esg_reason)
+- **Research Plan (Notion)**: [Complete research status & findings](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)
+- **Latest Results**: See [CHANGELOG.md](CHANGELOG.md#2025-10-16---teacher-student-model-testing--infrastructure-improvements--complete)
