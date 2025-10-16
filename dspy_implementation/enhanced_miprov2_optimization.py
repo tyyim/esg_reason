@@ -317,8 +317,9 @@ def main():
 
     # Initialize DSPy
     print(f"\n📋 Setting up DSPy environment...")
-    setup_dspy_qwen()
-    print(f"✅ DSPy configured with Qwen Max")
+    model_name = os.getenv('QWEN_MODEL', 'qwen-max')
+    setup_dspy_qwen(model_name=model_name)
+    print(f"✅ DSPy configured with {model_name}")
 
     # Load dataset
     print(f"\n📊 Loading MMESGBench dataset...")
@@ -448,8 +449,17 @@ if __name__ == "__main__":
         default=1.0,
         help="Initial temperature for candidates (default: 1.0)"
     )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="qwen-max",
+        help="Qwen model to use (default: qwen-max, options: qwen2.5-7b-instruct, etc.)"
+    )
 
     args = parser.parse_args()
+
+    # Set model as environment variable for main() to use
+    os.environ['QWEN_MODEL'] = args.model
 
     # Run optimization
     optimized_module, results = main()

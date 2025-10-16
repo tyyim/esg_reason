@@ -40,7 +40,8 @@ def run_baseline_evaluation(use_dev_set=True, max_questions=None):
 
     # Initialize DSPy with Qwen Max
     print("\n📋 Setting up DSPy environment...")
-    setup_dspy_qwen()
+    model_name = os.getenv('QWEN_MODEL', 'qwen-max')
+    setup_dspy_qwen(model_name=model_name)
 
     # Load dataset
     print("📊 Loading MMESGBench dataset with corrections...")

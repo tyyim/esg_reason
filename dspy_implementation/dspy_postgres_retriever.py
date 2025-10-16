@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 from typing import List, Dict
 import logging
+import time
 
 # Add parent directory to path
 parent_dir = Path(__file__).parent.parent
@@ -55,50 +56,77 @@ class DSPyPostgresRetriever:
 
         print(f"✅ PostgreSQL retriever ready (collection: {self.collection_name})")
 
-    def retrieve(self, doc_id: str, question: str, top_k: int = 5) -> str:
+    def retrieve(self, doc_id: str, question: str, top_k: int = 5, max_retries: int = 3) -> str:
         """
         Retrieve top-k chunks for a question using LangChain PGVector similarity search.
+        Includes retry logic with exponential backoff for connection errors.
 
         Args:
             doc_id: Document identifier (e.g., 'AR6 Synthesis Report...')
             question: ESG question text
             top_k: Number of chunks to retrieve (default: 5)
+            max_retries: Maximum number of retry attempts (default: 3)
 
         Returns:
             Concatenated context string from top-k chunks
         """
-        try:
-            # Search with document filter
-            docs = self.vector_store.similarity_search_with_score(
-                query=question,
-                k=top_k,
-                filter={'source': doc_id}
-            )
+        last_error = None
 
-            if not docs:
-                logger.warning(f"No chunks found for {doc_id}")
-                return ""
-
-            # Format context
-            context_parts = []
-            for doc, score in docs:
-                page = doc.metadata.get('page', 'unknown')
-                text = doc.page_content
-
-                # LangChain returns distance, convert to similarity (lower distance = higher similarity)
-                similarity = 1 / (1 + score)  # Convert distance to similarity
-
-                context_parts.append(
-                    f"[Page {page}, score: {similarity:.3f}]\n{text}"
+        for attempt in range(max_retries):
+            try:
+                # Search with document filter
+                docs = self.vector_store.similarity_search_with_score(
+                    query=question,
+                    k=top_k,
+                    filter={'source': doc_id}
                 )
 
-            context = "\n\n".join(context_parts)
-            logger.debug(f"Retrieved {len(docs)} chunks for {doc_id}")
-            return context
+                if not docs:
+                    logger.warning(f"No chunks found for {doc_id}")
+                    return ""
 
-        except Exception as e:
-            logger.error(f"Retrieval error for {doc_id}: {e}")
-            return ""
+                # Format context
+                context_parts = []
+                for doc, score in docs:
+                    page = doc.metadata.get('page', 'unknown')
+                    text = doc.page_content
+
+                    # LangChain returns distance, convert to similarity (lower distance = higher similarity)
+                    similarity = 1 / (1 + score)  # Convert distance to similarity
+
+                    context_parts.append(
+                        f"[Page {page}, score: {similarity:.3f}]\n{text}"
+                    )
+
+                context = "\n\n".join(context_parts)
+                logger.debug(f"Retrieved {len(docs)} chunks for {doc_id}")
+                return context
+
+            except Exception as e:
+                last_error = e
+
+                # Check if it's a connection error that we should retry
+                error_str = str(e)
+                is_connection_error = (
+                    'Connection reset by peer' in error_str or
+                    'Connection aborted' in error_str or
+                    'ConnectionResetError' in error_str
+                )
+
+                if is_connection_error and attempt < max_retries - 1:
+                    # Exponential backoff: 1s, 2s, 4s
+                    wait_time = 2 ** attempt
+                    logger.warning(f"Retrieval connection error for {doc_id} (attempt {attempt + 1}/{max_retries}), retrying in {wait_time}s...")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    # Either not a connection error, or max retries reached
+                    logger.error(f"Retrieval error for {doc_id}: {e}")
+                    return ""
+
+        # If we get here, all retries failed
+        logger.error(f"All {max_retries} retry attempts failed for {doc_id}: {last_error}")
+        return ""
 
     def get_chunks_with_metadata(self, doc_id: str, question: str, top_k: int = 5) -> List[Dict]:
         """

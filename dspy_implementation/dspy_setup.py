@@ -11,9 +11,13 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-def setup_dspy_qwen():
+def setup_dspy_qwen(model_name='qwen-max'):
     """
-    Configure DSPy to use Qwen Max API (OpenAI-compatible interface)
+    Configure DSPy to use Qwen API (OpenAI-compatible interface)
+
+    Args:
+        model_name: Qwen model to use (default: 'qwen-max')
+                   Options: 'qwen-max', 'qwen2.5-7b-instruct', 'qwen2.5-14b-instruct', etc.
     """
     api_key = os.getenv("DASHSCOPE_API_KEY")
     if not api_key:
@@ -21,7 +25,7 @@ def setup_dspy_qwen():
 
     # Configure DSPy with Qwen's OpenAI-compatible endpoint
     lm = dspy.LM(
-        model='openai/qwen-max',
+        model=f'openai/{model_name}',
         api_key=api_key,
         api_base='https://dashscope.aliyuncs.com/compatible-mode/v1',
         temperature=0.0,  # Deterministic for baseline
@@ -30,8 +34,8 @@ def setup_dspy_qwen():
 
     dspy.configure(lm=lm)
 
-    print("✅ DSPy configured with Qwen Max")
-    print(f"   Model: qwen-max")
+    print(f"✅ DSPy configured with {model_name}")
+    print(f"   Model: {model_name}")
     print(f"   Temperature: 0.0")
     print(f"   Max tokens: 1024")
 
