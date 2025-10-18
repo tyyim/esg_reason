@@ -18,6 +18,57 @@
 
 ---
 
+## ⚠️ **CRITICAL: DSPy Optimizer Parameters**
+
+**ALWAYS check optimizer documentation for correct `.compile()` parameters!**
+
+### Common Optimizer Parameters (✅ = Works, ❌ = Fails)
+
+**MIPROv2**:
+```python
+optimizer.compile(
+    student=module,           # ✅ Required
+    trainset=train_set,       # ✅ Required
+    valset=dev_set,           # ✅ Optional (but ALWAYS provide!)
+    num_trials=20,            # ✅ Optional
+    auto='light',             # ✅ Optional
+    requires_permission_to_run=False  # ✅ Works for MIPROv2
+)
+```
+
+**GEPA**:
+```python
+optimizer.compile(
+    student=module,           # ✅ Required
+    trainset=train_set,       # ✅ Required
+    valset=dev_set,           # ✅ Optional (but ALWAYS provide!)
+    requires_permission_to_run=False  # ❌ NOT SUPPORTED - DO NOT USE!
+)
+```
+
+**🔴 LESSON LEARNED** (2025-10-17):
+- GEPA does NOT accept `requires_permission_to_run` parameter
+- Always check DSPy documentation for each optimizer's specific parameters
+- MIPROv2 and GEPA have different `.compile()` signatures
+- **Dataset splits**: ALWAYS provide explicit `valset` parameter to ensure consistent evaluation!
+
+**🔴 GEPA METRIC ISSUES DISCOVERED** (2025-10-17):
+
+**Issue 1 - SOLVED**: Metric always returning dict
+- **Problem**: DSPy's evaluation framework tries to sum metric results for aggregation
+- **Error**: `TypeError: unsupported operand type(s) for +: 'int' and 'dict'`
+- **Solution**: Return `float` when `pred_name is None`, return `dict` only when `pred_name` is provided
+- **Fixed in**: `dspy_metrics_gepa_fixed.py`
+
+**Issue 2 - CURRENT**: Dict vs Object with .score attribute
+- **Problem**: GEPA expects feedback object with `.score` attribute, not `fb["score"]`
+- **Error**: `AttributeError: 'dict' object has no attribute 'score'`
+- **Location**: `dspy/teleprompt/gepa/gepa_utils.py:217` - `fb.score` instead of `fb["score"]`
+- **Status**: May need to use a special `ScoreWithFeedback` class instead of plain dict
+- **Next steps**: Investigate if DSPy provides a ScoreWithFeedback class or wrapper
+
+---
+
 ## 🎯 Project: ESG Reasoning with DSPy Optimization
 
 Replicate MMESGBench baselines, then optimize with DSPy to improve ESG question answering accuracy.
@@ -178,7 +229,35 @@ See `ANLS_EVALUATION_EXPLAINED.md` for complete details.
 
 ---
 
-**Last Updated**: 2025-10-16 (Teacher-student optimization complete)
+**Last Updated**: 2025-10-17 (GEPA optimization running!)
+
+---
+
+## ✅ GEPA Optimization Status (2025-10-17)
+
+**BREAKTHROUGH**: GEPA reflection-based optimization is now working!
+
+**Issue Solved**: ScoreWithFeedback return type
+- **Problem**: GEPA expected `ScoreWithFeedback(Prediction)` object, not plain `dict`
+- **Error**: `AttributeError: 'dict' object has no attribute 'score'`
+- **Solution**: Changed metric returns to use `ScoreWithFeedback(score=X, feedback=Y)`
+- **Location**: [dspy_metrics_gepa_fixed.py](dspy_implementation/dspy_metrics_gepa_fixed.py)
+
+**Key Discovery** (from GEPA source code):
+```python
+class ScoreWithFeedback(Prediction):
+    """Prediction subclass with .score and .feedback attributes"""
+    score: float
+    feedback: str
+```
+
+**Current Status**:
+- ✅ Quick test passed (10 examples)
+- 🔄 Full optimization running in background (186 train / 93 dev)
+- 📊 Expected runtime: ~45 minutes
+- 🎯 Target: ≥+2.2% improvement (match MIPROv2 teacher-student)
+
+**Log**: [logs/gepa_test/gepa_full_run.log](logs/gepa_test/gepa_full_run.log)
 
 ---
 
