@@ -1,321 +1,317 @@
 # ESG Reasoning with DSPy Optimization
 
-**Research Question**: Can DSPy/GEPA match or exceed lightweight parameter tuning (LoRA + small-RL) on ESG QA and green finance numeric reasoning with lower compute and fewer labels?
+**Research Question**: Can DSPy prompt optimization match or exceed traditional fine-tuning (LoRA + RL) on ESG question answering with lower compute and fewer labels?
 
-[![Research Status](https://img.shields.io/badge/Status-Teacher--Student_Complete-success)]((https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2))
-[![Latest Result](https://img.shields.io/badge/Accuracy-57.0%25_(%2B2.2%25)-brightgreen)](#latest-results)
 [![Dataset](https://img.shields.io/badge/Dataset-MMESGBench_933_QA-blue)](https://github.com/microsoft/Multimodal-ESG-Benchmark)
+[![Status](https://img.shields.io/badge/Status-Dev_Set_Complete-yellow)]()
 
-## 🎯 Project Overview
+---
 
-This research project explores using **DSPy's declarative prompt optimization** to improve ESG (Environmental, Social, Governance) question answering systems. We investigate whether programmatic prompt optimization can match or exceed traditional fine-tuning approaches while requiring fewer labeled examples and less computational resources.
+## 🎯 Quick Start
 
-### Key Innovation: Teacher-Student Optimization
+### Results Summary (93 Dev Set)
 
-Our latest breakthrough demonstrates that **strong models (qwen-max) can teach weaker models (qwen2.5-7b) through optimized prompts**, avoiding the overfitting problem that occurs when directly optimizing strong models on small datasets.
+| Approach  | Model | Accuracy | Change | Date |
+|-----------|-------|----------|--------|------|
+| **Baseline** | qwen2.5-7b | **52.7%** (49/93) | baseline | Oct 19 |
+| **GEPA** | qwen2.5-7b | **54.8%** (51/93) | **+2.2%** ✅ | Oct 19 |
+| **MIPROv2** | qwen2.5-7b | 48.4% (45/93) | -4.3% ❌ | Oct 19 |
 
-## 📊 Latest Results
+**Key Finding**: GEPA improved performance, especially on structured data (Int +10.5%, List +15.4%, Float +7.7%). See [`DEV_SET_ERROR_ANALYSIS.md`](DEV_SET_ERROR_ANALYSIS.md) for details.
 
-### Teacher-Student Approach (October 16, 2025)
+---
 
-| Metric | Baseline | Optimized | Improvement |
-|--------|----------|-----------|-------------|
-| **Answer Accuracy** | 54.8% | **57.0%** | **+2.2%** ✅ |
-| Retrieval Accuracy | 75.3% | 75.3% | 0.0% |
-| End-to-End Accuracy | 44.1% | 48.4% | +4.3% |
+## 📊 Full Dataset Results (933 Questions)
 
-**Key Finding**: Direct optimization of qwen-max resulted in **-3.2% degradation** (overfitting), while the teacher-student approach with qwen2.5-7b achieved **+2.2% improvement**.
+| Date | Approach | Model | Accuracy |
+|------|----------|-------|----------|
+| Sep 2025 | ColBERT Baseline | qwen-max | 40.5% (378/933) |
+| Oct 2025 | DSPy Baseline | qwen-max | 55.6% (519/933) |
+| **Pending** | DSPy Baseline | qwen2.5-7b | ? |
+| **Pending** | GEPA Optimized | qwen2.5-7b | ? |
 
-### Cost-Performance Tradeoff
+**Next Step**: Run 654-question test set evaluation to validate dev set findings.
 
-- **qwen-max**: $0.06/1K tokens, 69.9% accuracy
-- **qwen2.5-7b (optimized)**: $0.0006/1K tokens, 57.0% accuracy
-- **Result**: **100x cheaper** with 81.5% of the performance!
+---
 
 ## 🏗️ Architecture
 
-### Teacher-Student Optimization Pipeline
-
-```
-┌─────────────────────────────────────────────────────┐
-│ MIPROv2 Optimizer                                   │
-│                                                     │
-│  ┌──────────────┐          ┌──────────────┐       │
-│  │   Teacher    │          │   Student    │       │
-│  │  (qwen-max)  │ ────────→│ (qwen2.5-7b) │       │
-│  │              │          │              │       │
-│  │ Generates    │          │ Executes     │       │
-│  │ optimized    │          │ tasks with   │       │
-│  │ prompts      │          │ prompts      │       │
-│  └──────────────┘          └──────────────┘       │
-│                                                     │
-│  Training Set: 186 examples (20%)                  │
-│  Dev Set: 93 examples (10%)                        │
-└─────────────────────────────────────────────────────┘
-```
-
 ### RAG Pipeline
-
 ```
 Question
    ↓
-Query Generation (DSPy-optimized)
-   ↓
 PostgreSQL + pgvector Retrieval (top-5 chunks)
    ↓
-ESG Reasoning (DSPy-optimized)
+ESG Reasoning (DSPy ChainOfThought)
    ↓
-Answer Extraction (DSPy-optimized)
+Answer Extraction (DSPy)
    ↓
-Structured Answer (Int/Float/Str/List)
+Structured Answer (Int/Float/Str/List/None)
 ```
 
-## 🚀 Quick Start
+### Optimization Approaches
 
-### Prerequisites
+**MIPROv2 (Teacher-Student)**:
+- Teacher (qwen-max) generates optimized prompts
+- Student (qwen2.5-7b) executes with those prompts
+- Result: -4.3% (degraded) ❌
 
-- Python 3.10+
-- PostgreSQL with pgvector extension
-- Conda (recommended)
-- Alibaba Cloud DashScope API key (for Qwen models)
+**GEPA (Reflection-Based)**:
+- qwen-max provides feedback on failures
+- Evolves prompts through 32 iterations
+- Result: +2.2% (improved) ✅
 
-### Installation
-
-```bash
-# Clone repository
-git clone https://github.com/tyyim/esg_reason.git
-cd esg_reason
-
-# Create conda environment
-conda create -n esg_reasoning python=3.10
-conda activate esg_reasoning
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-# Edit .env with your credentials:
-#   DASHSCOPE_API_KEY=your_key
-#   PG_URL=postgresql://user:pass@host:port/database
-```
-
-### Run Teacher-Student Optimization
-
-```bash
-# Baseline evaluation (qwen2.5-7b)
-python dspy_implementation/evaluate_baseline.py \
-  --model qwen2.5-7b-instruct \
-  --max-questions 93
-
-# Teacher-student optimization
-python dspy_implementation/enhanced_miprov2_qwen7b_optimization.py
-
-# Expected runtime: ~35 minutes
-# Expected improvement: +2-3% answer accuracy
-```
+---
 
 ## 📁 Repository Structure
 
+### Essential Files
 ```
-esg_reason/
-├── 📝 Documentation
-│   ├── README.md                           # This file (for humans)
-│   ├── CLAUDE.md                           # Quick guidelines (for Claude Code)
-│   ├── CHANGELOG.md                        # Complete progress history
-│   └── CODING_BEST_PRACTICES.md            # Development standards
+CC/
+├── README.md                               # This file
+├── RESEARCH_FINDINGS.md                    # Complete analysis & findings
+├── CHANGELOG.md                            # Historical log
+├── DEV_SET_ERROR_ANALYSIS.md              # Detailed dev set analysis
 │
-├── 🔬 Research
-│   ├── Research Plan (Notion)              # Authoritative research status
-│   └── ANLS_EVALUATION_EXPLAINED.md        # Evaluation methodology
+├── 📊 Authoritative Results
+│   ├── baseline_dev_predictions_20251019_130401.json     # 52.7%
+│   ├── gepa_dev_predictions_20251019_130401.json         # 54.8%
+│   └── miprov2_dev_predictions_20251019_130401.json      # 48.4%
 │
-├── 📊 Data
-│   ├── mmesgbench_dataset_corrected.json   # 933 QA pairs (authoritative)
-│   └── source_documents/                   # 45 ESG PDF reports
+├── 💾 Data
+│   ├── mmesgbench_dataset_corrected.json  # 933 questions
+│   └── dspy_implementation/data_splits/
+│       ├── train_186.json (20%)
+│       ├── dev_93.json (10%)
+│       └── test_654.json (70%)
 │
-├── 🏗️ Implementation
-│   ├── dspy_implementation/                # DSPy modules & optimization
-│   │   ├── dspy_signatures_enhanced.py     # DSPy signatures
-│   │   ├── dspy_rag_enhanced.py            # RAG modules
-│   │   ├── dspy_postgres_retriever.py      # Retrieval (with retry logic)
-│   │   ├── enhanced_miprov2_optimization.py        # Standard optimization
-│   │   └── enhanced_miprov2_qwen7b_optimization.py # Teacher-student
+├── 🏗️ Code
+│   ├── dspy_implementation/               # DSPy modules
+│   │   ├── dspy_rag_enhanced.py          # RAG modules
+│   │   ├── dspy_signatures_enhanced.py   # Signatures
+│   │   ├── dspy_postgres_retriever.py    # Retrieval
+│   │   ├── dspy_metrics_gepa_fixed.py    # GEPA metrics
+│   │   ├── evaluate_baseline.py          # Baseline eval
+│   │   ├── gepa_skip_baseline.py         # GEPA optimization
+│   │   └── enhanced_miprov2_qwen7b_optimization.py  # MIPROv2
 │   │
-│   ├── src/                                # Core utilities
-│   └── MMESGBench/                         # Reference benchmark
+│   ├── src/                               # Core utilities
+│   └── MMESGBench/                        # Reference benchmark
 │
-├── 📈 Results & Logs
-│   ├── logs/                               # Execution logs (gitignored)
-│   ├── mlruns/                             # MLFlow experiments (gitignored)
-│   └── test_scripts/                       # Test utilities
+├── 📝 Logs
+│   ├── logs/qwen7b_test/                  # MIPROv2 logs
+│   └── logs/gepa_optimization/            # GEPA logs
 │
 └── 🗄️ Archive
-    └── archive_old_project/                # Historical work (preserved)
+    └── archive_old_project/                # Historical work
 ```
+
+---
+
+## 🚀 Running Experiments
+
+### Baseline Evaluation
+```bash
+conda activate esg_reasoning
+cd /Users/victoryim/Local_Git/CC
+
+python dspy_implementation/evaluate_baseline.py \
+  --model qwen2.5-7b-instruct \
+  --dataset dev \
+  --output baseline_dev_predictions.json
+```
+
+### GEPA Optimization
+```bash
+python dspy_implementation/gepa_skip_baseline.py
+```
+
+### Test Set Evaluation (Next Step)
+```bash
+python dspy_implementation/evaluate_baseline.py \
+  --model qwen2.5-7b-instruct \
+  --dataset test \
+  --output baseline_test_predictions.json
+```
+
+---
 
 ## 📊 Dataset
 
-**MMESGBench**: 933 ESG question-answer pairs across 45 corporate ESG/sustainability reports
+**MMESGBench**: 933 ESG question-answer pairs from 45 corporate ESG reports
 
-- **Total Questions**: 933
-- **Split**: 186 train (20%) / 93 dev (10%) / 654 test (70%)
-- **Document Chunks**: 54,608 (1024-dim embeddings via text-embedding-v4)
-- **Answer Types**: Integer, Float, String, List, None
+- **Total**: 933 questions
+- **Splits**: 186 train / 93 dev / 654 test
+- **Chunks**: 54,608 (1024-dim embeddings, text-embedding-v4)
+- **Types**: Integer, Float, String, List, None
 - **Source**: [Microsoft Multimodal ESG Benchmark](https://github.com/microsoft/Multimodal-ESG-Benchmark)
 
-## 🔬 Evaluation Methodology
-
-### Primary Metric: Answer Accuracy
-
-Uses MMESGBench's exact `eval_score()` function with **ANLS 0.5** (fuzzy matching):
-- Allows typos and formatting variations
-- 50% similarity threshold for correctness
-- Fair comparison with baseline results
-
+### Evaluation: ANLS 0.5
+Uses MMESGBench's exact `eval_score()` function with fuzzy matching (50% similarity threshold):
 ```python
 from MMESGBench.src.eval.eval_score import eval_score
 
 answer_score = eval_score(gt, pred, answer_type)
-answer_correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
+correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 ```
-
-### Research Metrics
-
-- **Retrieval Accuracy**: % questions with all evidence pages retrieved
-- **End-to-End Accuracy**: Both retrieval AND answer correct
-
-## 🎓 Research Contributions
-
-### 1. Teacher-Student Optimization Discovery
-
-**Finding**: Strong models overfit when optimized on small datasets (186 examples), while weaker models guided by strong teacher prompts show positive gains.
-
-| Approach | Model | Baseline | Optimized | Change |
-|----------|-------|----------|-----------|--------|
-| Direct Optimization | qwen-max | 61.3% | 58.1% | **-3.2%** ❌ |
-| Teacher-Student | qwen2.5-7b | 54.8% | 57.0% | **+2.2%** ✅ |
-
-**Implication**: Model selection matters for prompt optimization effectiveness. Weaker models are better optimization targets for small training sets.
-
-### 2. Cost-Performance Analysis
-
-Demonstrates that massive cost savings (100x) are achievable with acceptable accuracy tradeoffs (18.5% lower performance).
-
-**Production Strategy**: Use cheap model (qwen2.5-7b) for most queries, with qwen-max fallback for high-confidence requirements.
-
-### 3. Infrastructure Best Practices
-
-- **Retry logic with exponential backoff**: Essential for production stability
-- **Checkpoint/resume mechanisms**: Critical for long-running optimizations
-- **MLFlow tracking**: Necessary for experiment reproducibility
-- **Structured logging**: File + console with progress bars
-
-## 📖 Documentation
-
-### For Developers
-
-- **[CLAUDE.md](CLAUDE.md)** - Quick reference guidelines for Claude Code
-- **[CODING_BEST_PRACTICES.md](CODING_BEST_PRACTICES.md)** - Development standards
-- **[CHANGELOG.md](CHANGELOG.md)** - Complete implementation history
-
-### For Researchers
-
-- **[Research Plan (Notion)](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)** - Authoritative research status
-- **[ANLS_EVALUATION_EXPLAINED.md](ANLS_EVALUATION_EXPLAINED.md)** - Evaluation methodology
-
-### For Results
-
-- **[logs/qwen7b_test/SUMMARY.md](logs/qwen7b_test/SUMMARY.md)** - Teacher-student experiment summary
-- **[CHANGELOG.md](CHANGELOG.md#2025-10-16---teacher-student-model-testing--infrastructure-improvements--complete)** - Latest findings
-
-## 🔧 Technology Stack
-
-### Models
-
-- **LLM**: qwen-max, qwen2.5-7b-instruct (via Alibaba DashScope API)
-- **Embeddings**: text-embedding-v4 (1024-dim)
-- **Multimodal**: qwen-vl-max (future work)
-
-### Infrastructure
-
-- **Database**: PostgreSQL 15+ with pgvector extension
-- **Optimization**: DSPy with MIPROv2 optimizer
-- **Experiment Tracking**: MLFlow
-- **Retrieval**: LangChain + pgvector (cosine similarity, top-5)
-
-### Development
-
-- **Language**: Python 3.10+
-- **Environment**: Conda
-- **Version Control**: Git + GitHub
-- **Documentation**: Markdown + Notion
-
-## 📈 Performance Evolution
-
-```
-Sequential Baseline (Oct 2025)     20.0%  ──┐
-                                            │ +20.0%
-ColBERT Text RAG (Phase 0B)       40.0%  ──┤
-                                            │ +1.3%
-ColBERT Corrected (Phase 0E)      41.3%  ──┤
-                                            │ +3.8%
-DSPy Baseline (Phase 0F)          45.1%  ──┤
-                                            │ +1.1%
-Enhanced RAG Light (Phase 1a)     46.2%  ──┤
-                                            │ -3.2% (overfitting)
-Qwen-max Direct Optimization      42.9%  ──┤
-                                            │ +2.2% (success!)
-Teacher-Student Optimization      57.0%  ──┘
-```
-
-**Total Improvement**: 20.0% → 57.0% (+37.0% absolute, +185% relative)
-
-## 🚦 Next Steps
-
-### Option A: Intermediate Model Testing
-Try qwen2.5-14b-instruct as student:
-- More capacity than 7B
-- Still 10-50x cheaper than qwen-max
-- Target: 60-65% accuracy
-
-### Option B: Extended Optimization
-Run MIPROv2 medium/heavy mode:
-- 20-50 candidates (vs 10 for light)
-- Runtime: 2-3 hours (vs 22 minutes)
-- Potential: +1-2% additional gains
-
-### Option C: Phase 2 - Comparative Analysis
-Compare DSPy vs fine-tuning:
-- LoRA + small-RL baseline
-- Multi-seed statistical validation
-- Cost/compute/label efficiency analysis
-- Publication preparation
-
-### Option D: Production Deployment
-Deploy hybrid approach:
-- qwen2.5-7b for cost-effective queries
-- qwen-max fallback for critical cases
-- A/B testing in production
-- Monitor cost vs accuracy tradeoff
-
-## 📄 License
-
-[Add your license here]
-
-## 📮 Contact
-
-- **Research Plan**: [Notion](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)
-- **Repository**: [GitHub](https://github.com/tyyim/esg_reason)
-- **Issues**: [GitHub Issues](https://github.com/tyyim/esg_reason/issues)
-
-## 🙏 Acknowledgments
-
-- **MMESGBench** - Microsoft Research for the ESG benchmark dataset
-- **DSPy** - Stanford NLP for the declarative LM programming framework
-- **Alibaba Cloud** - DashScope API for Qwen model access
 
 ---
 
-**Last Updated**: October 16, 2025
-**Status**: Teacher-Student Optimization Complete ✅
-**Next**: Decision on Option A/B/C/D above
+## 💡 Key Findings
+
+### 1. GEPA Works Better Than MIPROv2
+- **GEPA**: +2.2% improvement
+- **MIPROv2**: -4.3% degradation
+- **Reason**: Reflection-based evolution captures domain patterns better
+
+### 2. Format-Specific Performance
+| Format | Baseline | GEPA | Change |
+|--------|----------|------|--------|
+| **Int** | 63.2% | **73.7%** | **+10.5%** ✅ |
+| **Float** | 69.2% | **76.9%** | **+7.7%** ✅ |
+| **List** | 23.1% | **38.5%** | **+15.4%** ✅ |
+| **Str** | 35.3% | 29.4% | -5.9% ❌ |
+| **null** | 92.9% | 85.7% | -7.2% ❌ |
+
+**Insight**: GEPA excels at structured extraction but struggles with text and "not answerable" detection.
+
+### 3. Cost-Performance Tradeoff
+| Model | Cost ($/1K tokens) | Dev Accuracy |
+|-------|-------------------|--------------|
+| qwen-max | $0.06 | ~69.9% |
+| qwen2.5-7b (GEPA) | $0.0006 | 54.8% |
+| **Ratio** | **100x cheaper** | **78% performance** |
+
+### 4. Prompt Length Matters
+- **Baseline**: 0 characters (DSPy default)
+- **GEPA**: 7,749 characters
+- **Trade-off**: Longer prompts help structured data but hurt text extraction
+
+---
+
+## 🔬 Research Contributions
+
+### 1. Reflection > Teacher-Student for Small Models
+GEPA (reflection-based) outperformed MIPROv2 (teacher-student) by 6.4% on qwen2.5-7b.
+
+**Implication**: For 7B models, iterative reflection with feedback is more effective than using large model prompts.
+
+### 2. Format-Specific Optimization Potential
+Different answer types benefit differently from optimization:
+- Structured (Int/Float/List): Large gains
+- Text (Str): Degradation  
+- Null: Degradation
+
+**Implication**: Hybrid approaches with format-specific prompts may work best.
+
+### 3. Small Dev Sets Are Noisy
+93 questions → 1 question = 1.1% change
+
+**Need**: Test set (654 questions) validation for confidence.
+
+---
+
+## 🚦 Next Steps
+
+### Immediate (This Week)
+1. ✅ Dev set evaluation complete
+2. ⏳ **Run test set (654 questions)** - Validate GEPA improvement
+3. ⏳ Statistical significance analysis
+4. ⏳ Update Notion with findings
+
+### Short-term (Next 2 Weeks)
+1. Try GEPA-v2 with shorter prompts (<3,000 chars)
+2. Format-specific optimization (separate prompts for Int/Str/null)
+3. Try larger student model (qwen2.5-14b or 32b)
+4. Error pattern analysis
+
+### Long-term (Next Month)
+1. Full test set comparison (all 3 approaches)
+2. Compare DSPy vs fine-tuning (LoRA + RL)
+3. Production deployment strategy
+4. Paper preparation
+
+---
+
+## 🤝 Collaboration Workflow
+
+### For Humans
+1. **Check Status**: Read this README
+2. **Deep Dive**: See [`RESEARCH_FINDINGS.md`](RESEARCH_FINDINGS.md)
+3. **History**: See [`CHANGELOG.md`](CHANGELOG.md)
+4. **Error Analysis**: See [`DEV_SET_ERROR_ANALYSIS.md`](DEV_SET_ERROR_ANALYSIS.md)
+5. **Update Notion**: Sync key findings after experiments
+
+### For AI Assistants
+1. Read README (this file) for current state
+2. Read RESEARCH_FINDINGS for complete context
+3. Check authoritative result files (3 JSON files)
+4. Update CHANGELOG after significant work
+5. Create experiment logs in `logs/`
+
+### Running New Experiments
+1. Plan hypothesis and config
+2. Run experiment, save predictions
+3. Update results in README
+4. Document findings in RESEARCH_FINDINGS
+5. Log in CHANGELOG
+6. Sync to Notion
+
+---
+
+## 📚 Documentation
+
+- **README.md** (this file) - Quick overview & current status
+- **[RESEARCH_FINDINGS.md](RESEARCH_FINDINGS.md)** - Complete analysis, findings, and recommendations
+- **[CHANGELOG.md](CHANGELOG.md)** - Historical log of all work
+- **[DEV_SET_ERROR_ANALYSIS.md](DEV_SET_ERROR_ANALYSIS.md)** - Detailed dev set analysis
+- **[Notion Research Plan](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)** - Research narrative
+
+---
+
+## 🔧 Environment
+
+```bash
+# Setup
+conda create -n esg_reasoning python=3.10
+conda activate esg_reasoning
+pip install -r dspy_implementation/requirements_dspy.txt
+
+# Environment variables (.env)
+DASHSCOPE_API_KEY=your_key
+PG_URL=postgresql://user:pass@host:port/database
+ESG_COLLECTION_NAME=MMESG
+```
+
+**Database**: PostgreSQL 15+ with pgvector extension (54,608 chunks)
+
+---
+
+## 📊 Current Status
+
+**Phase**: Dev set optimization complete ✅  
+**Best Result**: GEPA 54.8% (+2.2% vs baseline) ✅  
+**Next**: Test set evaluation (654 questions) ⏳  
+**Updated**: October 19, 2025
+
+---
+
+## 📖 Quick Reference
+
+**Authoritative Result Files**:
+- `baseline_dev_predictions_20251019_130401.json` (52.7%)
+- `gepa_dev_predictions_20251019_130401.json` (54.8%)
+- `miprov2_dev_predictions_20251019_130401.json` (48.4%)
+
+**Key Scripts**:
+- Baseline: `dspy_implementation/evaluate_baseline.py`
+- GEPA: `dspy_implementation/gepa_skip_baseline.py`
+- MIPROv2: `dspy_implementation/enhanced_miprov2_qwen7b_optimization.py`
+
+**Evaluation**: Uses MMESGBench's `eval_score()` with ANLS 0.5 threshold
+
+---
+
+**Last Updated**: October 21, 2025  
+**Status**: Dev set complete, test set pending  
+**Contact**: [GitHub](https://github.com/tyyim/esg_reason) | [Notion](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)

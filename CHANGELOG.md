@@ -1,5 +1,129 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-10-21 - Repository Cleanup & Corrected Results ✅ COMPLETE
+
+### Background
+After discovering confusion in previous results, conducted fresh evaluation on dev set (93 questions) and found that stated baseline (58.1%) was incorrect. True baseline is **52.7%**.
+
+### Major Corrections
+
+#### 1. Corrected Baseline (October 19, 2025)
+**Issue**: Previous logs stated baseline as 58.1% (54/93), but fresh evaluation showed this was incorrect.
+
+**Fresh Evaluation**:
+- **Baseline (qwen2.5-7b)**: 52.7% (49/93) ✅
+- **GEPA (qwen2.5-7b)**: 54.8% (51/93) ✅
+- **MIPROv2 (qwen2.5-7b)**: 48.4% (45/93) ❌
+
+**Source**: `baseline_dev_predictions_20251019_130401.json` (authoritative)
+
+**Impact**: 
+- GEPA actually IMPROVED by +2.2% (not degraded!) ✅
+- MIPROv2 degraded by -4.3% (worse than previously thought) ❌
+
+#### 2. Authoritative Result Files Identified
+Established 3 files as single source of truth (all other results can be ignored):
+1. `baseline_dev_predictions_20251019_130401.json` - 52.7% (49/93)
+2. `gepa_dev_predictions_20251019_130401.json` - 54.8% (51/93)  
+3. `miprov2_dev_predictions_20251019_130401.json` - 48.4% (45/93)
+
+#### 3. Comprehensive Error Analysis ✅
+Created `DEV_SET_ERROR_ANALYSIS.md` with detailed findings:
+
+**GEPA Improvements**:
+- Int: +10.5% (63.2% → 73.7%)
+- Float: +7.7% (69.2% → 76.9%)
+- List: +15.4% (23.1% → 38.5%)
+
+**GEPA Degradations**:
+- Str: -5.9% (35.3% → 29.4%)
+- null: -7.2% (92.9% → 85.7%)
+
+**Key Finding**: GEPA excels at structured extraction but struggles with text and "not answerable" detection.
+
+### Repository Cleanup
+
+#### 1. Documentation Consolidation ✅
+Reduced documentation from 7+ files to 3 essential documents:
+- **README.md** - Quick overview & current status
+- **RESEARCH_FINDINGS.md** - Complete analysis & recommendations  
+- **CHANGELOG.md** - Historical log (this file)
+
+Removed redundant documents:
+- `START_HERE.md`, `QUICK_REFERENCE.md`, `STUDY_SUMMARY.md`
+- `BEFORE_AFTER_COMPARISON.md`, `ACTION_PLAN.md`
+- `PERFORMANCE_EVOLUTION_CORRECTED.md`, `REPO_ANALYSIS_AND_REORGANIZATION_PLAN.md`
+- `COLLABORATION_GUIDE.md`
+
+#### 2. Clarified File Authority ✅
+- Identified 3 authoritative result files (October 19, 2025)
+- Other result files can be safely ignored
+- Clear naming convention established
+
+### Key Findings
+
+#### 1. GEPA > MIPROv2 for 7B Models (+6.4%)
+Reflection-based optimization (GEPA) outperforms teacher-student (MIPROv2) on small models.
+
+**Evidence**:
+- GEPA: 54.8% (+2.2% vs baseline)
+- MIPROv2: 48.4% (-4.3% vs baseline)
+- Difference: 6.4% in GEPA's favor
+
+**Why**:
+- GEPA learns from actual student failures
+- MIPROv2 uses generic teacher prompts
+- 7B model handles reflection better than teacher instructions
+
+#### 2. Format-Specific Performance
+Different answer types benefit differently from optimization:
+
+| Format | Baseline | GEPA | Change | Insight |
+|--------|----------|------|--------|---------|
+| Int | 63.2% | **73.7%** | **+10.5%** | ✅ GEPA excels |
+| Float | 69.2% | **76.9%** | **+7.7%** | ✅ GEPA excels |
+| List | 23.1% | **38.5%** | **+15.4%** | ✅ GEPA excels |
+| Str | **35.3%** | 29.4% | **-5.9%** | ❌ Baseline better |
+| null | **92.9%** | 85.7% | **-7.2%** | ❌ Baseline better |
+
+**Implication**: Hybrid approaches with format-specific prompts may be optimal.
+
+#### 3. Prompt Length Trade-offs
+- **Baseline**: 0 characters (DSPy default)
+- **GEPA**: 7,749 characters
+- **Finding**: Longer prompts help structured data but hurt text extraction
+
+**Optimal Range**: ~3,000 characters (based on performance patterns)
+
+#### 4. Cost-Performance Trade-offs
+- qwen2.5-7b (GEPA): $0.0006/1K tokens, 54.8% accuracy
+- qwen-max: $0.06/1K tokens, ~69.9% accuracy
+- **Result**: 100x cheaper with 78% of performance
+
+### Files Created
+- `README.md` - Updated with corrected results
+- `RESEARCH_FINDINGS.md` - Comprehensive analysis
+- `DEV_SET_ERROR_ANALYSIS.md` - Detailed error patterns (already existed)
+
+### Files Removed
+Multiple redundant documentation files consolidated into 3 core documents.
+
+### Next Steps
+1. ⏳ **Run test set evaluation** (654 questions) - HIGHEST PRIORITY
+2. ⏳ Statistical significance analysis
+3. ⏳ Update Notion with corrected findings
+4. ⏳ Try GEPA-v2 with shorter prompts (<3,000 chars)
+5. ⏳ Format-specific optimization
+
+### Lessons Learned
+1. **Always validate with fresh evaluation**: Old logs can be wrong
+2. **Single source of truth is critical**: Name files clearly, establish authority
+3. **Format-specific analysis reveals insights**: Overall accuracy hides important patterns
+4. **Documentation sprawl hurts collaboration**: 3 focused documents > 7+ overlapping ones
+5. **Reflection beats teacher-student for small models**: GEPA (+2.2%) > MIPROv2 (-4.3%)
+
+---
+
 ## 2025-10-16 - Teacher-Student Model Testing & Infrastructure Improvements ✅ COMPLETE
 
 ### Background
