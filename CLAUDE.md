@@ -1,16 +1,142 @@
-# CLAUDE.md - Project Guidelines
+# CLAUDE.md - AI Assistant Guidelines
 
-## ⚠️ **MANDATORY: Coding Standards**
+**Purpose**: Quick reference for AI assistants working on this ESG reasoning research project  
+**Last Updated**: October 21, 2025
 
-**ALL evaluation and optimization scripts MUST follow:**
-📘 **[CODING_BEST_PRACTICES.md](CODING_BEST_PRACTICES.md)**
+---
 
-**Required for every script**:
-- ✅ Checkpoint/resume mechanism (>10 min evals)
+## 🎯 Project Overview
+
+**Research Question**: Can DSPy prompt optimization match or exceed traditional fine-tuning (LoRA + RL) on ESG question answering with lower compute and fewer labels?
+
+**Current Status**: Dev set optimization complete ✅ | Test set validation pending ⏳
+
+---
+
+## 📊 Current Results (AUTHORITATIVE)
+
+### Dev Set (93 Questions) - October 19, 2025
+
+| Approach  | Accuracy | vs Baseline | Source File |
+|-----------|----------|-------------|-------------|
+| **Baseline** | **52.7%** (49/93) | baseline | `baseline_dev_predictions_20251019_130401.json` |
+| **GEPA** | **54.8%** (51/93) | **+2.2%** ✅ | `gepa_dev_predictions_20251019_130401.json` |
+| **MIPROv2** | 48.4% (45/93) | **-4.3%** ❌ | `miprov2_dev_predictions_20251019_130401.json` |
+
+**⚠️ CRITICAL**: These 3 JSON files are authoritative. Ignore all other result files.
+
+### Full Dataset (933 Questions)
+
+| Date | Approach | Model | Accuracy |
+|------|----------|-------|----------|
+| Sep 2025 | ColBERT | qwen-max | 40.5% (378/933) |
+| Oct 2025 | DSPy | qwen-max | 55.6% (519/933) |
+| **Pending** | DSPy | qwen2.5-7b | ? (test set) |
+
+---
+
+## 📁 Essential Documentation (READ THESE)
+
+### 1. README.md
+Quick overview, current status, running experiments
+
+### 2. RESEARCH_FINDINGS.md
+Complete analysis, recommendations, next steps
+
+### 3. CHANGELOG.md
+Historical log of all work and findings
+
+### 4. DEV_SET_ERROR_ANALYSIS.md
+Detailed error patterns by format type
+
+**Start with README.md, then read RESEARCH_FINDINGS.md for complete context.**
+
+---
+
+## ⚠️ Critical Information
+
+### Key Finding: GEPA > MIPROv2 (+6.4%)
+
+**GEPA (Reflection-based)**: 54.8% (+2.2% vs baseline)  
+**MIPROv2 (Teacher-student)**: 48.4% (-4.3% vs baseline)
+
+**Why**: Reflection learns from actual student failures; teacher-student uses generic prompts that don't transfer well to 7B models.
+
+### Format-Specific Performance
+
+| Format | Baseline | GEPA | Insight |
+|--------|----------|------|---------|
+| **Int** | 63.2% | **73.7% (+10.5%)** | ✅ GEPA excels |
+| **Float** | 69.2% | **76.9% (+7.7%)** | ✅ GEPA excels |
+| **List** | 23.1% | **38.5% (+15.4%)** | ✅ GEPA excels |
+| **Str** | **35.3%** | 29.4% (-5.9%) | ❌ Baseline better |
+| **null** | **92.9%** | 85.7% (-7.2%) | ❌ Baseline better |
+
+**Implication**: Use GEPA for structured data, baseline for text/refusal. Consider format-specific routing.
+
+### Prompt Length Trade-offs
+
+- **Baseline**: 0 characters (DSPy default)
+- **GEPA**: 7,749 characters
+- **Optimal**: ~3,000 characters (based on performance)
+
+**Finding**: Longer prompts help structured extraction but hurt text extraction.
+
+---
+
+## 🔧 Development Standards
+
+### Evaluation
+
+**Always use MMESGBench's exact eval_score():**
+```python
+from MMESGBench.src.eval.eval_score import eval_score
+
+answer_score = eval_score(gt, pred, answer_type)
+correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
+```
+
+### Data Splits (AUTHORITATIVE)
+
+```
+dspy_implementation/data_splits/
+├── train_186.json (20%)
+├── dev_93.json (10%)
+└── test_654.json (70%)
+```
+
+**Do NOT use other splits** (e.g., `splits/` directory has old/incorrect splits).
+
+### Running Experiments
+
+**Baseline Evaluation:**
+```bash
+python dspy_implementation/evaluate_baseline.py \
+  --model qwen2.5-7b-instruct \
+  --dataset dev \
+  --output baseline_dev_predictions.json
+```
+
+**GEPA Optimization:**
+```bash
+python dspy_implementation/gepa_skip_baseline.py
+```
+
+**Test Set Evaluation (NEXT PRIORITY):**
+```bash
+python dspy_implementation/evaluate_baseline.py \
+  --model qwen2.5-7b-instruct \
+  --dataset test \
+  --output baseline_test_654.json
+```
+
+### Code Quality Requirements
+
+**For evaluation/optimization scripts (>10 min runtime):**
+- ✅ Checkpoint/resume mechanism
 - ✅ Structured logging (file + console)
 - ✅ Retry logic with exponential backoff
-- ✅ MLFlow tracking (Phase 2+)
-- ✅ Progress bars with tqdm
+- ✅ Progress bars (tqdm)
 - ✅ Structured JSON output
 - ✅ MMESGBench's exact eval_score()
 
@@ -18,251 +144,248 @@
 
 ---
 
-## ⚠️ **CRITICAL: DSPy Optimizer Parameters**
+## ⚠️ Common Pitfalls (AVOID THESE)
 
-**ALWAYS check optimizer documentation for correct `.compile()` parameters!**
+### 1. Dataset Confusion ❌
+**DON'T** mix full dataset (933) with dev set (93) results without clear labels.
 
-### Common Optimizer Parameters (✅ = Works, ❌ = Fails)
+**Example of WRONG**:
+```
+"Performance improved from 40% to 54.8%"
+(40% is 933 questions, 54.8% is 93 questions - different datasets!)
+```
 
-**MIPROv2**:
+**Correct**:
+```
+"Full dataset (933): 40.5% → 55.6%"
+"Dev set (93): 52.7% → 54.8% (GEPA)"
+```
+
+### 2. Model Switching ❌
+**DON'T** compare qwen-max results with qwen2.5-7b results without noting the model change.
+
+**Always specify**: model name + dataset size
+
+### 3. Old Result Files ❌
+**DON'T** use result files other than the 3 authoritative files dated `20251019_130401`.
+
+**If you see**:
+- `baseline_rag_results_20251015_*.json` → IGNORE
+- `quick_dev_eval_*.json` → IGNORE
+- `dspy_baseline_dev_checkpoint.json` → IGNORE (incomplete, 90/93 only)
+
+### 4. Optimizer Parameters ❌
+
+**MIPROv2:**
 ```python
 optimizer.compile(
-    student=module,           # ✅ Required
-    trainset=train_set,       # ✅ Required
-    valset=dev_set,           # ✅ Optional (but ALWAYS provide!)
-    num_trials=20,            # ✅ Optional
-    auto='light',             # ✅ Optional
+    student=module,
+    trainset=train_set,
+    valset=dev_set,  # ✅ ALWAYS provide!
+    num_trials=20,
+    auto='light',
     requires_permission_to_run=False  # ✅ Works for MIPROv2
 )
 ```
 
-**GEPA**:
+**GEPA:**
 ```python
 optimizer.compile(
-    student=module,           # ✅ Required
-    trainset=train_set,       # ✅ Required
-    valset=dev_set,           # ✅ Optional (but ALWAYS provide!)
-    requires_permission_to_run=False  # ❌ NOT SUPPORTED - DO NOT USE!
+    student=module,
+    trainset=train_set,
+    valset=dev_set,  # ✅ ALWAYS provide!
+    # ❌ NO requires_permission_to_run parameter!
 )
 ```
 
-**🔴 LESSON LEARNED** (2025-10-17):
-- GEPA does NOT accept `requires_permission_to_run` parameter
-- Always check DSPy documentation for each optimizer's specific parameters
-- MIPROv2 and GEPA have different `.compile()` signatures
-- **Dataset splits**: ALWAYS provide explicit `valset` parameter to ensure consistent evaluation!
+**GEPA Metrics Return Type:**
+```python
+from dspy import ScoreWithFeedback
 
-**🔴 GEPA METRIC ISSUES DISCOVERED** (2025-10-17):
+# ✅ Correct
+return ScoreWithFeedback(
+    score=float_score,
+    feedback="explanation of score"
+)
 
-**Issue 1 - SOLVED**: Metric always returning dict
-- **Problem**: DSPy's evaluation framework tries to sum metric results for aggregation
-- **Error**: `TypeError: unsupported operand type(s) for +: 'int' and 'dict'`
-- **Solution**: Return `float` when `pred_name is None`, return `dict` only when `pred_name` is provided
-- **Fixed in**: `dspy_metrics_gepa_fixed.py`
-
-**Issue 2 - CURRENT**: Dict vs Object with .score attribute
-- **Problem**: GEPA expects feedback object with `.score` attribute, not `fb["score"]`
-- **Error**: `AttributeError: 'dict' object has no attribute 'score'`
-- **Location**: `dspy/teleprompt/gepa/gepa_utils.py:217` - `fb.score` instead of `fb["score"]`
-- **Status**: May need to use a special `ScoreWithFeedback` class instead of plain dict
-- **Next steps**: Investigate if DSPy provides a ScoreWithFeedback class or wrapper
-
----
-
-## 🎯 Project: ESG Reasoning with DSPy Optimization
-
-Replicate MMESGBench baselines, then optimize with DSPy to improve ESG question answering accuracy.
-
----
-
-## 📊 Current Status (2025-10-16)
-
-**✅ Teacher-Student Optimization Complete** - See [CHANGELOG.md](CHANGELOG.md) for details
-
-**Latest Results**:
-- **qwen-max direct optimization**: 61.3% → 58.1% (-3.2% ❌ overfitting)
-- **Teacher-student approach**: 54.8% → 57.0% (+2.2% ✅ success!)
-- **Key Finding**: Strong models overfit on small datasets; weaker models learn better from strong prompts
-
-**Evaluation Methodology**:
-- **ANLS 0.5**: MMESGBench uses fuzzy matching (50% similarity threshold)
-- **PRIMARY METRIC**: Answer accuracy (for MMESGBench comparison)
-- **RESEARCH METRICS**: Retrieval & E2E accuracy (for our analysis)
-
----
-
-## 🏗️ Implementation Plan (4 Phases)
-
-### Phase 1: MMESGBench Exact Replication
-- **Goal**: ColBERT + Sentence Transformer (their exact approach)
-- **Target**: ~40% answer accuracy
-- **Location**: `phase1_mmesgbench_exact/` (TO BE CREATED)
-
-### Phase 2: Qwen + PGvector Baseline
-- **Goal**: Use existing Qwen embeddings + semantic search (NO ColBERT)
-- **Data**: Existing PGvector (54,608 chunks) - **no re-parsing needed**
-- **Target**: ~42% answer accuracy
-- **Location**: `phase2_qwen_pgvector/` (TO BE CREATED)
-
-### Phase 3a: DSPy Prompt Optimization (No Query Gen)
-- **Goal**: Optimize reasoning + extraction prompts only
-- **Target**: ~45% answer accuracy (+3% over Phase 2)
-- **Location**: `phase3a_dspy_prompts/` (TO BE CREATED)
-
-### Phase 3b: DSPy Query Generation
-- **Goal**: Add query generation optimization
-- **Target**: ~47% answer accuracy (+2% over Phase 3a)
-- **Location**: `phase3b_dspy_query_gen/` (TO BE CREATED)
-
-**Total Expected Improvement**: 40% → 47% (+7% answer accuracy)
-
-See `PROJECT_REFACTORING_PLAN.md` for complete details.
-
----
-
-## 📁 Project Structure
-
-```
-CC/
-├── 📝 Essential Documentation
-├── CLAUDE.md                        # This file (quick reference)
-├── CHANGELOG.md                     # Progress tracking
-├── PROJECT_REFACTORING_PLAN.md      # Complete implementation plan
-├── ANLS_EVALUATION_EXPLAINED.md     # Evaluation methodology
-├── Research Plan.md                  # Research proposal (Notion sync)
-│
-├── 📊 Core Data
-├── mmesgbench_dataset_corrected.json # 933 QA pairs (authoritative)
-├── source_documents/                 # 45 ESG PDF documents
-│
-├── 🏗️ Core Infrastructure (Preserved)
-├── src/                              # Core Python modules
-├── MMESGBench/                       # Reference benchmark
-│
-├── 🔧 Phase Implementations (TO BE CREATED)
-├── phase1_mmesgbench_exact/         # Phase 1
-├── phase2_qwen_pgvector/            # Phase 2
-├── phase3a_dspy_prompts/            # Phase 3a
-├── phase3b_dspy_query_gen/          # Phase 3b
-├── unified_evaluator/               # Shared evaluation
-│
-└── 🗄️ Archive
-    └── archive_old_project/          # All old work (for reference)
-        ├── code_old/                  # Old Python scripts
-        ├── results_old/               # Old JSON results
-        ├── documentation_old/         # Old documentation
-        ├── analysis_old/              # Old analysis
-        └── logs_old/                  # Old logs
+# ❌ Wrong
+return {"score": float_score, "feedback": "..."}  # Plain dict fails!
 ```
 
 ---
 
-## 🔧 Environment
+## 🚀 Immediate Next Steps (Priority Order)
 
+### 1. Test Set Validation ⚠️ **HIGHEST PRIORITY**
+Run all 3 approaches on 654 test questions to validate dev set findings.
+
+**Why**: Dev set (93 questions) too small - 1 question = 1.1% change.
+
+**Expected**: 3-4 hours runtime
+
+**Success**: GEPA maintains +2% improvement on test set
+
+### 2. Statistical Significance
+- McNemar's test (paired accuracy)
+- Bootstrap confidence intervals
+- Document p-values
+
+### 3. GEPA-v2 Optimization
+- Reduce prompt length (7,749 → <3,000 chars)
+- Improve Str and null performance
+- Keep Int/Float/List gains
+
+### 4. Update Notion
+- Correct baseline (52.7% not 58.1%)
+- GEPA +2.2% improvement
+- Format-specific insights
+
+---
+
+## 📊 Database & Environment
+
+### Database
+```
+PostgreSQL 15+ with pgvector
+- Collection: MMESG
+- Chunks: 54,608 (1024-dim embeddings)
+- Embeddings: text-embedding-v4
+- Retrieval: top-5 cosine similarity
+```
+
+### Environment Setup
 ```bash
-cd /Users/victoryim/Local_Git/CC
 conda activate esg_reasoning
+cd /Users/victoryim/Local_Git/CC
 
-# .env variables
+# Required env vars (.env)
 DASHSCOPE_API_KEY=your_key
 PG_URL=postgresql://user:pass@host:port/database
 ESG_COLLECTION_NAME=MMESG
-
-# Database: PostgreSQL + pgvector (54,608 chunks from 45 documents)
-# Models: qwen-max (LLM), text-embedding-v4 (embeddings)
 ```
 
+### Models
+- **LLM**: qwen-max ($0.06/1K), qwen2.5-7b-instruct ($0.0006/1K)
+- **Embeddings**: text-embedding-v4
+- **Cost difference**: 100x (qwen2.5-7b is cheaper)
+
 ---
 
-## 📊 Evaluation Methodology
+## 🔍 Key Insights (Remember These)
 
-### PRIMARY METRIC: Answer Accuracy (MMESGBench comparison)
-- Uses MMESGBench's exact `eval_score()` function
-- **ANLS 0.5**: Fuzzy matching with 50% similarity threshold
-- Allows typos, formatting differences (e.g., "North America" = "north america" = "Noth America")
+### 1. Reflection > Teacher-Student for 7B Models
+GEPA (+2.2%) outperformed MIPROv2 (-4.3%) by **6.4%**.
 
-### RESEARCH METRICS (our analysis only)
-- **Retrieval Accuracy**: % questions with all evidence pages retrieved
-- **E2E Accuracy**: Both retrieval AND answer correct
+**Why**: 7B models handle iterative reflection better than following large model instructions.
 
-### Evaluation Code:
-```python
-from MMESGBench.src.eval.eval_score import eval_score
+### 2. Format-Specific Optimization
+Don't optimize all formats the same way:
+- **Structured (Int/Float/List)**: Use GEPA → +10-15%
+- **Text (Str/null)**: Use baseline → better performance
 
-answer_score = eval_score(gt, pred, answer_type)
-answer_correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
+**Recommendation**: Hybrid approach with format-specific routing.
+
+### 3. Cost-Performance Trade-offs
+- qwen2.5-7b (GEPA): 54.8% @ $0.0006/1K = **100x cheaper**
+- qwen-max: ~69.9% @ $0.06/1K = expensive
+- **Result**: 78% performance at 1% cost
+
+### 4. Small Dev Sets Are Noisy
+93 questions → ±1.1% per question
+
+**Always validate on test set** (654 questions) before making production decisions.
+
+### 5. Prompt Length Has Limits
+- Too short: Misses patterns
+- Optimal: ~3,000 chars
+- Too long (7,749 chars): Attention dilution, confuses 7B models
+
+---
+
+## 💬 Collaboration Workflow
+
+### When Starting Work
+1. Read README.md for current status
+2. Read RESEARCH_FINDINGS.md for complete context
+3. Check CHANGELOG.md for recent changes
+4. Verify you're using authoritative result files
+
+### When Running Experiments
+1. Use proper data splits (`dspy_implementation/data_splits/`)
+2. Save predictions with clear naming: `{approach}_dev_predictions_YYYYMMDD_HHMMSS.json`
+3. Use MMESGBench's eval_score() for evaluation
+4. Log to `logs/` directory with timestamps
+
+### After Completing Work
+1. Update README.md with new results
+2. Document findings in RESEARCH_FINDINGS.md
+3. Add entry to CHANGELOG.md
+4. Commit with clear message
+5. Notify human to update Notion
+
+### Documentation Updates
+**DON'T** create new documentation files. Update existing 3:
+- Quick updates → README.md
+- Analysis/findings → RESEARCH_FINDINGS.md
+- Historical log → CHANGELOG.md
+
+---
+
+## 🎓 Research Context
+
+### Dataset
+**MMESGBench**: 933 ESG question-answer pairs from 45 corporate ESG reports
+- Source: [Microsoft Multimodal ESG Benchmark](https://github.com/microsoft/Multimodal-ESG-Benchmark)
+- Types: Integer, Float, String, List, None
+- Evaluation: ANLS 0.5 (fuzzy matching, 50% similarity threshold)
+
+### Architecture
+```
+Question
+   ↓
+PostgreSQL + pgvector Retrieval (top-5 chunks)
+   ↓
+ESG Reasoning (DSPy ChainOfThought)
+   ↓
+Answer Extraction (DSPy)
+   ↓
+Structured Answer (Int/Float/Str/List/None)
 ```
 
-See `ANLS_EVALUATION_EXPLAINED.md` for complete details.
+### Research Contribution
+This work demonstrates that **reflection-based optimization (GEPA) outperforms teacher-student (MIPROv2) for small language models** (7B parameters), with format-specific performance patterns and significant cost-performance trade-offs.
+
+**Potential paper**: "When Reflection Beats Teacher-Student: Efficient Prompt Optimization for Small Language Models"
 
 ---
 
-## 🚀 Next Steps
+## 🔗 Quick Links
 
-1. ✅ **Cleanup complete** - Old work archived
-2. ⏳ Implement unified evaluator
-3. ⏳ Implement Phase 1 (MMESGBench exact replication)
-4. ⏳ Implement Phase 2 (Qwen + PGvector)
-5. ⏳ Implement Phase 3a (DSPy prompts)
-6. ⏳ Implement Phase 3b (DSPy query gen)
-7. ⏳ Generate unified comparison table
+- **GitHub**: https://github.com/tyyim/esg_reason
+- **Notion**: https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2
+- **MMESGBench**: https://github.com/microsoft/Multimodal-ESG-Benchmark
 
 ---
 
-## 📝 Documentation Index
+## ✅ Pre-Flight Checklist
 
-- **CLAUDE.md** (this file) - Quick project guidelines
-- **README.md** - Repository overview for humans
-- **CHANGELOG.md** - Historical progress tracking
-- **[Research Plan (Notion)](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)** - Complete research status (authoritative source)
-- **ANLS_EVALUATION_EXPLAINED.md** - Evaluation methodology reference
-- **CODING_BEST_PRACTICES.md** - Development standards
+Before running experiments:
+- [ ] Conda environment activated (`esg_reasoning`)
+- [ ] Using correct data split (`dspy_implementation/data_splits/`)
+- [ ] Clear output file naming with timestamp
+- [ ] Checkpoint/resume mechanism implemented (if >10 min)
+- [ ] Using MMESGBench's eval_score()
+- [ ] Logging to `logs/` directory
 
----
-
-## 💡 Key Reminders
-
-- **Answer accuracy** is PRIMARY metric (not retrieval or E2E)
-- **ANLS 0.5** allows fuzzy matching for fair comparison
-- Phase 2 uses **existing PGvector data** (no re-parsing!)
-- All old code preserved in `archive_old_project/`
+Before claiming results:
+- [ ] Verified on correct dataset (dev 93 or test 654?)
+- [ ] Specified model clearly (qwen-max or qwen2.5-7b?)
+- [ ] Compared against correct baseline (52.7% for dev set)
+- [ ] Statistical significance tested (if claiming improvement)
 
 ---
 
-**Last Updated**: 2025-10-17 (GEPA optimization running!)
+**Remember**: Test set validation is the highest priority. Dev set results (93 questions) are provisional until validated on test set (654 questions).
 
----
-
-## ✅ GEPA Optimization Status (2025-10-17)
-
-**BREAKTHROUGH**: GEPA reflection-based optimization is now working!
-
-**Issue Solved**: ScoreWithFeedback return type
-- **Problem**: GEPA expected `ScoreWithFeedback(Prediction)` object, not plain `dict`
-- **Error**: `AttributeError: 'dict' object has no attribute 'score'`
-- **Solution**: Changed metric returns to use `ScoreWithFeedback(score=X, feedback=Y)`
-- **Location**: [dspy_metrics_gepa_fixed.py](dspy_implementation/dspy_metrics_gepa_fixed.py)
-
-**Key Discovery** (from GEPA source code):
-```python
-class ScoreWithFeedback(Prediction):
-    """Prediction subclass with .score and .feedback attributes"""
-    score: float
-    feedback: str
-```
-
-**Current Status**:
-- ✅ Quick test passed (10 examples)
-- 🔄 Full optimization running in background (186 train / 93 dev)
-- 📊 Expected runtime: ~45 minutes
-- 🎯 Target: ≥+2.2% improvement (match MIPROv2 teacher-student)
-
-**Log**: [logs/gepa_test/gepa_full_run.log](logs/gepa_test/gepa_full_run.log)
-
----
-
-## 🔗 Links
-
-- **GitHub Repository**: [tyyim/esg_reason](https://github.com/tyyim/esg_reason)
-- **Research Plan (Notion)**: [Complete research status & findings](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)
-- **Latest Results**: See [CHANGELOG.md](CHANGELOG.md#2025-10-16---teacher-student-model-testing--infrastructure-improvements--complete)
+**Last Updated**: October 21, 2025  
+**Status**: Dev set complete, test set pending
