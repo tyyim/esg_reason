@@ -61,7 +61,9 @@ api_keys.txt
 # MMESGBench - external repo, clone separately
 MMESGBench/
 source_documents/MMESGBench/
-data/
+# data/ - but track the corrected dataset
+data/*
+!data/mmesgbench_dataset_corrected.json
 datasets/
 
 # Results and Outputs (Updated Oct 22, 2025)

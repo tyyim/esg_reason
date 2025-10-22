@@ -132,10 +132,11 @@ CC/
 │   └── enhanced_miprov2_qwen7b_optimization.py
 │
 ├── 💾 Data
-│   ├── MMESGBench/                    # Original benchmark
+│   ├── data/
+│   │   └── mmesgbench_dataset_corrected.json  # 933 ESG questions
+│   ├── MMESGBench/                    # Original benchmark (external repo)
 │   ├── source_documents/              # Original PDFs
-│   ├── processed_data/                # Processed chunks
-│   └── mmesgbench_dataset_corrected.json
+│   └── processed_data/                # Processed chunks
 │
 ├── 🔧 Core
 │   ├── src/                           # Utility modules
@@ -186,7 +187,8 @@ python dspy_implementation/evaluate_baseline.py \
 **MMESGBench**: 933 ESG question-answer pairs from 45 corporate ESG reports
 
 - **Total**: 933 questions
-- **Splits**: 186 train / 93 dev / 654 test
+- **Location**: `data/mmesgbench_dataset_corrected.json`
+- **Splits**: 186 train / 93 dev / 654 test (in `dspy_implementation/data_splits/`)
 - **Chunks**: 54,608 (1024-dim embeddings, text-embedding-v4)
 - **Types**: Integer, Float, String, List, None
 - **Source**: [Microsoft Multimodal ESG Benchmark](https://github.com/microsoft/Multimodal-ESG-Benchmark)
