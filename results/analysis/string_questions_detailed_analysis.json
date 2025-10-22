@@ -1,0 +1,129 @@
+{
+  "total_questions": 34,
+  "accuracy": {
+    "baseline": 0.35294117647058826,
+    "miprov2": 0.29411764705882354,
+    "gepa": 0.29411764705882354
+  },
+  "degradations": [
+    {
+      "id": "q0",
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "gold_answer": "Seller reports Scope 1, buyer reports Scope 2",
+      "gold_sources": [],
+      "baseline_answer": "Based on the context provided, we can analyze the Scope 1 and 2 reporting for the electricity sold from one public organization to another:\n\n1. **Scope 1 Reporting**: Company A reports its direct emissions from power generation under Scope 1. However, the context does not specify whether Organization C or D falls under this category. If Organization C is responsible for the generation and transmission of electricity, then the emissions associated with T&D losses would not be reported under Scope 2, as they would already be accounted for under Scope 1. On the other hand, if Organization D owns or controls the T&D system, then the emissions associated with T&D losses would be reported under Scope 2.\n\n2. **Scope 2 Reporting**: Scope 2 only accounts for the portion of the direct emissions from generating electricity that is actually consumed by the organization. In this scenario, since Organization D is an end user consuming the purchased electricity, the emissions associated with the 95 MWh of electricity it buys from Organization C would be reported under Scope 2. This is because the emissions are considered indirect and occur at the point of generation, which is outside the organizational boundary of Organization D.\n\n3. **Scope 3 Reporting**: Upstream T&D losses are accounted for in Scope 3. Since Organization C consumes 5 MWh and sells the rest to Organization D, the emissions related to these upstream T&D losses would be included in Scope 3 reporting for Organization C, and possibly in Scope 3 for Organization D depending on the nature of their operations.\n\n4. **Optional Information**: Company B reports emissions from the purchased electricity sold to a non-end user as optional information. This suggests that while not mandatory, organizations can choose to report such emissions, but they are typically not included in Scope 2.\n\nIn summary, the electricity sold from Organization C to Organization D would be reported under Scope 2 for Organization D, and potentially under Scope 3 for Organization C, depending on the ownership and control of the T&D system. The emissions from the upstream T&D losses would be reported under Scope 3 for Organization C.",
+      "baseline_score": 0.5,
+      "gepa_answer": "- **Direct Emissions Reporting (Scope 1):** Company A reports its direct emissions from power generation under Scope 1. This means that any emissions from its own power generation activities are included in its direct emissions.\n- **Indirect Emissions Reporting (Scope 2):** Scope 2 emissions are associated with the purchased electricity that is consumed by the reporting organization. Here, Organization D consumes the 95 MWh of electricity that it purchased from Organization C. According to the context, if an organization owns or controls the T&D system but generates electricity rather than purchasing it, the emissions associated with T&D losses are not reported under Scope 2 because they are already accounted for under Scope 1. However, since the context specifies that Organization C consumes 5 MWh and sells the remaining 95 MWh to Organization D, and Organization D is consuming this electricity, the emissions from the 95 MWh are reported under Scope 2.\n\nTherefore, the electricity sold by Organization C to Organization D is accounted for as follows:\n- Organization C's emissions from the 5 MWh it consumes are reported under Scope 1.\n- Organization D's emissions from the 95 MWh it consumes are reported under Scope 2.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    },
+    {
+      "id": "q10",
+      "question": "If electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh with an EFG of 0.5 tCO2e/MWh, what is the emission factor at consumption (EFC)?",
+      "doc_id": "GHG Public.pdf",
+      "gold_answer": "0.55 tCO2e/MWh",
+      "gold_sources": [],
+      "baseline_answer": "First, we need to convert the electricity units from kWh to MWh since the EFG is given in tCO2e/MWh. \n\n\\[ 10,000 \\text{ kWh} = \\frac{10,000}{1,000,000} \\text{ MWh} = 0.01 \\text{ MWh} \\]\n\nNext, we plug in the values into the equation:\n\n\\[ \\text{EFC} = 0.5 \\text{ tCO2e/MWh} \\times \\left(1 + \\frac{1,000 \\text{ kWh}}{10,000 \\text{ kWh}}\\right) \\]\n\n\\[ \\text{EFC} = 0.5 \\text{ tCO2e/MWh} \\times \\left(1 + 0.1 \\right) \\]\n\n\\[ \\text{EFC} = 0.5 \\text{ tCO2e/MWh} \\times 1.1 \\]\n\n\\[ \\text{EFC} = 0.55 \\text{ tCO2e/MWh} \\]\n\nTherefore, the emission factor at consumption (EFC) is 0.55 tCO2e/MWh.",
+      "baseline_score": 1.0,
+      "gepa_answer": "From the context, we know that EFG (emission factor at generation) is 0.5 tCO2e/MWh. The equation to calculate EFC (emission factor at consumption) is EFC = EFG * (1 + T&D LOSSES / ELECTRICITY CONSUMED). We are given that the electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh. Substituting these values into the equation:\n\nEFC = 0.5 * (1 + 1000 / 10000)\nEFC = 0.5 * (1 + 0.1)\nEFC = 0.5 * 1.1\nEFC = 0.55 tCO2e/MWh\n\nTherefore, the emission factor at consumption (EFC) is 0.55 tCO2e/MWh.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    },
+    {
+      "id": "q25",
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "gold_answer": "At least ten years",
+      "gold_sources": [],
+      "baseline_answer": "From the context, we can extract the following recommendations:\n\n- [Page 19] suggests that companies should consider time horizons that are compatible with their capital planning and investment horizons and the useful life of major company assets. It also mentions harmonizing these time horizons with those of national and international climate policy communities, such as 2030 and 2050.\n- [Page 27] indicates that companies should typically choose scenarios covering a time horizon at least ten years into the future.\n- [Page 18] advises companies to challenge their traditional planning horizons, noting that scenario time horizons are usually longer and that using shorter horizons might lead to simple extrapolations that do not provide enough insight into the company's climate-related strategy.\n\nGiven these points, it appears that the recommended time horizon for scenario outcomes is at least ten years into the future, and companies should align this with their asset lifespans and broader climate policy timelines, such as 2030 and 2050.",
+      "baseline_score": 0.5,
+      "gepa_answer": "The context indicates that companies should consider time horizons that are compatible with their capital planning and investment horizons, as well as the useful life of major company assets. Additionally, the time horizons should be harmonized or anchored with those of national and international climate policy communities, such as 2030 and 2050. The context also mentions that scenario time horizons are typically longer than corporate planning horizons and should cover at least ten years into the future. Furthermore, the TCFD has recommended disclosing the resilience of a company's strategy, considering different climate scenarios, including a \"2°C or lower\" scenario by 2050.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    },
+    {
+      "id": "q40",
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "doc_id": "LEED 2025.pdf",
+      "gold_answer": "75% by weight of product",
+      "gold_sources": [],
+      "baseline_answer": "The reasoning provided indicates that the weighting of GS Benchmark assessments has changed from LEED v4 to v4.1. In LEED v4, the compliance levels were strictly based on cost, with the full assessment being valued at 150% of the cost. However, in LEED v4.1, the focus shifted towards ingredient assessment, and the weighting became more flexible. Under the new requirements, a GS Benchmark assessment can be valued at 75% of the product's weight or 95% of the product's weight, depending on the level of coverage. This suggests an increased emphasis on comprehensive ingredient assessment rather than just screening, which may reflect a more detailed and thorough approach to evaluating the environmental impacts of products.\n\nThe context also provides additional information about other changes in LEED v4.1, such as the incorporation of greenhouse gas emissions as a metric for building energy performance and modifications to the EPD credit to simplify the selection of products with life cycle assessment data. However, these details do not directly pertain to the change in the weighting of GS Benchmark assessments.",
+      "baseline_score": 0.5,
+      "gepa_answer": "From the context, it is evident that the previous LEED v4 Option 2 had two levels of compliance: GS List Translator at 100% of cost and GS full assessment at 150% of cost. However, the newer requirements for LEED v4.1 have changed the weighting system for Option 2. According to the context, GS Benchmark assessments are now valued at 75% by weight of product (equivalent to 0.75 products) or for 95% by weight of product (equivalent to 0.95 products). This indicates a shift towards rewarding more specific and comprehensive ingredient assessments, rather than just listing translators or full assessments based on cost.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    },
+    {
+      "id": "q56",
+      "question": "What is the projected value of unburned fossil fuels and stranded fossil fuel infrastructure from 2015 to 2050 to limit global warming to approximately 2°C?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "gold_answer": "Around USD1-4 trillion",
+      "gold_sources": [],
+      "baseline_answer": "The context on page 38 states, \"Total pages: 63 APPROVED Summary for Policymakers IPCC AR6 WG III Subject to copyedit SPM-37 has been projected to be around 1–4 trillion dollars from 2015 to 2050 to limit global warming to approximately 2⁰C.\" This directly answers the question by providing the range of the projected value, which is between 1 and 4 trillion dollars.\n\nAdditionally, the context also provides supplementary information about unburned fossil reserves potentially being as high as USD 1-4 trillion from 2015 through 2050 (USD 10-20 trillion in undiscounted terms) and that about 40% of these impacts correspond to unburned fossil reserves (IRENA 2017b).\n\nThe context further elaborates that there are two types of stranded assets: fossil-fuel resources that cannot be burned, and premature retirement of fossil infrastructure (e.g., power plants). It also mentions that about 30% of oil, 50% of gas, and 80% of coal reserves will remain unburnable if warming is limited to 2°C (Meinshausen et al. 2009; Leaton).",
+      "baseline_score": 0.5,
+      "gepa_answer": "The relevant context is found on Page 38, where it states, \"Total pages: 63 APPROVED Summary for Policymakers IPCC AR6 WG III Subject to copyedit SPM-37 has been projected to be around 1–4 trillion dollars from 2015 to 2050 to limit global warming to approximately 2⁰C.\" This directly provides the projected value for the period from 2015 to 2050 when global warming is limited to approximately 2°C.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    },
+    {
+      "id": "q86",
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "doc_id": "WHO Social.pdf",
+      "gold_answer": "Premature death",
+      "gold_sources": [],
+      "baseline_answer": "Based on the context from page 25, smoking has several major health consequences in poor populations. One such consequence explicitly stated is that it leads to increased risks of premature death. Additionally, it is noted that smoking reduces prenatal and infant development, which can result in various health issues in adulthood, including reduced cardiovascular, respiratory, kidney, and pancreatic functioning. The context also indicates that smoking is linked to social deprivation and poor housing, which further exacerbate these health issues.\n\nTherefore, the major health consequence of smoking in poor populations mentioned in the WHO report is increased risks of premature death, as well as reduced prenatal and infant development leading to poorer health outcomes in adulthood.",
+      "baseline_score": 1.0,
+      "gepa_answer": "The analysis of the context reveals that smoking has significant negative impacts on health, particularly among poor populations. Specifically, the text mentions that smoking is \"a major drain on poor people’s incomes and a huge cause of ill health and premature death.\" This indicates that smoking not only affects the financial well-being of individuals in poverty but also contributes to severe health issues and increases the risk of dying prematurely.",
+      "gepa_score": 0.0,
+      "possibly_too_strict": false
+    }
+  ],
+  "improvements": [
+    {
+      "id": "q15",
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "doc_id": "LEED 2025.pdf",
+      "gold_answer": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "gold_sources": [],
+      "baseline_answer": "To calculate the percentage of renewable energy purchased, we use Equation 1 mentioned in the context:\n\n\\[ \\text{% energy generated or purchased} = \\left( \\frac{\\text{annual quantity of renewable energy in kWh}}{\\text{annual building site energy use in kWh}} \\right) \\]\n\nThis equation directly provides the method to determine the percentage of renewable energy generated or purchased by dividing the annual quantity of renewable energy in kilowatt-hours (kWh) by the annual building site energy use in kilowatt-hours (kWh).\n\nIt's important to note that this equation applies to both on-site and off-site renewable energy procurement. For off-site renewables, there's an additional proration step using Equation 3, but the core calculation remains the same.\n\nThe context also mentions that the results of these calculations should be summed up according to Table 1 for points, but this table is not necessary to answer the specific question about the calculation method.",
+      "baseline_score": 0.0,
+      "gepa_answer": "The context mentions Equation 1, which is used to determine the percentage of renewable energy generated or purchased. The equation is provided as follows:\n\\[ \\text{% energy generated or purchased} = \\frac{\\text{(annual quantity of renewable energy in kWh)}}{\\text{(annual building site energy use in kWh)}} \\]\n\nAdditionally, there is another equation mentioned for prorating off-site renewable energy, but it is not directly related to calculating the percentage of renewable energy purchased.",
+      "gepa_score": 1.0
+    },
+    {
+      "id": "q33",
+      "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "gold_answer": "[0.8, 1.3]",
+      "gold_sources": [],
+      "baseline_answer": "The context states: \"The likely range of total human-caused global surface temperature increase from 1850–1900 to 2010–201966 is 0.8°C to 1.3°C.\" Therefore, the chain-of-thought analysis concludes that the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019 is [0.8°C, 1.3°C].",
+      "baseline_score": 0.0,
+      "gepa_answer": "The relevant information from the context is found on Page 8, score: 0.713. It states, \"the likely range of total human-caused global surface temperature increase from 1850–1900 to 2010–201966 is 0.8°C to 1.3°C.\"\n\nTherefore, the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019 is [0.8, 1.3].",
+      "gepa_score": 1.0
+    },
+    {
+      "id": "q41",
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "gold_answer": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "gold_sources": [],
+      "baseline_answer": "Based on the provided context from the ESG document, Amazon's goal regarding net-zero carbon emissions is to achieve it by 2040. This target was set as part of their commitment to The Climate Pledge, which they co-founded in 2019. The report emphasizes that Amazon is taking significant steps towards this goal, including achieving 100% renewable energy consumption for their operations in 2023, seven years ahead of schedule. They are also making targeted investments and developing science-led partnerships to reduce emissions and inspire global climate action. Additionally, Amazon aims to deploy and grow technologies such as artificial intelligence to support its continued growth while maintaining a focus on carbon-free energy to become a more resilient and sustainable business.",
+      "baseline_score": 0.0,
+      "gepa_answer": "The context clearly states that Amazon's goal is to achieve net-zero carbon emissions by 2040. This is part of their commitment known as The Climate Pledge. No other specific details about the goal are provided in the context, such as the interim targets or the exact methods they plan to use to achieve this goal.",
+      "gepa_score": 0.5
+    },
+    {
+      "id": "q62",
+      "question": "Which fuel type has the highest tax equivalent per litre under the EUR 30/tonne CO₂ rate?",
+      "doc_id": "OECD Employment.pdf",
+      "gold_answer": "Fuel oil",
+      "gold_sources": [],
+      "baseline_answer": "The context provides conversion rates from EUR 30/tonne CO₂ to rates per litre for several fuels:\n\n- Coal and other solid fossil fuels: 6.24 eurocent per kilogramme (which translates to 6.24 / 0.142 = 43.97 eurocent per litre)\n- Fuel oil: 8.94 eurocent per litre\n- Diesel: 7.99 eurocent per litre\n- Kerosene: 7.58 eurocent per litre\n- Gasoline: 6.86 eurocent per litre\n- LPG: 4.75 eurocent per litre\n\nFrom these conversions, we can see that coal and other solid fossil fuels have the highest tax equivalent per litre at 43.97 eurocent per litre.",
+      "baseline_score": 0.0,
+      "gepa_answer": "From the context, we have the following equivalent tax rates per litre for different fuels under the EUR 30/tonne CO₂ rate:\n\n- Coal and other solid fossil fuels: 6.24 eurocent per kilogramme (equivalent to 6.24/10 = 0.624 eurocent per litre)\n- Fuel oil: 8.94 eurocent per litre\n- Diesel: 7.99 eurocent per litre\n- Kerosene: 7.58 eurocent per litre\n- Gasoline: 6.86 eurocent per litre\n- LPG: 4.75 eurocent per litre\n\nComparing these rates, we find that fuel oil has the highest equivalent tax rate per litre at 8.94 eurocent.",
+      "gepa_score": 1.0
+    }
+  ],
+  "near_misses": []
+}

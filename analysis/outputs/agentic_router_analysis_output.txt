@@ -1,0 +1,210 @@
+
+================================================================================
+AGENTIC ROUTER ANALYSIS
+================================================================================
+
+🎯 GEPA's Unique Value Proposition:
+   Questions where ONLY GEPA got it right: 23 / 654
+   These are the 23 questions we're losing with simple routing!
+
+📊 Characteristics of GEPA-Only Wins:
+
+   Format distribution:
+      Str: 9 (39.1%)
+      None: 7 (30.4%)
+      Int: 4 (17.4%)
+      Float: 2 (8.7%)
+      List: 1 (4.3%)
+
+   Domain distribution:
+      qualitative_reasoning: 12
+      quantitative_reasoning: 7
+      complex_extraction: 5
+      sustainability_metrics: 3
+      contextual: 2
+      technical_specific: 2
+      compliance_standards: 1
+
+   Question types:
+      factual: 12
+      reasoning: 7
+      other: 4
+
+📝 Examples of GEPA-Only Wins:
+
+   Example 1 (q22, Int):
+   Q: What is the total base year 2015 emissions covered by target in all selected Scopes?...
+   GT:       38378460
+   Baseline: 25032890 ❌
+   MIPROv2:  29625560 ❌
+   GEPA:     38378460 ✅
+
+   Example 2 (q67, None):
+   Q: How should the organization handle confidential investigation outputs?...
+   GT:       Not answerable
+   Baseline: None ❌
+   MIPROv2:  None ❌
+   GEPA:     Not answerable ✅
+
+   Example 3 (q77, Int):
+   Q: What is the total economic impact of Amazon's certified Tier 1 diverse supplier spend in US dollar? ...
+   GT:       7100000000
+   Baseline: 5800000000 ❌
+   MIPROv2:  4300000000 ❌
+   GEPA:     7100000000 ✅
+
+   Example 4 (q84, Int):
+   Q: How many Parties had entered into force by November 2016?...
+   GT:       190
+   Baseline: 192 ❌
+   MIPROv2:  192 ❌
+   GEPA:     190 ✅
+
+   Example 5 (q133, Str):
+   Q: If an organization has limited local staff capacity and standardized equipment across all facilities...
+   GT:       Centralized
+   Baseline: reporting ❌
+   MIPROv2:  equity share approach ❌
+   GEPA:     Str ✅
+
+================================================================================
+AGENTIC ROUTING STRATEGIES
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+STRATEGY 1: Expert Specialist Routing
+────────────────────────────────────────────────────────────────────────────────
+
+Description: Route to GEPA for domain expertise, MIPROv2 for structured, Baseline for simple
+
+Routing Rules:
+   If technical_specific OR sustainability_metrics OR esg_specific → GEPA (domain expert)
+   If quantitative_reasoning AND (Int OR Float) → MIPROv2 (structured extraction)
+   If complex_extraction OR qualitative_reasoning → GEPA (verbose reasoning)
+   If simple factual OR (List OR null) → Baseline (simple and reliable)
+   Default → MIPROv2
+
+────────────────────────────────────────────────────────────────────────────────
+STRATEGY 2: Cascading Confidence
+────────────────────────────────────────────────────────────────────────────────
+
+Description: Start with simple model, escalate if uncertain
+
+Routing Rules:
+   Step 1: Try Baseline first (cheap and fast)
+   Step 2: If Baseline confidence < 0.7 → Try MIPROv2
+   Step 3: If MIPROv2 confidence < 0.7 OR domain detected → Try GEPA
+   Return first confident answer
+
+────────────────────────────────────────────────────────────────────────────────
+STRATEGY 3: Two-Stage: GEPA Reasoning → MIPROv2 Extraction
+────────────────────────────────────────────────────────────────────────────────
+
+Description: Use GEPA for reasoning, MIPROv2 for final extraction
+
+Routing Rules:
+   Step 1: If domain OR complex question → Use GEPA to generate reasoning
+   Step 2: Feed GEPA reasoning + original context to MIPROv2 for extraction
+   Benefit: GEPA understanding + MIPROv2 structured output
+   Cost: 2× inference (but potentially much better)
+
+────────────────────────────────────────────────────────────────────────────────
+STRATEGY 4: Weighted Expert Voting
+────────────────────────────────────────────────────────────────────────────────
+
+Description: Multiple models vote, weighted by expertise
+
+Routing Rules:
+   Run Baseline, MIPROv2, GEPA in parallel
+   Weight votes by format expertise:
+     - Int/Float: MIPROv2 = 2.0, GEPA = 1.0, Baseline = 1.0
+     - Str: MIPROv2 = 1.5, GEPA = 1.5, Baseline = 1.0
+     - List/null: Baseline = 2.0, MIPROv2 = 1.0, GEPA = 0.5
+   If domain detected: GEPA weight × 1.5
+   Pick answer with highest weighted vote
+
+────────────────────────────────────────────────────────────────────────────────
+STRATEGY 5: Adaptive LLM Router
+────────────────────────────────────────────────────────────────────────────────
+
+Description: Use small LLM to analyze question and route intelligently
+
+Routing Rules:
+   Router LLM analyzes: domain, complexity, format, ambiguity
+   Router predicts: which model will perform best
+   Route to predicted best model
+   Learn from feedback to improve routing over time
+
+================================================================================
+SIMULATION: Expert Specialist Routing
+================================================================================
+
+✅ Result: 313/654 (47.9%)
+   vs MIPROv2: +0.3%
+   vs Format-Based: -2.3%
+
+📋 Routing decisions:
+   default -> miprov2: 298
+   domain_expert -> gepa: 178
+   reasoning_needed -> gepa: 76
+   simple_reliable -> baseline: 52
+   structured_extraction -> miprov2: 50
+
+================================================================================
+KEY INSIGHTS
+================================================================================
+
+1. GEPA's Unique Value:
+   - 23 questions where only GEPA succeeds
+   - These require domain expertise + reasoning
+   - Format-based routing misses these!
+
+2. Agentic Router Opportunity:
+   - Expert specialist routing: 47.9%
+   - Theoretical max (oracle): 58.7%
+   - Gap to close: 10.8%
+
+3. Recommended Approach:
+   ✅ Two-Stage: GEPA Reasoning → MIPROv2 Extraction
+      - Use GEPA's domain knowledge for understanding
+      - Use MIPROv2's structured extraction for output
+      - Best of both worlds!
+
+4. Implementation Complexity:
+   - Expert Specialist: MEDIUM (domain detection)
+   - Cascading: MEDIUM (confidence scores needed)
+   - Two-Stage: HIGH (2× inference cost)
+   - Weighted Voting: LOW (just weighted sum)
+   - Adaptive Router: HIGH (LLM training needed)
+
+================================================================================
+RECOMMENDATION
+================================================================================
+
+🎯 Next Step: Implement Two-Stage System
+
+   Phase 1: GEPA Reasoning
+      - Detect domain/complex questions
+      - Use GEPA to generate detailed reasoning
+      - Extract key insights and context
+
+   Phase 2: MIPROv2 Extraction
+      - Feed GEPA reasoning + original context to MIPROv2
+      - MIPROv2 extracts structured answer
+      - Benefit from GEPA understanding + MIPROv2 structure
+
+   Expected Performance:
+      - Conservative: 52-54% (+4-6% vs MIPROv2)
+      - Optimistic: 55-57% (+7-9% vs MIPROv2)
+      - Captures GEPA's domain wins while avoiding format issues
+
+   Cost:
+      - 2× inference for domain questions (~40% of dataset)
+      - 1× inference for simple questions
+      - Total: ~1.4× cost
+      - ROI: +4-9% for 40% more cost → worth it!
+
+================================================================================
+💾 Results saved to: agentic_router_analysis.json
+================================================================================
+

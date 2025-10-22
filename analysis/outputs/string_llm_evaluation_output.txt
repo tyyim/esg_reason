@@ -1,0 +1,120 @@
+
+================================================================================
+STRING QUESTION SEMANTIC EVALUATION
+================================================================================
+
+Loading string degradations...
+Found 20 degradations (Baseline✅ → GEPA❌)
+
+================================================================================
+LLM-ASSISTED STRING EVALUATION
+================================================================================
+
+Total string degradations: 20
+Evaluating sample: 15 questions
+Model: qwen-max
+Estimated cost: ~$0.03-0.05
+
+[1/15] Evaluating q94... = SAME
+[2/15] Evaluating q97... = SAME
+[3/15] Evaluating q191... ❌ WORSE
+[4/15] Evaluating q216... ❌ WORSE
+[5/15] Evaluating q306... = SAME
+[6/15] Evaluating q360... ❌ WORSE
+[7/15] Evaluating q361... ❌ WORSE
+[8/15] Evaluating q409... ❌ WORSE
+[9/15] Evaluating q444... = SAME
+[10/15] Evaluating q445... = SAME
+[11/15] Evaluating q448... ✨ BETTER
+[12/15] Evaluating q459... ✨ BETTER
+[13/15] Evaluating q482... ❌ WORSE
+[14/15] Evaluating q497... ❌ WORSE
+[15/15] Evaluating q516... ❌ WORSE
+
+================================================================================
+EVALUATION RESULTS
+================================================================================
+
+Out of 15 string degradations (Baseline✅ → GEPA❌ per ANLS):
+
+   ✨ GEPA BETTER:   2 ( 13.3%)
+      → GEPA's answer is semantically superior
+
+   =  GEPA SAME:    5 ( 33.3%)
+      → Semantically equivalent, ANLS too strict
+
+   ❌ GEPA WORSE:   8 ( 53.3%)
+      → ANLS correctly identified inferior answer
+
+================================================================================
+ANLS METRIC ANALYSIS
+================================================================================
+
+   ANLS False Negatives: 7/15 (46.7%)
+
+   💡 INSIGHT: GEPA may be 7 answers better than ANLS suggests!
+
+   📊 Extrapolated to 20 total string degradations:
+      → ~9 may be false negatives
+      → True string impact: -20 + 9 = -11 questions
+
+   🎯 Corrected String Performance (with improvements):
+      → Net: +6 questions (vs -3 by ANLS)
+      → GEPA may be better on strings than ANLS shows!
+
+================================================================================
+EXAMPLES: GEPA BETTER (ANLS missed)
+================================================================================
+
+   q448: Please elaborate on the full terminology represented by the abbreviation STEEP i...
+   GT:       Social, Technology, Economic, Environmental, and Policy
+   Baseline: Str
+   GEPA:     Social, Technological, Economic, Environmental, Policy
+
+   q459: According to GBF Target 15, what must businesses disclose regarding biodiversity...
+   GT:       Risks, dependencies and impacts
+   Baseline: Str
+   GEPA:     monitor, assess, and transparently disclose their risks, dependencies, and impacts on biodiversity
+
+================================================================================
+EXAMPLES: GEPA SAME (ANLS too strict)
+================================================================================
+
+   q94: What approach do governments need to adopt to improve innovation outcomes across...
+   GT:       Mission-oriented approach
+   Baseline: mission-oriented approach
+   GEPA:     Mission-oriented
+
+   q97: Which iterative cycle model does ISO 14001 base its management approach on?
+   GT:       Plan-Do-Check-Act (PDCA)
+   Baseline: Plan-Do-Check-Act
+   GEPA:     PDCA
+
+   q306: If a company has an unmanaged ESG risk score of 35.6, what is its ESG risk categ...
+   GT:       High risk
+   Baseline: High risk
+   GEPA:     High
+
+================================================================================
+EXAMPLES: GEPA WORSE (ANLS correct)
+================================================================================
+
+   q191: Which metric specifically discloses the percentage of student data breaches invo...
+   GT:       SV-ED-230a.3
+   Baseline: SV-ED-230a.3
+   GEPA:     percentage
+
+   q216: How many points can a project earn under Option 3 for enhanced natural ventilati...
+   GT:       1(2)
+   Baseline: 1
+   GEPA:     Str
+
+   q360: What percentage of the project interior area must be accessible outdoor space fo...
+   GT:       5%
+   Baseline: 5
+   GEPA:     Not answerable
+
+================================================================================
+💾 Results saved to: string_llm_evaluation_results.json
+================================================================================
+

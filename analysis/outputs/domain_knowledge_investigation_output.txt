@@ -1,0 +1,189 @@
+
+Investigating GEPA's domain knowledge impact on test set...
+
+================================================================================
+DOMAIN KNOWLEDGE INVESTIGATION
+================================================================================
+
+Total improvements (Baseline❌ → GEPA✅): 41
+
+📊 Improvement Breakdown:
+   Domain Knowledge:    13 (31.7%)
+   Numeric Precision:   9 (22.0%)
+   Format Extraction:   1 (2.4%)
+   Other:               18 (43.9%)
+
+🎯 DOMAIN KNOWLEDGE IMPROVEMENTS (13 cases):
+
+--- Example 1 (q22) ---
+Domain: carbon
+Keywords: emissions, scope
+Question: What is the total base year 2015 emissions covered by target in all selected Scopes?...
+Ground truth:  38378460
+Baseline:      25032890 ❌
+GEPA:          38378460 ✅
+--------------------------------------------------------------------------------
+
+--- Example 2 (q33) ---
+Domain: compliance
+Keywords: compliance, standard
+Question: Which accrediting bodies are recognized by SASB for compliance with educational standards?...
+Ground truth:  Not answerable
+Baseline:      None ❌
+GEPA:          Not answerable ✅
+--------------------------------------------------------------------------------
+
+--- Example 3 (q133) ---
+Domain: carbon
+Keywords: ghg
+Question: If an organization has limited local staff capacity and standardized equipment across all facilities, which GHG data man...
+Ground truth:  Centralized
+Baseline:      reporting ❌
+GEPA:          Str ✅
+--------------------------------------------------------------------------------
+
+--- Example 4 (q148) ---
+Domain: renewable
+Keywords: energy
+Question: How does the non-fuel energy consumption in Germany compare to Hong Kong SAR, China?...
+Ground truth:  Germany > Hong Kong SAR, China
+Baseline:      Germany ❌
+GEPA:          Germany > Hong Kong SAR, China ✅
+--------------------------------------------------------------------------------
+
+--- Example 5 (q198) ---
+Domain: carbon
+Keywords: emissions
+Question: What is the target reduction in absolute emissions by fiscal year 2030?...
+Ground truth:  75%
+Baseline:      2448653.75 ❌
+GEPA:          0.75 ✅
+--------------------------------------------------------------------------------
+
+--- Example 6 (q261) ---
+Domain: sustainability
+Keywords: esg
+Question: What are the ESG reporting priorities identified by LSEG? Write the answer in the list format...
+Ground truth:  ['Strategic relevance', 'Investor materiality', 'Investment grade data', 'Global frameworks', 'Reporting formats', 'Green Revenue reporting', 'Debt finance', 'Regulation and investor communication']
+Baseline:      ["Strategic relevance", "Global frameworks", "Investor materiality", "Investment grade data"] ❌
+GEPA:          ["Strategic relevance", "Global frameworks", "Investor materiality", "Investment grade data", "Capacity building and supporting issuers in reporting", "Dialogue and capital flows", "Corporate governance", "Public policy discussions"] ✅
+--------------------------------------------------------------------------------
+
+--- Example 7 (q381) ---
+Domain: sa8000
+Keywords: sa8000
+Question: What is the maximum number of consecutive workdays allowed under SA8000 without a rest day, and under which dual conditi...
+Ground truth:  6; only when allows by national law and a collective bargaining agreement
+Baseline:      five ❌
+GEPA:          Str("six") ✅
+--------------------------------------------------------------------------------
+
+--- Example 8 (q421) ---
+Domain: carbon
+Keywords: emissions, ghg
+Question: On what date was the WHO Expert Meeting on measuring GHG emissions in healthcare facilities held?...
+Ground truth:  24 February 2021
+Baseline:      February 24, 2021 ❌
+GEPA:          24 February 2021 ✅
+--------------------------------------------------------------------------------
+
+--- Example 9 (q434) ---
+Domain: sa8000
+Keywords: sa8000
+Question: If a young worker is still under compulsory education, works 4 hours a day, and takes 2 hours to commute, how many hours...
+Ground truth:  4
+Baseline:      2 ❌
+GEPA:          4 ✅
+--------------------------------------------------------------------------------
+
+--- Example 10 (q554) ---
+Domain: renewable
+Keywords: wind
+Question: How far must outdoor smoking areas be from entries, operable windows, and outdoor air intakes? Answer the number in feet...
+Ground truth:  25
+Baseline:      Not answerable ❌
+GEPA:          25 ✅
+--------------------------------------------------------------------------------
+
+--- Example 11 (q611) ---
+Domain: carbon
+Keywords: ghg
+Question: How does GHG Protocol's role affect its monitoring capabilities?...
+Ground truth:  Not answerable
+Baseline:      None ❌
+GEPA:          Not answerable ✅
+--------------------------------------------------------------------------------
+
+--- Example 12 (q625) ---
+Domain: stem
+Keywords: stem
+Question: If a company reports 15 system interruptions lasting 20 minutes and 8 lasting 40 minutes in one year, how many are class...
+Ground truth:  15 performance issues, 8 service disruptions
+Baseline:      "performance issues: 15, service disruptions: 8" ❌
+GEPA:          "15 performance issues, 8 service disruptions" ✅
+--------------------------------------------------------------------------------
+
+--- Example 13 (q635) ---
+Domain: renewable
+Keywords: energy
+Question: Which of the United States, European Union, or China is projected to have the lowest energy intensity of GDP by 2050?...
+Ground truth:  European Union
+Baseline:      Not answerable ❌
+GEPA:          European Union ✅
+--------------------------------------------------------------------------------
+
+🔢 NUMERIC PRECISION IMPROVEMENTS (9 cases):
+
+--- Example 1 (q77) ---
+Format: Int
+Question: What is the total economic impact of Amazon's certified Tier 1 diverse supplier spend in US dollar? Answer in Int format...
+Ground truth:  7100000000
+Baseline:      5800000000 ❌
+GEPA:          7100000000 ✅
+--------------------------------------------------------------------------------
+
+--- Example 2 (q84) ---
+Format: Int
+Question: How many Parties had entered into force by November 2016?...
+Ground truth:  190
+Baseline:      192 ❌
+GEPA:          190 ✅
+--------------------------------------------------------------------------------
+
+--- Example 3 (q96) ---
+Format: Float
+Question: How does the climate scenario analysis implementation rate differ between asset owners and investment managers?...
+Ground truth:  25%
+Baseline:      0.7272727272727273 ❌
+GEPA:          25.0 ✅
+--------------------------------------------------------------------------------
+
+📋 FORMAT EXTRACTION IMPROVEMENTS (1 cases):
+
+--- Example 1 (q423) ---
+Question: What are the six forms of capital listed by the International Integrated Reporting Council? Write the answer in the list...
+Ground truth:  ['Financial', 'Manufactured', 'Intellectual', 'Human','Social and relationship', 'Natural']
+Baseline:      - Financial
+- Manufactured
+- Intellectual
+- Human
+- Social and relationship
+- Natural ❌
+GEPA:          ["Financial", "Manufactured", "Intellectual", "Human", "Social and relationship", "Natural"] ✅
+--------------------------------------------------------------------------------
+
+================================================================================
+CONCLUSION
+================================================================================
+
+✅ Domain knowledge contributed to 31.7% of improvements
+   GEPA's domain-specific examples helped on test set
+
+💡 Main contributors to GEPA improvements:
+   1. Numeric precision (Int/Float): 9 cases
+   2. Format extraction (List): 1 cases
+   3. Domain knowledge: 13 cases
+
+💾 Results saved to: domain_knowledge_investigation.json
+================================================================================
+

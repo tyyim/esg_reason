@@ -1,0 +1,125 @@
+
+Loading test set results...
+Analyzing by format...
+
+================================================================================
+TEST SET ERROR ANALYSIS (654 Questions)
+================================================================================
+
+📊 Overall Performance:
+   Baseline:  310/654 (47.4%)
+   MIPROv2:   311/654 (47.6%)
+   GEPA:      299/654 (45.7%)
+
+📈 Relative to Baseline:
+   MIPROv2: +0.2% (+1 questions)
+   GEPA:    -1.7% (-11 questions)
+
+📋 Performance by Answer Format:
+
+   Format   Total  Baseline   MIPROv2    GEPA       GEPA vs Base
+   -------- ------ ---------- ---------- ---------- ------------
+   Int      152      44.1%      50.7%      44.7%     +0.7% ✅
+   Float    96       55.2%      56.2%      55.2%     +0.0% ➖
+   Str      211      37.9%      41.2%      36.5%     -1.4% ❌
+   List     88       33.0%      28.4%      27.3%     -5.7% ❌
+   null     107      75.7%      63.6%      72.0%     -3.7% ❌
+
+🔍 GEPA Degradation Details:
+
+   Format    Degraded  Improved  Net    Top Issue
+   --------  --------  --------  -----  ---------
+   Int              6         7     +1  Format?
+   Float            6         6      0  Format?
+   Str             20        17     -3  Verbosity
+   List             7         2     -5  Format?
+   null            13         9     -4  Hallucination
+
+================================================================================
+DEV SET vs TEST SET COMPARISON
+================================================================================
+
+   Format   Dev Base   Dev GEPA   Dev Δ    Test Base  Test GEPA  Test Δ   Trend
+   -------- ---------- ---------- -------- ---------- ---------- -------- ----------
+   Int        63.2%      73.7%    +10.5%    44.1%      44.7%     +0.7%  ✅ Consistent gain
+   Float      69.2%      76.9%     +7.7%    55.2%      55.2%     +0.0%  ➖ Mixed
+   Str        35.3%      29.4%     -5.9%    37.9%      36.5%     -1.4%  ⚠️  Consistent loss
+   List       23.1%      38.5%    +15.4%    33.0%      27.3%     -5.7%  ❌ Gain → Loss
+   null       92.9%      85.7%     -7.2%    75.7%      72.0%     -3.7%  ⚠️  Consistent loss
+
+================================================================================
+STRING QUESTION DEEP DIVE
+================================================================================
+
+📊 String Question Statistics:
+   Total:           211 questions
+   Baseline:        80/211 (37.9%)
+   GEPA:            77/211 (36.5%)
+   GEPA degraded:   20 questions
+   GEPA improved:   17 questions
+   Net impact:      -3 questions
+
+🔍 Sample String Degradations (Baseline Right → GEPA Wrong):
+
+   Example 1 (q94):
+   Question: What approach do governments need to adopt to improve innovation outcomes across the entire innovati...
+   Ground truth: Mission-oriented approach
+   Baseline:     mission-oriented approach
+   GEPA:         Mission-oriented
+
+   Example 2 (q97):
+   Question: Which iterative cycle model does ISO 14001 base its management approach on?...
+   Ground truth: Plan-Do-Check-Act (PDCA)
+   Baseline:     Plan-Do-Check-Act
+   GEPA:         PDCA
+
+   Example 3 (q191):
+   Question: Which metric specifically discloses the percentage of student data breaches involving personal data?...
+   Ground truth: SV-ED-230a.3
+   Baseline:     SV-ED-230a.3
+   GEPA:         percentage
+
+✅ Sample String Improvements (Baseline Wrong → GEPA Right):
+
+   Example 1 (q45):
+   Question: What is the maximum travel allowance for one-way flights over 12 hours for support board members att...
+   Ground truth: £7000
+   Baseline:     Str('£7,000')
+   GEPA:         £7000
+
+   Example 2 (q133):
+   Question: If an organization has limited local staff capacity and standardized equipment across all facilities...
+   Ground truth: Centralized
+   Baseline:     reporting
+   GEPA:         Str
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+⚠️  CRITICAL ISSUE: GEPA Underperforms on Test Set
+   - Dev set:  GEPA +2.2% over baseline (54.8% vs 52.7%)
+   - Test set: GEPA -1.7% under baseline (45.7% vs 47.4%)
+   - Performance reversal: +2.2% → -1.7% = -3.9% swing!
+
+🔍 Root Cause Analysis:
+   1. String questions (32% of test set, 211/654)
+      - GEPA: 36.5% vs Baseline: 37.9%
+      - Net impact: -3 questions
+      - Likely issue: Verbose 7,749-char prompt hurts text extraction
+
+   2. Null/Not answerable (16% of test set, 107/654)
+      - GEPA: 72.0% vs Baseline: 75.7%
+      - Net impact: -4 questions
+      - Issue: GEPA tries too hard, hallucinates answers
+
+💡 Recommendations:
+   1. GEPA-v2: Reduce prompt length (7,749 → <3,000 chars)
+   2. Format-specific routing:
+      - Int/Float: Use GEPA (if validated on larger sample)
+      - Str/null: Use Baseline (clearly better)
+   3. Statistical significance testing needed
+   4. Consider dev set may not be representative
+
+================================================================================
+

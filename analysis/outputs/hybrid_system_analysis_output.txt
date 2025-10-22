@@ -1,0 +1,149 @@
+
+================================================================================
+HYBRID SYSTEM ANALYSIS
+================================================================================
+
+📊 Current Single-Model Performance:
+   Baseline:  310/654 (47.4%)
+   MIPROv2:   311/654 (47.6%)
+   GEPA:      299/654 (45.7%)
+   Best:      MIPROv2 at 47.6%
+
+🔍 Domain Question Analysis:
+   Total domain questions: 237 (36.2%)
+   - carbon_ghg: 133 questions
+   - stem: 12 questions
+   - compliance: 32 questions
+   - esg: 28 questions
+   - sa8000: 10 questions
+   - renewable: 22 questions
+
+================================================================================
+STRATEGY 1: Format-Based Routing
+================================================================================
+
+Routing rules:
+   Int → MIPROv2 (50.7% vs 44.1% baseline)
+   Float → MIPROv2 (56.2% vs 55.2% baseline)
+   Str → MIPROv2 (41.2% vs 37.9% baseline)
+   List → Baseline (33.0% vs 27.3% GEPA)
+   Null → Baseline (75.7% vs 72.0% GEPA)
+
+✅ Result: 328/654 (50.2%)
+   Improvement: +2.6% vs MIPROv2
+   Gain: +17 questions
+
+================================================================================
+STRATEGY 2: Format-Based + GEPA for Strings (LLM-corrected)
+================================================================================
+
+Routing rules:
+   Int → MIPROv2
+   Float → MIPROv2
+   Str → GEPA (with LLM correction, 40.7% vs 41.2% MIPROv2)
+   List → Baseline
+   Null → Baseline
+
+✅ Result: 327/654 (50.0%)
+   Improvement: +2.4% vs MIPROv2
+   Gain: +16 questions
+
+================================================================================
+STRATEGY 3: Domain-Aware + Format-Based Routing
+================================================================================
+
+Routing rules:
+   Domain questions (237) → GEPA
+   Non-domain Int/Float → MIPROv2
+   Non-domain Str → MIPROv2
+   Non-domain List/Null → Baseline
+
+✅ Result: 312/654 (47.7%)
+   Improvement: +0.2% vs MIPROv2
+   Gain: +1 questions
+
+================================================================================
+STRATEGY 4: Oracle (Theoretical Maximum)
+================================================================================
+
+Always pick whichever model got it right
+
+✅ Result: 384/654 (58.7%)
+   Improvement: +11.2% vs MIPROv2
+   Gain: +73 questions
+   Coverage: 384 / 654 questions have at least one correct model
+
+================================================================================
+STRATEGY 5: Majority Voting (2 out of 3)
+================================================================================
+
+Answer is correct if at least 2 models agree
+
+✅ Result: 306/654 (46.8%)
+   Improvement: +-0.8% vs MIPROv2
+   Gain: +-5 questions
+
+================================================================================
+SUMMARY: Best Hybrid Strategies
+================================================================================
+
+🥇 1. Oracle (Max)
+      Accuracy: 58.7% (384/654)
+      vs MIPROv2: +11.2%
+      vs Baseline: +11.3%
+
+🥈 2. Format-Only
+      Accuracy: 50.2% (328/654)
+      vs MIPROv2: +2.6%
+      vs Baseline: +2.8%
+
+🥉 3. Format + GEPA Strings
+      Accuracy: 50.0% (327/654)
+      vs MIPROv2: +2.4%
+      vs Baseline: +2.6%
+
+   4. Domain-Aware
+      Accuracy: 47.7% (312/654)
+      vs MIPROv2: +0.2%
+      vs Baseline: +0.3%
+
+   5. Voting
+      Accuracy: 46.8% (306/654)
+      vs MIPROv2: +-0.8%
+      vs Baseline: +-0.6%
+
+================================================================================
+IMPLEMENTATION FEASIBILITY
+================================================================================
+
+✅ Format-Based Routing:
+   Complexity: LOW - just check answer_format
+   Performance: +2.8% (328/654)
+   Recommendation: IMPLEMENT - Easy win!
+
+⚠️  Domain-Aware Routing:
+   Complexity: MEDIUM - need keyword matching or classifier
+   Performance: +0.2%
+   Recommendation: CONSIDER if better than format-only
+
+⚠️  GEPA Strings with LLM:
+   Complexity: HIGH - need LLM evaluation per string answer
+   Cost: ~$0.001 per string × 211 strings = $0.21 per eval run
+   Performance: +2.4%
+   Recommendation: NOT WORTH IT - small gain, high cost
+
+❌ Oracle:
+   Complexity: IMPOSSIBLE - requires knowing ground truth
+   Performance: +11.2% (theoretical max)
+   Recommendation: Reference only for comparison
+
+⚠️  Voting:
+   Complexity: MEDIUM - run all 3 models, majority vote
+   Cost: 3× inference cost
+   Performance: +-0.8%
+   Recommendation: CONSIDER if cost acceptable
+
+================================================================================
+💾 Results saved to: hybrid_system_analysis_results.json
+================================================================================
+

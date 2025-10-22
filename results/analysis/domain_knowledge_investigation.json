@@ -1,0 +1,183 @@
+{
+  "total_improvements": 41,
+  "breakdown": {
+    "domain_knowledge": 13,
+    "numeric_precision": 9,
+    "format_extraction": 1,
+    "other": 18
+  },
+  "domain_knowledge_cases": [
+    {
+      "idx": 22,
+      "question": "What is the total base year 2015 emissions covered by target in all selected Scopes?",
+      "answer_format": "Int",
+      "gt": "38378460",
+      "baseline_ans": "25032890",
+      "gepa_ans": "38378460",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "domain": "carbon",
+      "matched_keywords": [
+        "emissions",
+        "scope"
+      ]
+    },
+    {
+      "idx": 33,
+      "question": "Which accrediting bodies are recognized by SASB for compliance with educational standards?",
+      "answer_format": null,
+      "gt": "Not answerable",
+      "baseline_ans": "None",
+      "gepa_ans": "Not answerable",
+      "doc_id": "SASB Education.pdf",
+      "domain": "compliance",
+      "matched_keywords": [
+        "compliance",
+        "standard"
+      ]
+    },
+    {
+      "idx": 133,
+      "question": "If an organization has limited local staff capacity and standardized equipment across all facilities, which GHG data management approach is more suitable?",
+      "answer_format": "Str",
+      "gt": "Centralized",
+      "baseline_ans": "reporting",
+      "gepa_ans": "Str",
+      "doc_id": "GHG Public.pdf",
+      "domain": "carbon",
+      "matched_keywords": [
+        "ghg"
+      ]
+    },
+    {
+      "idx": 148,
+      "question": "How does the non-fuel energy consumption in Germany compare to Hong Kong SAR, China?",
+      "answer_format": "Str",
+      "gt": "Germany > Hong Kong SAR, China",
+      "baseline_ans": "Germany",
+      "gepa_ans": "Germany > Hong Kong SAR, China",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "domain": "renewable",
+      "matched_keywords": [
+        "energy"
+      ]
+    },
+    {
+      "idx": 198,
+      "question": "What is the target reduction in absolute emissions by fiscal year 2030?",
+      "answer_format": "Float",
+      "gt": "75%",
+      "baseline_ans": "2448653.75",
+      "gepa_ans": "0.75",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "domain": "carbon",
+      "matched_keywords": [
+        "emissions"
+      ]
+    },
+    {
+      "idx": 261,
+      "question": "What are the ESG reporting priorities identified by LSEG? Write the answer in the list format",
+      "answer_format": "List",
+      "gt": "['Strategic relevance', 'Investor materiality', 'Investment grade data', 'Global frameworks', 'Reporting formats', 'Green Revenue reporting', 'Debt finance', 'Regulation and investor communication']",
+      "baseline_ans": "[\"Strategic relevance\", \"Global frameworks\", \"Investor materiality\", \"Investment grade data\"]",
+      "gepa_ans": "[\"Strategic relevance\", \"Global frameworks\", \"Investor materiality\", \"Investment grade data\", \"Capacity building and supporting issuers in reporting\", \"Dialogue and capital flows\", \"Corporate governance\", \"Public policy discussions\"]",
+      "doc_id": "LSEG ESG.pdf",
+      "domain": "sustainability",
+      "matched_keywords": [
+        "esg"
+      ]
+    },
+    {
+      "idx": 381,
+      "question": "What is the maximum number of consecutive workdays allowed under SA8000 without a rest day, and under which dual conditions can this be exceeded?",
+      "answer_format": "Str",
+      "gt": "6; only when allows by national law and a collective bargaining agreement",
+      "baseline_ans": "five",
+      "gepa_ans": "Str(\"six\")",
+      "doc_id": "SA8000 2016.pdf",
+      "domain": "sa8000",
+      "matched_keywords": [
+        "sa8000"
+      ]
+    },
+    {
+      "idx": 421,
+      "question": "On what date was the WHO Expert Meeting on measuring GHG emissions in healthcare facilities held?",
+      "answer_format": "Str",
+      "gt": "24 February 2021",
+      "baseline_ans": "February 24, 2021",
+      "gepa_ans": "24 February 2021",
+      "doc_id": "WHO GHG.pdf",
+      "domain": "carbon",
+      "matched_keywords": [
+        "emissions",
+        "ghg"
+      ]
+    },
+    {
+      "idx": 434,
+      "question": "If a young worker is still under compulsory education, works 4 hours a day, and takes 2 hours to commute, how many hours can they legally attend school per day under SA8000?",
+      "answer_format": "Int",
+      "gt": "4",
+      "baseline_ans": "2",
+      "gepa_ans": "4",
+      "doc_id": "SA8000 2016.pdf",
+      "domain": "sa8000",
+      "matched_keywords": [
+        "sa8000"
+      ]
+    },
+    {
+      "idx": 554,
+      "question": "How far must outdoor smoking areas be from entries, operable windows, and outdoor air intakes? Answer the number in feet.",
+      "answer_format": "Int",
+      "gt": "25",
+      "baseline_ans": "Not answerable",
+      "gepa_ans": "25",
+      "doc_id": "LEED 2025.pdf",
+      "domain": "renewable",
+      "matched_keywords": [
+        "wind"
+      ]
+    },
+    {
+      "idx": 611,
+      "question": "How does GHG Protocol's role affect its monitoring capabilities?",
+      "answer_format": null,
+      "gt": "Not answerable",
+      "baseline_ans": "None",
+      "gepa_ans": "Not answerable",
+      "doc_id": "GHG Survey.pdf",
+      "domain": "carbon",
+      "matched_keywords": [
+        "ghg"
+      ]
+    },
+    {
+      "idx": 625,
+      "question": "If a company reports 15 system interruptions lasting 20 minutes and 8 lasting 40 minutes in one year, how many are classified as 'performance issues' and how many as 'service disruptions' according to SASB TC-SI-550a.1?",
+      "answer_format": "Str",
+      "gt": "15 performance issues, 8 service disruptions",
+      "baseline_ans": "\"performance issues: 15, service disruptions: 8\"",
+      "gepa_ans": "\"15 performance issues, 8 service disruptions\"",
+      "doc_id": "SASB Software & IT Services.pdf",
+      "domain": "stem",
+      "matched_keywords": [
+        "stem"
+      ]
+    },
+    {
+      "idx": 635,
+      "question": "Which of the United States, European Union, or China is projected to have the lowest energy intensity of GDP by 2050?",
+      "answer_format": "Str",
+      "gt": "European Union",
+      "baseline_ans": "Not answerable",
+      "gepa_ans": "European Union",
+      "doc_id": "IEA 2024.pdf",
+      "domain": "renewable",
+      "matched_keywords": [
+        "energy"
+      ]
+    }
+  ]
+}

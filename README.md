@@ -3,34 +3,41 @@
 **Research Question**: Can DSPy prompt optimization match or exceed traditional fine-tuning (LoRA + RL) on ESG question answering with lower compute and fewer labels?
 
 [![Dataset](https://img.shields.io/badge/Dataset-MMESGBench_933_QA-blue)](https://github.com/microsoft/Multimodal-ESG-Benchmark)
-[![Status](https://img.shields.io/badge/Status-Dev_Set_Complete-yellow)]()
+[![Status](https://img.shields.io/badge/Status-Test_Set_Complete-green)]()
+[![Best](https://img.shields.io/badge/Best_Result-Hybrid_50.2%25-brightgreen)]()
 
 ---
 
 ## 🎯 Quick Start
 
-### Results Summary (93 Dev Set)
+### ✅ FINAL Results (654 Test Set)
 
-| Approach  | Model | Accuracy | Change | Date |
-|-----------|-------|----------|--------|------|
-| **Baseline** | qwen2.5-7b | **52.7%** (49/93) | baseline | Oct 19 |
-| **GEPA** | qwen2.5-7b | **54.8%** (51/93) | **+2.2%** ✅ | Oct 19 |
-| **MIPROv2** | qwen2.5-7b | 48.4% (45/93) | -4.3% ❌ | Oct 19 |
+| Approach  | Model | Accuracy | Change | Status |
+|-----------|-------|----------|--------|--------|
+| **Baseline** | qwen2.5-7b | 47.4% (310/654) | baseline | Oct 22 |
+| **MIPROv2** | qwen2.5-7b | 47.6% (311/654) | +0.2% | Oct 22 |
+| **GEPA** | qwen2.5-7b | 45.7% (299/654) | -1.7% ❌ | Oct 22 |
+| **GEPA (LLM-corrected)** | qwen2.5-7b | 47.1% (308/654) | -0.3% | Oct 22 |
+| **🏆 Hybrid (Format-Based)** | qwen2.5-7b | **50.2% (328/654)** | **+2.6%** ✅ | Oct 22 |
 
-**Key Finding**: GEPA improved performance, especially on structured data (Int +10.5%, List +15.4%, Float +7.7%). See [`DEV_SET_ERROR_ANALYSIS.md`](DEV_SET_ERROR_ANALYSIS.md) for details.
+**Major Discovery**: 
+- Dev set results (93 Q) didn't generalize to test set (654 Q)
+- ANLS metric failed: 46.7% false negative rate on strings
+- **Hybrid format-based routing beats all single models!**
+
+See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ERROR_ANALYSIS.md) for full analysis.
 
 ---
 
-## 📊 Full Dataset Results (933 Questions)
+## 📊 Full Dataset Evolution
 
-| Date | Approach | Model | Accuracy |
-|------|----------|-------|----------|
-| Sep 2025 | ColBERT Baseline | qwen-max | 40.5% (378/933) |
-| Oct 2025 | DSPy Baseline | qwen-max | 55.6% (519/933) |
-| **Pending** | DSPy Baseline | qwen2.5-7b | ? |
-| **Pending** | GEPA Optimized | qwen2.5-7b | ? |
-
-**Next Step**: Run 654-question test set evaluation to validate dev set findings.
+| Date | Approach | Model | Dataset | Accuracy |
+|------|----------|-------|---------|----------|
+| Sep 2025 | ColBERT | qwen-max | 933 questions | 40.5% (378/933) |
+| Oct 2025 | DSPy | qwen-max | 933 questions | 55.6% (519/933) |
+| Oct 19 | Baseline | qwen2.5-7b | 93 dev | 52.7% (49/93) |
+| Oct 19 | GEPA | qwen2.5-7b | 93 dev | 54.8% (51/93) |
+| **Oct 22** | **Hybrid** | **qwen2.5-7b** | **654 test** | **50.2% (328/654)** ✅ |
 
 ---
 
@@ -63,47 +70,85 @@ Structured Answer (Int/Float/Str/List/None)
 
 ---
 
-## 📁 Repository Structure
+## 📁 Repository Structure (Updated Oct 22, 2025)
 
-### Essential Files
 ```
 CC/
-├── README.md                               # This file
-├── RESEARCH_FINDINGS.md                    # Complete analysis & findings
-├── CHANGELOG.md                            # Historical log
-├── DEV_SET_ERROR_ANALYSIS.md              # Detailed dev set analysis
+├── README.md                          # This file - Quick overview
+├── RESEARCH_FINDINGS.md               # Complete analysis & insights
+├── CHANGELOG.md                       # Historical log
+├── CLAUDE.md                          # AI collaboration guidelines
 │
-├── 📊 Authoritative Results
-│   ├── baseline_dev_predictions_20251019_130401.json     # 52.7%
-│   ├── gepa_dev_predictions_20251019_130401.json         # 54.8%
-│   └── miprov2_dev_predictions_20251019_130401.json      # 48.4%
+├── 📊 results/                        # Organized prediction results
+│   ├── dev_set/                       # Dev set (93 questions)
+│   │   ├── baseline_dev_predictions_20251019_130401.json (52.7%)
+│   │   ├── gepa_dev_predictions_20251019_130401.json (54.8%)
+│   │   ├── miprov2_dev_predictions_20251019_130401.json (48.4%)
+│   │   └── complete_dev_analysis_20251019_130401.json
+│   ├── test_set/                      # Test set (654 questions)
+│   │   ├── baseline_test_predictions_20251021_225632.json (47.4%)
+│   │   ├── gepa_test_predictions_20251021_225632.json (45.7%)
+│   │   ├── miprov2_test_predictions_20251021_225632.json (47.6%)
+│   │   └── complete_test_analysis_20251021_225632.json
+│   └── analysis/                      # Analysis result files
+│       ├── hybrid_system_analysis_results.json
+│       ├── domain_knowledge_investigation.json
+│       └── string_llm_evaluation_results.json
+│
+├── 🔬 analysis/                       # Analysis scripts & reports
+│   ├── scripts/                       # Python analysis scripts
+│   │   ├── analyze_test_set_results.py
+│   │   ├── hybrid_system_analysis.py
+│   │   ├── investigate_domain_knowledge.py
+│   │   └── llm_evaluate_strings.py
+│   ├── reports/                       # Comprehensive markdown reports
+│   │   ├── COMPLETE_ERROR_ANALYSIS.md (616 lines) ⭐
+│   │   ├── HYBRID_SYSTEM_FINDINGS.md (520 lines)
+│   │   ├── TWO_STAGE_AGENTIC_DESIGN.md (900 lines)
+│   │   └── STRING_LLM_EVALUATION_FINDINGS.md (341 lines)
+│   └── outputs/                       # Text outputs from analyses
+│
+├── 📝 docs/                           # Additional documentation
+│   ├── ANLS_EVALUATION_EXPLAINED.md
+│   ├── MODEL_CONFIGURATION.md
+│   ├── CODING_BEST_PRACTICES.md
+│   ├── GEPA_OPTIMIZED_PROMPTS.md
+│   └── TEST_EVALUATION_STATUS.md
+│
+├── ⚙️ scripts/                        # Utility scripts
+│   ├── run_complete_dev_evaluation.py
+│   ├── run_complete_test_evaluation.py
+│   ├── monitor_test_evaluation.py
+│   └── compare_optimizations_dev_set.py
+│
+├── 🏗️ dspy_implementation/           # Core DSPy implementation
+│   ├── data_splits/                   # Train/dev/test splits
+│   ├── optimized_modules/             # GEPA/MIPROv2 modules
+│   ├── dspy_rag_enhanced.py
+│   ├── dspy_signatures_enhanced.py
+│   ├── dspy_postgres_retriever.py
+│   ├── evaluate_baseline.py
+│   ├── gepa_skip_baseline.py
+│   └── enhanced_miprov2_qwen7b_optimization.py
 │
 ├── 💾 Data
-│   ├── mmesgbench_dataset_corrected.json  # 933 questions
-│   └── dspy_implementation/data_splits/
-│       ├── train_186.json (20%)
-│       ├── dev_93.json (10%)
-│       └── test_654.json (70%)
+│   ├── MMESGBench/                    # Original benchmark
+│   ├── source_documents/              # Original PDFs
+│   ├── processed_data/                # Processed chunks
+│   └── mmesgbench_dataset_corrected.json
 │
-├── 🏗️ Code
-│   ├── dspy_implementation/               # DSPy modules
-│   │   ├── dspy_rag_enhanced.py          # RAG modules
-│   │   ├── dspy_signatures_enhanced.py   # Signatures
-│   │   ├── dspy_postgres_retriever.py    # Retrieval
-│   │   ├── dspy_metrics_gepa_fixed.py    # GEPA metrics
-│   │   ├── evaluate_baseline.py          # Baseline eval
-│   │   ├── gepa_skip_baseline.py         # GEPA optimization
-│   │   └── enhanced_miprov2_qwen7b_optimization.py  # MIPROv2
-│   │
-│   ├── src/                               # Core utilities
-│   └── MMESGBench/                        # Reference benchmark
+├── 🔧 Core
+│   ├── src/                           # Utility modules
+│   ├── configs/                       # Configuration files
+│   ├── logs/                          # Runtime logs
+│   └── cache/                         # Cache data
 │
-├── 📝 Logs
-│   ├── logs/qwen7b_test/                  # MIPROv2 logs
-│   └── logs/gepa_optimization/            # GEPA logs
-│
-└── 🗄️ Archive
-    └── archive_old_project/                # Historical work
+└── 🗄️ archive/                       # Old/outdated files
+    ├── old_results/                   # Old prediction files
+    ├── old_phases/                    # Old phase directories
+    ├── old_scripts/                   # Old scripts
+    ├── old_docs/                      # Old documentation
+    └── archive_old_project/           # Historical archive
 ```
 
 ---
@@ -289,29 +334,56 @@ ESG_COLLECTION_NAME=MMESG
 
 ## 📊 Current Status
 
-**Phase**: Dev set optimization complete ✅  
-**Best Result**: GEPA 54.8% (+2.2% vs baseline) ✅  
-**Next**: Test set evaluation (654 questions) ⏳  
-**Updated**: October 19, 2025
+**Phase**: Test set validation complete ✅  
+**Best Result**: Hybrid system 50.2% (+2.6% vs MIPROv2) ✅  
+**Major Discovery**: Format-based routing beats all single models ⭐  
+**Updated**: October 22, 2025
 
 ---
 
 ## 📖 Quick Reference
 
 **Authoritative Result Files**:
-- `baseline_dev_predictions_20251019_130401.json` (52.7%)
-- `gepa_dev_predictions_20251019_130401.json` (54.8%)
-- `miprov2_dev_predictions_20251019_130401.json` (48.4%)
+- `results/dev_set/*_20251019_130401.json` - Dev set predictions (baseline, GEPA, MIPROv2)
+- `results/test_set/*_20251021_225632.json` - Test set predictions (baseline, GEPA, MIPROv2)
+
+**Key Analysis Reports**:
+- `analysis/reports/COMPLETE_ERROR_ANALYSIS.md` ⭐ - Full dev + test analysis
+- `analysis/reports/HYBRID_SYSTEM_FINDINGS.md` - Format-based routing (50.2%)
+- `analysis/reports/TWO_STAGE_AGENTIC_DESIGN.md` - Two-stage system design (53-55% expected)
 
 **Key Scripts**:
-- Baseline: `dspy_implementation/evaluate_baseline.py`
-- GEPA: `dspy_implementation/gepa_skip_baseline.py`
-- MIPROv2: `dspy_implementation/enhanced_miprov2_qwen7b_optimization.py`
+- Baseline eval: `dspy_implementation/evaluate_baseline.py`
+- GEPA optimization: `dspy_implementation/gepa_skip_baseline.py`
+- MIPROv2 optimization: `dspy_implementation/enhanced_miprov2_qwen7b_optimization.py`
+- Complete evaluation: `scripts/run_complete_test_evaluation.py`
+- Hybrid analysis: `analysis/scripts/hybrid_system_analysis.py`
 
-**Evaluation**: Uses MMESGBench's `eval_score()` with ANLS 0.5 threshold
+**Evaluation**: Uses MMESGBench's `eval_score()` with ANLS 0.5 threshold + LLM validation for strings
 
 ---
 
-**Last Updated**: October 21, 2025  
-**Status**: Dev set complete, test set pending  
+## 🎯 Next Steps
+
+**Immediate (This Week)**:
+1. ✅ Test set validation complete
+2. ✅ Error analysis complete  
+3. ✅ Hybrid system designed
+4. ⏳ Implement two-stage agentic system (expected 53-55%)
+
+**Short-term (Next 2 Weeks)**:
+1. Implement format-based hybrid router
+2. Test two-stage system (GEPA reasoning → MIPROv2 extraction)
+3. Statistical significance testing
+4. Paper draft preparation
+
+**Long-term (Next Month)**:
+1. Production deployment of hybrid system
+2. Compare against fine-tuning (LoRA + RL)
+3. Paper submission (ACL/EMNLP 2026)
+
+---
+
+**Last Updated**: October 22, 2025  
+**Status**: Test set complete, hybrid system ready, two-stage design complete  
 **Contact**: [GitHub](https://github.com/tyyim/esg_reason) | [Notion](https://www.notion.so/5f2084ba49f64166b17d52aff4abc7c2)

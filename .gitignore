@@ -58,24 +58,30 @@ api_keys.txt
 
 # Data Files
 *.pdf
-source_documents/
+# MMESGBench - external repo, clone separately
 MMESGBench/
+source_documents/MMESGBench/
 data/
 datasets/
 
-# Results and Outputs
-*results*.json
-*checkpoint*.json
-*output*.json
+# Results and Outputs (Updated Oct 22, 2025)
+# Track organized results/, ignore temp outputs
 evaluation_results/
-checkpoints/
-logs/
+mlruns/
 *.log
+*.pid
+*.txt
 
-# IMPORTANT: Track authoritative dataset and key baseline results
+# IMPORTANT: Track all results in results/ directory
+!results/**/*.json
+!results/**/*.md
+
+# Track authoritative dataset
 !mmesgbench_dataset_corrected.json
-!optimized_full_dataset_mmesgbench_with_f1.json
-!dspy_full_dataset_results.json
+
+# Track analysis outputs
+!analysis/**/*.json
+!analysis/**/*.txt
 
 # Temporary Files
 tmp/

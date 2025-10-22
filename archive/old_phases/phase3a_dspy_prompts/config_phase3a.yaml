@@ -1,0 +1,72 @@
+# Phase 3a: DSPy Prompt Optimization (NO Query Generation)
+# Goal: Optimize reasoning + extraction prompts only (~45% target)
+
+phase: 3a_dspy_prompts
+description: "DSPy MIPROv2 optimization on reasoning and extraction prompts only"
+
+# Optimization settings
+optimization:
+  query_optimization: false  # NO query generation in Phase 3a
+  optimize_components:
+    - ESGReasoning  # Learnable reasoning prompt
+    - AnswerExtraction  # Learnable extraction prompt
+
+  optimizer: MIPROv2
+  mode: light  # 6-10 trials, ~20-30 minutes
+  num_candidates: 10
+  num_threads: 4
+
+  # Use explicit valset for fair comparison
+  use_explicit_valset: true
+
+# Dataset splits
+data:
+  train_size: 186  # 20% for optimization
+  dev_size: 93     # 10% for validation
+  test_size: 654   # 70% held out
+
+  dataset_path: "mmesgbench_dataset_corrected.json"
+  use_existing_splits: true
+
+# Retrieval settings (unchanged from Phase 2)
+retrieval:
+  method: semantic_search  # Qwen text-embedding-v4
+  embedding_model: text-embedding-v4
+  embedding_dim: 1024
+  vector_store: pgvector
+  collection_name: MMESG
+  top_k: 5
+
+  # NO query generation module
+  query_generation: false
+
+# LLM settings
+llm:
+  provider: dashscope
+  model: qwen-max
+  temperature: 0.0
+  max_tokens: 2048
+
+# Evaluation
+evaluation:
+  metrics:
+    - retrieval_accuracy  # RESEARCH metric
+    - answer_accuracy     # PRIMARY metric (for MMESGBench comparison)
+    - e2e_accuracy        # RESEARCH metric
+
+  use_mmesgbench_eval: true  # Use their exact eval_score()
+  anls_threshold: 0.5        # Fuzzy matching threshold
+
+# Experiment tracking
+tracking:
+  use_mlflow: true
+  experiment_name: "Phase3a_DSPy_Prompts_Only"
+  log_artifacts: true
+  log_params: true
+  log_metrics: true
+
+# Output
+output:
+  results_dir: "phase3a_dspy_prompts/results"
+  checkpoint_dir: "phase3a_dspy_prompts/checkpoints"
+  optimized_module_path: "phase3a_dspy_prompts/optimized_module.json"

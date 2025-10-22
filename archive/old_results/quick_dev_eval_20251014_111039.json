@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-10-14T11:10:39.137846",
+  "dev_size": 93,
+  "results": {
+    "retrieval_accuracy": 0.7526881720430108,
+    "answer_accuracy": 0.6021505376344086,
+    "end_to_end_accuracy": 0.4946236559139785,
+    "retrieval_correct": 70,
+    "answer_correct": 56,
+    "end_to_end_correct": 46,
+    "total": 93,
+    "by_format": {
+      "Str": {
+        "total": 34,
+        "retrieval_correct": 21.0,
+        "answer_correct": 19.0,
+        "end_to_end_correct": 13.0,
+        "retrieval_accuracy": 0.6176470588235294,
+        "answer_accuracy": 0.5588235294117647,
+        "end_to_end_accuracy": 0.38235294117647056
+      },
+      "Float": {
+        "total": 13,
+        "retrieval_correct": 10.0,
+        "answer_correct": 8.0,
+        "end_to_end_correct": 7.0,
+        "retrieval_accuracy": 0.7692307692307693,
+        "answer_accuracy": 0.6153846153846154,
+        "end_to_end_accuracy": 0.5384615384615384
+      },
+      "List": {
+        "total": 13,
+        "retrieval_correct": 10.0,
+        "answer_correct": 7.0,
+        "end_to_end_correct": 5.0,
+        "retrieval_accuracy": 0.7692307692307693,
+        "answer_accuracy": 0.5384615384615384,
+        "end_to_end_accuracy": 0.38461538461538464
+      },
+      "Int": {
+        "total": 19,
+        "retrieval_correct": 15.0,
+        "answer_correct": 11.0,
+        "end_to_end_correct": 10.0,
+        "retrieval_accuracy": 0.7894736842105263,
+        "answer_accuracy": 0.5789473684210527,
+        "end_to_end_accuracy": 0.5263157894736842
+      },
+      "null": {
+        "total": 14,
+        "retrieval_correct": 14.0,
+        "answer_correct": 11.0,
+        "end_to_end_correct": 11.0,
+        "retrieval_accuracy": 1.0,
+        "answer_accuracy": 0.7857142857142857,
+        "end_to_end_accuracy": 0.7857142857142857
+      }
+    }
+  },
+  "note": "Baseline RAG with FIXED retrieval metric"
+}

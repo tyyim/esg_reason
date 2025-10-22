@@ -1,0 +1,8 @@
+{
+  "gepa_unique_wins": 23,
+  "expert_specialist_accuracy": 47.85932721712538,
+  "improvement_vs_miprov2": 0.25932721712538154,
+  "recommendation": "two_stage_gepa_reasoning_miprov2_extraction",
+  "expected_performance": "52-57%",
+  "expected_cost_multiplier": 1.4
+}

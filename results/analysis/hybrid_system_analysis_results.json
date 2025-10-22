@@ -1,0 +1,31 @@
+{
+  "strategies": {
+    "format_only": {
+      "correct": 328,
+      "accuracy": 50.15290519877675,
+      "improvement": 2.599388379204882
+    },
+    "format_gepa_strings": {
+      "correct": 327,
+      "accuracy": 50.0,
+      "improvement": 2.4464831804281317
+    },
+    "domain_aware": {
+      "correct": 312,
+      "accuracy": 47.706422018348626,
+      "improvement": 0.15290519877675735
+    },
+    "oracle": {
+      "correct": 384,
+      "accuracy": 58.71559633027523,
+      "improvement": 11.162079510703364
+    },
+    "voting": {
+      "correct": 306,
+      "accuracy": 46.788990825688074,
+      "improvement": -0.7645259938837938
+    }
+  },
+  "recommendation": "format_only",
+  "reason": "Easiest to implement with significant +2.8% improvement"
+}

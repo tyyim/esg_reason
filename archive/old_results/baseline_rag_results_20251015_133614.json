@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-10-15T13:36:14.134091",
+  "run_name": "baseline_rag_prompt_optimization_20251015_131933",
+  "architecture": "Baseline RAG (no query generation)",
+  "optimization": {
+    "method": "MIPROv2",
+    "train_size": 186,
+    "dev_size": 93,
+    "auto_mode": "light",
+    "init_temperature": 1.0,
+    "optimized_components": [
+      "ESGReasoning",
+      "AnswerExtraction"
+    ]
+  },
+  "dev_results": {
+    "retrieval_accuracy": 0.7526881720430108,
+    "answer_accuracy": 0.5806451612903226,
+    "end_to_end_accuracy": 0.4838709677419355,
+    "retrieval_correct": 70,
+    "answer_correct": 54,
+    "end_to_end_correct": 45,
+    "total": 93,
+    "by_format": {
+      "Str": {
+        "total": 34,
+        "retrieval_correct": 21.0,
+        "answer_correct": 17.0,
+        "end_to_end_correct": 12.0,
+        "retrieval_accuracy": 0.6176470588235294,
+        "answer_accuracy": 0.5,
+        "end_to_end_accuracy": 0.35294117647058826
+      },
+      "Float": {
+        "total": 13,
+        "retrieval_correct": 10.0,
+        "answer_correct": 9.0,
+        "end_to_end_correct": 8.0,
+        "retrieval_accuracy": 0.7692307692307693,
+        "answer_accuracy": 0.6923076923076923,
+        "end_to_end_accuracy": 0.6153846153846154
+      },
+      "List": {
+        "total": 13,
+        "retrieval_correct": 10.0,
+        "answer_correct": 7.0,
+        "end_to_end_correct": 5.0,
+        "retrieval_accuracy": 0.7692307692307693,
+        "answer_accuracy": 0.5384615384615384,
+        "end_to_end_accuracy": 0.38461538461538464
+      },
+      "Int": {
+        "total": 19,
+        "retrieval_correct": 15.0,
+        "answer_correct": 11.0,
+        "end_to_end_correct": 10.0,
+        "retrieval_accuracy": 0.7894736842105263,
+        "answer_accuracy": 0.5789473684210527,
+        "end_to_end_accuracy": 0.5263157894736842
+      },
+      "null": {
+        "total": 14,
+        "retrieval_correct": 14.0,
+        "answer_correct": 10.0,
+        "end_to_end_correct": 10.0,
+        "retrieval_accuracy": 1.0,
+        "answer_accuracy": 0.7142857142857143,
+        "end_to_end_accuracy": 0.7142857142857143
+      }
+    }
+  }
+}
