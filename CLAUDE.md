@@ -122,12 +122,19 @@ python dspy_implementation/evaluate_baseline.py \
 python dspy_implementation/gepa_skip_baseline.py
 ```
 
-**Test Set Evaluation (NEXT PRIORITY):**
+**Dynamic Cheatsheet Evaluation (NEW):**
 ```bash
-python dspy_implementation/evaluate_baseline.py \
-  --model qwen2.5-7b-instruct \
-  --dataset test \
-  --output baseline_test_654.json
+# POC test (10 questions)
+python dspy_implementation/dc_module/dc_evaluator.py \
+  --dataset dev --max-questions 10
+
+# Cold start (fair comparison to DSPy)
+python dspy_implementation/dc_module/dc_evaluator.py \
+  --dataset test --variant cumulative
+
+# Warm start (test-time learning advantage)
+python dspy_implementation/dc_module/dc_evaluator.py \
+  --dataset test --variant cumulative --warmup
 ```
 
 ### Code Quality Requirements
@@ -146,7 +153,21 @@ python dspy_implementation/evaluate_baseline.py \
 
 ## ⚠️ Common Pitfalls (AVOID THESE)
 
-### 1. Dataset Confusion ❌
+### 1. DC vs DSPy Comparison ❌
+**CRITICAL**: DC-Warm vs DSPy is NOT a fair comparison!
+
+**Fair Comparisons**:
+- DSPy Baseline vs DC-Cold (both use no training data from test)
+- DSPy GEPA/MIPROv2 vs DC-Cold (both optimize on train/dev only)
+
+**Unfair Comparisons**:
+- DC-Warm vs ANY DSPy approach (DC learns FROM test set)
+
+**Always specify**:
+- DC-Cold: Empty cheatsheet, fair to compare
+- DC-Warm: Learns from test, shows upper bound only
+
+### 2. Dataset Confusion ❌
 **DON'T** mix full dataset (933) with dev set (93) results without clear labels.
 
 **Example of WRONG**:
@@ -216,14 +237,22 @@ return {"score": float_score, "feedback": "..."}  # Plain dict fails!
 
 ## 🚀 Immediate Next Steps (Priority Order)
 
-### 1. Test Set Validation ⚠️ **HIGHEST PRIORITY**
-Run all 3 approaches on 654 test questions to validate dev set findings.
+### 1. Dynamic Cheatsheet Evaluation ⚠️ **IN PROGRESS**
+Evaluate DC test-time learning approach on MMESGBench to compare against DSPy optimization.
 
-**Why**: Dev set (93 questions) too small - 1 question = 1.1% change.
+**Implementation**: Nov 1, 2025
+- Module: `dspy_implementation/dc_module/`
+- DC-RAG integration (NOT using DSPy framework)
+- Uses DC's native test-time learning
 
-**Expected**: 3-4 hours runtime
+**Key Difference from DSPy**:
+- DSPy: Learns BEFORE test (train/dev) -> static prompts
+- DC: Learns DURING test -> evolving cheatsheet
 
-**Success**: GEPA maintains +2% improvement on test set
+**Expected**: DC-Cold 48-50%, DC-Warm 52-56%
+
+### 2. Test Set Validation
+Run all approaches (DSPy + DC) on 654 test questions.
 
 ### 2. Statistical Significance
 - McNemar's test (paired accuracy)

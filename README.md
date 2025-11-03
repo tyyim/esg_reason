@@ -19,6 +19,8 @@
 | **GEPA** | qwen2.5-7b | 45.7% (299/654) | -1.7% ❌ | Oct 22 |
 | **GEPA (LLM-corrected)** | qwen2.5-7b | 47.1% (308/654) | -0.3% | Oct 22 |
 | **🏆 Hybrid (Format-Based)** | qwen2.5-7b | **50.2% (328/654)** | **+2.6%** ✅ | Oct 22 |
+| **DC-Cold (Test-Time Learning)** | qwen2.5-7b | 35.6% (233/654) | -11.8% ❌ | Nov 1 |
+| **DC-Bootstrap** | qwen2.5-7b | 34.7% (227/654) | -12.7% ❌ | Nov 1 |
 
 **Major Discovery**: 
 - Dev set results (93 Q) didn't generalize to test set (654 Q)
@@ -67,6 +69,14 @@ Structured Answer (Int/Float/Str/List/None)
 - qwen-max provides feedback on failures
 - Evolves prompts through 32 iterations
 - Result: +2.2% (improved) ✅
+
+**Dynamic Cheatsheet (Test-Time Learning)**:
+- Model learns from past questions during evaluation
+- Accumulates insights in evolving "cheatsheet"
+- DC-Cold: 35.6% (empty cheatsheet, learns during test)
+- DC-Bootstrap: 34.7% (starts with dev cheatsheet)
+- **Critical weakness**: 0% on null format (107 questions)
+- Result: Underperformed due to inability to recognize unanswerable questions
 
 ---
 
@@ -172,13 +182,22 @@ python dspy_implementation/evaluate_baseline.py \
 python dspy_implementation/gepa_skip_baseline.py
 ```
 
-### Test Set Evaluation (Next Step)
+### Dynamic Cheatsheet Evaluation (COMPLETE)
 ```bash
-python dspy_implementation/evaluate_baseline.py \
-  --model qwen2.5-7b-instruct \
+# Test set - Cold start
+python dspy_implementation/dc_module/dc_evaluator.py \
   --dataset test \
-  --output baseline_test_predictions.json
+  --variant cumulative
+
+# Test set - Bootstrap from dev cheatsheet
+python dspy_implementation/dc_module/dc_evaluator.py \
+  --dataset test \
+  --variant cumulative \
+  --bootstrap-cheatsheet results/dc_experiments/dc_cumulative_cold_dev_{timestamp}.json
 ```
+
+**Results**: DC achieved 35.6% (cold) and 34.7% (bootstrap) on test set.
+**Critical Finding**: DC scored 0% on all 107 null format questions, explaining the large performance gap vs DSPy approaches.
 
 ---
 

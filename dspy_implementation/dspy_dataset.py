@@ -13,7 +13,7 @@ import dspy
 class MMESGBenchDataset:
     """Wrapper for MMESGBench dataset with corrected documents"""
 
-    def __init__(self, dataset_path: str = "mmesgbench_dataset_corrected.json"):
+    def __init__(self, dataset_path: str = "data/mmesgbench_dataset_corrected.json"):
         """
         Initialize dataset from authoritative corrected dataset
 

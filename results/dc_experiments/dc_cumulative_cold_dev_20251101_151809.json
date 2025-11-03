@@ -1,0 +1,139 @@
+{
+  "overall_accuracy": 0.2,
+  "correct": 2,
+  "total": 10,
+  "format_breakdown": {
+    "Int": {
+      "correct": 0,
+      "total": 2,
+      "accuracy": 0.0
+    },
+    "Float": {
+      "correct": 2,
+      "total": 3,
+      "accuracy": 0.6666666666666666
+    },
+    "Str": {
+      "correct": 0,
+      "total": 4,
+      "accuracy": 0.0
+    },
+    "List": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    }
+  },
+  "metadata": {
+    "dataset": "dev",
+    "model": "qwen2.5-7b-instruct",
+    "variant": "cumulative",
+    "warmup": false,
+    "total_questions": 10,
+    "timestamp": "20251101_151809",
+    "final_cheatsheet_length": 2533
+  },
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "prediction": "null",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 977
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Float",
+      "ground_truth": "10%",
+      "prediction": "null",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 1702
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "List",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "prediction": "[\"Sustainable office campuses\", \"Green and low-carbon cloud\", \"Digital and intelligent circular logistics\", \"Sustainable retail stores\", \"Decarbonizing the value chain\"]",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2288
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "Str",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "prediction": "null",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2152
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Int",
+      "ground_truth": "11",
+      "prediction": "null",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2495
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "doc_id": "SASB Health Care Distributors.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Counterfeit Drugs",
+      "prediction": "[\"Description of efforts to reduce the environmental impact of logistics\"]",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2261
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "prediction": "4",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2306
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "doc_id": "LSEG ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "82%",
+      "prediction": "82.0",
+      "anls_score": 1.0,
+      "correct": true,
+      "cheatsheet_length": 2279
+    },
+    {
+      "question": "When was the survey completed?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Str",
+      "ground_truth": "March 2023",
+      "prediction": "null",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 2334
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "55%",
+      "prediction": "55%",
+      "anls_score": 1.0,
+      "correct": true,
+      "cheatsheet_length": 2533
+    }
+  ],
+  "final_cheatsheet": "## Updated Cheatsheet\n\n- **ESG Terminology**:\n  - **GHG**: Greenhouse Gas\n  - **EFC (Electricity Flow Charge)**: The ratio of total CO\u2082 emissions from generation to electricity consumed during transmission and distribution (T&D).\n  - **EFG (Electricity Flow Generation)**: The emissions factor generated from the consumption of electricity during T&D.\n  - **Scope 1, 2, 3 Hierarchy for Emissions Reporting**:\n    - **Scope 1**: Direct emissions from sources that are owned or controlled by the company.\n    - **Scope 2**: Indirect emissions from the purchase of electricity, steam, heating, or cooling from a utility.\n    - **Scope 3**: All other indirect emissions that occur in a company's value chain, including both upstream and downstream activities.\n  - **sDA300,50%**: A metric used in daylight simulation to indicate the percentage of regularly occupied floor area achieving a target daylight autonomy of 300 lux for at least 50% of the year.\n\n- **Calculation Patterns**:\n  - **Percentage Calculation**: \\((\\text{Part} / \\text{Whole}) \\times 100\\)\n  - **EFC Calculation**: \\(EFC = EFG \\times \\left(1 + \\frac{\\text{T&D Loss}}{\\text{Electricity Consumed}}\\right)\\)\n  - **Daylight Simulation Target**: For non-dwelling spaces, at least 55% of the regularly occupied floor area must achieve an average sDA300,50% of 50%.\n\n- **Format-Specific Tips**:\n  - **List Answers**: Use exact company/division names from context.\n  - **Float Answers**: Match the precision level from source data (e.g., use MWh for energy measurements).\n\n- **Document Navigation**:\n  - **Emissions Data**: Usually found in tables with column headers.\n  - **Date Ranges**: Often mentioned in report headers or footers.\n  - **Survey Completion Date**: Typically found on specific pages, such as Page 6 in the given context.\n\n- **Common Pitfalls**:\n  - **Don't Confuse Units**: Avoid mixing up units like 'MWh' (megawatt-hours) with other energy units.\n  - **Verify Calculations**: Ensure if percentages are already calculated or require manual computation.\n  - **Avoid Redundant Information**: Focus on unique insights rather than repeating existing ones.\n  - **Check Credit Ratings**: Ensure you understand the rating scale when dealing with investment grade bonds.\n\n### Additional Insights:\n- **Water Stress Regions Identification**: Tools such as the **Aqueduct Water Risk Atlas** are commonly used to assess water risk and stress levels in different regions globally.\n\nThese updates should help in addressing future ESG-related questions more effectively."
+}

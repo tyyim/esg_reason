@@ -129,3 +129,4 @@ processed_data/images/
 # MCP Configuration (contains secrets)
 .mcp.json
 .claude/
+dc_repo/

@@ -1,0 +1,89 @@
+{
+  "overall_accuracy": 0.4,
+  "correct": 2,
+  "total": 5,
+  "format_breakdown": {
+    "Int": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    },
+    "Float": {
+      "correct": 1,
+      "total": 1,
+      "accuracy": 1.0
+    },
+    "Str": {
+      "correct": 1,
+      "total": 2,
+      "accuracy": 0.5
+    },
+    "List": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    }
+  },
+  "metadata": {
+    "dataset": "dev",
+    "model": "qwen2.5-7b-instruct",
+    "variant": "cumulative",
+    "warmup": false,
+    "total_questions": 5,
+    "timestamp": "20251101_161436",
+    "final_cheatsheet_length": 4763
+  },
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "prediction": "\"Str\"",
+      "anls_score": 0.5,
+      "correct": true,
+      "cheatsheet_length": 1894
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Float",
+      "ground_truth": "10%",
+      "prediction": "10.0",
+      "anls_score": 1.0,
+      "correct": true,
+      "cheatsheet_length": 4579
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "List",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "prediction": "```json\n[\"Cloud Computing Data Centers\", \"Retail Operations\", \"Logistics\", \"Sustainable Office Campuses\", \"Solar Power\"]\n```",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 4679
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "Str",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "prediction": "```json\n\"Not answerable\"\n```",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 4727
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Int",
+      "ground_truth": "11",
+      "prediction": "```json\n30\n```",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 4763
+    }
+  ],
+  "final_cheatsheet": "**Updated ESG Reasoning Patterns Cheatsheet**\n\n1. **Terminology**:\n   - **ESG**: Environmental, Social, and Governance factors.\n   - **Scope 1**: Direct emissions from sources owned or controlled by the organization.\n   - **Scope 2**: Indirect emissions from the purchase of electricity, steam, heating, or cooling from a utility.\n   - **Scope 3**: Indirect emissions from activities of the organization\u2019s value chain, both upstream and downstream.\n   - **EFC (Emission Factor at Consumption)**: The emission factor used to calculate the greenhouse gas emissions from electricity consumption.\n   - **EFG (Emission Factor at Generation)**: The emission factor used to calculate the greenhouse gas emissions from electricity generation.\n\n2. **Calculation Patterns**:\n   - **Formulas**:\n     - \\( \\text{EFC} = \\text{EFG} \\times \\left(1 + \\frac{\\text{T&D Losses}}{\\text{Electricity Consumed}}\\right) \\)\n     - Percentage of T&D losses: \\( \\frac{\\text{T&D Losses}}{\\text{Electricity Consumed}} \\times 100 \\)\n   - **Unit Conversions**: Ensure consistent units (e.g., convert MWh to kWh if necessary).\n   - **Percentage Calculations**: Calculate percentages based on total energy consumption to determine the proportion of Scope 2 emissions.\n\n3. **Document Navigation**:\n   - **Scope Definitions**: Look for sections defining Scope 1, 2, and 3 emissions.\n   - **Purchased Electricity**: Find information on the missions associated with purchased electricity and where it is consumed.\n   - **T&D Systems**: Check if the organization owns or controls the T&D system to correctly assign emissions.\n   - **Water Stress Regions**: Identify sections discussing water management metrics and sourcing from high-stress regions.\n   - **Renewable Energy Sources**: Locate information on the use of renewable energy sources and their impact on emissions.\n\n4. **Common Pitfalls**:\n   - **Overlooking T&D Losses**: Ensure all transmission and distribution losses are accounted for in the appropriate scope.\n   - **Incorrect Scope Assignment**: Avoid misclassifying emissions as Scope 1 if the organization does not generate the electricity.\n   - **Misinterpreting EFC and EFG**: Use the correct emission factors for the respective scopes.\n   - **Ignoring External Data**: Rely on accurate and up-to-date external data sources for identifying water stress regions.\n\n5. **Format-Specific Tips**:\n   - **Str**: Provide clear, concise answers using the format specified. Highlight key points such as the scope of reporting and the ownership/control of T&D systems.\n   - **Float**: Present numerical answers as floating-point numbers for precision.\n   - **Int**: Use integer values for specific point counts or whole numbers.\n\n**Generalizable Insights**:\n- **Business Unit Contributions**: Identify which business units are involved in specific sustainable initiatives mentioned in the ESG report.\n- **GHG Reduction Initiatives**: Recognize common types of initiatives (e.g., cloud computing, retail operations, logistics, office management, renewable energy) that typically contribute to GHG reductions.\n- **Data Center Efficiency**: Focus on data center operations and energy efficiency as a significant contributor to Scope 2 emissions.\n- **Supply Chain Management**: Consider supply chain management and logistics as critical areas for Scope 3 emissions reduction.\n- **Renewable Energy Sources**: Note the importance of renewable energy sources (e.g., solar power) in reducing overall emissions.\n\n**Example Entry**:\n- **Question**: Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited?\n- **Answer**: Business units involved in cloud computing, retail operations, logistics, sustainable office management, and renewable energy initiatives likely contributed to GHG reductions.\n- **Str**: Str\n\n**Updated Cheatsheet**:\n\n1. **Terminology**:\n   - **ESG**: Environmental, Social, and Governance factors.\n   - **Scope 1**: Direct emissions from sources owned or controlled by the organization.\n   - **Scope 2**: Indirect emissions from the purchase of electricity, steam, heating, or cooling from a utility.\n   - **Scope 3**: Indirect emissions from activities of the organization\u2019s value chain, both upstream and downstream.\n   - **EFC (Emission Factor at Consumption)**: The emission factor used to calculate the greenhouse gas emissions from electricity consumption.\n   - **EFG (Emission Factor at Generation)**: The emission factor used to calculate the greenhouse gas emissions from electricity generation.\n\n2. **Calculation Patterns**:\n   - **Formulas**:\n     - \\( \\text{EFC} = \\text{EFG} \\times \\left(1 + \\frac{\\text{T&D Losses}}{\\text{Electricity Consumed}}\\right) \\)\n     - Percentage of T&D losses: \\( \\frac{\\text{T&D"
+}

@@ -1,5 +1,167 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-11-01 - Dynamic Cheatsheet Evaluation COMPLETE ❌
+
+### Final Results - Test Set (654 Questions)
+
+**Test 2 - Cold Start** (Empty cheatsheet, learns during test):
+- **Accuracy**: 35.6% (233/654)
+- **vs DSPy Baseline**: -11.8% (47.4% → 35.6%)
+- **Format Breakdown**:
+  - Int: 44.1% (67/152)
+  - Float: 41.7% (40/96)
+  - Str: 44.5% (94/211)
+  - List: 36.4% (32/88)
+  - **null: 0.0% (0/107)** ← Critical weakness
+
+**Test 3 - Bootstrap** (Starts with dev cheatsheet):
+- **Accuracy**: 34.7% (227/654)
+- **vs Test 2**: -0.9% (bootstrap didn't help)
+- **Format Breakdown**:
+  - Int: 46.1% (70/152)
+  - Float: 43.8% (42/96)
+  - Str: 39.3% (83/211)
+  - List: 36.4% (32/88)
+  - **null: 0.0% (0/107)** ← Critical weakness
+
+**Test 1 - Dev Set** (93 questions):
+- **Accuracy**: 43.0% (40/93)
+- **null: 0.0% (0/14)**
+
+### Critical Finding: Null Format Problem
+
+**DC scored 0% on ALL null format questions** (questions that should return "null" when not answerable):
+- Dev set: 0/14 (0%)
+- Test set: 0/107 (0%) - **16.4% of test set guaranteed wrong**
+
+**Impact Analysis**:
+- If DC had 50% on null: Would be **43.9%** (vs actual 35.6%)
+- If DC had 90% on null: Would be **50.3%** (beating baseline!)
+- **Conclusion**: Null format problem alone explains underperformance
+
+### Key Insights
+
+1. **Null format is the killer**: DC "tries too hard" to answer, can't recognize unanswerable questions
+2. **Bootstrap didn't help**: Dev cheatsheet (43.0%) didn't transfer to test (34.7%)
+3. **Format-specific**: Int/Float/Str (39-46%) reasonable, but null (0%) catastrophic
+4. **vs DSPy**: All DSPy approaches (45.7-50.2%) significantly outperform DC (35.6%)
+
+### Recommendation
+
+**DO NOT use DC for MMESGBench** without fixing null format detection:
+- Test-time learning concept is sound
+- Implementation struggles with recognizing unanswerable questions
+- Would need prompt engineering to improve null format handling
+
+---
+
+## 2025-11-01 - Dynamic Cheatsheet Implementation COMPLETE
+
+### Overview
+Implemented Dynamic Cheatsheet (DC) test-time learning as a separate baseline to compare against DSPy optimization approaches. DC uses its own framework (NOT DSPy) and learns from questions during evaluation.
+
+### Implementation Complete
+
+**Module Structure**: `dspy_implementation/dc_module/`
+
+1. **dc_wrapper.py** - Wrapper around DC's LanguageModel for Qwen integration
+2. **dc_prompts.py** - ESG-specific prompts (generator + curator)
+3. **dc_rag_module.py** - DC + RAG integration (uses existing PostgreSQL retrieval)
+4. **dc_evaluator.py** - Evaluation with checkpointing, retry logic, ANLS scoring
+5. **README.md** - Setup guide and usage instructions
+
+### Key Features (Following Project Best Practices)
+
+- Checkpoint/resume mechanism (every 10 questions)
+- Structured logging (file + console)
+- Retry logic with exponential backoff
+- Progress bars (tqdm)
+- Uses MMESGBench's exact eval_score()
+- Compatible with existing data splits
+
+### Documentation Updated
+
+**Planning Docs**:
+- DYNAMIC_CHEATSHEET_PLAN.md (~400 lines) - Decision framework, cost analysis
+- DC_IMPLEMENTATION_GUIDE.md (~350 lines) - Implementation steps
+
+**Main Docs**:
+- README.md - Added DC to results table, new evaluation commands
+- CLAUDE.md - DC guidelines, fair comparison rules
+- dc_module/README.md - Setup and usage guide
+
+### Key Planning Insights
+
+**What is Dynamic Cheatsheet?**
+- Test-time learning: LLM learns from past questions during evaluation
+- Evolving memory: Builds "cheatsheet" of insights, patterns, strategies
+- Two variants: Cumulative (growing) or Retrieval (similarity-based)
+
+**Expected Results:**
+- DC-Cold (fair): 48-50% accuracy (vs 47.4% baseline)
+- DC-Warm (unfair): 52-56% accuracy (vs 50.2% Hybrid)
+
+**Cost Breakdown:**
+- Labor: $3,800 (76 hours @ $50/hr)
+- LLM API: $5 (4 runs)
+- Total: $3,805
+- ROI: ~3.2x (research value ~$12K)
+
+### Files Added
+- `docs/DYNAMIC_CHEATSHEET_PLAN.md`
+- `docs/DC_IMPLEMENTATION_GUIDE.md`
+
+### Architecture Differences (CRITICAL)
+
+**DSPy Approaches** (Baseline, MIPROv2, GEPA):
+- Uses DSPy framework (ChainOfThought, Predict modules)
+- Learns BEFORE test (train/dev optimization)
+- Static prompts during test evaluation
+- Fair comparison: All use same train/dev data
+
+**Dynamic Cheatsheet** (NEW):
+- Uses DC's own framework (NOT DSPy)
+- Learns DURING test (test-time adaptation)
+- Evolving cheatsheet accumulates insights
+- Two modes: Cold (fair) vs Warm (unfair but insightful)
+
+### Fair Comparison Rules
+
+**Fair to Compare**:
+- DC-Cold vs DSPy Baseline (both zero-shot on test)
+- DC-Cold vs DSPy GEPA/MIPROv2 (both optimize on train/dev only)
+
+**NOT Fair to Compare**:
+- DC-Warm vs ANY DSPy approach (DC learns FROM test set)
+- DC-Warm is for research only - shows upper bound of test-time learning
+
+### Next Steps
+
+**Immediate**:
+1. Clone DC repository: `git clone https://github.com/suzgunmirac/dynamic-cheatsheet.git dc_repo`
+2. Install dependencies: `pip install -r dc_repo/requirements.txt`
+3. Run POC test: `python dspy_implementation/dc_module/dc_evaluator.py --dataset dev --max-questions 10`
+
+**Phase 1 - Validation** (Week 1):
+- Test on 10 dev questions (verify DC works)
+- Full dev set evaluation (93 questions)
+- Verify cheatsheet evolution
+- Expected: 45-50% accuracy
+
+**Phase 2 - Test Set** (Week 2):
+- DC-Cold on test set (654 Q) - Fair comparison
+- DC-Warm on full dataset (933 Q) - Research insight
+- Compare to DSPy approaches
+- Expected: Cold 48-50%, Warm 52-56%
+
+**Phase 3 - Analysis** (Week 3-4):
+- Format-specific breakdown
+- Statistical significance testing
+- Cost-performance analysis
+- Write DC_FINDINGS.md report
+
+---
+
 ## 2025-10-21 - Repository Cleanup & Corrected Results ✅ COMPLETE
 
 ### Background

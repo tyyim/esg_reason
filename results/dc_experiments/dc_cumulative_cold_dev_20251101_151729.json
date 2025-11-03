@@ -1,0 +1,139 @@
+{
+  "overall_accuracy": 0.0,
+  "correct": 0,
+  "total": 10,
+  "format_breakdown": {
+    "Int": {
+      "correct": 0,
+      "total": 2,
+      "accuracy": 0.0
+    },
+    "Float": {
+      "correct": 0,
+      "total": 3,
+      "accuracy": 0.0
+    },
+    "Str": {
+      "correct": 0,
+      "total": 4,
+      "accuracy": 0.0
+    },
+    "List": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    }
+  },
+  "metadata": {
+    "dataset": "dev",
+    "model": "qwen2.5-7b-instruct",
+    "variant": "cumulative",
+    "warmup": false,
+    "total_questions": 10,
+    "timestamp": "20251101_151729",
+    "final_cheatsheet_length": 7
+  },
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Float",
+      "ground_truth": "10%",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "List",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "Str",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Int",
+      "ground_truth": "11",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "doc_id": "SASB Health Care Distributors.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Counterfeit Drugs",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "doc_id": "LSEG ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "82%",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "When was the survey completed?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Str",
+      "ground_truth": "March 2023",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "55%",
+      "prediction": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "anls_score": 0.0,
+      "correct": false,
+      "cheatsheet_length": 7
+    }
+  ],
+  "final_cheatsheet": "(empty)"
+}
