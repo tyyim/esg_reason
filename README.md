@@ -80,7 +80,7 @@ Structured Answer (Int/Float/Str/List/None)
 
 ---
 
-## 📁 Repository Structure (Updated Oct 22, 2025)
+## 📁 Repository Structure (Updated Nov 1, 2025)
 
 ```
 CC/
@@ -88,6 +88,8 @@ CC/
 ├── RESEARCH_FINDINGS.md               # Complete analysis & insights
 ├── CHANGELOG.md                       # Historical log
 ├── CLAUDE.md                          # AI collaboration guidelines
+├── DC_NOTION_SUMMARY.md               # DC results for Notion ⭐ NEW
+├── DC_TESTS_STATUS.md                 # DC test status & monitoring ⭐ NEW
 │
 ├── 📊 results/                        # Organized prediction results
 │   ├── dev_set/                       # Dev set (93 questions)
@@ -100,6 +102,11 @@ CC/
 │   │   ├── gepa_test_predictions_20251021_225632.json (45.7%)
 │   │   ├── miprov2_test_predictions_20251021_225632.json (47.6%)
 │   │   └── complete_test_analysis_20251021_225632.json
+│   ├── dc_experiments/                # DC test-time learning ⭐ NEW
+│   │   ├── dc_cumulative_cold_dev_20251101_153119.json (43.0%)
+│   │   ├── dc_cumulative_cold_test_20251101_171723.json (35.6%)
+│   │   ├── dc_cumulative_cold_test_20251101_172109.json (34.7% bootstrap)
+│   │   └── dev_cheatsheet_20251101.txt
 │   └── analysis/                      # Analysis result files
 │       ├── hybrid_system_analysis_results.json
 │       ├── domain_knowledge_investigation.json
@@ -123,7 +130,9 @@ CC/
 │   ├── MODEL_CONFIGURATION.md
 │   ├── CODING_BEST_PRACTICES.md
 │   ├── GEPA_OPTIMIZED_PROMPTS.md
-│   └── TEST_EVALUATION_STATUS.md
+│   ├── TEST_EVALUATION_STATUS.md
+│   ├── DC_IMPLEMENTATION_GUIDE.md     # DC step-by-step guide ⭐ NEW
+│   └── DYNAMIC_CHEATSHEET_PLAN.md     # DC planning doc ⭐ NEW
 │
 ├── ⚙️ scripts/                        # Utility scripts
 │   ├── run_complete_dev_evaluation.py
@@ -134,6 +143,12 @@ CC/
 ├── 🏗️ dspy_implementation/           # Core DSPy implementation
 │   ├── data_splits/                   # Train/dev/test splits
 │   ├── optimized_modules/             # GEPA/MIPROv2 modules
+│   ├── dc_module/                     # Dynamic Cheatsheet ⭐ NEW
+│   │   ├── dc_evaluator.py            # Evaluation with checkpointing
+│   │   ├── dc_wrapper.py              # DashScope SDK wrapper
+│   │   ├── dc_prompts.py              # ESG-specific prompts
+│   │   ├── dc_rag_module.py           # DC + RAG integration
+│   │   └── README.md                  # DC setup & usage
 │   ├── dspy_rag_enhanced.py
 │   ├── dspy_signatures_enhanced.py
 │   ├── dspy_postgres_retriever.py
@@ -145,6 +160,7 @@ CC/
 │   ├── data/
 │   │   └── mmesgbench_dataset_corrected.json  # 933 ESG questions
 │   ├── MMESGBench/                    # Original benchmark (external repo)
+│   ├── dc_repo/                       # Dynamic Cheatsheet repo (gitignored) ⭐ NEW
 │   ├── source_documents/              # Original PDFs
 │   └── processed_data/                # Processed chunks
 │
@@ -152,6 +168,7 @@ CC/
 │   ├── src/                           # Utility modules
 │   ├── configs/                       # Configuration files
 │   ├── logs/                          # Runtime logs
+│   │   └── dc_evaluation/             # DC evaluation logs ⭐ NEW
 │   └── cache/                         # Cache data
 │
 └── 🗄️ archive/                       # Old/outdated files
