@@ -1,5 +1,48 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-11-07 - Null Equivalence Bug Fix
+
+### Bug Discovery
+During DC evaluation review, identified that MMESGBench's `eval_score()` treats "null" and "Not answerable" as different strings instead of semantically equivalent responses, causing false negatives when models correctly identify unanswerable questions.
+
+### Implementation
+- **Created**: `src/evaluation_utils.py` with `eval_score_fixed()` function
+- **Updated**: `rescore_dc_results.py` to import from utility module
+- **Documented**: Bug fix in README.md evaluation section
+
+### Fix Details
+`eval_score_fixed()` recognizes these as equivalent:
+- "null"
+- "not answerable"
+- "n/a"
+- "cannot answer"
+- "fail to answer"
+
+Falls back to original `eval_score()` for non-null comparisons, with error handling for malformed inputs.
+
+### Testing
+- Unit tests: Null equivalence correctly recognized
+- Integration tests: Import chain verified
+- End-to-end test: Validated on Run #4 (13/13 corrections confirmed)
+
+### Production Integration
+- **Created**: `src/evaluation.py` as central evaluation module
+- **Updated**: 9 production evaluation scripts to use corrected evaluator:
+  - `dspy_implementation/dc_module/dc_evaluator.py`
+  - `dspy_implementation/dspy_metrics_gepa_fixed.py`
+  - `dspy_implementation/dspy_metrics_gepa.py`
+  - `dspy_implementation/detailed_error_analysis.py`
+  - `dspy_implementation/gepa_comprehensive_analysis.py`
+  - `scripts/run_dev_set_comparison.py`
+  - `scripts/compare_optimizations_dev_set.py`
+  - `scripts/run_complete_dev_evaluation.py`
+  - `scripts/run_complete_test_evaluation.py`
+  - `analysis/scripts/deep_dive_format_analysis.py`
+
+All production scripts now import `from src.evaluation import eval_score` instead of directly from MMESGBench, ensuring future test runs automatically use null equivalence handling.
+
+---
+
 ## 2025-11-01 - Dynamic Cheatsheet Evaluation COMPLETE ❌
 
 ### Final Results - Test Set (654 Questions)

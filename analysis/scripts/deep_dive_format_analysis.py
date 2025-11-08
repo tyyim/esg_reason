@@ -10,11 +10,15 @@ Focus areas:
 
 import json
 import os
+import sys
 from pathlib import Path
 from collections import defaultdict
 import dspy
 from dotenv import load_dotenv
-from MMESGBench.src.eval.eval_score import eval_score
+
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from src.evaluation import eval_score
 
 # Setup
 load_dotenv()

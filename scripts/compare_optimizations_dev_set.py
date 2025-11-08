@@ -46,7 +46,7 @@ sys.path.insert(0, str(Path(__file__).parent / "dspy_implementation"))
 
 from dspy_rag_enhanced import BaselineMMESGBenchRAG
 from dspy_postgres_retriever import DSPyPostgresRetriever
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 
 def load_baseline_predictions(checkpoint_path: str) -> Dict[str, Any]:

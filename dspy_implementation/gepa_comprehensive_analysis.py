@@ -28,7 +28,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from dspy_implementation.dspy_dataset import MMESGBenchDataset
 from dspy_implementation.dspy_rag_enhanced import BaselineMMESGBenchRAG
 from dspy_implementation.dspy_metrics_enhanced import evaluate_predictions_enhanced
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 
 def load_programs():

@@ -29,23 +29,23 @@ from dspy_implementation.dspy_rag_enhanced import BaselineMMESGBenchRAG
 
 def safe_eval_score(gt, pred, answer_format):
     """
-    Safely evaluate score without using MMESGBench's eval_score.
-    Implements ANLS 0.5 matching ourselves.
+    Safely evaluate score using corrected evaluator with null equivalence.
+    Falls back to simple ANLS if needed.
     """
     try:
-        from MMESGBench.src.eval.eval_score import eval_score as official_eval
+        from src.evaluation import eval_score as corrected_eval
         try:
-            score = official_eval(gt, pred, answer_format)
-            return score, "official", None
+            score = corrected_eval(gt, pred, answer_format)
+            return score, "corrected", None
         except Exception as e:
-            # Official evaluator failed - use our own
+            # Corrected evaluator failed - use our own
             error_msg = str(e)
             score = simple_anls_score(gt, pred, answer_format)
             return score, "fallback", error_msg
     except ImportError:
-        # No official evaluator available
+        # No corrected evaluator available
         score = simple_anls_score(gt, pred, answer_format)
-        return score, "simple", "No official evaluator"
+        return score, "simple", "No corrected evaluator"
 
 
 def simple_anls_score(gt, pred, answer_format):

@@ -10,7 +10,7 @@ Key difference from standard metrics:
 
 from typing import Optional
 import dspy
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 
 def mmesgbench_gepa_metric(

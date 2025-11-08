@@ -16,7 +16,7 @@ Key insight from GEPA source code:
 from typing import Optional, Union
 import dspy
 from dspy.primitives import Prediction
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 
 # Define ScoreWithFeedback class (from GEPA's dspy_adapter)

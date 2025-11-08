@@ -166,9 +166,11 @@ CC/
 │
 ├── 🔧 Core
 │   ├── src/                           # Utility modules
+│   │   ├── evaluation.py              # Corrected evaluator (central import) ⭐ NEW
+│   │   └── evaluation_utils.py        # Null equivalence fix ⭐ NEW
 │   ├── configs/                       # Configuration files
 │   ├── logs/                          # Runtime logs
-│   │   └── dc_evaluation/             # DC evaluation logs ⭐ NEW
+│   │   └── dc_evaluation/             # DC evaluation logs
 │   └── cache/                         # Cache data
 │
 └── 🗄️ archive/                       # Old/outdated files
@@ -230,13 +232,15 @@ python dspy_implementation/dc_module/dc_evaluator.py \
 - **Source**: [Microsoft Multimodal ESG Benchmark](https://github.com/microsoft/Multimodal-ESG-Benchmark)
 
 ### Evaluation: ANLS 0.5
-Uses MMESGBench's exact `eval_score()` function with fuzzy matching (50% similarity threshold):
+All production evaluation scripts use corrected eval_score with fuzzy matching (50% similarity threshold):
 ```python
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 answer_score = eval_score(gt, pred, answer_type)
 correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 ```
+
+**Bug Fix (Nov 7, 2025)**: Corrected null equivalence handling in evaluation. The original MMESGBench `eval_score()` treats "null" and "Not answerable" as different strings (ANLS string distance), causing false negatives when models correctly identify unanswerable questions. All production scripts now use `src/evaluation.py` which automatically handles null-equivalent responses ("null", "not answerable", "n/a", etc.) as semantically identical. Affected 4 out of 8 DC runs with 4-14% accuracy improvements (196 false negatives corrected). See `CHANGELOG.md` for details.
 
 ---
 

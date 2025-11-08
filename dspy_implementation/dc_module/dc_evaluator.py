@@ -19,7 +19,7 @@ sys.path.insert(0, str(project_root))
 from dspy_implementation.dc_module.dc_rag_module import DCRAGModule
 from dspy_implementation.dspy_dataset import MMESGBenchDataset
 from dspy_implementation.dspy_setup import setup_dspy_qwen
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score
 
 
 class DCEvaluator:
