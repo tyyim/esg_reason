@@ -13,17 +13,33 @@
 
 ---
 
-## 📊 Current Results (AUTHORITATIVE)
+## 📊 Current Results (AUTHORITATIVE) - CORRECTED Nov 9, 2025
 
-### Dev Set (93 Questions) - October 19, 2025
+### ⚠️ CRITICAL: All Results Re-Scored with Fixed Evaluator
 
-| Approach  | Accuracy | vs Baseline | Source File |
-|-----------|----------|-------------|-------------|
-| **Baseline** | **52.7%** (49/93) | baseline | `baseline_dev_predictions_20251019_130401.json` |
-| **GEPA** | **54.8%** (51/93) | **+2.2%** ✅ | `gepa_dev_predictions_20251019_130401.json` |
-| **MIPROv2** | 48.4% (45/93) | **-4.3%** ❌ | `miprov2_dev_predictions_20251019_130401.json` |
+**Evaluation bugs fixed**:
+1. Null equivalence (Nov 7): "null" = "Not answerable"
+2. ANLS string bug (Nov 9): Character-by-character → full string comparison
 
-**⚠️ CRITICAL**: These 3 JSON files are authoritative. Ignore all other result files.
+### Dev Set (93 Questions) - Corrected Nov 9, 2025
+
+| Approach  | Accuracy | vs Baseline | Change from Original | Source File |
+|-----------|----------|-------------|----------------------|-------------|
+| **GEPA** | **61.3%** (57/93) | **+7.5%** ✅ | ~~54.8%~~ (+6.5%) | `*_anls_fixed.json` |
+| **Baseline** | **53.8%** (50/93) | baseline | ~~52.7%~~ (+1.1%) | `*_anls_fixed.json` |
+| **MIPROv2** | **52.7%** (49/93) | **-1.1%** | ~~48.4%~~ (+4.3%) | `*_anls_fixed.json` |
+| **DC-Cold** | **44.1%** (41/93) | **-9.7%** ❌ | ~~43.0%~~ (+1.1%) | `*_anls_fixed.json` |
+
+### Test Set (654 Questions) - Corrected Nov 9, 2025
+
+| Approach  | Accuracy | vs Best | Status |
+|-----------|----------|---------|--------|
+| **Hybrid (Format-Based)** | **50.2%** (328/654) | **+2.8%** ✅ | Best overall |
+| **MIPROv2** | **47.4%** (310/654) | baseline | Competitive |
+| **Baseline** | **46.9%** (307/654) | -0.5% | Solid |
+| **GEPA** | **46.3%** (303/654) | -1.1% | Competitive |
+| **DC-Bootstrap** | **43.7%** (286/654) | -3.7% ❌ | Underperforms |
+| **DC-Cold** | **42.7%** (279/654) | -4.7% ❌ | Underperforms |
 
 ### Full Dataset (933 Questions)
 
@@ -31,7 +47,7 @@
 |------|----------|-------|----------|
 | Sep 2025 | ColBERT | qwen-max | 40.5% (378/933) |
 | Oct 2025 | DSPy | qwen-max | 55.6% (519/933) |
-| **Pending** | DSPy | qwen2.5-7b | ? (test set) |
+| **Nov 9** | **DSPy MIPROv2** | **qwen2.5-7b** | **47.4% (654 test)** ✅ |
 
 ---
 

@@ -1,4 +1,4 @@
-# Dynamic Cheatsheet Evaluation - Notion Summary (CORRECTED)
+# Dynamic Cheatsheet Evaluation - Notion Summary (FINAL CORRECTED)
 
 **Copy this to your Notion research proposal page**
 
@@ -6,71 +6,87 @@
 
 ## Dynamic Cheatsheet Test-Time Learning Results
 
-**Date**: November 7, 2025 (Corrected after evaluation bug fix)  
-**Status**: ✅ COMPLETE - OUTPERFORMS DSPy Baselines
+**Date**: November 9, 2025 (Universal re-scoring after evaluation bug discovery)  
+**Status**: ✅ COMPLETE - Underperforms DSPy Optimization
 
 ### Executive Summary
 
-Dynamic Cheatsheet (DC), a test-time learning approach, was evaluated on MMESGBench and **outperforms all DSPy optimization approaches** except Hybrid (49.2% vs 45.7-47.6% for GEPA/MIPROv2/Baseline). 
+Dynamic Cheatsheet (DC), a test-time learning approach, was evaluated on MMESGBench. **Critical discovery**: Evaluation bugs affected ALL approaches (DSPy + DC), not just DC. When both are re-scored with the fixed evaluator, **DSPy optimization approaches (GEPA/MIPROv2) outperform DC by 3-4%**.
 
-**Critical Discovery**: Initial results showed DC underperforming (35.6%) due to an **evaluation bug** in MMESGBench's `eval_score()` that treated "null" and "Not answerable" as different strings. After fixing the bug (commit `9177497`), DC's accuracy improved by **+13.6%** on the test set, revealing its true competitive performance.
+**Key Insight**: Test-time learning alone (DC) is less effective than proper prompt optimization (DSPy GEPA/MIPROv2) for ESG question answering.
 
 ---
 
-## Test Results (Corrected)
+## Test Results (Corrected Nov 9, 2025)
 
 ### Test Set Performance (654 Questions)
 
+| Approach | Accuracy | vs MIPROv2 | Status |
+|----------|----------|------------|--------|
+| **DSPy Hybrid (Format-Based)** | **50.2%** | **+2.8%** | ✅ Best |
+| **DSPy MIPROv2** | **47.4%** | baseline | ✅ Strong |
+| **DSPy Baseline** | **46.9%** | -0.5% | ✅ Solid |
+| **DSPy GEPA** | **46.3%** | -1.1% | ✅ Competitive |
+| **DC-Bootstrap** | 43.7% | **-3.7%** | ❌ Underperforms |
+| **DC-Cold** | 42.7% | **-4.7%** | ❌ Underperforms |
+
+### Dev Set Performance (93 Questions)
+
 | Approach | Accuracy | vs Baseline | Status |
 |----------|----------|-------------|--------|
-| **DSPy Hybrid** | 50.2% | +2.8% | ✅ Best |
-| **DC-Cold** | **49.2%** | **+1.8%** | ✅ **2nd Best** |
-| **DC-Bootstrap** | **48.5%** | **+1.1%** | ✅ |
-| **DSPy MIPROv2** | 47.6% | +0.2% | ✅ |
-| **DSPy Baseline** | 47.4% | baseline | ✅ |
-| **DSPy GEPA** | 45.7% | -1.7% | ⚠️ |
+| **DSPy GEPA** | **61.3%** | **+7.5%** | ✅ **Best on dev** |
+| **DSPy Baseline** | **53.8%** | baseline | ✅ |
+| **DSPy MIPROv2** | **52.7%** | -1.1% | ✅ |
+| **DC-Cold** | 44.1% | **-9.7%** | ❌ Underperforms |
 
-### Format-Specific Breakdown (DC-Cold, Corrected)
+### Format-Specific Breakdown (DC-Cold Test Set, Corrected)
 
-| Format | Accuracy | Correct/Total | Notes |
-|--------|----------|---------------|-------|
-| **null** | **83.2%** | **89/107** | ✅ **Bug fix revealed true performance** |
-| Int | 44.1% | 67/152 | Reasonable |
-| Str | 44.5% | 94/211 | Reasonable |
-| Float | 41.7% | 40/96 | Reasonable |
-| List | 36.4% | 32/88 | Weak |
+| Format | Accuracy | Correct/Total | vs DSPy Baseline |
+|--------|----------|---------------|------------------|
+| **Float** | **41.7%** | 40/96 | ✅ -13.5% |
+| **Int** | 44.1% | 67/152 | ✅ Equal |
+| **List** | 36.4% | 32/88 | ❌ +3.4% |
+| **Str** | 24.2% | 51/211 | ❌ -12.3% |
+
+**Note**: DC struggles with String type questions compared to DSPy approaches.
 
 ---
 
-## Critical Discovery: Evaluation Bug (Not DC Problem)
+## Critical Discovery: Universal Evaluation Bug
 
-### The Issue
+### The Problem
 
-**Initial observation**: DC appeared to score 0% on ALL null format questions across dev (0/14) and test (0/107).
+**Initial assumption**: Only DC had evaluation issues (null format = 0%).
 
-**Root cause**: **Evaluation bug**, not a DC prompting/learning issue.
+**Reality**: Evaluation bugs affected **ALL approaches** (DSPy + DC):
+1. **Null equivalence bug**: Treated "null" ≠ "Not answerable" 
+2. **ANLS string bug**: Character-by-character comparison instead of full string
 
-MMESGBench's `eval_score()` uses ANLS (Average Normalized Levenshtein Similarity) which treats "null" and "Not answerable" as different strings based on edit distance, causing false negatives when DC correctly identified unanswerable questions.
+### The Investigation
 
-### The Fix
+User questioned why DSPy baseline (47.4%) seemed too good compared to optimized approaches (45.7-47.6%). Investigation revealed:
+- DSPy prediction files lacked ground truth → needed to re-join with dataset
+- When re-scored with fixed evaluator, DSPy actually **improved** slightly
+- DC's improvement (+7% test) was misleading - DSPy also improved
 
-Created `src/evaluation_utils.py` with `eval_score_fixed()` that recognizes these as semantically equivalent:
-- "null"
-- "not answerable"  
-- "n/a"
-- "cannot answer"
-- "fail to answer"
+### Universal Re-Scoring Results
 
-All production scripts now use corrected evaluator automatically.
+**Created**: `rescore_all_with_anls_fix.py` to re-evaluate ALL predictions
 
-### Impact Analysis (Actual Results)
+**Dev Set Impact**:
+- DSPy Baseline: 52.7% → **53.8%** (+1.1%)
+- DSPy GEPA: 54.8% → **61.3%** (+6.5%) ⭐
+- DSPy MIPROv2: 48.4% → **52.7%** (+4.3%)
+- DC-Cold: 43.0% → **44.1%** (+1.1%)
 
-| Null Accuracy | Overall Accuracy | vs Baseline | Result |
-|---------------|------------------|-------------|--------|
-| **0% (before fix)** | **35.6%** | -11.8% | ❌ Appeared to underperform |
-| **83.2% (after fix)** | **49.2%** | **+1.8%** | ✅ **Outperforms DSPy!** |
+**Test Set Impact**:
+- DSPy Baseline: 47.4% → **46.9%** (-0.5%)
+- DSPy MIPROv2: 47.6% → **47.4%** (-0.2%)
+- DSPy GEPA: 45.7% → **46.3%** (+0.6%)
+- DC-Cold: 35.6% → **42.7%** (+7.1%)
+- DC-Bootstrap: 34.7% → **43.7%** (+9.0%)
 
-**Conclusion**: DC was performing well all along. The evaluation bug masked its true capabilities.
+**Conclusion**: DSPy approaches consistently outperform DC when evaluated correctly.
 
 ---
 
@@ -78,171 +94,119 @@ All production scripts now use corrected evaluator automatically.
 
 ### Three Tests Conducted
 
-**Test 1: Dev Set (93 questions)** - Nov 1, 2025
-- Purpose: Establish baseline, generate cheatsheet
-- Result: **57.0%** (53/93) [was 43.0% before fix]
-- Null: **13/14 (92.9%)**
+**Test 1 - Dev Set (93 questions)**:
+- Purpose: Establish baseline & generate cheatsheet
+- Result: 44.1% (41/93) - **9.7% worse than DSPy Baseline**
+- Key finding: Even with small dev set, DC underperforms
 
-**Test 2: Test Set - Cold Start (654 questions)** - Nov 1, 2025
-- Purpose: Fair comparison to DSPy (no prior learning)
-- Cheatsheet: Empty → learns during test
-- Result: **49.2%** (322/654) [was 35.6% before fix]
-- Null: **89/107 (83.2%)**
+**Test 2 - Test Set Cold Start (654 questions)**:
+- Purpose: Fair comparison to DSPy (empty cheatsheet, learns during test)
+- Result: 42.7% (279/654) - **4.2% worse than DSPy Baseline**
+- Key finding: Test-time learning insufficient vs. proper optimization
 
-**Test 3: Test Set - Bootstrap (654 questions)** - Nov 1, 2025
-- Purpose: Test if dev learning transfers
-- Cheatsheet: Pre-loaded with dev cheatsheet (3,654 chars)
-- Result: **48.5%** (317/654) [was 34.7% before fix]
-- Null: **87/107 (81.3%)**
-- Finding: Bootstrap provided no benefit vs cold (-0.7%)
+**Test 3 - Test Set Bootstrap (654 questions)**:
+- Purpose: Test advantage of pre-seeded cheatsheet
+- Result: 43.7% (286/654) - **3.2% worse than DSPy Baseline**
+- Key finding: Bootstrap provided **+1.0%** improvement but still lags DSPy
 
 ---
 
-## Key Insights (Corrected)
+## Key Insights
 
-### 1. Evaluation Bug Was the Killer (NOT DC)
+### 1. DSPy Optimization > Test-Time Learning
 
-- **Initial observation**: DC scored 0% on null format questions
-- **Root cause**: Evaluation bug in MMESGBench's `eval_score()` 
-- **After fix**: DC scores 81-93% on null format (competitive!)
-- **Impact**: +13.6% accuracy improvement
-- **Lesson**: Always validate evaluation infrastructure before concluding algorithmic failure
+**Evidence**:
+- DSPy GEPA (dev): 61.3% vs DC-Cold: 44.1% (**+17.2%**)
+- DSPy MIPROv2 (test): 47.4% vs DC-Cold: 42.7% (**+4.7%**)
 
-### 2. DC Outperforms DSPy Optimization Approaches
+**Implication**: Proper prompt optimization (using teacher feedback or reflection) more effective than learning during inference.
 
-- **DC-Cold**: 49.2% (beats GEPA 45.7%, MIPROv2 47.6%, Baseline 47.4%)
-- Only loses to DSPy Hybrid (50.2%) which uses format-specific routing
-- Achieves this with **test-time learning only** (no train/dev optimization)
-- **DC is competitive and conceptually simpler**
+### 2. GEPA Excels on Dev Set
 
-### 3. Bootstrap Didn't Transfer Knowledge
+**Dev performance**: 61.3% (best across all approaches)
 
-- Dev cheatsheet (57.0% accuracy) didn't help test set (48.5% vs 49.2% cold)
-- Bootstrap actually slightly worse than cold start (-0.7%)
-- Suggests: Either overfitting to dev patterns, or test-time adaptation is sufficient
-- **Cold start learning is more effective**
+**Why**: Reflection-based optimization captures patterns effectively with limited data.
 
-### 4. Prompt Engineering Matters
+**Caveat**: Doesn't generalize as well to test set (46.3%), suggesting possible overfitting.
 
-- Attempted "fair" comparison with DSPy-matching prompts: 25.8% (much worse)
-- Original DC prompts: 57.0% dev, 49.2% test (much better)
-- **Different frameworks need their own optimized prompts**
+### 3. Hybrid Approach Remains Best
 
----
+**Performance**: 50.2% on test set (unchanged, already used correct evaluation)
 
-## Comparison with DSPy Approaches (Corrected)
+**Strategy**: Format-specific routing (GEPA for structured, Baseline for text/null)
 
-### Performance Ranking (Test Set, 654 Questions)
+**Advantage**: +2.8% over next best (DSPy MIPROv2)
 
-1. **DSPy Hybrid (Format-Based)**: 50.2% ✅ Best
-2. **DC-Cold**: **49.2%** ✅ 2nd Best
-3. **DC-Bootstrap**: **48.5%** ✅
-4. **DSPy MIPROv2**: 47.6%
-5. **DSPy Baseline**: 47.4%
-6. **DSPy GEPA**: 45.7%
+### 4. Evaluation Methodology Critical
 
-### Cost Analysis
+**Lesson**: Always validate evaluators before comparing approaches.
 
-| Approach | API Calls/Question | Time/Question | Relative Cost |
-|----------|-------------------|---------------|---------------|
-| DSPy Baseline | 2 | ~20 sec | 1x |
-| DSPy GEPA | 2 | ~20 sec | 1x |
-| **DC** | **2** | **~13 sec** | **1x** |
+**Impact**: DC initially appeared to outperform DSPy → reversed after correcting ALL evaluations.
 
-**Note**: DC has same API cost as DSPy approaches, but faster per question due to simpler architecture.
+**Best practice**: Implement unit tests for evaluation logic, especially for edge cases (null, special characters, etc.)
 
 ---
 
-## Recommendation (UPDATED)
+## Comparison with DSPy Approaches
 
-### ✅ DC is Viable for MMESGBench
+### Performance Ranking (Test Set)
 
-**After evaluation bug fix (Nov 7, 2025)**:
-- **DC-Cold**: 49.2% (beats all DSPy optimization approaches except Hybrid)
-- **Competitive with state-of-the-art**: Only 1.0% behind best approach
-- **Simpler**: No train/dev optimization needed (test-time learning only)
-- **Production-ready**: All evaluation scripts now use corrected evaluator
+1. **DSPy Hybrid**: 50.2% ← Best overall
+2. **DSPy MIPROv2**: 47.4% ← Best single approach
+3. **DSPy Baseline**: 46.9%
+4. **DSPy GEPA**: 46.3%
+5. **DC-Bootstrap**: 43.7% ← DC's best
+6. **DC-Cold**: 42.7%
 
-### When to Use DC vs DSPy
+### Why DSPy Wins
 
-**Use DC-Cold when**:
-- You want test-time learning without prior optimization
-- You need quick deployment without training data
-- You value conceptual simplicity
-- 49.2% accuracy is sufficient
+**DSPy advantages**:
+- Offline optimization on train/dev sets
+- Systematic prompt engineering (teacher-student or reflection)
+- Format-specific handling (Hybrid approach)
 
-**Use DSPy Hybrid when**:
-- You need absolute best performance (50.2%)
-- You have train/dev data available for optimization
-- Format-specific routing is acceptable
-- Extra complexity is justified (+1.0% accuracy)
+**DC limitations**:
+- Online learning during inference (less efficient)
+- No explicit format-specific optimization
+- Cheatsheet may accumulate noise from errors
 
-**Use DSPy GEPA/MIPROv2 when**:
-- You need reproducible optimization process
-- 45.7-47.6% accuracy is sufficient
-- You want documented prompt evolution
+### Recommendation
 
-### Future Work Opportunities
+**For research**: DSPy GEPA/MIPROv2 more suitable for ESG QA than DC.
 
-1. **Add Format-Specific Routing to DC**:
-   - Current DC-Cold: 49.2%
-   - Add routing like Hybrid → Potential: ~51-52%
+**For production**: Hybrid format-based routing with DSPy-optimized prompts.
 
-2. **Improve List Format Performance**:
-   - Current: 36.4% (weakest format)
-   - Target: 45-50% with better prompt engineering
-
-3. **Investigate DC-RS (Retrieval & Synthesis)**:
-   - Current implementation: DC-CU only
-   - DC-RS might provide better context-specific learning
-
----
-
-## Files and Documentation
-
-**Results Files**:
-- Test 2 (Cold): `results/dc_experiments/dc_cumulative_cold_test_20251101_171723.json`
-- Test 3 (Bootstrap): `results/dc_experiments/dc_cumulative_cold_test_20251101_172109.json`
-- Dev cheatsheet: `results/dc_experiments/dev_cheatsheet_20251101.txt`
-
-**Documentation**:
-- Implementation: `dspy_implementation/dc_module/`
-- Complete results: `DC_TESTS_STATUS.md`
-- Plan: `DC_THREE_TESTS_PLAN.md`
-- Summary: `DC_IMPLEMENTATION_SUMMARY.md`
+**DC use case**: Consider for scenarios where:
+- Training data unavailable
+- Continuous adaptation needed
+- Quick deployment without optimization required
 
 ---
 
 ## Timeline
 
-| Date | Event | Result |
-|------|-------|--------|
-| Nov 1, 15:31 | Test 1 started (dev set) | 43.0% (uncorrected) |
-| Nov 1, 17:17 | Test 2 started (cold) | - |
-| Nov 1, 17:21 | Test 3 started (bootstrap) | - |
-| Nov 1, 20:44 | Test 3 complete | 34.7% (uncorrected) |
-| Nov 1, 21:12 | Test 2 complete | 35.6% (uncorrected) |
-| Nov 6 | Evaluation bug discovered | 0% null format issue identified |
-| Nov 7 | Bug fix implemented | +13.6% accuracy improvement |
-| Nov 7, 18:55 | Validation run (dev set) | 57.0% (corrected) ✅ |
-
-**Total runtime**: ~6 hours  
-**Total cost**: ~$0.66
+| Date | Event |
+|------|-------|
+| Nov 1 | DC evaluation complete (reported 35.6% test) |
+| Nov 7 | Null equivalence bug fix (+13.6% for DC) |
+| Nov 9 | **Universal bug discovery**: Re-scored ALL approaches |
+| Nov 9 | **Final result**: DSPy > DC by 3-4% |
 
 ---
 
-## Conclusion (CORRECTED)
+## Conclusion
 
-Dynamic Cheatsheet's test-time learning approach **outperforms all DSPy optimization approaches** except Hybrid, achieving 49.2% accuracy (+1.8% vs DSPy Baseline). The initial apparent failure on null format questions (0%) was **due to an evaluation bug**, not algorithmic weakness. After fixing MMESGBench's `eval_score()` to recognize null-equivalent responses, DC achieved 83.2% on null format questions.
+Dynamic Cheatsheet represents an interesting test-time learning approach, but for ESG question answering on MMESGBench:
 
-**Verdict**: ✅ **DC is viable and competitive** for MMESGBench. It provides simpler test-time learning without requiring train/dev optimization, while matching or exceeding DSPy GEPA/MIPROv2 performance.
+✅ **DSPy optimization (GEPA/MIPROv2) more effective** than test-time learning  
+✅ **Hybrid format-based routing remains best** (50.2%)  
+✅ **Proper evaluation methodology critical** for valid comparisons  
 
-**Best overall approach**: DSPy Hybrid (50.2%) > **DC-Cold (49.2%)** > DSPy MIPROv2 (47.6%) > DSPy Baseline (47.4%) > DSPy GEPA (45.7%)
-
-**Key lesson**: Always validate evaluation infrastructure before concluding algorithmic failure. The 13.6% accuracy improvement from fixing the evaluation bug completely changed DC's competitive position.
+**Research contribution**: Demonstrates importance of:
+1. Offline prompt optimization vs. online learning
+2. Format-specific approaches
+3. Rigorous evaluation validation
 
 ---
 
-**Updated**: November 7, 2025  
-**Status**: Evaluation complete with corrected results, DC now recommended as strong baseline approach
-
+**Note**: All corrected results available in `results/*/​*_anls_fixed.json` files.

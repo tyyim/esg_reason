@@ -10,22 +10,24 @@
 
 ## 🎯 Quick Start
 
-### ✅ FINAL Results (654 Test Set)
+### ✅ FINAL Results (654 Test Set) - CORRECTED Nov 9, 2025
 
 | Approach  | Model | Accuracy | Change | Status |
 |-----------|-------|----------|--------|--------|
-| **Baseline** | qwen2.5-7b | 47.4% (310/654) | baseline | Oct 22 |
-| **MIPROv2** | qwen2.5-7b | 47.6% (311/654) | +0.2% | Oct 22 |
-| **GEPA** | qwen2.5-7b | 45.7% (299/654) | -1.7% ❌ | Oct 22 |
-| **GEPA (LLM-corrected)** | qwen2.5-7b | 47.1% (308/654) | -0.3% | Oct 22 |
-| **🏆 Hybrid (Format-Based)** | qwen2.5-7b | **50.2% (328/654)** | **+2.6%** ✅ | Oct 22 |
-| **DC-Cold (Test-Time Learning)** | qwen2.5-7b | 35.6% (233/654) | -11.8% ❌ | Nov 1 |
-| **DC-Bootstrap** | qwen2.5-7b | 34.7% (227/654) | -12.7% ❌ | Nov 1 |
+| **🏆 Hybrid (Format-Based)** | qwen2.5-7b | **50.2% (328/654)** | **+3.3%** ✅ | Oct 22 |
+| **MIPROv2** | qwen2.5-7b | 47.4% (310/654) | baseline | Nov 9 ✅ |
+| **Baseline** | qwen2.5-7b | 46.9% (307/654) | -0.5% | Nov 9 ✅ |
+| **GEPA** | qwen2.5-7b | 46.3% (303/654) | -1.1% | Nov 9 ✅ |
+| **DC-Bootstrap** | qwen2.5-7b | 43.7% (286/654) | -3.7% ❌ | Nov 9 |
+| **DC-Cold (Test-Time Learning)** | qwen2.5-7b | 42.7% (279/654) | -4.7% ❌ | Nov 9 |
 
-**Major Discovery**: 
-- Dev set results (93 Q) didn't generalize to test set (654 Q)
-- ANLS metric failed: 46.7% false negative rate on strings
-- **Hybrid format-based routing beats all single models!**
+**🚨 CRITICAL DISCOVERY (Nov 9)**: 
+- **Evaluation bugs affected ALL approaches** (DSPy + DC), not just DC
+- **Original results were INCORRECT** due to:
+  1. Null equivalence bug (treating "null" ≠ "Not answerable")
+  2. ANLS string bug (character-by-character instead of full string)
+- **Re-scored with fixed evaluator** → DSPy approaches outperform DC by 3-4%
+- **Hybrid format-based routing remains best overall!**
 
 See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ERROR_ANALYSIS.md) for full analysis.
 
@@ -33,13 +35,14 @@ See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ER
 
 ## 📊 Full Dataset Evolution
 
-| Date | Approach | Model | Dataset | Accuracy |
-|------|----------|-------|---------|----------|
-| Sep 2025 | ColBERT | qwen-max | 933 questions | 40.5% (378/933) |
-| Oct 2025 | DSPy | qwen-max | 933 questions | 55.6% (519/933) |
-| Oct 19 | Baseline | qwen2.5-7b | 93 dev | 52.7% (49/93) |
-| Oct 19 | GEPA | qwen2.5-7b | 93 dev | 54.8% (51/93) |
-| **Oct 22** | **Hybrid** | **qwen2.5-7b** | **654 test** | **50.2% (328/654)** ✅ |
+| Date | Approach | Model | Dataset | Accuracy | Notes |
+|------|----------|-------|---------|----------|-------|
+| Sep 2025 | ColBERT | qwen-max | 933 questions | 40.5% (378/933) | |
+| Oct 2025 | DSPy | qwen-max | 933 questions | 55.6% (519/933) | |
+| Oct 19 | Baseline | qwen2.5-7b | 93 dev | ~~52.7%~~ **53.8%** | ⚠️ Corrected |
+| Oct 19 | GEPA | qwen2.5-7b | 93 dev | ~~54.8%~~ **61.3%** | ⚠️ Corrected |
+| **Oct 22** | **Hybrid** | **qwen2.5-7b** | **654 test** | **50.2% (328/654)** ✅ | |
+| Nov 9 | MIPROv2 | qwen2.5-7b | 654 test | 47.4% (310/654) | Corrected ✅ |
 
 ---
 
@@ -73,10 +76,10 @@ Structured Answer (Int/Float/Str/List/None)
 **Dynamic Cheatsheet (Test-Time Learning)**:
 - Model learns from past questions during evaluation
 - Accumulates insights in evolving "cheatsheet"
-- DC-Cold: 35.6% (empty cheatsheet, learns during test)
-- DC-Bootstrap: 34.7% (starts with dev cheatsheet)
-- **Critical weakness**: 0% on null format (107 questions)
-- Result: Underperformed due to inability to recognize unanswerable questions
+- DC-Cold: 42.7% (empty cheatsheet, learns during test) ✅ Corrected
+- DC-Bootstrap: 43.7% (starts with dev cheatsheet) ✅ Corrected
+- **Result**: Underperforms DSPy approaches by 3-4%
+- **Key insight**: Test-time learning alone insufficient vs. proper prompt optimization
 
 ---
 

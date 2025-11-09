@@ -1,5 +1,62 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-11-09 - CRITICAL DISCOVERY: Evaluation Bugs Affected ALL Results
+
+### The Problem
+User identified that DSPy baseline performance (reported 52.7% dev, 47.4% test) seemed suspiciously good compared to optimized approaches. Investigation revealed evaluation bugs affected **ALL evaluations** (DSPy + DC), not just DC.
+
+### Universal Re-Scoring with Fixed Evaluator
+Created `rescore_all_with_anls_fix.py` to re-evaluate all predictions with both bug fixes:
+1. **Null equivalence fix** (Nov 7): "null" = "Not answerable" = "n/a", etc.
+2. **ANLS string bug fix** (Nov 9): Wrap gt in list before calling `anls_compute([gt], pred)`
+
+### Corrected Results
+
+**Dev Set (93 Questions)**:
+- DSPy Baseline: ~~52.7%~~ → **53.8%** (+1.1%)
+- DSPy GEPA: ~~54.8%~~ → **61.3%** (+6.5%) ⭐
+- DSPy MIPROv2: ~~48.4%~~ → **52.7%** (+4.3%)
+- DC-Cold: ~~43.0%~~ → **44.1%** (+1.1%)
+
+**Test Set (654 Questions)**:
+- DSPy Baseline: ~~47.4%~~ → **46.9%** (-0.5%)
+- DSPy GEPA: ~~45.7%~~ → **46.3%** (+0.6%)
+- DSPy MIPROv2: ~~47.6%~~ → **47.4%** (-0.2%)
+- DC-Cold: ~~35.6%~~ → **42.7%** (+7.1%)
+- DC-Bootstrap: ~~34.7%~~ → **43.7%** (+9.0%)
+
+### Key Findings
+
+1. **DSPy approaches OUTPERFORM DC**:
+   - DSPy Baseline: 46.9% vs DC-Cold: 42.7% (+4.2%)
+   - DSPy MIPROv2: 47.4% vs DC-Bootstrap: 43.7% (+3.7%)
+
+2. **GEPA is even better than reported**:
+   - Dev: 61.3% (was 54.8%) - **+6.5% improvement**
+   - Best performing optimization on dev set
+
+3. **DC's "null problem" was evaluation bug**:
+   - Originally: 0% on null format (thought to be DC's fault)
+   - Corrected: DC actually handles null reasonably well
+   - Real issue: Test-time learning < prompt optimization
+
+4. **Hybrid approach remains best**: 50.2% (unchanged, already used correct evaluation)
+
+### Implications
+
+- **For research**: DSPy optimization (GEPA/MIPROv2) more effective than test-time learning (DC)
+- **For production**: Hybrid format-based routing with proper evaluation is optimal
+- **For methodology**: Always validate evaluators before comparing approaches
+
+### Files Updated
+- `README.md`: Corrected all result tables
+- `CHANGELOG.md`: This entry
+- `CLAUDE.md`: Updated authoritative results
+- `DC_NOTION_SUMMARY.md`: Major revision reflecting DC underperforms DSPy
+- `DC_TESTS_STATUS.md`: Updated with corrected results
+
+---
+
 ## 2025-11-09 - DC-RS Implementation + ANLS String Bug Fix
 
 ### DC-RS (Retrieval & Synthesis) Implementation
