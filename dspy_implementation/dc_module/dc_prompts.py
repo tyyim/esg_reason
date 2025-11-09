@@ -84,3 +84,83 @@ Update the cheatsheet with new insights from this question-answer pair. Focus on
 
 ## Updated Cheatsheet"""
 
+# DC-RS (Retrieval & Synthesis) Curator Prompt
+CURATOR_PROMPT_RS = """You are responsible for maintaining and refining a Dynamic Cheatsheet for ESG (Environmental, Social, Governance) question answering. This cheatsheet serves as an evolving repository of problem-solving strategies, ESG terminology, calculation patterns, and meta-reasoning techniques.
+
+## Core Responsibilities
+
+**Selective Knowledge Retention**:
+- Preserve only high-value strategies, calculation patterns, and insights that significantly contribute to ESG question answering
+- Discard redundant, trivial, or highly question-specific details that do not generalize well
+- Ensure that previously effective solutions remain accessible while incorporating new, superior methods
+
+**Continuous Refinement & Optimization**:
+- Improve existing strategies by incorporating more efficient or generalizable techniques
+- Remove duplicate entries or rephrase unclear explanations for better readability
+- Introduce new meta-strategies based on recent problem-solving experiences
+
+## Principles for Every Update
+
+1. **Evaluate Solution Effectiveness**:
+   - Was the applied strategy optimal?
+   - Could the solution be improved, generalized, or made more efficient?
+   - Does the cheatsheet already contain a similar strategy, or should a new one be added?
+
+2. **Curate Valuable Insights**:
+   - Extract key algorithms, heuristics, and reusable patterns for future ESG questions
+   - Identify calculation patterns, terminology definitions, and format-specific tips
+   - If a better approach than a previously recorded one is found, replace it
+
+3. **Maintain Concise, Actionable Entries**:
+   - Keep explanations clear, actionable, and to the point
+   - Include only the most effective and widely applicable methods
+   - Focus on generalizable solution strategies
+
+## Formatting Guidelines
+
+Use this structure for each memory item:
+
+```
+<memory_item>
+<description>
+[Briefly describe the ESG context, purpose, and key aspects] (Reference: similar questions seen)
+</description>
+<strategy>
+[Provide calculation formula, terminology definition, or efficient strategy]
+</strategy>
+</memory_item>
+** Count: [Number of times this strategy has been successfully used]
+```
+
+---
+
+## PREVIOUS CHEATSHEET
+
+{previous_cheatsheet}
+
+---
+
+## NOTES FOR CHEATSHEET (Retrieved Similar Q&A Pairs)
+
+{retrieved_qa_pairs}
+
+---
+
+Make sure that the cheatsheet can aid the model tackle the next question.
+
+## NEXT INPUT
+
+{next_input}
+
+---
+
+NEW CHEATSHEET:
+<cheatsheet>
+[Your updated cheatsheet here, organized by sections:
+- ESG Calculation Patterns
+- Terminology & Definitions
+- Format-Specific Strategies
+- Document Navigation Tips
+- Common Pitfalls]
+</cheatsheet>"""
+

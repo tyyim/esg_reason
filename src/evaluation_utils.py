@@ -86,7 +86,36 @@ def eval_score_fixed(gt, pred, answer_type):
     if gt_normalized in null_equivalents and pred_normalized in null_equivalents:
         return 1.0
 
-    # Otherwise use original eval_score, but handle exceptions
+    # Otherwise use original eval_score, but with bug fix for Str type
+    # Bug fix: MMESGBench's eval_score has a bug in Str type evaluation
+    # at line 221, it calls anls_compute(gt, pred) but anls_compute expects
+    # ground_truth_answers to be a LIST. When passing a string, it iterates
+    # character-by-character, giving meaningless scores.
+    # 
+    # We'll fix this by checking if it's Str type and wrapping gt in a list
+    if answer_type == "Str":
+        # Import the ANLS function from MMESGBench
+        import sys
+        from pathlib import Path
+        sys.path.append(str(Path(__file__).parent.parent / "MMESGBench"))
+        from MMESGBench.src.eval.eval_score import anls_compute, get_clean_string, is_exact_match
+        
+        # Clean strings
+        gt_cleaned = get_clean_string(gt)
+        pred_cleaned = get_clean_string(pred)
+        
+        # Check for substring match first (MMESGBench does this)
+        if gt_cleaned in pred_cleaned:
+            return 1.0
+        
+        # Check if exact match required
+        if is_exact_match(gt_cleaned):
+            return 1.0 if gt_cleaned == pred_cleaned else 0.0
+        
+        # Use ANLS with CORRECT signature (gt wrapped in list)
+        return anls_compute([gt_cleaned], pred_cleaned, threshold=0.5)
+    
+    # For non-Str types, use original eval_score
     try:
         return eval_score(gt, pred, answer_type)
     except (SyntaxError, ValueError, TypeError) as e:

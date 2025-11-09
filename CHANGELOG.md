@@ -1,5 +1,35 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-11-09 - DC-RS Implementation + ANLS String Bug Fix
+
+### DC-RS (Retrieval & Synthesis) Implementation
+- **Created**: `dspy_implementation/dc_module/dc_evaluator_v2.py` - Uses original DC code directly
+- **Modified**: `dc_repo/dynamic_cheatsheet/language_model.py` - Added DashScope model support
+- **Added**: `CURATOR_PROMPT_RS` to `dc_prompts.py` for DC-RS variant
+- **Documented**: `DC_RS_IMPLEMENTATION_NOTES.md` with full implementation details
+
+### Key Decision: Use Original DC Code
+- **Previous approach**: Reimplemented DC logic ourselves in `dc_rag_module.py`
+- **New approach**: Directly call `LanguageModel.advanced_generate()` from original DC repo
+- **Benefit**: Exact replication of paper, no risk of implementation drift
+
+### ANLS String Bug Fix
+- **Issue**: MMESGBench's `eval_score()` had bug in Str type evaluation (line 221)
+- **Root cause**: Called `anls_compute(gt, pred)` but function expects `anls_compute([gt_list], pred)`
+- **Impact**: When passing string instead of list, Python iterates character-by-character
+- **Result**: ANLS always returned 0.5 regardless of actual similarity
+- **Fix**: Modified `src/evaluation_utils.py` to wrap gt in list before calling `anls_compute([gt], pred)`
+
+### DashScope Model Support in DC
+Added to `dc_repo/dynamic_cheatsheet/language_model.py`:
+- `dashscope/qwen-max`
+- `dashscope/qwen-plus`
+- `dashscope/qwen-turbo`
+- `dashscope/qwen2.5-7b-instruct`
+- `dashscope/qwen2.5-14b-instruct`
+- `dashscope/qwen2.5-32b-instruct`
+- `dashscope/qwen2.5-72b-instruct`
+
 ## 2025-11-07 - Null Equivalence Bug Fix
 
 ### Bug Discovery
