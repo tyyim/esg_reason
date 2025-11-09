@@ -1,7 +1,11 @@
 # Dynamic Cheatsheet - Tests Status
 
-**Date**: November 1, 2025, 17:22  
-**Status**: Tests 2 & 3 Running in Parallel
+**Date**: November 7, 2025 (Corrected Results)  
+**Status**: ✅ COMPLETE - Bug Fix Applied
+
+> **IMPORTANT**: Results corrected Nov 7, 2025 after fixing null equivalence bug in evaluation.
+> Original MMESGBench `eval_score()` treated "null" and "Not answerable" as different strings,
+> causing false negatives. See commit `9177497` for details.
 
 ---
 
@@ -14,33 +18,35 @@
 - Cheatsheet: Empty (starts blank)
 - Prompts: Original DC prompts (not DSPy-matching)
 
-**Results**: 
-- **Accuracy**: 43.0% (40/93)
+**Results (Corrected)**: 
+- **Accuracy**: **57.0%** (53/93) [was 43.0% before fix]
 - **Runtime**: 34 minutes (15:31-16:05)
 - **Cheatsheet**: 3,654 characters generated
 
-**Format Breakdown**:
+**Format Breakdown (Corrected)**:
 | Format | Accuracy | Correct | Total |
 |--------|----------|---------|-------|
 | Int | 42.1% | 8 | 19 |
 | Float | **69.2%** ⭐ | 9 | 13 |
 | Str | 50.0% | 17 | 34 |
 | List | 46.2% | 6 | 13 |
-| **null** | **0.0%** ❌ | 0 | 14 |
+| **null** | **92.9%** ✅ | 13 | 14 |
 
-**vs DSPy Baseline on Dev**: 43.0% vs 52.7% (-9.7%)
+**vs DSPy Baseline on Dev**: **57.0% vs 52.7% (+4.3%)** ✅
 
 **Files**:
 - Results: `results/dc_experiments/dc_cumulative_cold_dev_20251101_153119.json`
+- Validation: `results/dc_experiments/dc_cumulative_cold_dev_20251107_185530.json` (57.0% confirmed)
 - Cheatsheet: Extracted to `results/dc_experiments/dev_cheatsheet_20251101.txt`
 
 **Key Findings**: 
-- ⭐ **Float format performs best** (69.2%)
-- ❌ **Critical weakness: 0% on null format** - DC struggles to recognize when questions are not answerable
+- ✅ **DC now outperforms DSPy baseline on dev set** (+4.3%)
+- ⭐ **Float format still performs best** (69.2%)
+- ✅ **Null format bug fixed**: 0.0% → 92.9% after evaluation correction
 
 ---
 
-## 🔄 Test 2: Test Set Cold Start (IN PROGRESS)
+## ✅ Test 2: Test Set Cold Start (COMPLETE)
 
 **Purpose**: Fair comparison to DSPy (no prior learning from test)
 
@@ -50,26 +56,36 @@
 - Prompts: Original DC prompts
 - Model: qwen2.5-7b-instruct
 
-**Status**: RUNNING
-- Started: 17:17:23
-- Progress: 10+ questions complete
-- Log: `logs/dc_evaluation/dc_eval_20251101_171723.log`
+**Results (Corrected - Nov 7, 2025)**:
+- **Accuracy**: **49.2%** (322/654) [was 35.6% before null bug fix]
+- **Runtime**: ~4 hours
+- **Cost**: ~$0.31
+- **Cheatsheet**: Evolved from empty → ~8,000 chars
 
-**Expected**:
-- Runtime: ~3-4 hours
-- Completion: ~20:30-21:00
-- Cost: ~$0.31
-- Accuracy: 42-46% (similar to dev 43.0%)
-- Cheatsheet growth: ~5-10K characters
+**Format Breakdown**:
+| Format | Accuracy | Correct | Total |
+|--------|----------|---------|-------|
+| Int | 44.1% | 67 | 152 |
+| Float | 41.7% | 40 | 96 |
+| Str | 44.5% | 94 | 211 |
+| List | 36.4% | 32 | 88 |
+| **null** | **83.2%** ✅ | 89 | 107 |
+
+**vs DSPy Baseline on Test**: **49.2% vs 47.4% (+1.8%)** ✅
+
+**Files**:
+- Results: `results/dc_experiments/dc_cumulative_cold_test_20251101_171723.json`
+- Cheatsheet: `results/dc_experiments/test_cold_cheatsheet_20251101.txt`
 
 **Comparison Type**: ✅ **FAIR**
-- DC-Cold vs DSPy Baseline (47.4%): Both start with no test knowledge
-- DC-Cold vs DSPy GEPA (45.7%): Both optimize/learn separately
-- DC-Cold vs Hybrid (50.2%): DC disadvantage (no format routing)
+- DC-Cold vs DSPy Baseline (47.4%): Both start with no test knowledge → **DC wins by 1.8%**
+- DC-Cold vs DSPy GEPA (45.7%): Both optimize/learn separately → **DC wins by 3.5%**
+- DC-Cold vs DSPy MIPROv2 (47.6%): Both optimize/learn separately → **DC wins by 1.6%**
+- DC-Cold vs Hybrid (50.2%): DC disadvantage (no format routing) → **Hybrid wins by 1.0%**
 
 ---
 
-## 🔄 Test 3: Test Set Bootstrapped (IN PROGRESS)
+## ✅ Test 3: Test Set Bootstrapped (COMPLETE)
 
 **Purpose**: Test if dev learning transfers to test set
 
@@ -80,56 +96,53 @@
 - Prompts: Original DC prompts
 - Model: qwen2.5-7b-instruct
 
-**Status**: RUNNING
-- Started: 17:21:11
-- Progress: Resumed from question 11/654
-- Log: `logs/dc_evaluation/dc_eval_20251101_172109.log`
+**Results (Corrected - Nov 7, 2025)**:
+- **Accuracy**: **48.5%** (317/654) [was 34.7% before null bug fix]
+- **Runtime**: ~4 hours
+- **Cost**: ~$0.31
+- **Cheatsheet**: Evolved from 3,654 → ~8,500 chars
 
-**Expected**:
-- Runtime: ~3-4 hours
-- Completion: ~20:30-21:00
-- Cost: ~$0.31
-- Accuracy: 45-50% (better than Test 2 cold)
-- Cheatsheet growth: Starts 3.6K → ~7-12K characters
+**Format Breakdown**:
+| Format | Accuracy | Correct | Total |
+|--------|----------|---------|-------|
+| Int | 44.1% | 67 | 152 |
+| Float | 41.7% | 40 | 96 |
+| Str | 43.1% | 91 | 211 |
+| List | 36.4% | 32 | 88 |
+| **null** | **81.3%** ✅ | 87 | 107 |
+
+**vs Test Cold Start**: 48.5% vs 49.2% (-0.7%) - **No benefit from bootstrap**
+
+**Files**:
+- Results: `results/dc_experiments/dc_cumulative_bootstrap_test_20251101_172109.json`
+- Cheatsheet: `results/dc_experiments/test_bootstrap_cheatsheet_20251101.txt`
 
 **Comparison Type**: ⚠️ **PARTIALLY FAIR**
-- DC-Bootstrap vs DSPy Baseline: DC has dev advantage
+- DC-Bootstrap vs DSPy Baseline: DC has dev advantage → **DC still wins 48.5% vs 47.4%**
 - DC-Bootstrap vs DSPy GEPA/MIPROv2: More comparable (both use non-test data)
-- Shows value of accumulated domain knowledge
+- Shows that bootstrapping provided no advantage over cold start
 
 ---
 
-## Expected Final Results
+## ✅ Final Results Summary (Corrected)
 
-### Test 2: Cold Start Predictions
+### Test Set Performance Comparison
 
-vs DSPy Test Set Results:
-| Approach | Accuracy | Difference |
-|----------|----------|------------|
-| DSPy Baseline | 47.4% | DC: -1 to +2% |
-| DSPy MIPROv2 | 47.6% | DC: -1 to +2% |
-| DSPy GEPA | 45.7% | DC: -2 to +4% |
-| DSPy Hybrid | 50.2% | DC: -4 to -8% |
-| **DC-Cold (predicted)** | **42-46%** | - |
+| Approach | Accuracy | vs DSPy Baseline | Status |
+|----------|----------|------------------|--------|
+| **DSPy Hybrid** | 50.2% | +2.8% | ✅ Best |
+| **DC-Cold** | **49.2%** | **+1.8%** | ✅ 2nd Best |
+| **DC-Bootstrap** | **48.5%** | **+1.1%** | ✅ |
+| **DSPy MIPROv2** | 47.6% | +0.2% | ✅ |
+| **DSPy Baseline** | 47.4% | baseline | ✅ |
+| **DSPy GEPA** | 45.7% | -1.7% | ⚠️ |
 
-**Success Criteria**:
-- Minimum: ≥ 42% (not worse than dev)
-- Good: 44-46% (matches GEPA/MIPROv2)
-- Excellent: ≥ 47% (matches baseline)
+### Key Takeaways
 
-### Test 3: Bootstrap Predictions
-
-| Approach | Learning Data | Accuracy (predicted) |
-|----------|---------------|---------------------|
-| DC-Cold | None (test only) | 42-46% |
-| DC-Bootstrap | Dev (93 Q) | 45-50% |
-| DSPy GEPA | Train+Dev (279 Q) | 45.7% (actual) |
-| DSPy Hybrid | Train+Dev (279 Q) | 50.2% (actual) |
-
-**Success Criteria**:
-- Minimum: > Test 2 (+2-3%)
-- Good: ≈ 46-48% (beats GEPA)
-- Excellent: ≥ 50% (matches Hybrid)
+✅ **DC-Cold outperforms all DSPy optimization approaches** except Hybrid  
+✅ **DC achieves this with test-time learning only** (no train/dev optimization)  
+❌ **Bootstrap provided NO benefit** (48.5% vs 49.2% cold)  
+✅ **Evaluation bug fix was critical**: +13.6% accuracy improvement for DC
 
 ---
 
@@ -144,12 +157,13 @@ vs DSPy Test Set Results:
 - Float: 69.2% on dev (vs DSPy baseline Int/Float ~60-70%)
 - Suggests DC good at learning calculation patterns
 
-### 2b. Critical Weakness: Null Format (0%)
-- **DC got 0/14 (0%) on null format questions**
-- Struggles to recognize when questions are not answerable
-- May be "trying too hard" to answer from context
-- vs DSPy baseline: likely much better on null (typically ~90%+)
-- **Major performance drag**: 14 guaranteed wrong answers
+### 2b. Null Format Bug Fixed ✅ (Was Critical Weakness)
+- **Before fix**: DC scored 0% on null format (appeared to struggle)
+- **After fix**: DC scores 83-93% on null format (competitive with DSPy)
+- **Root cause**: Evaluation bug, not DC prompting/learning issue
+- MMESGBench's `eval_score()` treated "null" and "Not answerable" as different
+- DC was actually answering correctly, but marked wrong by evaluator
+- **Impact**: +13-14% accuracy improvement across all DC runs
 
 ### 3. Test-Time Learning Trade-offs
 - 2 API calls per question (vs DSPy's 2 for baseline)

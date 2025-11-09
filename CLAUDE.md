@@ -88,13 +88,17 @@ Detailed error patterns by format type
 
 ### Evaluation
 
-**Always use MMESGBench's exact eval_score():**
+**IMPORTANT - Use Corrected Evaluator (Nov 7, 2025):**
 ```python
-from MMESGBench.src.eval.eval_score import eval_score
+from src.evaluation import eval_score  # Uses corrected version with null equivalence
 
 answer_score = eval_score(gt, pred, answer_type)
 correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 ```
+
+**Bug Fix**: MMESGBench's original `eval_score()` treated "null" and "Not answerable" as different strings (ANLS string distance), causing false negatives. The corrected evaluator (`src/evaluation_utils.py`) recognizes null-equivalent responses ("null", "not answerable", "n/a", "cannot answer", "fail to answer") as semantically identical before applying ANLS.
+
+**Impact**: +13.6% accuracy improvement for DC on test set (35.6% → 49.2%). All production scripts now use corrected evaluator automatically.
 
 ### Data Splits (AUTHORITATIVE)
 
@@ -237,19 +241,24 @@ return {"score": float_score, "feedback": "..."}  # Plain dict fails!
 
 ## 🚀 Immediate Next Steps (Priority Order)
 
-### 1. Dynamic Cheatsheet Evaluation ⚠️ **IN PROGRESS**
-Evaluate DC test-time learning approach on MMESGBench to compare against DSPy optimization.
+### 1. Dynamic Cheatsheet Evaluation ✅ **COMPLETE**
+Evaluated DC test-time learning approach on MMESGBench against DSPy optimization.
 
-**Implementation**: Nov 1, 2025
+**Implementation**: Nov 1, 2025 | **Corrected**: Nov 7, 2025
 - Module: `dspy_implementation/dc_module/`
 - DC-RAG integration (NOT using DSPy framework)
 - Uses DC's native test-time learning
 
-**Key Difference from DSPy**:
-- DSPy: Learns BEFORE test (train/dev) -> static prompts
-- DC: Learns DURING test -> evolving cheatsheet
+**Results (After Bug Fix)**:
+- **DC-Cold (Test Set)**: 49.2% (+1.8% vs DSPy Baseline)
+- **DC-Bootstrap**: 48.5% (no benefit from dev cheatsheet)
+- **Evaluation Bug Fix**: +13.6% accuracy improvement (35.6% → 49.2%)
 
-**Expected**: DC-Cold 48-50%, DC-Warm 52-56%
+**Key Findings**:
+- DC outperforms all DSPy optimization approaches except Hybrid
+- Test-time learning is effective without train/dev optimization
+- Bootstrap provided no benefit over cold start
+- Evaluation bug was masking DC's true performance
 
 ### 2. Test Set Validation
 Run all approaches (DSPy + DC) on 654 test questions.
