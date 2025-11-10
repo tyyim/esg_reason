@@ -15,6 +15,14 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 sys.path.insert(0, str(project_root / "dc_repo"))
 
+# Load environment variables (for DASHSCOPE_API_KEY)
+from dotenv import load_dotenv
+load_dotenv(project_root / ".env")
+
+# Ensure API key is set in os.environ for litellm
+if not os.getenv("DASHSCOPE_API_KEY"):
+    raise ValueError("DASHSCOPE_API_KEY not found in environment")
+
 # Import original DC code
 from dynamic_cheatsheet.language_model import LanguageModel
 
@@ -141,10 +149,10 @@ Provide ONLY the final answer in the specified format."""
         correct = 0
         
         for i, item in enumerate(tqdm(questions, desc="Evaluating")):
-            question = item['Question']
-            doc_id = item['Document_ID']
-            answer_format = item['Question_Type']
-            gt = item['Answer']
+            question = item['question']
+            doc_id = item['doc_id']
+            answer_format = item['answer_format']
+            gt = item['answer']
             
             # Retrieve context
             context = self.retriever.retrieve(doc_id, question, top_k=5)
@@ -162,6 +170,13 @@ Provide ONLY the final answer in the specified format."""
             input_txt = self.format_input(question, context, answer_format)
             
             try:
+                # For DC-RS: add current embedding BEFORE calling advanced_generate
+                if variant == "retrieval_synthesis":
+                    current_embedding = self.embedding_model.embed_query(question)
+                    # Temporarily add to lists for advanced_generate call
+                    input_embeddings.append(current_embedding)
+                    input_corpus.append(input_txt)
+                
                 # Call original DC advanced_generate()
                 if variant == "cumulative":
                     result = self.lm.advanced_generate(
@@ -194,10 +209,8 @@ Provide ONLY the final answer in the specified format."""
                 pred = result['final_answer']
                 cheatsheet = result['final_cheatsheet']
                 
-                # For DC-RS: update history
+                # For DC-RS: add generator output AFTER getting result
                 if variant == "retrieval_synthesis":
-                    input_corpus.append(input_txt)
-                    input_embeddings.append(self.embedding_model.embed_query(question))
                     generator_outputs.append(pred)
                 
                 # Evaluate
@@ -218,6 +231,10 @@ Provide ONLY the final answer in the specified format."""
                 
             except Exception as e:
                 print(f"\n⚠️  Error on question {i+1}: {e}")
+                # For DC-RS: remove the embedding/corpus we added if there was an error
+                if variant == "retrieval_synthesis" and len(input_embeddings) > len(generator_outputs):
+                    input_embeddings.pop()
+                    input_corpus.pop()
                 predictions.append({
                     'question': question,
                     'predicted': f'ERROR: {str(e)}',

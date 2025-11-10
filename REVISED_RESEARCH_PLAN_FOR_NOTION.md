@@ -47,7 +47,7 @@
 - Establish fair architectural comparisons
 - Understand current performance ceiling
 
-### Completed (Nov 9, 2025)
+### Completed (Nov 9-10, 2025)
 ✅ Fixed evaluation bugs affecting all approaches
 ✅ Re-scored all predictions with corrected evaluator
 ✅ Identified DSPy outperforms DC by 3-4%
@@ -57,13 +57,18 @@
   - Test set: 48.5% (317/654)
   - **Beats 2-stage architecture by +1.6%**
   - **Beats DC by +5.8%**
+✅ DC-RS (Retrieval & Synthesis) Evaluation: **COMPLETE**
+  - Dev set: 44.1% (41/93)
+  - **Same accuracy as DC-CU but 10x slower**
+  - Test set skipped (not worth computational cost)
 
 ### Key Findings
 1. **Simple 1-stage > Complex 2-stage** (48.5% vs 46.9%) ⭐
 2. **Static prompts > Test-time learning** (48.5% vs 42.7%) ⭐
 3. **DSPy optimization > DC test-time learning** (46.9% vs 42.7%)
-4. **Evaluation methodology critical** (bugs masked true performance)
-5. **Hybrid approach best** (format-specific routing: 50.2%)
+4. **DC-RS = DC-CU in accuracy** but 10x slower - retrieval adds no value ⭐ NEW
+5. **Evaluation methodology critical** (bugs masked true performance)
+6. **Hybrid approach best** (format-specific routing: 50.2%)
 
 ### Baseline Results (Corrected Nov 9, 2025)
 
@@ -75,7 +80,8 @@
 | **DSPy Baseline** | 2-stage (CoT + Extract) | 53.8% | 46.9% | Solid |
 | **DSPy GEPA** | 2-stage (CoT + Extract) | 61.3% | 46.3% | Best dev, overfits |
 | **DC-Bootstrap** | 1-stage + learning | — | 43.7% | Test-time learning |
-| **DC-Cold** | 1-stage + learning | 44.1% | 42.7% | Test-time learning, underperforms |
+| **DC-Cold (CU)** | 1-stage + learning | 44.1% | 42.7% | Test-time learning, underperforms |
+| **DC-RS** | 1-stage + retrieval + learning | 44.1% | — | Same as DC-CU, 10x slower ⚠️ |
 
 ---
 

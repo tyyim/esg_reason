@@ -1,0 +1,752 @@
+{
+  "accuracy": 0.44086021505376344,
+  "correct": 41,
+  "total": 93,
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "predicted": "\"Organization C reports its emissions from the T&D system under Scope 2, while the emissions from the electricity sold to Organization D are not reported under Scope 2 since Organization D is an end user consuming the purchased electricity. Instead, Organization D would report these emissions under Scope 1 if they generate electricity, or under Scope 3 if they do not.\"",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "predicted": "9.09",
+      "ground_truth": "10%",
+      "answer_type": "Float",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "predicted": "[\"Sustainable office campuses\", \"Green and low-carbon cloud\", \"Digital and intelligent circular logistics\", \"Sustainable retail stores\", \"Decarbonizing the value chain\", \"Solar power in Alibaba campus\", \"QinCheng Intelligent Space\"]",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "predicted": "\"Water Management\"",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "predicted": "43",
+      "ground_truth": "11",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "predicted": "No final answer found",
+      "ground_truth": "Counterfeit Drugs",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "predicted": "2",
+      "ground_truth": "3",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "predicted": "82.0",
+      "ground_truth": "82%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "When was the survey completed?",
+      "predicted": "April 2024",
+      "ground_truth": "March 2023",
+      "answer_type": "Str",
+      "score": 0.6,
+      "correct": true
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "predicted": "55.0",
+      "ground_truth": "55%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "If electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh with an EFG of 0.5 tCO2e/MWh, what is the emission factor at consumption (EFC)?",
+      "predicted": "0.55",
+      "ground_truth": "0.55 tCO2e/MWh",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What is the average annual power usage effectiveness (PUE) for Google's global fleet of data centers in 2023?",
+      "predicted": "1.10",
+      "ground_truth": "1.10",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "How does thirdhand smoke differ from secondhand smoke in terms of health risks?",
+      "predicted": "null",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+      "predicted": "94.0",
+      "ground_truth": "94%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What are the key actors involved in the revitalized Global Partnership for Sustainable Development? Write the answer in the list format",
+      "predicted": "json\n[\"Member States\", \"Civil Society\", \"The Private Sector\", \"The Scientific Community\", \"United Nations Entities\", \"Multi-stakeholder Partnerships\"]",
+      "ground_truth": "['Governments', 'private sector', 'civil society']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "predicted": "No final answer found",
+      "ground_truth": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "How many components are listed for an effective management system in SA8000?",
+      "predicted": "10",
+      "ground_truth": "10",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What are the key components of an effective management system according to SA8000?",
+      "predicted": "json\n[\"Policies, Procedures and Records\", \"Social Performance Team\", \"Identification and Assessment of Risks\", \"Monitoring\", \"Internal Involvement\", \"Complaint Management and Resolution\", \"External Verification and Stakeholder Engagement\", \"Corrective and Preventive Actions\", \"Training and Capacity Building\"]",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What is Microsoft's mission?",
+      "predicted": "\"At Microsoft, our mission to empower every person and every organization on the planet to achieve more is as important as ever.\"",
+      "ground_truth": "to empower every person and every organization on the planet to achieve more",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the average annual investment gap to meet both the SDS and NZE scenarios from 2025 to 2030?",
+      "predicted": "\"0.3\"",
+      "ground_truth": "USD 1.75 trillion",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "According to the TCFD guidance, what is the maximum number of climate-related scenarios recommended for mature use?",
+      "predicted": "4",
+      "ground_truth": "4",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What are the primary value-adding activities of entities in the Agricultural Products industry? Write the answer in the list format",
+      "predicted": "[\"Processing\", \"Trading\", \"Distributing\", \"Milling\"]",
+      "ground_truth": "['Processing', 'trading', 'distributing', 'milling']",
+      "answer_type": "List",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
+      "predicted": "[\"Austria\", \"Denmark\", \"Finland\", \"Hong Kong SAR\", \"India\", \"the Netherlands\", \"Singapore\", \"Spain\", \"Sweden\", \"the United Kingdom\"]",
+      "ground_truth": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "By what factor are women aged 20\u201324 more likely to have spreadsheet skills than those aged 40\u201344 in low- and middle-income countries?",
+      "predicted": "2",
+      "ground_truth": "2 times",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "Which SDG Goal has the highest combined share of stagnation and regression according to the 2024 assessment?",
+      "predicted": "17",
+      "ground_truth": "Goal 13 (Climate Action)",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "predicted": "\"at least ten years into the future, aligned with capital planning, asset lifecycle, and climate policy community standards.\"",
+      "ground_truth": "At least ten years",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "According to WHO, how many times higher is the risk of premature death for people at the bottom of the social hierarchy compared to the top?",
+      "predicted": "2",
+      "ground_truth": "2",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What percentage of workers have the green skills needed for a green transition?",
+      "predicted": "12.5",
+      "ground_truth": "12.5%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "According to the WHO report, who is especially at risk among the families of migrants, refugees, and ethnic minorities affected by social exclusion?",
+      "predicted": "Str: Families of migrants, refugees, and ethnic minorities affected by social exclusion",
+      "ground_truth": "Children",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+      "predicted": "41.0",
+      "ground_truth": "41%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "How many female are in the Credo Board of Directors?",
+      "predicted": "1",
+      "ground_truth": "1",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What does WASH refer to in the document?",
+      "predicted": "\"Water, sanitation and hygiene\"",
+      "ground_truth": "Water, sanitation and hygiene",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the required minimum employment duration (in weeks) for a graduate to be counted in the job placement rate?",
+      "predicted": "13",
+      "ground_truth": "13",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+      "predicted": "[0.8, 1.3]",
+      "ground_truth": "[0.8, 1.3]",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "How many ILO standards are mentioned that deal with specific toxins and agents?",
+      "predicted": "4",
+      "ground_truth": "5",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+      "predicted": "No final answer found",
+      "ground_truth": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What are the potential risks and impacts of enhanced weathering (EW)?",
+      "predicted": "[\n    \"Mining impacts; air quality impacts of rock dust when spreading on soil.\",\n    \"Potential efficiency losses in energy generation, reducing net carbon dioxide removal by up to 30% with present-day grid average emissions.\"\n]",
+      "ground_truth": "Mining impacts; air quality impacts of rock dust when spreading on soil.",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which ISO standard provides guidelines for auditing management systems?",
+      "predicted": "ISO 19011",
+      "ground_truth": "ISO 19011",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the frequency of assessing climate risks for Meta?",
+      "predicted": "No final answer found",
+      "ground_truth": "More than once a year",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "How many asset managers are part of the Net Zero Asset Managers initiative?",
+      "predicted": "11",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "predicted": "No final answer found",
+      "ground_truth": "75% by weight of product",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "predicted": "\"reach net-zero carbon emissions by 2040\"",
+      "ground_truth": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "answer_type": "Str",
+      "score": 0.6495726495726495,
+      "correct": true
+    },
+    {
+      "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+      "predicted": "No final answer found",
+      "ground_truth": "No",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What was the target greenhouse gas emissions reduction set by the Citizens\u2019 Convention on Climate for 2030?",
+      "predicted": "\"at least 40%\"",
+      "ground_truth": "At least 40% compared to 1990 levels",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What was the estimated financial effect range from increased demand in Google Cloud due to sustainability solutions, based on FY2023 revenue?",
+      "predicted": "null",
+      "ground_truth": "33.1 million to 165.5 million USD",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What are the five pillars of Amazon's strategy to deliver on its human rights commitments?",
+      "predicted": "[\"Developing and Maintaining Strong Policies and Standards\", \"Mechanisms to Assess, Prioritize, and Address Risk\", \"Safe and Healthy Workplaces\", \"Respect for Human Rights in the Supply Chain\", \"Engagement and Collaboration with Stakeholders\"]",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What are the three main approaches to estimate GHG emissions in leased spaces without sub-meter data? Write the answer in the list format.",
+      "predicted": "[\"Building-specific estimation\", \"Proportional allocation of emissions from common spaces\", \"Using widely-accepted emission factors\"]",
+      "ground_truth": "['Building-specific estimation', 'Similar building/facility estimation', 'Generic building space data method']",
+      "answer_type": "List",
+      "score": 0.3333333333333333,
+      "correct": false
+    },
+    {
+      "question": "According to GRI 303-3, which categories of water sources must be included to calculate total water withdrawal in megaliters? Write the answer in list format.",
+      "predicted": "[\"Surface water\", \"Groundwater\", \"Seawater\", \"Produced water\", \"Third-party water\"]",
+      "ground_truth": "['Surface water', 'groundwater', 'seawater', 'produced water', 'third-party water']",
+      "answer_type": "List",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "In 2018, how many reviewed companies disclosed strategy resilience information?",
+      "predicted": "1126",
+      "ground_truth": "101",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What specific procedures did EY perform to verify the ESG data?",
+      "predicted": "No final answer found",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Which principle emphasizes the need for the governing body to set the tone for ethical leadership and values-based culture?",
+      "predicted": "Leadership",
+      "ground_truth": "Leadership",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "If the outdoor PM2.5 level is 90 \u00b5g/m\u00b3 on the day of testing, what is the maximum allowable indoor PM2.5 level to comply with the dynamic threshold requirement? Answer in \u00b5g/m\u00b3",
+      "predicted": "27",
+      "ground_truth": "27",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which country achieved the highest reduction in Scope 3 emissions in 2022 using the GHG Protocol for Public Sector?",
+      "predicted": "null",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What would be the hypothetical annual financial cost for Apple if a global carbon price of $75 per metric ton CO2e were applied to its 2022 total emissions?",
+      "predicted": "1522500000",
+      "ground_truth": "1522500000",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which software company received the highest number of privacy complaints under GDPR in 2022?",
+      "predicted": "null",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
+      "predicted": "6232",
+      "ground_truth": "8219",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What is the projected value of unburned fossil fuels and stranded fossil fuel infrastructure from 2015 to 2050 to limit global warming to approximately 2\u00b0C?",
+      "predicted": "1\u20134",
+      "ground_truth": "Around USD1-4 trillion",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What are the four pillars of TNFD\u2019s recommended disclosure framework? Write the answer in the list format",
+      "predicted": "[\"Governance\", \"Nature-related Dependencies, Impacts, Risks, and Opportunities\", \"Scenario Analysis\", \"Engagement with Indigenous Peoples, Local Communities, and Affected Stakeholders\"]",
+      "ground_truth": "['Governance', 'Strategy', 'Risk & impact management', 'Metrics & targets']",
+      "answer_type": "List",
+      "score": 0.25,
+      "correct": false
+    },
+    {
+      "question": "How does the emission split between Medical Surgical Supplies and Medical Surgical and Laboratory Equipment compare in Mombasa?",
+      "predicted": "null",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the estimated amount of wastewater recycled in Alibaba's Beijing campus in FY2023?",
+      "predicted": "\"6,234\"",
+      "ground_truth": "over 33,000 tons",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "According to the change log, on which dates was the content related to Data Sources and Quality Assurance updated?",
+      "predicted": "[\"12.06.2024\", \"13.12.2024\"]",
+      "ground_truth": "12.06.2024 and 13.12.2024",
+      "answer_type": "Str",
+      "score": 0.7924528301886792,
+      "correct": true
+    },
+    {
+      "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
+      "predicted": "712351",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Which fuel type has the highest tax equivalent per litre under the EUR 30/tonne CO\u2082 rate?",
+      "predicted": "No final answer found",
+      "ground_truth": "Fuel oil",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What is the percentage increase in Black employees from 2022 to 2023?",
+      "predicted": "3.29",
+      "ground_truth": "0.08%",
+      "answer_type": "Float",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "In the NHS Carbon Footprint Plus chart, how many times greater is the emissions share of medicines and chemicals compared to anaesthetic gases?",
+      "predicted": "5",
+      "ground_truth": "4",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What percentage improvement in organizational performance expected after implementing ISO 37000 principles?",
+      "predicted": "No final answer found",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What is the minimum percentage of project area required for WELL Core certification?",
+      "predicted": "75.0",
+      "ground_truth": "75%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What is the total emissions covered by the target in all selected scopes?",
+      "predicted": "538094",
+      "ground_truth": "15357094",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Which regions have experienced the largest adverse impacts on food security? Write the answer in list format.",
+      "predicted": "json\n[\"Africa\", \"Asia\", \"Central and South America\", \"LDCs (Least Developed Countries)\", \"Small Islands\", \"the Arctic\", \"Europe\", \"Australasia\"]",
+      "ground_truth": "['Africa', 'Asia', 'Central and South America']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "In how many phases does the NGFS Conceptual Framework on nature-related risks structure its assessment?",
+      "predicted": "null",
+      "ground_truth": "3",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Who captured the image on page 3 and what is their role?",
+      "predicted": "\"Erika Basham, Director of Sustainability, Product Strategy, United States\"",
+      "ground_truth": "Erika Basham, Director of Sustainability Product Strategy",
+      "answer_type": "Str",
+      "score": 0.8769230769230769,
+      "correct": true
+    },
+    {
+      "question": "What is the total number of trees planted by Amazon in India over three years through the Wild Carbon project?",
+      "predicted": "300000",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How many Working Groups contributed to AR6 according to the Introduction?",
+      "predicted": "No final answer found",
+      "ground_truth": "3",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How many students participated in AWS CloudRoom in 2023?",
+      "predicted": "No final answer found",
+      "ground_truth": "1940",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "Given a company exposure of 8.1 and a Manageable Risk Factor (MRF) of 90%, what is the value of the manageable risk?",
+      "predicted": "7.29",
+      "ground_truth": "7.3",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "How many elements must be determined when planning how to achieve anti-bribery objectives, as listed in clause 6.2?",
+      "predicted": "4",
+      "ground_truth": "6",
+      "answer_type": "Int",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What is the industry-wide average number of government data requests received annually by software companies?",
+      "predicted": "100",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How does the company's employee diversity compare to industry benchmarks?",
+      "predicted": "No final answer found",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "How many survey responses were received in the Market-based Accounting Approaches Survey?",
+      "predicted": "343",
+      "ground_truth": "343",
+      "answer_type": "Int",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which types of renewable materials are used in Dell's fiber-based packaging according to the FY24 report? Write the answer in the list format",
+      "predicted": "json\n[\"Bamboo\", \"Recycled paper\", \"Sugarcane\"]",
+      "ground_truth": "['Bamboo', 'Recycled paper pulp', 'Sugar cane fibers', 'Sustainably sourced raw fiber']",
+      "answer_type": "Str",
+      "score": 0.5263157894736843,
+      "correct": true
+    },
+    {
+      "question": "What are the three age groups specified in GRI 405-1 for diversity reporting? Write the answer in list format.",
+      "predicted": "[\"under 30 years old\", \"30-50 years old\", \"over 50 years old\"]",
+      "ground_truth": "['Under 30 years old', '30\u201350 years old', 'Over 50 years old']",
+      "answer_type": "List",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What are the three overarching themes for this year's Outlook? Write the answer in the list format.",
+      "predicted": "[\"energy security\", \"clean energy transitions\", \"uncertainty\"]",
+      "ground_truth": "['Energy security', 'clean energy transitions', 'uncertainty']",
+      "answer_type": "List",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "According to Gardiner\u2019s framework, what are the three dimensions that make climate change \u2018The Perfect Moral Storm\u2019?",
+      "predicted": "[\"global dimension\", \"intergenerational impacts\", \"moral corruption\"]",
+      "ground_truth": "Global fragmentation, intergenerational injustice, ethical failure",
+      "answer_type": "Str",
+      "score": 0.6074074074074074,
+      "correct": true
+    },
+    {
+      "question": "How does the wage gap in GHG-intensive occupations compare between men and women?",
+      "predicted": "\"On average, the share of green-driven occupation is 1.6% higher among high-wage men than among low-wage men.\"",
+      "ground_truth": "More negative for men",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+      "predicted": "12.8",
+      "ground_truth": "12.8%",
+      "answer_type": "Float",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "What are the key environmental frameworks Meta is a signatory/member of? Write the answer in the list format",
+      "predicted": "[\"We Are Still In\", \"RE100\", \"Science Based Targets Network (SBTN)\", \"UN Global Compact\", \"World Business Council for Sustainable Development (WBCSD)\"]",
+      "ground_truth": "['SBTN', 'RE100', 'UN Global Compact', 'We Are Still In', 'WBCSD', 'Responsible Business Alliance']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "predicted": "\"a huge cause of ill health and premature death\"",
+      "ground_truth": "Premature death",
+      "answer_type": "Str",
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "Which ISO 14001:2015 clause replaces the 'Control of documents' requirement from ISO 14001:2004? Write the answer in the list format",
+      "predicted": "No final answer found",
+      "ground_truth": "['Clause 7.5.2 Creating and updating', 'Clause 7.5.3 Control of documented information']",
+      "answer_type": "List",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What criteria are used to determine if emissions fall within the minimum boundary for Scope 3 Category 11?",
+      "predicted": "The activity accounts for more than 1% of the company\u2019s total annual scope 3 emissions; or The activity generates more than 10,000 tCO\u2082e per year.",
+      "ground_truth": "Direct use-phase emissions of sold products",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "How should tailings facilities be reported for organizations with oil sands mining operations?",
+      "predicted": "null",
+      "ground_truth": "Not answerable",
+      "answer_type": null,
+      "score": 1.0,
+      "correct": true
+    },
+    {
+      "question": "From Figure 3.2, which region simultaneously faces high heat-humidity mortality risk and severe maize yield loss at 4.2\u20135.4\u00b0C warming?",
+      "predicted": "[\"Europe\"]",
+      "ground_truth": "South Asia",
+      "answer_type": "Str",
+      "score": 0,
+      "correct": false
+    },
+    {
+      "question": "What percentage of Dell's direct material suppliers reported sustainability initiatives in FY24?",
+      "predicted": "92.86",
+      "ground_truth": "89.9%",
+      "answer_type": "Float",
+      "score": 0.0,
+      "correct": false
+    },
+    {
+      "question": "What percentage of plastic used in Google's consumer hardware product portfolio was recycled in 2023?",
+      "predicted": "null",
+      "ground_truth": "50%",
+      "answer_type": "Float",
+      "score": 0.0,
+      "correct": false
+    }
+  ],
+  "final_cheatsheet": "Version: 1.45\n\n## Reusable Code Snippets and Solution Strategies\n\n<memory_item>\nTo determine the percentage of plastic used in Google's consumer hardware product portfolio that was recycled in 2023, follow these steps:\n1. **Identify Relevant Data:** Locate the specific section in Google's ESG report that mentions the recycling of plastic in consumer hardware.\n2. **Extract Recycling Data:** Extract the total amount of plastic used and the amount of recycled plastic.\n3. **Calculate Percentage:** Compute the percentage of recycled plastic based on the total plastic used.\n\n### Example:\nBased on the context provided, the percentage of plastic used in Google's consumer hardware product portfolio that was recycled in 2023 can be determined as follows:\n\n```python\ndef calculate_recycled_plastic_percentage(plastic_data):\n    \"\"\"\n    Calculate the percentage of plastic used in Google's consumer hardware product portfolio that was recycled in 2023.\n    \n    :param plastic_data: Dictionary containing plastic usage and recycling data.\n    :return: Percentage of recycled plastic.\n    \"\"\"\n    total_plastic_used = plastic_data['total_plastic_used']\n    recycled_plastic = plastic_data['recycled_plastic']\n    \n    if total_plastic_used == 0:\n        return 0.0\n    \n    percentage = (recycled_plastic / total_plastic_used) * 100\n    return percentage\n\n# Example usage\nplastic_data = {\n    'total_plastic_used': 15000,\n    'recycled_plastic': 6000\n}\n\nprint(calculate_recycled_plastic_percentage(plastic_data))\n```\n\n** Count: 0\n\n## General Problem-Solving Heuristics\n\n<memory_item>\nWhen dealing with ESG reports, look for specific sections that detail the recycling of materials in consumer hardware. These sections often provide the necessary data to extract and analyze.\n\n### Example:\n```python\ndef find_recycling_section(esg_report):\n    \"\"\"\n    Find the section in the ESG report that details the recycling of plastic in consumer hardware.\n    \n    :param esg_report: String containing the ESG report text.\n    :return: Section of the ESG report detailing the recycling of plastic in consumer hardware.\n    \"\"\"\n    start_index = esg_report.find(\"recycling of plastic in consumer hardware\")\n    end_index = esg_report.find(\"Our approach to disclosure is informed by the following standards and frameworks:\")\n    \n    if start_index != -1 and end_index != -1:\n        return esg_report[start_index:end_index].strip()\n    else:\n        return \"Section not found\"\n\n# Example usage\nesg_report_text = \"\"\"\n[Page 13, score: 0.651]\nOther Google initiatives \n\u2022  Accessibility\n\u2022  Crisis response\n\u2022  Digital wellbeing\n\u2022  Belonging\n\u2022  Safety Center\n\n[Page 14, score: 0.616]\n\u2022  Google for Health\n\u2022  Grow with Google\n\u2022  About Google\n\u2022  Google products\n\u2022  Privacy\n\n[Page 7, score: 0.613]\n\u2022  Overview\nOther Google initiatives\n\n[Page 8, score: 0.604]\n\u2022  Accessibility\n\u2022  Crisis response\n\u2022  Digital wellbeing\n\u2022  Belonging\n\u2022  Safety Center\n\u2022  Google for Health\n\n[Page 9, score: 0.597]\n\u2022  Grow with Google\nOur research \n\u2022  Overview\nTools\n\"\"\"\n\nrecycling_section = find_recycling_section(esg_report_text)\nprint(recycling_section)\n```\n\n** Count: 0\n\n## Optimization Techniques & Edge Cases\n\n- **Optimization:** Directly reference the relevant sections of the ESG document for accurate and up-to-date information on plastic recycling in consumer hardware.\n- **Edge Case Handling:** Ensure that the plastic data is correctly extracted and that the calculation handles zero-plastic scenarios gracefully.\n\n## Specialized Knowledge & Theorems\n\n- **Plastic Recycling Data:** Google's ESG reports typically contain detailed sections on material recycling, including plastic, in consumer hardware.\n- **Percentage Calculation:** Use the formula `(recycled_plastic / total_plastic_used) * 100` to calculate the percentage of recycled plastic.\n\n### Additional Insight from Previous Inputs\n\n- **Material Recycling Data Extraction:** Look for specific keywords like \"recycling of plastic in consumer hardware\" and \"2023\" in the ESG document to locate the relevant data.\n- **Data Consistency:** Ensure that the data extracted from the ESG document is consistent and accurately reflects the information provided.\n\n#### Example:\n```python\ndef extract_plastic_data(esg_report):\n    \"\"\"\n    Extract the total amount of plastic used and the amount of recycled plastic in Google's consumer hardware.\n    \n    :param esg_report: String containing the ESG report text.\n    :return: Tuple containing (total_plastic_used, recycled_plastic).\n    \"\"\"\n    total_plastic_used = 0\n    recycled_plastic = 0\n    \n    # Assuming the data is in a specific format\n    if \"total_plastic_used\" in esg_report:\n        total_plastic_used = int(esg_report.split(\"total_plastic_used: \")[1].split(\",\")[0])\n    if \"recycled_plastic\" in esg_report:\n        recycled_plastic = int(esg_report.split(\"recycled_plastic: \")[1].split(\",\")[0])\n    \n    return total_plastic_used, recycled_plastic\n\n# Example usage\nesg_report_text = \"\"\"\n[Page 13, score: 0.651]\nOther Google initiatives \n\u2022  Accessibility\n\u2022  Crisis response\n\u2022  Digital wellbeing\n\u2022  Belonging\n\u2022  Safety Center\n\n[Page 14, score: 0.616]\n\u2022  Google for Health\n\u2022  Grow with Google\n\u2022  About Google\n\u2022  Google products\n\u2022  Privacy\n\n[Page 7, score: 0.613]\n\u2022  Overview\nOther Google initiatives\n\n[Page 8, score: 0.604]\n\u2022  Accessibility\n\u2022  Crisis response\n\u2022  Digital wellbeing\n\u2022  Belonging\n\u2022  Safety Center\n\u2022  Google for Health\n\n[Page 9, score: 0.597]\n\u2022  Grow with Google\nOur research \n\u2022  Overview\nTools\n\"\"\"\n\ntotal_plastic_used, recycled_plastic = extract_plastic_data(esg_report_text)\nprint(f\"Total Plastic Used: {total_plastic_used}, Recycled Plastic: {recycled_plastic}\")\n```\n\n** Count: 0\n\n## Next Question Solution\n\nFrom the provided context, the percentage of plastic used in Google's consumer hardware product portfolio that was recycled in 2023 can be determined as follows:\n\n```python\ndef calculate_recycled_plastic_percentage(plastic_data):\n    \"\"\"\n    Calculate the percentage of plastic used in Google's consumer hardware product portfolio that was recycled in 2023.\n    \n    :param plastic_data: Dictionary containing plastic usage and recycling data.\n    :return: Percentage of recycled plastic.\n    \"\"\"\n    total_plastic_used = plastic_data['total_plastic_used']\n    recycled_plastic = plastic_data['recycled_plastic']\n    \n    if total_plastic_used == 0:\n        return 0.0\n    \n    percentage = (recycled_plastic / total_plastic_used) * 100\n    return percentage\n\n# Example usage\nplastic_data = {\n    'total_plastic_used': 15000,\n    'recycled_plastic': 6000\n}\n\nprint(calculate_recycled_plastic_percentage(plastic_data))\n```\n\n** Count: 0\n```\n\n** Final Answer: **\n\n40.0\n---\n---"
+}

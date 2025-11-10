@@ -20,7 +20,10 @@
 | **Baseline (2-stage)** | qwen2.5-7b | 46.9% (307/654) | -0.5% | Nov 9 ✅ |
 | **GEPA** | qwen2.5-7b | 46.3% (303/654) | -1.1% | Nov 9 ✅ |
 | **DC-Bootstrap** | qwen2.5-7b | 43.7% (286/654) | -3.7% ❌ | Nov 9 |
-| **DC-Cold (Test-Time Learning)** | qwen2.5-7b | 42.7% (279/654) | -4.7% ❌ | Nov 9 |
+| **DC-Cold (CU)** | qwen2.5-7b | 42.7% (279/654) | -4.7% ❌ | Nov 9 |
+| **DC-RS** | qwen2.5-7b | 44.1% (41/93) *dev only* | -4.8% | Nov 10 ⚠️ |
+
+**DC-RS Note**: DC-RS (Retrieval & Synthesis) = DC-CU in dev accuracy (44.1%) but 10x slower (43s vs 4s per question). Skipped test set due to computational cost with no benefit.
 
 **🚨 CRITICAL DISCOVERIES (Nov 9)**: 
 - **Evaluation bugs affected ALL approaches** (DSPy + DC), not just DC

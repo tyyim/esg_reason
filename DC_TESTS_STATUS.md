@@ -42,9 +42,12 @@ User questioned why DSPy baseline (47.4%) seemed too good. Investigation reveale
 | **DSPy Baseline** | **53.8%** | **46.9%** | baseline | 🥉 3rd |
 | **DSPy GEPA** | **61.3%** ⭐ | 46.3% | -0.6% | 4th |
 | **DC-Bootstrap** | — | 43.7% | **-3.2%** ❌ | 5th |
-| **DC-Cold** | 44.1% | 42.7% | **-4.2%** ❌ | 6th |
+| **DC-Cold (CU)** | 44.1% | 42.7% | **-4.2%** ❌ | 6th |
+| **DC-RS** | 44.1% | — | **-9.7%** ❌ | 6th (tie) |
 
 **Key Finding**: DSPy optimization > Test-time learning for ESG QA
+
+**DC-RS Note**: DC-RS (Retrieval & Synthesis) = DC-CU (Cumulative) in accuracy (44.1%) but **10x slower** (43s vs 4s per question). Not worth the cost.
 
 ---
 
@@ -257,6 +260,82 @@ User questioned why DSPy baseline (47.4%) seemed too good. Investigation reveale
 
 ---
 
+## Test 4: DC-RS (Retrieval & Synthesis) - Dev Set
+
+**Date**: November 10, 2025  
+**Status**: ✅ COMPLETE  
+**Duration**: 1 hour 7 minutes (93 questions)
+
+### Configuration
+- **Variant**: DC-RS (Retrieval & Synthesis)
+- **Model**: qwen2.5-7b-instruct
+- **Dataset**: Dev set (93 questions)
+- **Mechanism**: Retrieves top-5 similar past Q&As, synthesizes custom cheatsheet per question
+
+### Results
+
+**Overall**: 44.1% (41/93) - **Identical to DC-CU!**
+
+**Format Breakdown**:
+
+| Format | Correct | Total | Accuracy | vs DC-CU | Insight |
+|--------|---------|-------|----------|----------|---------|
+| Float | 9 | 13 | 69.2% | ±0.0% | Same |
+| Str | 15 | 34 | 44.1% | **+26.5%** | ✅ Much better! |
+| Int | 8 | 19 | 42.1% | ±0.0% | Same |
+| null | 5 | 14 | 35.7% | **-50.0%** | ❌ Much worse! |
+| List | 4 | 13 | 30.8% | -15.4% | ❌ Worse |
+
+### Key Findings
+
+#### 1. **No Overall Benefit Despite 10x Cost**
+- DC-RS = DC-CU in accuracy (44.1%)
+- DC-RS is **10x slower**: ~43s vs ~4s per question
+- Retrieval overhead not justified
+
+#### 2. **Format-Specific Trade-offs**
+- ✅ **Strings**: +26.5% improvement (17.6% → 44.1%)
+  - Retrieval of similar Q&As helps text extraction
+- ❌ **Null detection**: -50.0% degradation (85.7% → 35.7%)
+  - Retrieval adds noise, confuses refusal detection
+- ❌ **Lists**: -15.4% degradation (46.2% → 30.8%)
+
+#### 3. **Why Gains/Losses Cancel Out**
+- Gained: +9 String questions (from 6 → 15)
+- Lost: -7 null questions (from 12 → 5)
+- Lost: -2 List questions (from 6 → 4)
+- **Net**: +9 - 7 - 2 = ±0 questions
+
+#### 4. **Computational Analysis**
+- **Memory**: ~437 KB (3 parallel lists: corpus, embeddings, outputs)
+- **Time complexity**: O(N) per question (N = history size)
+- **Slowdown**: Questions 1-20 (~20-30s), Questions 51-93 (~60-90s)
+
+### Cost-Benefit Analysis
+
+| Metric | DC-CU | DC-RS | Winner |
+|--------|-------|-------|--------|
+| Accuracy | 44.1% | 44.1% | **Tie** |
+| Speed | ~4s/Q | ~43s/Q | **DC-CU (10x)** |
+| Memory | ~50 KB | ~437 KB | **DC-CU** |
+| String perf | 17.6% | 44.1% | **DC-RS (+26.5%)** |
+| Null detect | 85.7% | 35.7% | **DC-CU (+50%)** |
+
+### Recommendation
+
+**❌ Do NOT use DC-RS** because:
+1. Same overall accuracy as DC-CU
+2. 10x slower (impractical for large datasets)
+3. Worse null detection (critical for ESG QA)
+4. String improvement doesn't justify cost
+
+**Exception**: Only consider if dataset has mostly Str questions and few null questions.
+
+### File
+`results/dc_experiments/dc_v2_retrieval_synthesis_dev_20251110_233010.json`
+
+---
+
 ## Conclusion
 
 Dynamic Cheatsheet evaluation complete with corrected results. Key findings:
@@ -264,6 +343,7 @@ Dynamic Cheatsheet evaluation complete with corrected results. Key findings:
 1. ✅ **DSPy optimization outperforms test-time learning** by 3-4%
 2. ✅ **Hybrid approach remains best** (50.2%)
 3. ✅ **Evaluation methodology critical** - bugs masked true performance
-4. ❌ **DC not viable as primary approach** for ESG QA
+4. ❌ **DC-CU and DC-RS both underperform** - not viable as primary approaches
+5. ❌ **DC-RS adds no value** - 10x slower with same accuracy as DC-CU
 
-**Research contribution**: Demonstrates importance of offline prompt optimization vs. online learning for structured ESG question answering.
+**Research contribution**: Demonstrates importance of offline prompt optimization vs. online learning for structured ESG question answering. DC-RS's retrieval mechanism doesn't improve accuracy despite significant computational overhead.
