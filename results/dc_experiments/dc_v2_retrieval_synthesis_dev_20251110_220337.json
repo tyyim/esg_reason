@@ -1,0 +1,566 @@
+{
+  "accuracy": 0.0,
+  "correct": 0,
+  "total": 93,
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "predicted": "ERROR: litellm.AuthenticationError: AuthenticationError: DashscopeException - Incorrect API key provided. ",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "correct": false
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO\u2082/kWh and an EFG of 0.6 kg CO\u2082/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "10%",
+      "correct": false
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "correct": false
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "correct": false
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "11",
+      "correct": false
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Counterfeit Drugs",
+      "correct": false
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "3",
+      "correct": false
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "82%",
+      "correct": false
+    },
+    {
+      "question": "When was the survey completed?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "March 2023",
+      "correct": false
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "55%",
+      "correct": false
+    },
+    {
+      "question": "If electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh with an EFG of 0.5 tCO2e/MWh, what is the emission factor at consumption (EFC)?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "0.55 tCO2e/MWh",
+      "correct": false
+    },
+    {
+      "question": "What is the average annual power usage effectiveness (PUE) for Google's global fleet of data centers in 2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "1.10",
+      "correct": false
+    },
+    {
+      "question": "How does thirdhand smoke differ from secondhand smoke in terms of health risks?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "94%",
+      "correct": false
+    },
+    {
+      "question": "What are the key actors involved in the revitalized Global Partnership for Sustainable Development? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Governments', 'private sector', 'civil society']",
+      "correct": false
+    },
+    {
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "correct": false
+    },
+    {
+      "question": "How many components are listed for an effective management system in SA8000?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "10",
+      "correct": false
+    },
+    {
+      "question": "What are the key components of an effective management system according to SA8000?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What is Microsoft's mission?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "to empower every person and every organization on the planet to achieve more",
+      "correct": false
+    },
+    {
+      "question": "What is the average annual investment gap to meet both the SDS and NZE scenarios from 2025 to 2030?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "USD 1.75 trillion",
+      "correct": false
+    },
+    {
+      "question": "According to the TCFD guidance, what is the maximum number of climate-related scenarios recommended for mature use?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "4",
+      "correct": false
+    },
+    {
+      "question": "What are the primary value-adding activities of entities in the Agricultural Products industry? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Processing', 'trading', 'distributing', 'milling']",
+      "correct": false
+    },
+    {
+      "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
+      "correct": false
+    },
+    {
+      "question": "By what factor are women aged 20\u201324 more likely to have spreadsheet skills than those aged 40\u201344 in low- and middle-income countries?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "2 times",
+      "correct": false
+    },
+    {
+      "question": "Which SDG Goal has the highest combined share of stagnation and regression according to the 2024 assessment?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Goal 13 (Climate Action)",
+      "correct": false
+    },
+    {
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "At least ten years",
+      "correct": false
+    },
+    {
+      "question": "According to WHO, how many times higher is the risk of premature death for people at the bottom of the social hierarchy compared to the top?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "2",
+      "correct": false
+    },
+    {
+      "question": "What percentage of workers have the green skills needed for a green transition?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "12.5%",
+      "correct": false
+    },
+    {
+      "question": "According to the WHO report, who is especially at risk among the families of migrants, refugees, and ethnic minorities affected by social exclusion?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Children",
+      "correct": false
+    },
+    {
+      "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "41%",
+      "correct": false
+    },
+    {
+      "question": "How many female are in the Credo Board of Directors?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "1",
+      "correct": false
+    },
+    {
+      "question": "What does WASH refer to in the document?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Water, sanitation and hygiene",
+      "correct": false
+    },
+    {
+      "question": "What is the required minimum employment duration (in weeks) for a graduate to be counted in the job placement rate?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "13",
+      "correct": false
+    },
+    {
+      "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "[0.8, 1.3]",
+      "correct": false
+    },
+    {
+      "question": "How many ILO standards are mentioned that deal with specific toxins and agents?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "5",
+      "correct": false
+    },
+    {
+      "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+      "correct": false
+    },
+    {
+      "question": "What are the potential risks and impacts of enhanced weathering (EW)?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Mining impacts; air quality impacts of rock dust when spreading on soil.",
+      "correct": false
+    },
+    {
+      "question": "Which ISO standard provides guidelines for auditing management systems?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "ISO 19011",
+      "correct": false
+    },
+    {
+      "question": "What is the frequency of assessing climate risks for Meta?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "More than once a year",
+      "correct": false
+    },
+    {
+      "question": "How many asset managers are part of the Net Zero Asset Managers initiative?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "75% by weight of product",
+      "correct": false
+    },
+    {
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "correct": false
+    },
+    {
+      "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "No",
+      "correct": false
+    },
+    {
+      "question": "What was the target greenhouse gas emissions reduction set by the Citizens\u2019 Convention on Climate for 2030?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "At least 40% compared to 1990 levels",
+      "correct": false
+    },
+    {
+      "question": "What was the estimated financial effect range from increased demand in Google Cloud due to sustainability solutions, based on FY2023 revenue?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "33.1 million to 165.5 million USD",
+      "correct": false
+    },
+    {
+      "question": "What are the five pillars of Amazon's strategy to deliver on its human rights commitments?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What are the three main approaches to estimate GHG emissions in leased spaces without sub-meter data? Write the answer in the list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Building-specific estimation', 'Similar building/facility estimation', 'Generic building space data method']",
+      "correct": false
+    },
+    {
+      "question": "According to GRI 303-3, which categories of water sources must be included to calculate total water withdrawal in megaliters? Write the answer in list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Surface water', 'groundwater', 'seawater', 'produced water', 'third-party water']",
+      "correct": false
+    },
+    {
+      "question": "In 2018, how many reviewed companies disclosed strategy resilience information?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "101",
+      "correct": false
+    },
+    {
+      "question": "What specific procedures did EY perform to verify the ESG data?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "Which principle emphasizes the need for the governing body to set the tone for ethical leadership and values-based culture?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Leadership",
+      "correct": false
+    },
+    {
+      "question": "If the outdoor PM2.5 level is 90 \u00b5g/m\u00b3 on the day of testing, what is the maximum allowable indoor PM2.5 level to comply with the dynamic threshold requirement? Answer in \u00b5g/m\u00b3",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "27",
+      "correct": false
+    },
+    {
+      "question": "Which country achieved the highest reduction in Scope 3 emissions in 2022 using the GHG Protocol for Public Sector?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What would be the hypothetical annual financial cost for Apple if a global carbon price of $75 per metric ton CO2e were applied to its 2022 total emissions?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "1522500000",
+      "correct": false
+    },
+    {
+      "question": "Which software company received the highest number of privacy complaints under GDPR in 2022?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "8219",
+      "correct": false
+    },
+    {
+      "question": "What is the projected value of unburned fossil fuels and stranded fossil fuel infrastructure from 2015 to 2050 to limit global warming to approximately 2\u00b0C?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Around USD1-4 trillion",
+      "correct": false
+    },
+    {
+      "question": "What are the four pillars of TNFD\u2019s recommended disclosure framework? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Governance', 'Strategy', 'Risk & impact management', 'Metrics & targets']",
+      "correct": false
+    },
+    {
+      "question": "How does the emission split between Medical Surgical Supplies and Medical Surgical and Laboratory Equipment compare in Mombasa?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What is the estimated amount of wastewater recycled in Alibaba's Beijing campus in FY2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "over 33,000 tons",
+      "correct": false
+    },
+    {
+      "question": "According to the change log, on which dates was the content related to Data Sources and Quality Assurance updated?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "12.06.2024 and 13.12.2024",
+      "correct": false
+    },
+    {
+      "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "Which fuel type has the highest tax equivalent per litre under the EUR 30/tonne CO\u2082 rate?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Fuel oil",
+      "correct": false
+    },
+    {
+      "question": "What is the percentage increase in Black employees from 2022 to 2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "0.08%",
+      "correct": false
+    },
+    {
+      "question": "In the NHS Carbon Footprint Plus chart, how many times greater is the emissions share of medicines and chemicals compared to anaesthetic gases?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "4",
+      "correct": false
+    },
+    {
+      "question": "What percentage improvement in organizational performance expected after implementing ISO 37000 principles?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "What is the minimum percentage of project area required for WELL Core certification?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "75%",
+      "correct": false
+    },
+    {
+      "question": "What is the total emissions covered by the target in all selected scopes?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "15357094",
+      "correct": false
+    },
+    {
+      "question": "Which regions have experienced the largest adverse impacts on food security? Write the answer in list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Africa', 'Asia', 'Central and South America']",
+      "correct": false
+    },
+    {
+      "question": "In how many phases does the NGFS Conceptual Framework on nature-related risks structure its assessment?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "3",
+      "correct": false
+    },
+    {
+      "question": "Who captured the image on page 3 and what is their role?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Erika Basham, Director of Sustainability Product Strategy",
+      "correct": false
+    },
+    {
+      "question": "What is the total number of trees planted by Amazon in India over three years through the Wild Carbon project?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "How many Working Groups contributed to AR6 according to the Introduction?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "3",
+      "correct": false
+    },
+    {
+      "question": "How many students participated in AWS CloudRoom in 2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "1940",
+      "correct": false
+    },
+    {
+      "question": "Given a company exposure of 8.1 and a Manageable Risk Factor (MRF) of 90%, what is the value of the manageable risk?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "7.3",
+      "correct": false
+    },
+    {
+      "question": "How many elements must be determined when planning how to achieve anti-bribery objectives, as listed in clause 6.2?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "6",
+      "correct": false
+    },
+    {
+      "question": "What is the industry-wide average number of government data requests received annually by software companies?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "How does the company's employee diversity compare to industry benchmarks?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "How many survey responses were received in the Market-based Accounting Approaches Survey?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "343",
+      "correct": false
+    },
+    {
+      "question": "Which types of renewable materials are used in Dell's fiber-based packaging according to the FY24 report? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Bamboo', 'Recycled paper pulp', 'Sugar cane fibers', 'Sustainably sourced raw fiber']",
+      "correct": false
+    },
+    {
+      "question": "What are the three age groups specified in GRI 405-1 for diversity reporting? Write the answer in list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Under 30 years old', '30\u201350 years old', 'Over 50 years old']",
+      "correct": false
+    },
+    {
+      "question": "What are the three overarching themes for this year's Outlook? Write the answer in the list format.",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Energy security', 'clean energy transitions', 'uncertainty']",
+      "correct": false
+    },
+    {
+      "question": "According to Gardiner\u2019s framework, what are the three dimensions that make climate change \u2018The Perfect Moral Storm\u2019?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Global fragmentation, intergenerational injustice, ethical failure",
+      "correct": false
+    },
+    {
+      "question": "How does the wage gap in GHG-intensive occupations compare between men and women?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "More negative for men",
+      "correct": false
+    },
+    {
+      "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "12.8%",
+      "correct": false
+    },
+    {
+      "question": "What are the key environmental frameworks Meta is a signatory/member of? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['SBTN', 'RE100', 'UN Global Compact', 'We Are Still In', 'WBCSD', 'Responsible Business Alliance']",
+      "correct": false
+    },
+    {
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Premature death",
+      "correct": false
+    },
+    {
+      "question": "Which ISO 14001:2015 clause replaces the 'Control of documents' requirement from ISO 14001:2004? Write the answer in the list format",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "['Clause 7.5.2 Creating and updating', 'Clause 7.5.3 Control of documented information']",
+      "correct": false
+    },
+    {
+      "question": "What criteria are used to determine if emissions fall within the minimum boundary for Scope 3 Category 11?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Direct use-phase emissions of sold products",
+      "correct": false
+    },
+    {
+      "question": "How should tailings facilities be reported for organizations with oil sands mining operations?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "Not answerable",
+      "correct": false
+    },
+    {
+      "question": "From Figure 3.2, which region simultaneously faces high heat-humidity mortality risk and severe maize yield loss at 4.2\u20135.4\u00b0C warming?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "South Asia",
+      "correct": false
+    },
+    {
+      "question": "What percentage of Dell's direct material suppliers reported sustainability initiatives in FY24?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "89.9%",
+      "correct": false
+    },
+    {
+      "question": "What percentage of plastic used in Google's consumer hardware product portfolio was recycled in 2023?",
+      "predicted": "ERROR: list index out of range",
+      "ground_truth": "50%",
+      "correct": false
+    }
+  ],
+  "final_cheatsheet": "(empty)"
+}
