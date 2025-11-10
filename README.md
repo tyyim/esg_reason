@@ -15,21 +15,25 @@
 | Approach  | Model | Accuracy | Change | Status |
 |-----------|-------|----------|--------|--------|
 | **🏆 Hybrid (Format-Based)** | qwen2.5-7b | **50.2% (328/654)** | **+3.3%** ✅ | Oct 22 |
+| **Simple Baseline (1-stage)** | qwen2.5-7b | **48.5% (317/654)** | **+1.6%** ✅ | Nov 9 |
 | **MIPROv2** | qwen2.5-7b | 47.4% (310/654) | baseline | Nov 9 ✅ |
-| **Baseline** | qwen2.5-7b | 46.9% (307/654) | -0.5% | Nov 9 ✅ |
+| **Baseline (2-stage)** | qwen2.5-7b | 46.9% (307/654) | -0.5% | Nov 9 ✅ |
 | **GEPA** | qwen2.5-7b | 46.3% (303/654) | -1.1% | Nov 9 ✅ |
 | **DC-Bootstrap** | qwen2.5-7b | 43.7% (286/654) | -3.7% ❌ | Nov 9 |
 | **DC-Cold (Test-Time Learning)** | qwen2.5-7b | 42.7% (279/654) | -4.7% ❌ | Nov 9 |
 
-**🚨 CRITICAL DISCOVERY (Nov 9)**: 
+**🚨 CRITICAL DISCOVERIES (Nov 9)**: 
 - **Evaluation bugs affected ALL approaches** (DSPy + DC), not just DC
 - **Original results were INCORRECT** due to:
   1. Null equivalence bug (treating "null" ≠ "Not answerable")
   2. ANLS string bug (character-by-character instead of full string)
 - **Re-scored with fixed evaluator** → DSPy approaches outperform DC by 3-4%
+- **Simple 1-stage baseline outperforms complex 2-stage by +1.6%!**
 - **Hybrid format-based routing remains best overall!**
 
-See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ERROR_ANALYSIS.md) for full analysis.
+**Key Insight**: Simpler architectures can outperform complex multi-stage pipelines. The Simple Baseline (1-stage direct QA) beats the 2-stage (Reasoning + Extraction) approach and significantly outperforms DC's test-time learning (+5.8%).
+
+See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ERROR_ANALYSIS.md) for full analysis and [`results/SIMPLE_BASELINE_RESULTS_SUMMARY.md`](results/SIMPLE_BASELINE_RESULTS_SUMMARY.md) for Simple Baseline findings.
 
 ---
 
@@ -73,13 +77,19 @@ Structured Answer (Int/Float/Str/List/None)
 - Evolves prompts through 32 iterations
 - Result: +2.2% (improved) ✅
 
+**Simple Baseline (Single-Stage)**:
+- Direct question → answer in one LLM call (no separate reasoning/extraction)
+- Simpler architecture than 2-stage DSPy baseline
+- Result: **48.5%** (test set) - **beats 2-stage by +1.6%**
+- **Key insight**: Architectural simplicity can outperform complexity
+
 **Dynamic Cheatsheet (Test-Time Learning)**:
 - Model learns from past questions during evaluation
 - Accumulates insights in evolving "cheatsheet"
 - DC-Cold: 42.7% (empty cheatsheet, learns during test) ✅ Corrected
 - DC-Bootstrap: 43.7% (starts with dev cheatsheet) ✅ Corrected
-- **Result**: Underperforms DSPy approaches by 3-4%
-- **Key insight**: Test-time learning alone insufficient vs. proper prompt optimization
+- **Result**: Underperforms even simple static prompts by 5.8%
+- **Key insight**: Test-time learning underperforms proper prompt design
 
 ---
 
@@ -249,12 +259,24 @@ correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 
 ## 💡 Key Findings
 
-### 1. GEPA Works Better Than MIPROv2
-- **GEPA**: +2.2% improvement
-- **MIPROv2**: -4.3% degradation
-- **Reason**: Reflection-based evolution captures domain patterns better
+### 1. Simpler Architecture > Complex Pipeline ⭐ **NEW**
+- **Simple 1-stage**: 48.5% (direct question → answer)
+- **2-stage Baseline**: 46.9% (reasoning → extraction)
+- **Gap**: +1.6% in favor of simplicity
+- **Reason**: Each stage introduces error risk; single well-designed prompt can outperform multi-stage
 
-### 2. Format-Specific Performance
+### 2. Static Prompts > Test-Time Learning (Current Implementation) ⭐ **NEW**
+- **Simple Baseline (no learning)**: 48.5%
+- **DC-Cold (test-time learning)**: 42.7%
+- **Gap**: +5.8% in favor of static prompts
+- **Reason**: DC's cheatsheet accumulation adds noise; structured knowledge needed
+
+### 3. GEPA Works Better Than MIPROv2 (Dev Set Only)
+- **GEPA**: +7.5% improvement (dev), but overfits
+- **MIPROv2**: -1.1% (dev), but competitive on test
+- **Reason**: Reflection-based evolution captures domain patterns better but overfits to dev
+
+### 4. Format-Specific Performance
 | Format | Baseline | GEPA | Change |
 |--------|----------|------|--------|
 | **Int** | 63.2% | **73.7%** | **+10.5%** ✅ |
@@ -265,17 +287,18 @@ correct = (answer_score >= 0.5)  # ANLS 0.5 threshold
 
 **Insight**: GEPA excels at structured extraction but struggles with text and "not answerable" detection.
 
-### 3. Cost-Performance Tradeoff
-| Model | Cost ($/1K tokens) | Dev Accuracy |
-|-------|-------------------|--------------|
-| qwen-max | $0.06 | ~69.9% |
-| qwen2.5-7b (GEPA) | $0.0006 | 54.8% |
-| **Ratio** | **100x cheaper** | **78% performance** |
+### 5. Cost-Performance Tradeoff
+| Model | Cost ($/1K tokens) | Test Accuracy |
+|-------|-------------------|---------------|
+| qwen-max | $0.06 | ~69.9% (estimated) |
+| Simple Baseline | $0.0006 | 48.5% |
+| **Ratio** | **100x cheaper** | **69% performance** |
 
-### 4. Prompt Length Matters
-- **Baseline**: 0 characters (DSPy default)
-- **GEPA**: 7,749 characters
-- **Trade-off**: Longer prompts help structured data but hurt text extraction
+### 6. Prompt Length Matters
+- **Simple Baseline**: ~500 characters (optimal)
+- **DSPy Baseline**: 0 characters (DSPy default)
+- **GEPA**: 7,749 characters (too long)
+- **Trade-off**: Well-designed concise prompts > extremely long prompts
 
 ---
 
