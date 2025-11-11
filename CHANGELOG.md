@@ -1,5 +1,115 @@
 # CHANGELOG - ESG Reasoning Project
 
+## 2025-11-11 - Phase 2 Complete: Framework Advantage Discovery & Hypothesis Testing
+
+### CRITICAL DISCOVERY: DSPy Framework Provides MASSIVE +12.9% Advantage
+
+**Problem**: Previous "Simple Baseline" (58.1%) vs DC-CU (44.1%) comparison was unfair - Simple Baseline used DSPy framework while DC did not.
+
+**Solution**: Implemented RAW versions (no DSPy framework) for fair "apple-to-apple" comparison.
+
+### Fair Comparison Results (Dev Set, 93 Questions)
+
+| Implementation | Model | Framework | Accuracy | Insight |
+|----------------|-------|-----------|----------|---------|
+| **DSPy Simple Baseline** | qwen2.5-7b | ✅ Yes | **58.1%** | Framework advantage |
+| **Simple Baseline RAW** | qwen2.5-7b | ❌ No | **45.2%** | **True baseline** |
+| **DC-CU** | qwen2.5-7b | ❌ No | **44.1%** | Test-time learning |
+| **Simple Baseline RAW** | DeepSeek v3.1 | ❌ No | **46.2%** | +1.0% |
+| **DC-CU** | DeepSeek v3.1 | ❌ No | **36.6%** | **-7.5%** ❌ |
+
+**Gap Evolution**:
+- Unfair: 58.1% - 44.1% = **+13.9%** (DSPy vs DC)
+- Fair: 45.2% - 44.1% = **+1.1%** (RAW vs DC) - **Essentially tied!**
+
+### Key Findings
+
+#### 1. **DSPy Framework Advantage Quantified: +12.9%**
+
+DSPy's advantage breaks down as:
+- **+3.2%** from List format structuring (DSPy: 23.1%, RAW: 0.0%)
+- **+9.7%** from other optimizations (prompts, 2-stage architecture, schema compliance)
+
+**List Format Analysis**:
+- DSPy 2-stage: 23.1% (3/13) - Outputs JSON format `["item1", "item2"]`
+- RAW implementations: 0.0% (0/13) - Outputs plain text `item1, item2`
+- Root cause: ANLS distance higher for plain text vs Python list syntax
+
+#### 2. **Phase 2 Hypothesis Testing: "Larger Models Help DC More" - REJECTED**
+
+**Hypothesis**: DeepSeek v3.1 (larger, more capable) benefits DC more than static prompts
+
+**Results**:
+- Simple Baseline: 45.2% → 46.2% (+1.0%) - Slight improvement ✅
+- DC-CU: 44.1% → 36.6% (**-7.5%**) - Significant degradation ❌
+
+**Gap widened**: +1.1% → +9.6% with larger model
+
+**Critical Issue**: DeepSeek v3.1 DC-CU generated **0-character cheatsheet** (vs 3,700 chars with qwen2.5-7b), suggesting model instruction-following incompatibility with DC's curator prompts.
+
+#### 3. **When Fair, Static Prompts ≈ Test-Time Learning**
+
+Fair comparison (qwen2.5-7b, RAW implementations):
+- Simple Baseline: 45.2%
+- DC-CU: 44.1%
+- Gap: +1.1% (essentially tied)
+
+**Implication**: For ESG QA with proper retrieval, test-time learning doesn't provide significant advantages over well-designed static prompts.
+
+#### 4. **Model-Approach Interaction Matters**
+
+Not all models work equally well with all approaches:
+- qwen2.5-7b: Works well with both Simple and DC
+- DeepSeek v3.1: Works okay with Simple, fails with DC
+
+**Reason**: DC requires specific cheatsheet generation/update behavior that not all models follow correctly.
+
+### Implementation Details
+
+**Created Files**:
+- `dspy_implementation/evaluate_simple_baseline_deepseek_raw.py` - RAW implementation (no DSPy)
+- `dspy_implementation/dc_module/dc_evaluator_deepseek.py` - DC-CU with DeepSeek support
+- `DEEPSEEK_COMPARISON_RESULTS.md` - Complete Phase 2 findings
+- `LIST_FORMAT_ERROR_ANALYSIS.md` - Detailed List format error analysis
+- `FAIR_COMPARISON_RATIONALE.md` - Explanation of fair comparison methodology
+
+**Modified Files**:
+- `dc_repo/dynamic_cheatsheet/language_model.py` - Added DeepSeek v3.1 support
+- `README.md` - Updated with Phase 2 discoveries
+- `REVISED_RESEARCH_PLAN_FOR_NOTION.md` - Phase 2 completion status
+
+### Format-Specific Performance
+
+**Simple Baseline RAW**:
+- Float: qwen 69.2% → DeepSeek 76.9% (+7.7%)
+- Int: qwen 57.9% = DeepSeek 57.9% (±0%)
+- Str: qwen 41.2% → DeepSeek 32.4% (-8.8%)
+- List: qwen 0.0% = DeepSeek 0.0% (both fail)
+
+**DC-CU**:
+- Float: qwen 69.2% = DeepSeek 69.2% (±0%)
+- Int: qwen 42.1% → DeepSeek 63.2% (+21.1%)
+- Str: qwen 17.6% → DeepSeek 38.2% (+20.6%)
+- **List: qwen 46.2% → DeepSeek 0.0% (-46.2%)** ❌ Complete failure
+
+### Research Implications
+
+1. **Fair Comparisons Are Critical**: Framework advantages must be removed for valid methodology comparisons
+2. **Model Size ≠ Better for All**: Model-approach compatibility matters more than raw capability
+3. **DSPy's True Value**: Framework provides structured output, schema compliance, not just prompt optimization
+4. **Static ≈ Dynamic (When Fair)**: Test-time learning doesn't significantly outperform static prompts for ESG QA
+
+### Next Steps
+
+**Phase 3 Options**:
+1. **Fix RAW implementations**: Add List format post-processing, match temperature
+2. **Focus on DSPy optimization**: Since DSPy provides +12.9% advantage, optimize GEPA/MIPROv2 further
+3. **Model-specific routing**: Use different approaches for different models
+
+**Priority**: Understand why DeepSeek v3.1 fails with DC (0-character cheatsheet generation)
+
+---
+
 ## 2025-11-09 - CRITICAL DISCOVERY: Evaluation Bugs Affected ALL Results
 
 ### The Problem

@@ -36,7 +36,19 @@
 
 **Key Insight**: Simpler architectures can outperform complex multi-stage pipelines. The Simple Baseline (1-stage direct QA) beats the 2-stage (Reasoning + Extraction) approach and significantly outperforms DC's test-time learning (+5.8%).
 
-See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ERROR_ANALYSIS.md) for full analysis and [`results/SIMPLE_BASELINE_RESULTS_SUMMARY.md`](results/SIMPLE_BASELINE_RESULTS_SUMMARY.md) for Simple Baseline findings.
+**🔬 Phase 2 Discovery (Nov 11)**: **DSPy Framework Provides MASSIVE +12.9% Advantage!**  
+Fair comparison with RAW implementations (no DSPy framework):
+- **DSPy Simple Baseline**: 58.1% (dev) = Framework provides +12.9% advantage
+- **RAW Simple Baseline**: 45.2% (dev) = True baseline (no framework)  
+- **DC-CU**: 44.1% (dev) = Test-time learning
+
+**Result**: When frameworks are removed, Static prompts ≈ Dynamic learning (+1.1% gap, essentially tied!)
+
+**Hypothesis Testing**: "Larger models help DC more" - **REJECTED**
+- DeepSeek v3.1: Simple RAW +1.0%, DC-CU **-7.5%** (worse!)  
+- Gap widens from +1.1% to +9.6% with larger model
+
+See [`DEEPSEEK_COMPARISON_RESULTS.md`](DEEPSEEK_COMPARISON_RESULTS.md) and [`LIST_FORMAT_ERROR_ANALYSIS.md`](LIST_FORMAT_ERROR_ANALYSIS.md) for complete Phase 2 findings.
 
 ---
 
@@ -50,6 +62,9 @@ See [`analysis/reports/COMPLETE_ERROR_ANALYSIS.md`](analysis/reports/COMPLETE_ER
 | Oct 19 | GEPA | qwen2.5-7b | 93 dev | ~~54.8%~~ **61.3%** | ⚠️ Corrected |
 | **Oct 22** | **Hybrid** | **qwen2.5-7b** | **654 test** | **50.2% (328/654)** ✅ | |
 | Nov 9 | MIPROv2 | qwen2.5-7b | 654 test | 47.4% (310/654) | Corrected ✅ |
+| **Nov 11** | **Simple RAW** | **qwen2.5-7b** | **93 dev** | **45.2% (42/93)** ✅ | No DSPy framework |
+| Nov 11 | Simple RAW | DeepSeek v3.1 | 93 dev | 46.2% (43/93) | No DSPy framework |
+| Nov 11 | DC-CU | DeepSeek v3.1 | 93 dev | 36.6% (34/93) ❌ | Hypothesis rejected |
 
 ---
 

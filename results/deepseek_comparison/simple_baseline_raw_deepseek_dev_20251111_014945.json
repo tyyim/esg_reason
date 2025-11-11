@@ -1,0 +1,870 @@
+{
+  "model": "deepseek-v3.1",
+  "implementation": "raw_llm_calls_no_dspy",
+  "dataset": "dev",
+  "total": 93,
+  "correct": 0,
+  "accuracy": 0.0,
+  "format_breakdown": {
+    "Str": {
+      "correct": 0,
+      "total": 34
+    },
+    "Float": {
+      "correct": 0,
+      "total": 13
+    },
+    "List": {
+      "correct": 0,
+      "total": 13
+    },
+    "Int": {
+      "correct": 0,
+      "total": 19
+    },
+    "null": {
+      "correct": 0,
+      "total": 14
+    }
+  },
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO₂/kWh and an EFG of 0.6 kg CO₂/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Float",
+      "ground_truth": "10%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "List",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "Str",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Int",
+      "ground_truth": "11",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "doc_id": "SASB Health Care Distributors.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Counterfeit Drugs",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "doc_id": "LSEG ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "82%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "When was the survey completed?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Str",
+      "ground_truth": "March 2023",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "55%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh with an EFG of 0.5 tCO2e/MWh, what is the emission factor at consumption (EFC)?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "0.55 tCO2e/MWh",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the average annual power usage effectiveness (PUE) for Google's global fleet of data centers in 2023?",
+      "doc_id": "google-2024-environmental-report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "1.10",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does thirdhand smoke differ from secondhand smoke in terms of health risks?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "94%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the key actors involved in the revitalized Global Partnership for Sustainable Development? Write the answer in the list format",
+      "doc_id": "SDG Agenda.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Governments', 'private sector', 'civil society']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Str",
+      "ground_truth": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many components are listed for an effective management system in SA8000?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Int",
+      "ground_truth": "10",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the key components of an effective management system according to SA8000?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is Microsoft's mission?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "Str",
+      "ground_truth": "to empower every person and every organization on the planet to achieve more",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the average annual investment gap to meet both the SDS and NZE scenarios from 2025 to 2030?",
+      "doc_id": "OECD Net Zero+.pdf",
+      "answer_format": "Str",
+      "ground_truth": "USD 1.75 trillion",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the TCFD guidance, what is the maximum number of climate-related scenarios recommended for mature use?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "4",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the primary value-adding activities of entities in the Agricultural Products industry? Write the answer in the list format",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Processing', 'trading', 'distributing', 'milling']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "By what factor are women aged 20–24 more likely to have spreadsheet skills than those aged 40–44 in low- and middle-income countries?",
+      "doc_id": "Gender 2024.pdf",
+      "answer_format": "Str",
+      "ground_truth": "2 times",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which SDG Goal has the highest combined share of stagnation and regression according to the 2024 assessment?",
+      "doc_id": "SDG 2024.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Goal 13 (Climate Action)",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Str",
+      "ground_truth": "At least ten years",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to WHO, how many times higher is the risk of premature death for people at the bottom of the social hierarchy compared to the top?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Int",
+      "ground_truth": "2",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of workers have the green skills needed for a green transition?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "12.5%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the WHO report, who is especially at risk among the families of migrants, refugees, and ethnic minorities affected by social exclusion?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Children",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "41%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many female are in the Credo Board of Directors?",
+      "doc_id": "Credo-ESG-Report-2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What does WASH refer to in the document?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Water, sanitation and hygiene",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the required minimum employment duration (in weeks) for a graduate to be counted in the job placement rate?",
+      "doc_id": "SASB Education.pdf",
+      "answer_format": "Int",
+      "ground_truth": "13",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "[0.8, 1.3]",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many ILO standards are mentioned that deal with specific toxins and agents?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Int",
+      "ground_truth": "5",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "List",
+      "ground_truth": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the potential risks and impacts of enhanced weathering (EW)?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Mining impacts; air quality impacts of rock dust when spreading on soil.",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which ISO standard provides guidelines for auditing management systems?",
+      "doc_id": "ISO 37001.pdf",
+      "answer_format": "Str",
+      "ground_truth": "ISO 19011",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the frequency of assessing climate risks for Meta?",
+      "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "More than once a year",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many asset managers are part of the Net Zero Asset Managers initiative?",
+      "doc_id": "PRI 2024.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Str",
+      "ground_truth": "75% by weight of product",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Str",
+      "ground_truth": "No",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What was the target greenhouse gas emissions reduction set by the Citizens’ Convention on Climate for 2030?",
+      "doc_id": "OECD Net Zero+.pdf",
+      "answer_format": "Str",
+      "ground_truth": "At least 40% compared to 1990 levels",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What was the estimated financial effect range from increased demand in Google Cloud due to sustainability solutions, based on FY2023 revenue?",
+      "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+      "answer_format": "Str",
+      "ground_truth": "33.1 million to 165.5 million USD",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the five pillars of Amazon's strategy to deliver on its human rights commitments?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three main approaches to estimate GHG emissions in leased spaces without sub-meter data? Write the answer in the list format.",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Building-specific estimation', 'Similar building/facility estimation', 'Generic building space data method']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to GRI 303-3, which categories of water sources must be included to calculate total water withdrawal in megaliters? Write the answer in list format.",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Surface water', 'groundwater', 'seawater', 'produced water', 'third-party water']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In 2018, how many reviewed companies disclosed strategy resilience information?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "101",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What specific procedures did EY perform to verify the ESG data?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which principle emphasizes the need for the governing body to set the tone for ethical leadership and values-based culture?",
+      "doc_id": "ISO 37000.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Leadership",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If the outdoor PM2.5 level is 90 µg/m³ on the day of testing, what is the maximum allowable indoor PM2.5 level to comply with the dynamic threshold requirement? Answer in µg/m³",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "27",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which country achieved the highest reduction in Scope 3 emissions in 2022 using the GHG Protocol for Public Sector?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What would be the hypothetical annual financial cost for Apple if a global carbon price of $75 per metric ton CO2e were applied to its 2022 total emissions?",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1522500000",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which software company received the highest number of privacy complaints under GDPR in 2022?",
+      "doc_id": "SASB Software & IT Services.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "8219",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the projected value of unburned fossil fuels and stranded fossil fuel infrastructure from 2015 to 2050 to limit global warming to approximately 2°C?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Around USD1-4 trillion",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the four pillars of TNFD’s recommended disclosure framework? Write the answer in the list format",
+      "doc_id": "TNFD Summary.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Governance', 'Strategy', 'Risk & impact management', 'Metrics & targets']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the emission split between Medical Surgical Supplies and Medical Surgical and Laboratory Equipment compare in Mombasa?",
+      "doc_id": "WHO GHG.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the estimated amount of wastewater recycled in Alibaba's Beijing campus in FY2023?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "over 33,000 tons",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the change log, on which dates was the content related to Data Sources and Quality Assurance updated?",
+      "doc_id": "SUSTAINALYTICS ESG.pdf",
+      "answer_format": "Str",
+      "ground_truth": "12.06.2024 and 13.12.2024",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which fuel type has the highest tax equivalent per litre under the EUR 30/tonne CO₂ rate?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Fuel oil",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the percentage increase in Black employees from 2022 to 2023?",
+      "doc_id": "PRI 2024.pdf",
+      "answer_format": "Float",
+      "ground_truth": "0.08%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In the NHS Carbon Footprint Plus chart, how many times greater is the emissions share of medicines and chemicals compared to anaesthetic gases?",
+      "doc_id": "WHO GHG.pdf",
+      "answer_format": "Int",
+      "ground_truth": "4",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage improvement in organizational performance expected after implementing ISO 37000 principles?",
+      "doc_id": "ISO 37000.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the minimum percentage of project area required for WELL Core certification?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "75%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the total emissions covered by the target in all selected scopes?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "Int",
+      "ground_truth": "15357094",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which regions have experienced the largest adverse impacts on food security? Write the answer in list format.",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Africa', 'Asia', 'Central and South America']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In how many phases does the NGFS Conceptual Framework on nature-related risks structure its assessment?",
+      "doc_id": "NGFS 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Who captured the image on page 3 and what is their role?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Erika Basham, Director of Sustainability Product Strategy",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the total number of trees planted by Amazon in India over three years through the Wild Carbon project?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many Working Groups contributed to AR6 according to the Introduction?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many students participated in AWS CloudRoom in 2023?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1940",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Given a company exposure of 8.1 and a Manageable Risk Factor (MRF) of 90%, what is the value of the manageable risk?",
+      "doc_id": "SUSTAINALYTICS ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "7.3",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many elements must be determined when planning how to achieve anti-bribery objectives, as listed in clause 6.2?",
+      "doc_id": "ISO 37001.pdf",
+      "answer_format": "Int",
+      "ground_truth": "6",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the industry-wide average number of government data requests received annually by software companies?",
+      "doc_id": "SASB Software & IT Services.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the company's employee diversity compare to industry benchmarks?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many survey responses were received in the Market-based Accounting Approaches Survey?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Int",
+      "ground_truth": "343",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which types of renewable materials are used in Dell's fiber-based packaging according to the FY24 report? Write the answer in the list format",
+      "doc_id": "Dell ESG Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "['Bamboo', 'Recycled paper pulp', 'Sugar cane fibers', 'Sustainably sourced raw fiber']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three age groups specified in GRI 405-1 for diversity reporting? Write the answer in list format.",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Under 30 years old', '30–50 years old', 'Over 50 years old']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three overarching themes for this year's Outlook? Write the answer in the list format.",
+      "doc_id": "IEA 2024.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Energy security', 'clean energy transitions', 'uncertainty']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to Gardiner’s framework, what are the three dimensions that make climate change ‘The Perfect Moral Storm’?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Global fragmentation, intergenerational injustice, ethical failure",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the wage gap in GHG-intensive occupations compare between men and women?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Str",
+      "ground_truth": "More negative for men",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Float",
+      "ground_truth": "12.8%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the key environmental frameworks Meta is a signatory/member of? Write the answer in the list format",
+      "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+      "answer_format": "List",
+      "ground_truth": "['SBTN', 'RE100', 'UN Global Compact', 'We Are Still In', 'WBCSD', 'Responsible Business Alliance']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Premature death",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which ISO 14001:2015 clause replaces the 'Control of documents' requirement from ISO 14001:2004? Write the answer in the list format",
+      "doc_id": "ISO-14001-2015.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Clause 7.5.2 Creating and updating', 'Clause 7.5.3 Control of documented information']",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What criteria are used to determine if emissions fall within the minimum boundary for Scope 3 Category 11?",
+      "doc_id": "SBTI Zero v2.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Direct use-phase emissions of sold products",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How should tailings facilities be reported for organizations with oil sands mining operations?",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "From Figure 3.2, which region simultaneously faces high heat-humidity mortality risk and severe maize yield loss at 4.2–5.4°C warming?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "South Asia",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of Dell's direct material suppliers reported sustainability initiatives in FY24?",
+      "doc_id": "Dell ESG Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "89.9%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of plastic used in Google's consumer hardware product portfolio was recycled in 2023?",
+      "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+      "answer_format": "Float",
+      "ground_truth": "50%",
+      "predicted": "ERROR: 'DSPyPostgresRetriever' object has no attribute 'retrieve_contexts'",
+      "correct": false,
+      "score": 0.0
+    }
+  ],
+  "timestamp": "20251111_014945"
+}
