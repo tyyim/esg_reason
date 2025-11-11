@@ -1,0 +1,1339 @@
+{
+  "model": "dashscope/deepseek-v3.1",
+  "dataset": "dev",
+  "variant": "cumulative",
+  "total": 93,
+  "correct": 36,
+  "accuracy": 0.3870967741935484,
+  "format_breakdown": {
+    "Str": {
+      "correct": 14,
+      "total": 34
+    },
+    "Float": {
+      "correct": 10,
+      "total": 13
+    },
+    "List": {
+      "correct": 0,
+      "total": 13
+    },
+    "Int": {
+      "correct": 12,
+      "total": 19
+    },
+    "null": {
+      "correct": 0,
+      "total": 14
+    }
+  },
+  "final_cheatsheet": "Version: 30\n\nSOLUTIONS, IMPLEMENTATION PATTERNS, AND CODE SNIPPETS\n<memory_item>\n<description>\nDirect extraction of numerical ranges from climate science reports. When context provides explicit range values with clear timeframes and confidence intervals, extract the exact numerical range without modification or interpretation. (Reference: Q1, Q11)\n</description>\n<example>\nFrom climate context: \"The likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019 is 0.8°C to 1.3°C\"\nExtract exactly: [0.8, 1.3]\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nDirect extraction of mission statements and organizational values from corporate reports. When context provides explicit mission statements, extract the exact wording without modification or interpretation. (Reference: Q6, Q16)\n</description>\n<example>\nFrom Microsoft ESG context: \"empower every person and every organization on the planet to achieve more\"\n\nFrom Amazon ESG context: \"reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement\"\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nDirect extraction of numerical values from ESG/sustainability reports. When multiple sources confirm the same value, it can be reliably extracted without complex processing. Useful for financial, environmental, and operational metrics reporting. (Reference: Q1)\n</description>\n<example>\n- Page 34: \"average annual power usage effectiveness (PUE) for our global fleet of data centers was 1.10\"  \n- Page 79: Table shows \"Average annual fleet-wide PUE = 1.10 for 2023\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nHandling float values in ESG/sustainability reporting. When context provides decimal values with two decimal places, preserve the exact format without rounding or modification. (Reference: Q1)\n</description>\n<example>\nPUE value 1.10 should be returned as exactly \"极.10\" (not 1.1 or 1.100)\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nComparative analysis extraction from health and safety content. When comparing two related concepts in ESG/health reports, identify the distinguishing characteristics mentioned in the context and articulate the fundamental differences clearly. (Reference: Q2)\n</description>\n<example>\nThirdhand vs. secondhand smoke differences:\n- Secondhand: Direct inhalation of contaminants in the air\n- Thirdhand: Residual chemicals clinging to surfaces long after smoking ended\nBoth expose non-smokers to health risks but through different exposure mechanisms.\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nStakeholder identification in global partnership contexts. When extracting key actors from multi-stakeholder partnerships/sustainability reports, comprehensively list all mentioned entities including governmental, civil society, private sector, and international organizations. (Reference: Q3)\n</description>\n<example>\nFrom Global Partnership for Sustainable Development context:\n- Member States (governmental)\n- Civil society organizations  \n- Private sector companies\n- Scientific community/researchers\n- United Nations entities\n- Other stakeholders\n- Specialized task teams (UN inter-agency)\n- Multi-stakeholder forums\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nExtraction of mathematical formulas and equations from technical ESG documentation. When context provides explicit equation definitions with clear variable explanations, extract the complete formula exactly as presented, including units and variable definitions (Reference: Q4)\n</description>\n<example>\nFrom renewable energy calculation context:\nEquation 1: % energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)\nWhere units must be consistent (kWh/year) and the result represents percentage of renewable energy.\n</example>\n极</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nComplete list extraction from management system standards. When extracting components or requirements from standards like SA800极, identify the most comprehensive list across multiple context pages and compile all items without duplication. Prioritize pages with the most complete enumeration. (Reference: Q5, Q13)\n</description>\n<example>\nFrom SA8000 management system context:\n- Page 71 provides the most complete list with 9 components\n- Components: Policies, Procedures and Records; Social Performance Team; Identification and Assessment of Risks; Monitoring; Internal Involvement; Complaint Management and Resolution; External Verification and Stakeholder Engagement; Corrective and Preventive Actions; Training and Capacity Building\n\nFrom SSP narratives context:\n- Page 104 provides the most complete list with 5 SSP narratives\n- Narratives: SSP1 (sustainability), SSP2 (middle of the road), SSP3 (regional rivalry), SSP4 (inequality), SSP5 (rapid growth)\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nFinancial gap extraction from investment scenarios. When extracting investment gap figures from climate/energy scenarios, identify explicit numerical values for different scenarios and present them clearly with their respective scenario labels. (Reference: Q7)\n</description>\n<example>\nFrom investment gap context:\n- SDS (Sustainable Development Scenario): USD 1.3 trillion additional annual investment needed by 2030\n- NZE (Net Zero Emission Scenarios): USD 2.2 trillion additional annual investment needed by 2030\nBoth values represent the gap between current policies and scenario requirements.\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nDirect extraction of value-adding activities from industry descriptions. When context explicitly lists activities as \"value-adding activities\" in industry descriptions, extract the exact terms without modification or interpretation. (Reference: Q8)\n</description>\n<example>\nFrom Agricultural Products context:\n- Page 50 \"value-adding activities (for example, processing, trading, distributing and milling)\"\n- Extract exactly: processing, trading, distributing, milling\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMulti-source country list compilation from renewable energy reporting. When extracting country lists from ESG reports where EACs (Energy Attribute Certificates) were generated and consumed, systematically combine explicit country mentions across multiple pages, resolve regional references (like \"North America\"), and remove duplicates to create a comprehensive alphabetical list. (Reference: Q9)\n</description>\n<example>\nFrom Microsoft renewable EAC context:\n- Page 50: Austria, Denmark, Finland, Hong Kong SAR, India, Netherlands, Singapore, Spain, Sweden, United Kingdom\n- Page 51: United States, Ireland, Australia\n- Page 52: North America (implies United States and Canada)\n- Combined list: Australia, Austria, Canada, Denmark, Finland, Hong Kong SAR, India, Ireland, Netherlands, Singapore, Spain, Sweden, United Kingdom, United States\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nDirect extraction of acronym definitions from sustainability reports. When context explicitly defines acronyms with \"refers to\" or similar phrasing, extract the complete definition exactly as presented without modification or interpretation. (Reference: Q10)\n</description>\n<example>\nFrom WASH context on Page 70: \"WASH refers to water, sanitation and hygiene\"\n- Extract exactly: water, sanitation and hygiene\n- Do not abbreviate or paraphrase the definition\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nClimate scenario narrative extraction from scientific reports. When extracting SSP (Shared Socioeconomic Pathways) narratives from climate research contexts, identify the most comprehensive list across multiple pages that includes all five standard narratives with their descriptive names. Prioritize pages with explicit enumeration of all five pathways. (Reference: Q13)\n</description>\n<example>\nFrom SSP narratives context:\n- Page 104 provides complete list: SSP1 (sustainability), SSP2 (middle of the road), SSP3 (regional rivalry), SSP4 (inequality), SSP5 (rapid growth)\n- Page 454 has same list but missing SSP5\n- Page 656 provides alternative descriptions but no standard numbering\n- Extract the complete five-item极list from Page 104\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nRisk and impact extraction from climate technology assessments. When extracting risks and impacts from CDR (Carbon Dioxide Removal) technology assessments, combine information from multiple relevant pages to create a comprehensive list of all mentioned risks and impacts. Look for explicitly labeled \"Risks and impacts\" sections and technical summary tables极(Reference: Q14)\n</description>\n<example>\nFrom enhanced weathering context:\n- Page 2027: \"Mining of rocks for enhanced weathering will have local impacts and carries risks similar to that associated with the mining of mineral construction aggregates\"\n- Page 161: \"air quality impacts of rock dust when spreading on soil\"\n- Combined extraction: Mining impacts; air quality impacts of rock dust when spreading on soil; risks similar to mining of mineral construction aggregates\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nLEED weighting system changes extraction. When analyzing changes in LEED certification weighting systems between versions, focus on pages with high relevance scores that explicitly compare old and new weighting methodologies. Extract the specific numerical values and assessment criteria changes. (Reference: Q15)\n</description>\n<example>\nFrom LEED v4 to v4.1 GS Benchmark assessment changes:\n- LEED v4: GS List Translator weighted at 100% of cost, GS full assessment at 150% of cost\n- LEED v4.1: GS Benchmark assessments weighted based on product weight - 75% by weight valued at 1 product, or 95% by weight\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nNet-zero carbon emissions goal extraction from corporate sustainability reports. When extracting climate goals from corporate ESG reports, identify explicit statements with clear timeframes and commitments. Multiple confirmations across different pages indicate high reliability of the goal statement. (Reference: Q16)\n</description>\n<example>\nFrom Amazon ESG context:\n- Page 3: \"our goal to reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement\"\n- Page 10极\"our goal to reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement\"\n- Page 25: \"achieve net-zero carbon emissions by 2040\"\nExtract the complete goal statement with timeframe and comparative context.\n</极\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGHG emission estimation approaches for leased spaces. When extracting approaches for estimating emissions in leased spaces without sub-meter data, identify the standard allocation methods mentioned in GHG Protocol guidance: building-specific estimation, occupancy-based allocation, and floor space-based allocation. (Reference: Q17)\n</description>\n<example>\nFrom GHG emissions context for leased spaces:\n- Building-specific estimation: dividing total building energy use by portion of building occupied\n- Occupancy-based allocation: proportional division based on occupancy\n- Floor space-based allocation: proportional division based on floor space\nThese are standard approaches when sub-meter data is unavailable.\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGRI standard requirement extraction. When extracting specific requirements from GRI standards, focus on pages with high relevance scores that contain explicit enumeration of categories, sources, or components. Extract the exact list as presented in the standard without modification or interpretation. (Reference: Q18)\n</description>\n<example>\nFrom GRI 303-3 water withdrawal context:\n- Page 344 (score: 0.813) explicitly lists five water sources: surface water, groundwater, seawater, produced water, third-party water\n- Extract exactly: Surface water, Groundwater, Seawater, Produced water, Third-party water\n- Return as comma-separated list without additional interpretation\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMissing appendix content handling strategy. When context references appendices or supplementary materials that contain the requested information but the actual content is not provided in the context, return 'null' as the information is not available for extraction. (Reference: Q19, Q28, Q30)\n</description>\n<example>\nFrom ESG verification context:\n- Appendix 3 is listed as \"ESG Data Verification Statement\" but content not provided\n- No other pages contain the specific verification procedures\n- Return: null (information not in context)\n\nFrom Scope 3 Category 11 boundary criteria context:\n- Tables 5.4 and C.2 are referenced but not provided in context\n- Return: null (information not in context)\n\nFrom plastic recycling percentage context:\n- Context contains only general Google initiatives without specific environmental metrics\n- No mention of plastic usage, recycling percentages, or consumer hardware sustainability\n- Return: null (information not in context)\n</example>\n</memory_item>\n** Count: 3\n\n<memory_item>\n<description>\nDynamic threshold calculation for indoor air quality compliance. When calculating maximum allowable indoor pollutant levels based on outdoor measurements and percentage thresholds, extract the exact percentage requirement from context and apply it to the given outdoor value. (Reference: Q20)\n</description>\n<example>\nFrom WELL Certification dynamic thresholds context:\n- Outdoor PM2.5 level: 90 µg/m³\n- Requirement: Indoor PM2.5 ≤ 30% of outdoor levels\n- Calculation: 90 × 0.30 = 27 µg/m³\n- Maximum allowable indoor level: 27 µg/m³\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMulti-country renewable energy summation strategy. When calculating total renewable energy consumption across specific countries, systematically scan all context pages for relevant consumption values, filter by country and technology type, sum the values, and return the integer total. (Reference: Q21)\n</description>\n<example>\nFor solar renewable electricity across Turkey, India, and Mexico:\n- Page 70: Turkey solar = 4610 MWh\n- Page 70: India solar = 2319 MWh  \n- Page 72: Mexico solar = 1290 MWh\n- Calculation: 4610 + 2319 + 1290 = 8219 MWh\n- Return integer total: 8219\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTNFD framework pillar extraction strategy. When extracting the four pillars of TNFD's recommended disclosure framework, recognize that while context may only partially show the structure (e.g., only showing \"Governance\" explicitly), the standard TNFD framework consists of four core pillars that organize the 14 recommended disclosures. (Reference: Q22)\n</description>\n<example>\nFrom TNFD context:\n- Page 4 shows Figure 1 with \"Governance\" as the first pillar\n- Standard TNFD framework includes: Governance, Strategy, Risk & Impact Management, Metrics & Targets\n- Extract all four pillars even if context only partially enumerates them\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nChange log date extraction strategy. When extracting specific update dates from change logs in ESG reports, focus on极ages with high relevance scores that contain explicit change log tables. Extract all dates associated with the specific content area mentioned in the question, maintaining the exact date format as presented in the context. (Reference: Q23)\n</description>\n<example>\nFrom change log context for Data Sources and Quality Assurance:\n- Page 26 (score: 0.767) contains change log with specific dates\n- Extract dates: 12.06.2024 (new section), 13.12.2024 (updated section)\n- Return as comma-separated list in chronological order\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nDirect extraction of climate impact regions from scientific reports. When context explicitly identifies regions experiencing the largest adverse impacts on specific issues like food security, extract the exact list of regions as presented without modification or interpretation. Prioritize pages with high relevance scores that contain explicit \"largest impacts\" phrasing. (Reference: Q24)\n</description>\n<example>\nFrom climate impact context:\n- Page 16: \"with the largest impacts observed in many locations and/or communities in Africa, Asia, Central and South America, LDCs, Small Islands and the Arctic\"\n- Extract exactly: Africa, Asia, Central and South America, LDCs, Small Islands, Arctic\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGRI standard age group extraction for diversity reporting. When extracting age group categories from GRI standards for diversity reporting, focus on pages with high relevance scores that explicitly enumerate the three standard age groups. Extract the exact categories as presented without modification or interpretation. (Reference: Q25)\n</description>\n<example>\nFrom GRI 405-1 diversity reporting context:\n- Page 514 (score: 0.831): \"Age group: under 30 years old, 30-50 years old, over 50 years old\"\n- Page 443 (score: 0.743): \"Under 30 years old; 30-50 years old; Over 50 years old\"\n- Extract exactly: under 30 years old, 30-50 years old, over 50 years old\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nDirect extraction of gender-based wage gap comparisons from labor market analysis. When context provides explicit comparative statements about wage gaps between genders in specific occupations, extract the exact comparison wording without modification or interpretation. (Reference: Q26)\n</description>\n<example>\nFrom GHG-intensive occupations wage gap context:\n- Page 128: \"The wage gap in GHG-intensive occupations is less negative for women\"\n- Extract exactly: \"less negative for women than for men\"\n- This indicates women experience a more favorable wage situation in these occupations\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n极<description>\nEnvironmental framework extraction from corporate sustainability reports. When extracting environmental frameworks that a company is a signatory/member of, focus on pages with high relevance scores that contain explicit lists of collaborative frameworks, initiatives, and commitments. Prioritize structured tables that directly answer framework membership questions. (Reference: Q27)\n</description>\n<example>\nFrom Meta ESG context:\n- Page 136 contains structured response to C12.5 question about collaborative frameworks极\n- Extract frameworks: RE100, Science Based Targets Network (极BTN), UN Global Compact, We Are Still In, World Business Council for Sustainable Development (WBCSD), Responsible Business Alliance\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTable-referenced content extraction strategy. When context references specific tables (e.g., Table 5.4, Table C.2) that contain the requested information but the actual table content is not provided in the context, return 'null' as the information is not available for extraction. This prevents speculation and maintains accuracy. (Reference: Q28)\n</description>\n<example>\nFrom Scope 3 Category 11 boundary criteria context:\n- Context references Table 5.4 of GHG Protocol and Table C.2 for minimum boundary definition\n- Neither table is provided in the context\n- Return: null (information not in context)\n- Do not speculate or infer criteria based on general guidance text\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTailings facility reporting requirements for oil sands mining operations. When extracting reporting requirements for specialized industry operations like oil sands mining, focus on pages with high relevance scores that contain explicit \"additional sector disclosures\" sections. Extract the complete reporting framework including facility listing, status reporting, risk assessment documentation, and impact management actions. (Reference: Q29)\n</description>\n<example>\nFrom oil sands mining operations context:\n- Page 155: List all tailings facilities\n- For each facility: describe facility; report active/inactive/closed status; report date and findings of most recent risk assessment\n- Describe actions taken to manage impacts from tailings facilities, including during closure and post-closure\n- This represents comprehensive reporting specifically for oil sands mining operations\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nIrrelevant content handling strategy for environmental metrics. When context contains only general corporate initiatives without specific environmental metrics or sustainability data, return 'null' as the requested information is not available for extraction. This prevents speculation and maintains accuracy when the context lacks relevant data. (Reference: Q30)\n</description>\n<example>\nFrom Google plastic recycling context:\n- Context contains only general Google initiatives (Accessibility, Crisis response, Digital wellbeing, etc.)\n- No mention of plastic usage, recycling percentages, or consumer hardware sustainability metrics\n- Return: null (information not in context)\n- Do not attempt to infer or estimate percentages from unrelated content\n</example>\n</memory_item>\n** Count: 1\n\nGENERAL META-REASONING STRATEGIES\n<memory_item>\n<description>\nClimate data extraction strategy. When extracting temperature ranges or climate metrics from scientific reports, prioritize pages with high relevance scores that contain explicit numerical ranges with clear timeframes and confidence levels. Extract the exact range format as presented. (Reference: Q11)\n</description>\n<example>\nFor human-caused temperature increase range:\n- Scan pages with high relevance scores (Page 8: 0.812)\n- Look for explicit phrasing like \"likely range of total human-caused global surface temperature increase\"\n- Extract the exact numerical range: 0.8°C to 1.3°C\n- Format as requested: [极.8, 1.3]\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMission statement extraction strategy. When identifying organizational missions in corporate reports, locate the most explicit statement typically found in introductory or overview sections, and extract the exact wording without interpretation. (Reference: Q6, Q16)\n</description>\n<example>\nFor Microsoft's mission: \n- Scan pages with high relevance scores (Page 5: 0.782)\n- Look for phrases like \"our mission to\" or \"mission statement\"\n- Extract the complete mission text exactly as presented\n- Do not abbreviate or paraphrase\n\nFor Amazon's net-zero goal:\n- Scan pages with high relevance scores (Page 3: 0.803, Page 10: 0.802)\n- Look for phrases like \"our goal to\" or \"commitment to\"\n- Extract the complete goal statement with timeframe and comparative context\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nCross-verification strategy for factual extraction. When multiple sources in the same document confirm the same numerical value, it indicates high reliability and eliminates the need for complex validation. (Reference: Q1)\n</description>\n<example>\nThree different pages (14, 34, 79) all confirm PUE = 1.10, making this a highly reliable extraction without needing additional validation steps.\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nESG report navigation strategy. Key performance indicators (KPIs) like PUE, energy efficiency, and waste metrics are often repeated across multiple sections (executive summary, detailed sections, data tables) for emphasis and verification. (Reference: Q1)\n</description>\n<example>\nPUE metric appears in:\n- Page 14 (executive/overview section)\n- Page 34 (detailed operational section) \n- Page 79 (data table/appendices)\nThis pattern helps locate critical metrics efficiently.\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nComparative concept analysis in health/safety contexts. When distinguishing between related health risks, focus on the fundamental differences in exposure mechanisms, persistence, and nature of contaminants rather than just listing effects. (Reference: Q2)\n</description>\n<example>\nFor thirdhand vs. secondhand smoke:\n- Focus on: secondhand = airborne inhalation vs. thirdhand = surface residue exposure\n- Key difference: immediate vs. persistent contamination\n- Both expose non-smokers but through different pathways\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMulti-stakeholder partnership extraction strategy. When identifying actors in global partnerships, scan for comprehensive lists across multiple pages and synthesize into a complete stakeholder inventory, including both general categories and specific implementation mechanisms.极(Reference: Q3)\n</description>\n<example>\nFor Global Partnership actors:\n- Scan pages mentioning \"multi-stakeholder\" or \"极rtnership\"\n- Extract comprehensive lists from detailed sections (Page 34)\n- Include both general stakeholders and specific implementation bodies\n- Combine into complete actor inventory without duplication\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTechnical equation extraction strategy. When extracting mathematical formulas from ESG/technical documents, prioritize explicitly labeled equations (e.g., \"Equation 1\") and ensure consistent units are maintained throughout the calculation. Ignore supplementary equations unless specifically requested. (Reference: Q4)\n</description>\n<example>\nFor renewable energy percentage calculation:\n- Locate \"Equation 1\" explicitly labeled as \"Percentage of energy generated or purchased\"\n- Extract the complete formula with variable definitions\n- Note that units must be consistent (kWh/year)\n- Disregard Equation 3 (proration) unless specifically asked about contract adjustments\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nComprehensive list compilation strategy. When extracting components or requirements from standards documentation, systematically compare all available lists across context pages, identify the most complete version. Prioritize pages with higher enumeration counts and include all unique items. (Reference: Q5, Q13)\n</description>\n<example>\nFor SA8000 management system components:\n- Page 26: 4 items\n- Page 52: 3 items  \n- Page 18: 6 items\n- Page 71: 9 items (most complete)\n- Compile all 9 items from Page 71 as the definitive list\n\nFor SSP narratives:\n- Page 104: 5 items (complete list)\n- Page 454: 4 items (missing SSP5)\n- Page 656: alternative descriptions\n- Compile all 5 items from Page 104 as the definitive list\n</example>\n</memory_item>\n** Count: 2\n\n<memory_item>\n<description>\nInvestment gap extraction strategy. When extracting financial gap figures from climate investment scenarios, focus on pages with explicit numerical values and clear scenario labeling. Look for phrases like \"additional annual investments\" and verify the timeframe alignment with the question. (Reference:极Q7)\n</description>\n<example>\nFor investment gap extraction:\n- Scan pages mentioning \"investment gap\" and specific scenario names (SDS, NZE)\n- Page 55 provides explicit values: \"USD 1.3 trillion and USD 2.2 trillion is needed in additional annual investments by 203极 to achieve the SDS and NZE scenarios, respectively\"\n- Verify timeframe alignment (by 2030 matches 2025-2030 period)\n- Extract both values with their respective scenario labels\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nIndustry activity extraction strategy. When identifying value-adding activities from industry descriptions, focus on pages with high relevance scores that contain explicit \"value-adding activities\" terminology and extract the exact examples provided without interpretation or expansion. Prioritize pages with high relevance scores that contain the specific phrase. (Reference: Q8)\n</description>\n极<example>\nFor Agricultural Products industry value-adding activities:\n- Scan pages with极high relevance scores (Page 50: 0.730, 0.686)\n- Look for the exact phrase \"value-adding activities\"\n- Extract the examples provided in parentheses: processing, trading, distributing, milling\n- Return as comma-separated list without additional interpretation\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMulti-source country compilation strategy for renewable energy reporting. When extracting country lists from renewable energy/EAC contexts, systematically scan all pages mentioning EAC generation/consumption, resolve regional references to specific countries, combine all explicit mentions, remove duplicates, and present in alphabetical order for clarity. (Reference: Q9)\n</description>\n<example>\nFor Microsoft renewable EAC countries:\n- Scan pages with high relevance scores mentioning EACs (Pages 50, 51, 52)\n- Extract explicit country lists from comment sections\n- Resolve \"North America\" to specific countries (United States, Canada)\n- Combine all countries and remove duplicates\n- Sort alphabetically for clean presentation: Australia, Austria, Canada, Denmark, Finland, Hong Kong SAR, India, Ireland, Netherlands, Singapore, Spain, Sweden, United Kingdom, United States\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nAcronym definition extraction strategy. When extracting acronym definitions from sustainability reports, prioritize pages with high relevance scores that contain explicit \"refers to\" or definitional phrasing. Extract the complete definition exactly as presented without modification or interpretation. (Reference: Q10)\n</description>\n<example>\nFor WASH acronym definition:\n- Scan pages with high relevance scores (Page 70: 0.714)\n- Look for explicit definition phrasing like \"refers to\" or \"stands for\"\n- Extract the complete definition: \"water, sanitation and hygiene\"\n- Return as exact text without abbreviation or paraphrasing\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nClimate scenario narrative extraction strategy. When extracting SSP narratives from climate research contexts, prioritize pages with high relevance scores that contain explicit enumeration of all five standard pathways with their descriptive names. Look for pages that mention \"initial set of SSP narratives\" or similar introductory phrasing. (Reference: Q13)\n</description>\n<example>\nFor SSP narratives extraction:\n- Scan pages with high relevance scores (Page 104: 0.733, Page 454: 0.717)\n- Look for phrases like \"initial set of SSP narratives\" or \"SSP narratives described worlds\"\n- Identify the page with complete enumeration of all five pathways\n- Extract the exact narrative names with their SSP numbering: SSP1 (sustainability), SSP2 (middle of the road), SSP3 (regional rivalry), SSP4 (inequality), SSP5 (rapid growth)\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nRisk and impact extraction strategy for climate technologies. When extracting risks and impacts from CDR technology assessments, scan for explicitly labeled \"Risks and impacts\" sections and technical summary tables. Combine information from multiple relevant pages to create a comprehensive list of all mentioned risks and impacts, maintaining the original phrasing and terminology. (Reference: Q14)\n</description>\n<example>\nFor enhanced weathering risks and impacts:\n- Scan pages with high relevance scores mentioning \"risks and impacts\" (Page 2027: 0.712)\n- Look for technical summary tables (Page 161: 0.709)\n- Extract all mentioned risks: mining impacts, air quality impacts of rock dust, risks similar to mining of mineral construction aggregates\n- Combine into comprehensive list while preserving original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nLEED version comparison strategy. When analyzing changes between LEED certification versions, focus on pages with high relevance scores that explicitly discuss version transitions and weighting methodology changes. Extract both old and new systems with their specific numerical values and assessment criteria. (Reference: Q15)\n</description>\n<example>\nFor LEED v极 to v4.1 GS Benchmark assessment changes:\n- Scan pages with high relevance scores (Page 192: 0.817)\n- Look for explicit comparison language like \"previously\" vs. \"newer requirements\"\n- Extract both systems: v4 (cost-based: 100% and 150% of cost) vs. v4.1 (weight-based: 75% and 95% by weight)\n- Note the shift in assessment methodology from cost to product weight\n</example>\n</memory_item>\n**极Count: 1\n\n<memory_item>\n<description>\nNet-zero goal extraction strategy from corporate sustainability reports. When extracting climate goals from corporate ESG reports, scan multiple pages with high relevance scores极to identify the most complete and explicit statement of the goal, including timeframe and any comparative context. Multiple confirmations across different sections indicate high reliability. (Reference: Q16)\n</description>\n<example>\nFor Amazon's net-zero carbon emissions goal:\n- Scan pages with high relevance scores (Page 3: 0.803, Page 10: 0.802)\n- Look for phrases like \"our goal\" or \"commitment to The Climate Pledge\"\n- Identify the most complete statement that includes both timeframe (2040) and comparative context (10 years ahead of Paris Agreement)\n- Extract the exact wording: \"reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement\"\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGHG estimation strategy for leased spaces. When extracting approaches for estimating emissions in leased spaces without sub-meter data, focus on pages discussing leased assets and energy allocation methods. Look for mentions of proportional division based on building area, occupancy, and floor space. Combine standard GHG Protocol approaches even if the context only partially lists them. (Reference: Q17)\n</description>\n<example>\nFor GHG emission estimation in leased spaces:\n- Scan pages with high relevance scores mentioning leased spaces and sub-meter data limitations (Page 51: 极.754)\n- Look for phrases like \"divided by the portion of the total building\" and \"taking occupancy into account\"\n- Identify the three standard approaches: building-specific estimation, occupancy-based allocation, floor space-based allocation\n- Extract as comma-separated list even if context only partially enumerates them\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGRI standard requirement extraction strategy. When extracting specific requirements from GRI standards, focus on pages with high relevance scores that contain explicit enumeration of categories or sources. Look for sections with clear numbering or bullet points that list the required components. Extract the exact list as presented without modification or interpretation. (Reference: Q18)\n</description>\n<example>\nFor GRI 303-3 water source categories:\n- Scan pages with high relevance scores (Page 344: 0.813, 0.807)\n- Look for sections with clear numbering (i., ii., iii., iv., v.)\n- Extract the exact five categories: surface water, groundwater, seawater, produced water, third-party water\n- Return as comma-separated list without additional interpretation\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMissing content handling strategy for verification procedures. When context references appendices or supplementary materials that would contain the requested verification procedures but the actual content is not provided, return 'null' as the information is not available for extraction. This prevents speculation and maintains accuracy. (Reference: Q19)\n</description>\n<example>\nFor EY verification procedures:\n- Context lists Appendix 3 as \"ESG Data Verification Statement\" but content not provided\n- No other pages contain specific verification procedures performed by EY\n- Return: null (information not in context)\n- Do not speculate or infer procedures based on general ESG management systems\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nDynamic threshold calculation strategy for air quality compliance. When calculating maximum allowable indoor pollutant levels based on outdoor measurements, extract the exact percentage requirement from context pages with high relevance scores that explicitly state dynamic threshold rules. Apply simple percentage calculation to determine the compliance limit. (Reference: Q20)\n</description>\n<example>\nFor WELL Certification dynamic thresholds:\n- Scan pages with high relevance scores mentioning \"dynamic thresholds\" (Page 23: 0.815, Page 14: 0.814)\n- Extract the percentage requirement: \"30% of the 24- or 48-hour average of outdoor levels\"\n- Apply to given outdoor value: outdoor PM2.5 × 0.30 = maximum allowable indoor level\n- Return the calculated integer value as requested\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nMulti-country renewable energy summation strategy. When calculating total renewable energy consumption across specific countries, systematically scan all context pages for relevant consumption values, filter by country and technology type, sum the values, and return the integer total. (Reference: Q21)\n</description>\n<example>\nFor solar renewable electricity across Turkey, India, and Mexico:\n- Scan pages with high relevance scores mentioning renewable electricity consumption (Pages 70, 72)\n- Filter by country (Turkey, India, Mexico) and technology type (Solar)\n- Extract numerical values: Turkey = 4610 MWh, India = 2319 MWh, Mexico = 1290 MWh\n- Sum values: 4610 + 2319 + 1290 = 8219 MWh\n- Return integer total as requested\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTNFD framework pillar extraction strategy. When extracting the four pillars of TNFD's recommended disclosure framework, recognize that while context may only partially show the structure, the standard TNFD framework consists of four core pillars that organize the 14 recommended disclosures. Extract all four pillars based on standard framework knowledge when context is incomplete. (Reference: Q22)\n</description>\n<example>\nFor TNFD framework pillars:\n- Context shows Figure 1 with \"Governance\" as first pillar\n- Standard TNFD framework includes: Governance, Strategy, Risk & Impact Management, Metrics & Targets\n- Extract all four pillars even if context only partially enumerates them\n- Return as comma-separated list in standard order\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nChange log analysis strategy. When extracting specific update information from change logs in ESG reports, focus on pages with high relevance scores that contain structured change极log tables. Look for entries that explicitly mention the specific content area in question and extract all associated dates in the exact format presented. (Reference: Q23)\n</description>\n<example>\nFor Data Sources and Quality Assurance updates:\n- Scan pages with high relevance scores containing change logs (Page 26: 0.767)\n- Look for entries mentioning \"Data Sources and Quality Assurance\"\n- Extract all dates associated with these极entries: 12.06.2024, 13.12.2024\n- Return as comma-separated list in chronological order\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nClimate impact region extraction strategy. When identifying regions experiencing the largest adverse impacts on specific issues like food security, prioritize pages with high relevance scores that contain explicit \"largest impacts\" phrasing. Extract the exact list of regions as presented without modification or interpretation, maintaining original terminology and order. (Reference: Q24)\n</description>\n<example>\nFor regions with largest adverse impacts on food security:\n- Scan pages with high relevance scores (Page 16: 0.726)\n- Look for explicit phrasing like \"largest impacts observed in\"\n- Extract the complete list: Africa极Asia, Central and South America, LDCs, Small Islands, Arctic\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGRI standard age group extraction strategy. When extracting age group categories from GRI standards for diversity reporting, focus on pages with high relevance scores that explicitly enumerate the three standard age groups. Look for sections discussing diversity categories and extract the exact categories as presented without modification or interpretation. (Reference: Q25)\n</description>\n<example>\nFor GRI 405-1 age groups:\n- Scan pages with high relevance scores (Page 514: 0.831, Page 443: 0.743)\n- Look for sections discussing \"diversity categories极 and specifically \"age group\"\n- Extract the exact three categories: under 30 years old, 30-50 years old, over 50 years old\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nGender-based wage gap analysis strategy. When comparing wage gaps between genders in specific occupations, prioritize pages with high relevance scores that contain explicit comparative statements. Extract the exact comparison wording without modification or interpretation, focusing on the key comparative language (e.g., \"less negative for women\"). (Reference: Q26)\n</description>\n<example>\nFor GHG-intensive occupations wage gap comparison:\n- Scan pages with high relevance scores (Page 128: 0.845)\n- Look for explicit comparative statements in titles or figure captions\n- Extract the exact comparison: \"The wage gap in GHG-intensive occupations is less negative for women\"\n- This indicates women experience a more favorable wage situation in these occupations\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nEnvironmental framework extraction strategy. When extracting environmental frameworks that a company is a signatory/member of, prioritize pages with极high relevance scores that contain structured responses to framework membership questions. Look for tables that explicitly list collaborative frameworks, initiatives, and commitments, and extract the complete list as presented without modification. (Reference: Q27)\n</description>\n<example>\nFor Meta's environmental frameworks:\n- Scan pages with high relevance scores (Page 136: 0.720)\n- Look for structured tables responding to C12.5 question about collaborative frameworks\n- Extract all frameworks listed: RE100, Science Based Targets Network (SBTN), UN Global Compact, We Are Still In, World Business Council for Sustainable Development (WBCSD), Responsible Business Alliance\n- Return as comma-separated list maintaining original terminology\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nTable-referenced content extraction strategy. When context references specific tables that contain the requested information but the actual table content is not provided, return 'null' as the information is not available for extraction. This prevents speculation and maintains accuracy when critical information is contained in referenced but unavailable tables. (Reference: Q28)\n</description>\n<example>\nFor Scope 3 Category 11 boundary criteria:\n- Context references Table 5.4 of GHG Protocol and Table C.2 for minimum boundary definition\n- Neither table is provided in the context\n- Return: null (information not in context)\n- Do not attempt to infer criteria from general guidance text when specific tables are referenced\n</example>\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nSpecialized industry reporting extraction strategy. When extracting reporting requirements for specialized industry operations like oil sands mining, focus on pages with high relevance scores that contain explicit \"additional sector disclosures\" sections. Look for numbered lists or bullet points that outline specific reporting obligations, and extract the complete framework including facility enumeration, status reporting, risk assessment documentation, and impact management actions. (Reference: Q29)\n</description>\n<example>\nFor oil sands mining tailings facility reporting:\n- Scan pages with high relevance scores (Page 155: 0.767, 0.750)\n- Look for \"additional sector disclosures\" sections specifically for oil sands mining operations\n- Extract the complete reporting framework: list all facilities; for each: describe, report status, report risk assessment details; describe impact management actions极\n- This represents specialized reporting requirements beyond general waste management disclosures\n</极\n</memory_item>\n** Count: 1\n\n<memory_item>\n<description>\nIrrelevant content analysis strategy. When context contains only general corporate initiatives without specific environmental metrics or sustainability data, systematically scan all pages to confirm the absence of relevant information before returning 'null'. This ensures accurate null responses when the requested data is genuinely not available in the provided context. (Reference: Q30)\n</description>\n<example>\nFor Google plastic recycling percentage:\n- Scan all context pages (Pages 13, 14, 7, 8, 9)\n- Confirm absence of plastic-related terms, recycling percentages, or consumer hardware sustainability metrics\n- Note that context contains only general Google initiatives (Accessibility, Crisis response, Digital wellbeing, etc.)\n- Return: null (information not in context)\n- Avoid speculation or estimation from unrelated content\n</example>\n</memory_item>\n** Count: 1",
+  "cheatsheet_evolution": [
+    {
+      "iteration": 1,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 2,
+      "length": 0,
+      "correct": true
+    },
+    {
+      "iteration": 3,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 4,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 5,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 6,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 7,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 8,
+      "length": 0,
+      "correct": true
+    },
+    {
+      "iteration": 9,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 10,
+      "length": 0,
+      "correct": true
+    },
+    {
+      "iteration": 11,
+      "length": 0,
+      "correct": false
+    },
+    {
+      "iteration": 12,
+      "length": 2203,
+      "correct": true
+    },
+    {
+      "iteration": 13,
+      "length": 3376,
+      "correct": false
+    },
+    {
+      "iteration": 14,
+      "length": 3376,
+      "correct": true
+    },
+    {
+      "iteration": 15,
+      "length": 4713,
+      "correct": false
+    },
+    {
+      "iteration": 16,
+      "length": 6099,
+      "correct": true
+    },
+    {
+      "iteration": 17,
+      "length": 6099,
+      "correct": false
+    },
+    {
+      "iteration": 18,
+      "length": 7566,
+      "correct": false
+    },
+    {
+      "iteration": 19,
+      "length": 8575,
+      "correct": false
+    },
+    {
+      "iteration": 20,
+      "length": 10053,
+      "correct": false
+    },
+    {
+      "iteration": 21,
+      "length": 10053,
+      "correct": true
+    },
+    {
+      "iteration": 22,
+      "length": 11371,
+      "correct": false
+    },
+    {
+      "iteration": 23,
+      "length": 13221,
+      "correct": false,
+      "error": "unterminated string literal (detected at line 1) (<string>, line 1)"
+    },
+    {
+      "iteration": 24,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 25,
+      "length": 13221,
+      "correct": false
+    },
+    {
+      "iteration": 26,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 27,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 28,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 29,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 30,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 31,
+      "length": 13221,
+      "correct": true
+    },
+    {
+      "iteration": 32,
+      "length": 14434,
+      "correct": true
+    },
+    {
+      "iteration": 33,
+      "length": 14434,
+      "correct": true
+    },
+    {
+      "iteration": 34,
+      "length": 15631,
+      "correct": true
+    },
+    {
+      "iteration": 35,
+      "length": 15631,
+      "correct": false
+    },
+    {
+      "iteration": 36,
+      "length": 17676,
+      "correct": false
+    },
+    {
+      "iteration": 37,
+      "length": 19500,
+      "correct": false
+    },
+    {
+      "iteration": 38,
+      "length": 19500,
+      "correct": true
+    },
+    {
+      "iteration": 39,
+      "length": 19500,
+      "correct": true
+    },
+    {
+      "iteration": 40,
+      "length": 19500,
+      "correct": false
+    },
+    {
+      "iteration": 41,
+      "length": 20934,
+      "correct": true
+    },
+    {
+      "iteration": 42,
+      "length": 22935,
+      "correct": false
+    },
+    {
+      "iteration": 43,
+      "length": 22935,
+      "correct": true
+    },
+    {
+      "iteration": 44,
+      "length": 22935,
+      "correct": true
+    },
+    {
+      "iteration": 45,
+      "length": 22935,
+      "correct": false
+    },
+    {
+      "iteration": 46,
+      "length": 22935,
+      "correct": false
+    },
+    {
+      "iteration": 47,
+      "length": 24703,
+      "correct": false
+    },
+    {
+      "iteration": 48,
+      "length": 26185,
+      "correct": false
+    },
+    {
+      "iteration": 49,
+      "length": 26185,
+      "correct": true
+    },
+    {
+      "iteration": 50,
+      "length": 27540,
+      "correct": false
+    },
+    {
+      "iteration": 51,
+      "length": 27540,
+      "correct": true
+    },
+    {
+      "iteration": 52,
+      "length": 29015,
+      "correct": true
+    },
+    {
+      "iteration": 53,
+      "length": 29015,
+      "correct": false
+    },
+    {
+      "iteration": 54,
+      "length": 29015,
+      "correct": true
+    },
+    {
+      "iteration": 55,
+      "length": 29015,
+      "correct": false
+    },
+    {
+      "iteration": 56,
+      "length": 30447,
+      "correct": true
+    },
+    {
+      "iteration": 57,
+      "length": 30447,
+      "correct": false
+    },
+    {
+      "iteration": 58,
+      "length": 31945,
+      "correct": false
+    },
+    {
+      "iteration": 59,
+      "length": 31945,
+      "correct": false
+    },
+    {
+      "iteration": 60,
+      "length": 31945,
+      "correct": false
+    },
+    {
+      "iteration": 61,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 62,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 63,
+      "length": 33422,
+      "correct": true
+    },
+    {
+      "iteration": 64,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 65,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 66,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 67,
+      "length": 33422,
+      "correct": true
+    },
+    {
+      "iteration": 68,
+      "length": 33422,
+      "correct": false
+    },
+    {
+      "iteration": 69,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 70,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 71,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 72,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 73,
+      "length": 35085,
+      "correct": true
+    },
+    {
+      "iteration": 74,
+      "length": 35085,
+      "correct": true
+    },
+    {
+      "iteration": 75,
+      "length": 35085,
+      "correct": true
+    },
+    {
+      "iteration": 76,
+      "length": 35085,
+      "correct": true
+    },
+    {
+      "iteration": 77,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 78,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 79,
+      "length": 35085,
+      "correct": true
+    },
+    {
+      "iteration": 80,
+      "length": 35085,
+      "correct": false
+    },
+    {
+      "iteration": 81,
+      "length": 36686,
+      "correct": false
+    },
+    {
+      "iteration": 82,
+      "length": 36686,
+      "correct": false
+    },
+    {
+      "iteration": 83,
+      "length": 36686,
+      "correct": false
+    },
+    {
+      "iteration": 84,
+      "length": 38178,
+      "correct": false
+    },
+    {
+      "iteration": 85,
+      "length": 38178,
+      "correct": true
+    },
+    {
+      "iteration": 86,
+      "length": 39975,
+      "correct": false
+    },
+    {
+      "iteration": 87,
+      "length": 39975,
+      "correct": true
+    },
+    {
+      "iteration": 88,
+      "length": 39975,
+      "correct": false
+    },
+    {
+      "iteration": 89,
+      "length": 41672,
+      "correct": false
+    },
+    {
+      "iteration": 90,
+      "length": 43711,
+      "correct": false
+    },
+    {
+      "iteration": 91,
+      "length": 43711,
+      "correct": false
+    },
+    {
+      "iteration": 92,
+      "length": 43711,
+      "correct": false
+    },
+    {
+      "iteration": 93,
+      "length": 45692,
+      "correct": false
+    }
+  ],
+  "predictions": [
+    {
+      "question": "How is electricity sold by one public organization to another accounted for in Scope 1 and 2 reporting?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Seller reports Scope 1, buyer reports Scope 2",
+      "predicted": "The selling organization reports direct emissions from electricity generation under Scope 1, while the buying organization reports emissions from purchased electricity under Scope 2. The selling organization may optionally report emissions from electricity sold to non-end users as separate information.",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If an organization reports an EFC of 0.66 kg CO₂/kWh and an EFG of 0.6 kg CO₂/kWh, what is the percentage of T&D loss over electricity consumed?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Float",
+      "ground_truth": "10%",
+      "predicted": "10.0",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which business units of Alibaba Group contributed to the GHG reduction according to the Alibaba Group Holding Limited? Write the answer in the list format",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "List",
+      "ground_truth": "['DingTalk', 'Alibaba Cloud', 'Taobao and Tmall', 'Amap', 'Cainiao', 'Ele.me']",
+      "predicted": "Sustainable office campuses, Green and low-carbon cloud, Digital and intelligent circular logistics, Sustainable retail stores, Decarbonizing the value chain",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which specific tool is recommended to identify water stress regions in FB-AG-140a.1?",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "Str",
+      "ground_truth": "WRI Water Risk Atlas tool",
+      "predicted": "Baseline Water Stress",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "To reach LEED Gold for a Data Center, if a project scores full points in 'Energy and Atmosphere' and 'Indoor Environmental Quality', how many more points are still needed from other categories?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Int",
+      "ground_truth": "11",
+      "predicted": "15",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the table comparsion, which disclosure topics only requirements for discussion and analysis disclosures",
+      "doc_id": "SASB Health Care Distributors.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Counterfeit Drugs",
+      "predicted": "Fleet Fuel Management",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many types of proportional scoring are mentioned in the document?",
+      "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "2",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of the green bond market is investment grade according to the Climate Bonds Initiative?",
+      "doc_id": "LSEG ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "82%",
+      "predicted": "82.0",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "When was the survey completed?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Str",
+      "ground_truth": "March 2023",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "To qualify for 1 point under the daylight simulation feature (L01), what is the minimum regularly occupied floor area percentage that must achieve sDA300,50% in non-dwelling spaces?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "55%",
+      "predicted": "55.0",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "If electricity consumed is 10,000 kWh and T&D losses are 1,000 kWh with an EFG of 0.5 tCO2e/MWh, what is the emission factor at consumption (EFC)?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "Str",
+      "ground_truth": "0.55 tCO2e/MWh",
+      "predicted": "0.55",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the average annual power usage effectiveness (PUE) for Google's global fleet of data centers in 2023?",
+      "doc_id": "google-2024-environmental-report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "1.10",
+      "predicted": "1.10",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How does thirdhand smoke differ from secondhand smoke in terms of health risks?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "Thirdhand smoke differs from secondhand smoke in that it consists of residual chemicals that cling to indoor surfaces (walls, furniture, clothing, etc.) long after smoking has occurred, whereas secondhand smoke involves direct exposure to the same contaminants as smokers through inhalation of smoke in the air.",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the pass rate of special unannounced inspections for suppliers in FY2023?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "94%",
+      "predicted": "0.94",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What are the key actors involved in the revitalized Global Partnership for Sustainable Development? Write the answer in the list format",
+      "doc_id": "SDG Agenda.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Governments', 'private sector', 'civil society']",
+      "predicted": "Member States, civil society, the private sector, the scientific community, United Nations entities, other stakeholders, United Nations inter-agency task-team, multi-stakeholder forum",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How is the percentage of renewable energy purchased calculated? Give the calculate equation",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Str",
+      "ground_truth": "energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "predicted": "% energy generated or purchased = (annual quantity of renewable energy in kWh) / (annual building site energy use in kWh)",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many components are listed for an effective management system in SA8000?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Int",
+      "ground_truth": "10",
+      "predicted": "9",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the key components of an effective management system according to SA8000?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "Policies, Procedures and Records, Social Performance Team, Identification and Assessment of Risks, Monitoring, Internal Involvement, Complaint Management and Resolution, External Verification and Stakeholder Engagement, Corrective and Preventive Actions, Training and Capacity Building",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is Microsoft's mission?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "Str",
+      "ground_truth": "to empower every person and every organization on the planet to achieve more",
+      "predicted": "empower every person and every organization on the planet to achieve more",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the average annual investment gap to meet both the SDS and NZE scenarios from 2025 to 2030?",
+      "doc_id": "OECD Net Zero+.pdf",
+      "answer_format": "Str",
+      "ground_truth": "USD 1.75 trillion",
+      "predicted": "USD 1.3 trillion for SDS and USD 2.2 trillion for NZE",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the TCFD guidance, what is the maximum number of climate-related scenarios recommended for mature use?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "4",
+      "predicted": "4",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What are the primary value-adding activities of entities in the Agricultural Products industry? Write the answer in the list format",
+      "doc_id": "SASB Agricultural Products.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Processing', 'trading', 'distributing', 'milling']",
+      "predicted": "processing, trading, distributing, milling",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which countries did Microsoft generate and consume renewable EACs from? Write the answer in list format.",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Austria', 'Denmark', 'Finland', 'Hong Kong SAR', 'India', 'Netherlands', 'Singapore', 'Spain', 'Sweden', 'United\nKingdom']",
+      "predicted": "ERROR: unterminated string literal (detected at line 1) (<string>, line 1)",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "By what factor are women aged 20–24 more likely to have spreadsheet skills than those aged 40–44 in low- and middle-income countries?",
+      "doc_id": "Gender 2024.pdf",
+      "answer_format": "Str",
+      "ground_truth": "2 times",
+      "predicted": "2",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which SDG Goal has the highest combined share of stagnation and regression according to the 2024 assessment?",
+      "doc_id": "SDG 2024.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Goal 13 (Climate Action)",
+      "predicted": "Goal 10",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the recommended time horizon companies should use when selecting scenario outcomes for disclosure?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Str",
+      "ground_truth": "At least ten years",
+      "predicted": "at least ten years into the future",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "According to WHO, how many times higher is the risk of premature death for people at the bottom of the social hierarchy compared to the top?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Int",
+      "ground_truth": "2",
+      "predicted": "2",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What percentage of workers have the green skills needed for a green transition?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "12.5%",
+      "predicted": "12.5",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "According to the WHO report, who is especially at risk among the families of migrants, refugees, and ethnic minorities affected by social exclusion?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Children",
+      "predicted": "children",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What percentage of the way was AWS toward achieving its water positive goal at the end of 2023?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "41%",
+      "predicted": "41.0",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many female are in the Credo Board of Directors?",
+      "doc_id": "Credo-ESG-Report-2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1",
+      "predicted": "1",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What does WASH refer to in the document?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Water, sanitation and hygiene",
+      "predicted": "water, sanitation and hygiene",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the required minimum employment duration (in weeks) for a graduate to be counted in the job placement rate?",
+      "doc_id": "SASB Education.pdf",
+      "answer_format": "Int",
+      "ground_truth": "13",
+      "predicted": "13",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What was the likely range of total human-caused global surface temperature increase from 1850-1900 to 2010-2019? Answer as the format [ , ].",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "[0.8, 1.3]",
+      "predicted": "[0.8, 1.3]",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many ILO standards are mentioned that deal with specific toxins and agents?",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Int",
+      "ground_truth": "5",
+      "predicted": "4",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the initial set of SSP narratives? Write the answer in list format.",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "List",
+      "ground_truth": "['SSP1 (sustainability)', 'SSP2 (middle of the road)', 'SSP3 (regional rivalry)', 'SSP4 (inequality)', 'SSP5 (rapid growth)']",
+      "predicted": "SSP1 (sustainability), SSP2 (middle of the road), SSP3 (regional rivalry), SSP4 (inequality), SSP5 (rapid growth)",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the potential risks and impacts of enhanced weathering (EW)?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Mining impacts; air quality impacts of rock dust when spreading on soil.",
+      "predicted": "Mining impacts; air quality impacts of rock dust when spreading on soil; risks similar to mining of mineral construction aggregates",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which ISO standard provides guidelines for auditing management systems?",
+      "doc_id": "ISO 37001.pdf",
+      "answer_format": "Str",
+      "ground_truth": "ISO 19011",
+      "predicted": "ISO 19011",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the frequency of assessing climate risks for Meta?",
+      "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "More than once a year",
+      "predicted": "more than once a year",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many asset managers are part of the Net Zero Asset Managers initiative?",
+      "doc_id": "PRI 2024.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the weighting of GS Benchmark assessments change from LEED v4 to v4.1?",
+      "doc_id": "LEED 2025.pdf",
+      "answer_format": "Str",
+      "ground_truth": "75% by weight of product",
+      "predicted": "In LEED v4, GS Benchmark assessments were weighted at 100% of cost for GS List Translator and 150% of cost for GS full assessment. In LEED v4.1, they are weighted based on product weight: 75% by weight of product (valued at 1 product) or 95% by weight.",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is Amazon's goal regarding net-zero carbon emissions?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "reach netzero carbon emissions by 2040, 10 years ahead of the Paris Agreement.",
+      "predicted": "reach net-zero carbon emissions by 2040, 10 years ahead of the Paris Agreement",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "If a country allows apprentices to receive 60% of normal pay for 3 months, but the apprenticeship lasts for 12 months, is this compliant under SA8000? Answer with 'Yes', 'No' or 'Not answerable'",
+      "doc_id": "SA8000 2016.pdf",
+      "answer_format": "Str",
+      "ground_truth": "No",
+      "predicted": "Not answerable",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What was the target greenhouse gas emissions reduction set by the Citizens’ Convention on Climate for 2030?",
+      "doc_id": "OECD Net Zero+.pdf",
+      "answer_format": "Str",
+      "ground_truth": "At least 40% compared to 1990 levels",
+      "predicted": "40%",
+      "correct": true,
+      "score": 0.6666666666666667
+    },
+    {
+      "question": "What was the estimated financial effect range from increased demand in Google Cloud due to sustainability solutions, based on FY2023 revenue?",
+      "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+      "answer_format": "Str",
+      "ground_truth": "33.1 million to 165.5 million USD",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the five pillars of Amazon's strategy to deliver on its human rights commitments?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three main approaches to estimate GHG emissions in leased spaces without sub-meter data? Write the answer in the list format.",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Building-specific estimation', 'Similar building/facility estimation', 'Generic building space data method']",
+      "predicted": "Building-specific estimation, Occupancy-based allocation, Floor space-based allocation",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to GRI 303-3, which categories of water sources must be included to calculate total water withdrawal in megaliters? Write the answer in list format.",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Surface water', 'groundwater', 'seawater', 'produced water', 'third-party water']",
+      "predicted": "Surface water, Groundwater, Seawater, Produced water, Third-party water",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In 2018, how many reviewed companies disclosed strategy resilience information?",
+      "doc_id": "TCFD Guidence 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "101",
+      "predicted": "101",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What specific procedures did EY perform to verify the ESG data?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which principle emphasizes the need for the governing body to set the tone for ethical leadership and values-based culture?",
+      "doc_id": "ISO 37000.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Leadership",
+      "predicted": "Leadership",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "If the outdoor PM2.5 level is 90 µg/m³ on the day of testing, what is the maximum allowable indoor PM2.5 level to comply with the dynamic threshold requirement? Answer in µg/m³",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Int",
+      "ground_truth": "27",
+      "predicted": "27",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which country achieved the highest reduction in Scope 3 emissions in 2022 using the GHG Protocol for Public Sector?",
+      "doc_id": "GHG Public.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What would be the hypothetical annual financial cost for Apple if a global carbon price of $75 per metric ton CO2e were applied to its 2022 total emissions?",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1522500000",
+      "predicted": "1522500000",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which software company received the highest number of privacy complaints under GDPR in 2022?",
+      "doc_id": "SASB Software & IT Services.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the total solar renewable electricity consumed across Turkey, India, and Mexico in MWh?",
+      "doc_id": "Apple CDP-Climate-Change-Questionnaire 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "8219",
+      "predicted": "8219",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the projected value of unburned fossil fuels and stranded fossil fuel infrastructure from 2015 to 2050 to limit global warming to approximately 2°C?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Around USD1-4 trillion",
+      "predicted": "1-4 trillion dollars",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the four pillars of TNFD’s recommended disclosure framework? Write the answer in the list format",
+      "doc_id": "TNFD Summary.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Governance', 'Strategy', 'Risk & impact management', 'Metrics & targets']",
+      "predicted": "Governance, Strategy, Risk & Impact Management, Metrics & Targets",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the emission split between Medical Surgical Supplies and Medical Surgical and Laboratory Equipment compare in Mombasa?",
+      "doc_id": "WHO GHG.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the estimated amount of wastewater recycled in Alibaba's Beijing campus in FY2023?",
+      "doc_id": "Alibaba Group 2023 ESG Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "over 33,000 tons",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to the change log, on which dates was the content related to Data Sources and Quality Assurance updated?",
+      "doc_id": "SUSTAINALYTICS ESG.pdf",
+      "answer_format": "Str",
+      "ground_truth": "12.06.2024 and 13.12.2024",
+      "predicted": "12.06.2024, 13.12.2024",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How much renewable electricity was consumed in the Republic of Korea via unbundled EACs?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which fuel type has the highest tax equivalent per litre under the EUR 30/tonne CO₂ rate?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Fuel oil",
+      "predicted": "Fuel oil",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the percentage increase in Black employees from 2022 to 2023?",
+      "doc_id": "PRI 2024.pdf",
+      "answer_format": "Float",
+      "ground_truth": "0.08%",
+      "predicted": "3.29",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In the NHS Carbon Footprint Plus chart, how many times greater is the emissions share of medicines and chemicals compared to anaesthetic gases?",
+      "doc_id": "WHO GHG.pdf",
+      "answer_format": "Int",
+      "ground_truth": "4",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage improvement in organizational performance expected after implementing ISO 37000 principles?",
+      "doc_id": "ISO 37000.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the minimum percentage of project area required for WELL Core certification?",
+      "doc_id": "WELL 2020.pdf",
+      "answer_format": "Float",
+      "ground_truth": "75%",
+      "predicted": "75.0",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the total emissions covered by the target in all selected scopes?",
+      "doc_id": "Microsoft-CDP-2024-Response.pdf",
+      "answer_format": "Int",
+      "ground_truth": "15357094",
+      "predicted": "230036",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Which regions have experienced the largest adverse impacts on food security? Write the answer in list format.",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Africa', 'Asia', 'Central and South America']",
+      "predicted": "Africa, Asia, Central and South America, LDCs, Small Islands, Arctic",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "In how many phases does the NGFS Conceptual Framework on nature-related risks structure its assessment?",
+      "doc_id": "NGFS 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "Who captured the image on page 3 and what is their role?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Erika Basham, Director of Sustainability Product Strategy",
+      "predicted": "Erika Basham Director of Sustainability Product Strategy, United States",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is the total number of trees planted by Amazon in India over three years through the Wild Carbon project?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "300000",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many Working Groups contributed to AR6 according to the Introduction?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Int",
+      "ground_truth": "3",
+      "predicted": "3",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many students participated in AWS CloudRoom in 2023?",
+      "doc_id": "2023-amazon-sustainability-report.pdf",
+      "answer_format": "Int",
+      "ground_truth": "1940",
+      "predicted": "1940",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Given a company exposure of 8.1 and a Manageable Risk Factor (MRF) of 90%, what is the value of the manageable risk?",
+      "doc_id": "SUSTAINALYTICS ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "7.3",
+      "predicted": "7.29",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "How many elements must be determined when planning how to achieve anti-bribery objectives, as listed in clause 6.2?",
+      "doc_id": "ISO 37001.pdf",
+      "answer_format": "Int",
+      "ground_truth": "6",
+      "predicted": "6",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What is the industry-wide average number of government data requests received annually by software companies?",
+      "doc_id": "SASB Software & IT Services.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the company's employee diversity compare to industry benchmarks?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How many survey responses were received in the Market-based Accounting Approaches Survey?",
+      "doc_id": "GHG Survey.pdf",
+      "answer_format": "Int",
+      "ground_truth": "343",
+      "predicted": "343",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which types of renewable materials are used in Dell's fiber-based packaging according to the FY24 report? Write the answer in the list format",
+      "doc_id": "Dell ESG Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "['Bamboo', 'Recycled paper pulp', 'Sugar cane fibers', 'Sustainably sourced raw fiber']",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three age groups specified in GRI 405-1 for diversity reporting? Write the answer in list format.",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Under 30 years old', '30–50 years old', 'Over 50 years old']",
+      "predicted": "under 30 years old, 30-50 years old, over 50 years old",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What are the three overarching themes for this year's Outlook? Write the answer in the list format.",
+      "doc_id": "IEA 2024.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Energy security', 'clean energy transitions', 'uncertainty']",
+      "predicted": "energy security, prospects for clean energy transitions, uncertainty",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "According to Gardiner’s framework, what are the three dimensions that make climate change ‘The Perfect Moral Storm’?",
+      "doc_id": "ipcc-ar6-wg3.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Global fragmentation, intergenerational injustice, ethical failure",
+      "predicted": "Global dimension, Intergenerational dimension",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How does the wage gap in GHG-intensive occupations compare between men and women?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Str",
+      "ground_truth": "More negative for men",
+      "predicted": "The wage gap in GHG-intensive occupations is less negative for women than for men.",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "By how much did the average statutory minimum wage increase in real terms between May 2019 and May 2024?",
+      "doc_id": "OECD Employment.pdf",
+      "answer_format": "Float",
+      "ground_truth": "12.8%",
+      "predicted": "12.8",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "What are the key environmental frameworks Meta is a signatory/member of? Write the answer in the list format",
+      "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+      "answer_format": "List",
+      "ground_truth": "['SBTN', 'RE100', 'UN Global Compact', 'We Are Still In', 'WBCSD', 'Responsible Business Alliance']",
+      "predicted": "RE100, Science Based Targets Network (SBTN), UN Global Compact, We Are Still In, World Business Council for Sustainable Development (WBCSD), Responsible Business Alliance",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What is one major health consequence of smoking in poor populations mentioned in the WHO report?",
+      "doc_id": "WHO Social.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Premature death",
+      "predicted": "premature death",
+      "correct": true,
+      "score": 1.0
+    },
+    {
+      "question": "Which ISO 14001:2015 clause replaces the 'Control of documents' requirement from ISO 14001:2004? Write the answer in the list format",
+      "doc_id": "ISO-14001-2015.pdf",
+      "answer_format": "List",
+      "ground_truth": "['Clause 7.5.2 Creating and updating', 'Clause 7.5.3 Control of documented information']",
+      "predicted": "Control of documented information",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What criteria are used to determine if emissions fall within the minimum boundary for Scope 3 Category 11?",
+      "doc_id": "SBTI Zero v2.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Direct use-phase emissions of sold products",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "How should tailings facilities be reported for organizations with oil sands mining operations?",
+      "doc_id": "GRI Standards 2021.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "predicted": "List all tailings facilities. For each facility: describe the facility; report whether active, inactive or closed; report date and main findings of most recent risk assessment. Describe actions taken to manage impacts from tailings facilities, including during closure and post-closure.",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "From Figure 3.2, which region simultaneously faces high heat-humidity mortality risk and severe maize yield loss at 4.2–5.4°C warming?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "South Asia",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of Dell's direct material suppliers reported sustainability initiatives in FY24?",
+      "doc_id": "Dell ESG Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "89.9%",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    },
+    {
+      "question": "What percentage of plastic used in Google's consumer hardware product portfolio was recycled in 2023?",
+      "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+      "answer_format": "Float",
+      "ground_truth": "50%",
+      "predicted": "null",
+      "correct": false,
+      "score": 0.0
+    }
+  ],
+  "timestamp": "20251111_150621"
+}
