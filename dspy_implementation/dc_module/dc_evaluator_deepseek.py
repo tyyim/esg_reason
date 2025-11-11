@@ -108,6 +108,7 @@ Instructions:
         correct = 0
         predictions = []
         format_breakdown = {}
+        cheatsheet_evolution = []  # Track cheatsheet growth
         
         for i, item in enumerate(tqdm(eval_set, desc="Evaluating")):
             question = item['question']
@@ -161,6 +162,20 @@ Instructions:
                     'score': answer_score
                 })
                 
+                # Track cheatsheet evolution
+                cheatsheet_evolution.append({
+                    'iteration': i + 1,
+                    'length': len(cheatsheet),
+                    'correct': is_correct
+                })
+                
+                # Log every 10 questions
+                if (i + 1) % 10 == 0:
+                    print(f"\n📊 Progress Update (Question {i+1}/{len(eval_set)}):")
+                    print(f"   Cheatsheet: {len(cheatsheet)} chars")
+                    print(f"   Accuracy so far: {correct}/{i+1} = {correct/(i+1)*100:.1f}%")
+                    print(f"   Last answer: {pred[:60]}...")
+                
             except Exception as e:
                 print(f"\n⚠️  Error on question {i+1}: {e}")
                 predictions.append({
@@ -171,6 +186,14 @@ Instructions:
                     'predicted': f'ERROR: {str(e)}',
                     'correct': False,
                     'score': 0.0
+                })
+                
+                # Track cheatsheet even on error
+                cheatsheet_evolution.append({
+                    'iteration': i + 1,
+                    'length': len(cheatsheet),
+                    'correct': False,
+                    'error': str(e)
                 })
         
         # Calculate accuracy
@@ -204,6 +227,7 @@ Instructions:
             'accuracy': accuracy,
             'format_breakdown': format_breakdown,
             'final_cheatsheet': cheatsheet,
+            'cheatsheet_evolution': cheatsheet_evolution,
             'predictions': predictions,
             'timestamp': timestamp
         }
