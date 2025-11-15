@@ -121,7 +121,7 @@ class DSPyPostgresRetriever:
                     continue
                 else:
                     # Either not a connection error, or max retries reached
-                    logger.error(f"Retrieval error for {doc_id}: {e}")
+                    logger.error(f"Retrieval error for {doc_id}: {str(e)}", stack_info=True)
                     return ""
 
         # If we get here, all retries failed
