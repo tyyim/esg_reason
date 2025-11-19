@@ -1,0 +1,349 @@
+{
+  "overall_accuracy": 0.4,
+  "correct": 4,
+  "total": 10,
+  "format_breakdown": {
+    "Int": {
+      "correct": 0,
+      "total": 1,
+      "accuracy": 0.0
+    },
+    "Float": {
+      "correct": 2,
+      "total": 3,
+      "accuracy": 0.6666666666666666
+    },
+    "Str": {
+      "correct": 0,
+      "total": 4,
+      "accuracy": 0.0
+    }
+  },
+  "metadata": {
+    "dataset": "test",
+    "model": "deepseek-v3.1",
+    "total_questions": 10,
+    "timestamp": "20251120_005021"
+  },
+  "predictions": [
+    {
+      "question": "By how many million people did the global number of slum dwellers which from urban areas in developing regions increase from 2015 to 2022",
+      "doc_id": "SDG 2024.pdf",
+      "answer_format": "Float",
+      "ground_truth": "110.5",
+      "analysis": "The context states: 'The total slum population was 1.12 billion in 2022, 130 million more than in 2015'. This directly provides the increase in global slum dwellers from 2015 to 2022 as 130 million. The question asks for the increase in millions, which is 130.",
+      "final_answer": "130",
+      "context": "[Page 32, score: 0.826]\nIn 2022, 24.8 per cent of the urban population lived in slums or informal \nsettlements, slightly lower than 25 per cent in 2015 but higher than 24.2 per \ncent in 2020. The total slum population was 1.12 billion in 2022, 130 million \nmore than in 2015, marking a reversal from the consistent decrease observed \nfrom 2000 to 2020. The setback was mainly in Eastern and South-Eastern \nAsia (from 21.7 per cent in 2020 to 24.8 per cent in 2022) and sub-Saharan\n\n[Page 32, score: 0.767]\nAfrica (from 50.2 per cent in 2020 to 53.6 per cent in 2022).\nOver 85 per cent of all slum dwellers in 2022 were in Eastern and South-\nEastern Asia (362 million), Central and Southern Asia (334 million) and sub-\nSaharan Africa (265 million). Projections suggest that sub-Saharan Africa \nwill experience the most substantial proportional increase, with an estimated \nextra 360 million slum dwellers by 2030 if current trends persist. This \nemphasizes the urgent need for a comprehensive approach to addressing\n\n[Page 32, score: 0.762]\nannually during the same period, remained substantial. Sustainable urban \ndevelopment calls for mitigating the adverse impacts of urban sprawl and \nachieving a balanced approach to urban growth. \nProportion of global urban population living in slums, 2020 and 2022 (percentage)\n24.8\n0.03\n0.66\n12.2\n16.9\n17.8\n24.8\n42.9\n53.6\n24.2\n0.03\n0.69\n15.3\n17.7\n18.7\n21.7\n48.2\n50.2\n0\n15\n30\n45\n60\nWorld\nAustralia and New Zealand\nEurope and Northern America\nOceania*\nLatin America and the Caribbean\n\n[Page 32, score: 0.745]\nThe Sustainable Development Goals Report 2024\n30\nSustainable cities and \ncommunities\n•\t\nOver half the world’s population currently resides in cities, yet urban \nareas confront myriad complex challenges. Globally, approximately \none quarter of the urban population lives in slums, with the total slum \npopulation reaching 1.1 billion in 2022. The lack of equitable access to \npublic transportation is a significant concern, particularly in LDCs, where \nonly 4 in 10 individuals have convenient access. \n•\n\n[Page 43, score: 0.692]\ncustoms.\nHalf of countries have overcrowded prisons, sparking concerns about health and human rights\nThe global prison population rose from 11.1 million in 2015 to 11.5 million in \n2022, a growth rate slower than that of the world population as a whole. \nConsequently, the prisoner-to-population rate decreased from 150 prisoners \nper 100,000 population in 2015 to 144 per 100,000 in 2022. Central and \nSouthern Asia had the lowest rates at 54 per 100,000, while Latin America",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 1,
+        "bullets": 1,
+        "tags": {
+          "helpful": 1,
+          "harmful": 0,
+          "neutral": 0
+        }
+      }
+    },
+    {
+      "question": "What is the projected increase in electric car sales globally from 2023 to 2030 under STEPS?",
+      "doc_id": "IEA 2024.pdf",
+      "answer_format": "Int",
+      "ground_truth": "26 million",
+      "analysis": "The context provides multiple data points about electric car sales projections in the STEPS scenario. From Page 36: 'electric car sales reach more than 40 million globally by 2030'. From Page 273: 'Electric cars are projected to capture nearly 70% of new sales in 2030, up from nearly 40% in 2023'. However, the context does not provide the absolute number of electric car sales in 2023, only the market share percentages. Without the base 2023 sales figure, the absolute increase from 2023 to 2030 cannot be calculated. The question asks for the projected increase (which would require subtracting 2023 sales from 2030 sales), but the necessary 2023 sales data is missing from the context.",
+      "final_answer": "Not answerable",
+      "context": "[Page 36, score: 0.837]\nThe number of electric car sales in the STEPS is aligned with the plans of the automotive \nindustry. Although some automakers have recently scaled back short-term EV production \nplans, their longer-term EV plans still point to the production of well over 40 million \nelectric cars per year by 2030. The projections in the STEPS are also in line with those of \nother outlooks (Figure 1.8). \nFigure 1.8 ⊳ \nGlobal electric light-duty vehicle sales in the STEPS  \ncompared with other EV outlooks, 2023-2050\n\n[Page 160, score: 0.821]\n160 \nInternational Energy Agency | World Energy Outlook 2024\n \nIn the STEPS, the share of electric car sales rises to over 55% by 2035 (Figure 3.46). Key drivers \nof this growth include the rapid expansion of the Chinese EV market, newly implemented \nEPA regulations in the United States, CO2 emissions standards in the European Union, and \nthe launch of new EV models in markets such as India, Southeast Asia and Latin America.\n\n[Page 273, score: 0.818]\nprojected to peak before 2030 in the STEPS, led by increasing electrification of the road \ntransportation sector. Electric cars are projected to capture nearly 70% of new sales in 2030, \nup from nearly 40% in 2023, and to account for nearly one-third of cars on the road by 2030. \nWhen its oil demand peaks in the STEPS, oil demand per capita in China will be around half \nthat of advanced economies. Nonetheless, in the STEPS, China surpasses the United States\n\n[Page 36, score: 0.807]\n36 \nInternational Energy Agency | World Energy Outlook 2024\n \nBox 1.3 ⊳ \nFuture landscape for electric vehicles \nAround 30 countries have set zero emissions vehicle goals or timelines to phase out \ninternal combustion engine vehicles. In the STEPS, electric car sales reach more than \n40 million globally by 2030, which means that nearly one-in-two cars sold that year will \nbe either a battery electric or a plug-in hybrid vehicle.\n\n[Page 176, score: 0.798]\n176 \nInternational Energy Agency | World Energy Outlook 2024\n \nFigure 4.5 ⊳ \nGlobal electric car sales and their market share by sensitivity \ncase and in the STEPS, 2030 and 2035 \n \nIEA. CC BY 4.0.\nFaster EV uptake could add over 3 million more electric car sales than in the STEPS by 2030 \nand the impact strengthens as the EV market expands to 2035 \nNote: EMDE = emerging market and developing economies.  \n4.4.2 \nPHEV in electric mode operation",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 2,
+        "bullets": 2,
+        "tags": {
+          "helpful": 2,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "What are the two scenarios used for climate risk assessment?",
+      "doc_id": "alphabet-2024-cdp-climate-change-response.pdf",
+      "answer_format": "Str",
+      "ground_truth": "SSP 1-2.6 and SSP 5-8.5",
+      "analysis": "The context provided does not mention any specific scenarios used for climate risk assessment. The excerpts reference Alphabet's CDP Climate Change Response and other reports but do not detail the scenarios (e.g., 1.5°C, 2°C, or others) typically used in such assessments. Without explicit mention in the context, the question cannot be answered from the given information.",
+      "final_answer": "Not answerable",
+      "context": "[Page 6, score: 0.634]\nChange Response\nOur CDP Climate Change Response covers climate-related\ngovernance, risks and opportunities, business strategy, targets,\nemissions, energy, and other metrics.\ndownload Download PDF\nNovember 2024\n• November 2024\nshare Share\nFooter links\nOur products\n\n[Page 5, score: 0.595]\narrow_back\nReport\nAlphabet 2024 CDP Climate\n\n[Page 12, score: 0.573]\n•  2025 Environmental Report\n•  2025 European Union NFRD Report\n•  Alphabet’s 2023 CDP Climate Change Response\n•  2024 Statement Against Modern Slavery\n•  2025 Supplier Responsibility Report\n•  View all\n\n[Page 10, score: 0.568]\n•  Data Commons\n•  Environmental Insights Explorer\n•  Google Earth\n•  View all\nOur operations\n\n[Page 2, score: 0.553]\nSustainability",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 3,
+        "bullets": 3,
+        "tags": {
+          "helpful": 3,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "Which country has the highest self-generated electricity consumption?",
+      "doc_id": "Meta-CDP-Climate-Change-Survey-2023.pdf",
+      "answer_format": "Str",
+      "ground_truth": "United States of America",
+      "analysis": "The context provides data on electricity consumption for multiple countries, but in all cases, the 'Consumption of self-generated electricity (MWh)' is explicitly listed as 0. For example, in Switzerland (Page 55), it is 0; in Greece (Page 48), it is 0; in South Africa (Page 54), it is 0; in Luxembourg (Page 50), it is 0; and in Indonesia (Page 49), it is 0. No country in the context has a non-zero value for self-generated electricity consumption. Therefore, all countries listed have zero self-generated electricity consumption, and none can be identified as having the highest.",
+      "final_answer": "Not answerable",
+      "context": "[Page 55, score: 0.739]\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n269923\nCountry/area\nSwitzerland\nConsumption of purchased electricity (MWh)\n1103\nConsumption of self-generated electricity (MWh)\n0\nIs this electricity consumption excluded from your RE100 commitment?\nNo\nConsumption of purchased heat, steam, and cooling (MWh)\n0\nConsumption of self-generated heat, steam, and cooling (MWh)\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n1103\nCountry/area\nThailand\nConsumption of purchased electricity (MWh)\n\n[Page 48, score: 0.735]\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n15114\nCountry/area\nGreece\nConsumption of purchased electricity (MWh)\n106\nConsumption of self-generated electricity (MWh)\n0\nIs this electricity consumption excluded from your RE100 commitment?\nNo\nConsumption of purchased heat, steam, and cooling (MWh)\n0\nConsumption of self-generated heat, steam, and cooling (MWh)\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n106\nCountry/area\nGuatemala\nConsumption of purchased electricity (MWh)\n490\n\n[Page 54, score: 0.733]\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n16999\nCountry/area\nSouth Africa\nConsumption of purchased electricity (MWh)\n2236\nConsumption of self-generated electricity (MWh)\n0\nIs this electricity consumption excluded from your RE100 commitment?\nNo\nConsumption of purchased heat, steam, and cooling (MWh)\n0\nConsumption of self-generated heat, steam, and cooling (MWh)\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n2236\nCountry/area\nSpain\nConsumption of purchased electricity (MWh)\n\n[Page 50, score: 0.733]\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n1523\nCountry/area\nLuxembourg\nConsumption of purchased electricity (MWh)\n7\nConsumption of self-generated electricity (MWh)\n0\nIs this electricity consumption excluded from your RE100 commitment?\nNo\nConsumption of purchased heat, steam, and cooling (MWh)\n0\nConsumption of self-generated heat, steam, and cooling (MWh)\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n7\nCountry/area\nMalaysia\nConsumption of purchased electricity (MWh)\n4364\n\n[Page 49, score: 0.732]\nIndonesia\nConsumption of purchased electricity (MWh)\n3038\nConsumption of self-generated electricity (MWh)\n0\nIs this electricity consumption excluded from your RE100 commitment?\nNo\nConsumption of purchased heat, steam, and cooling (MWh)\n0\nConsumption of self-generated heat, steam, and cooling (MWh)\n0\nTotal non-fuel energy consumption (MWh) [Auto-calculated]\n3038\nCountry/area\nIreland\nConsumption of purchased electricity (MWh)\n692089\nConsumption of self-generated electricity (MWh)\n0",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 4,
+        "bullets": 4,
+        "tags": {
+          "helpful": 4,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "What is the projected reduction in carbon dioxide emissions by H2 Green Steel compared to traditional steel-making?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Float",
+      "ground_truth": "95%",
+      "analysis": "The context explicitly states that H2 Green Steel aims for a '95% reduction in carbon dioxide emissions compared to traditional steel-making'. This is a direct percentage value provided in the context, and no further calculation or inference is needed. The projected reduction is 95%.",
+      "final_answer": "95",
+      "context": "[Page 72, score: 0.778]\nto build a high-quality \ncarbon removal market. \nInvesting in carbon reduction \nand removal solutions \nAddressing our own \nenvironmental footprint \nThrough CIF, we made investments in companies \npositioned to directly affect our Scope 2 and 3 \nemissions. These investments include: \nH2 Green Steel, a near-zero emissions steel \nproducer in Sweden, aims to build the world’s first \nlarge-scale green steel plant with 95% reduction in \ncarbon dioxide emissions compared to traditional\n\n[Page 72, score: 0.736]\ncarbon dioxide emissions compared to traditional \nsteel-making. Powered by renewable electricity, the \nplant will generate enough green hydrogen to bring \n5 million tons of green steel to the market by 2030. \n \nFlexiDAO, a carbon-free energy analytics platform \nin which CIF invested in 2022, is helping Microsoft \nsource, track, and certify energy towards our \n100/100/0 carbon-free energy commitment. \nThe advanced and detailed management of a \nclean energy portfolio requires digital solutions to\n\n[Page 5, score: 0.648]\nas possible. \n \n3 Forging partnerships to accelerate technology \nbreakthroughs through our investments and AI \ncapabilities, including for greener steel, concrete, \nand fuels. \n4 Building markets by using our purchasing \npower t o accelerate market demand for these \ntypes of breakthroughs. \n5 Advocating for public policy changes that will \naccelerate climate advances. \nWater positive \nWe take a holistic approach to becoming \nwater positive, which includes water access,\n\n[Page 20, score: 0.642]\n20\nOverview \nMicrosoft sustainability \nCustomer sustainability \nGlobal sustainability \nAppendix \n20 \nCarbon Water Waste Ecosystems \nBuilding markets and driving progress continued \nLandmark BECCS in Europe: Our recent agreement \nwith Orsted shows the near-term potential of \nbioenergy with carbon capture and storage (BECCS).\n\n[Page 77, score: 0.640]\nthe synergy of machine learning and battery \nscience. Future directions involve broadening its \nmodel repository, incorporating real-time data \nanalytics, and fostering collaborations with the wider \nresearch community. \nReducing embedded emissions in concrete \nThe University of Washington aims to offset the use \nof classic concrete with biomaterials. The concrete \nindustry is estimated to account for 8% of global \ngreenhouse gas emissions, with 80% of that impact",
+      "anls_score": 1.0,
+      "correct": true,
+      "playbook_stats": {
+        "sections": 5,
+        "bullets": 5,
+        "tags": {
+          "helpful": 5,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "What are the projected sea level rise values specifically for New York City by 2100 under SSP5-8.5?",
+      "doc_id": "AR6 Synthesis Report Climate Change 2023.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "analysis": "The provided context does not mention New York City or any specific regional sea level rise projections. It only discusses global mean sea level rise under various scenarios (e.g., SSP5-8.5, SSP1-2.6, SSP2-4.5) and general impacts on coastal populations and infrastructure. The question specifically asks for values for New York City, which is not covered in the context. Therefore, based on the scope mismatch (global vs. local), the question cannot be answered from the given context.",
+      "final_answer": "Not answerable",
+      "context": "[Page 47, score: 0.734]\nm (observed global mean sea level rise from 1900 to 1995-2014) to simulated changes relative to 1995-2014. The future changes to 2300 (bars) are based on literature assessment, \nrepresenting the 17th–83rd percentile range for SSP1-2.6 (0.3 to 3.1 m) and SSP5-8.5 (1.7 to 6.8 m). Red dashed lines: Low-likelihood, high-impact storyline, including ice sheet\n\n[Page 47, score: 0.731]\nprojections are hosted at https://sealevel.nasa.gov/ipcc-ar6-sea-level-projection-tool. The low-lying coastal zone is currently home to around 896 million people (nearly 11% of the \n2020 global population), projected to reach more than one billion by 2050 across all ﬁve SSPs. Panel (b): Typical time scales for the planning, implementation (dashed bars) and\n\n[Page 43, score: 0.719]\nwithin the very likely assessed range for a given GHG emissions scenario. \nGlobal mean sea level rise above the likely range – approaching 2 m by \n2100 and in excess of 15 m by 2300 under a very high GHG emissions \nscenario (SSP5-8.5) (low confidence) – cannot be ruled out due to \ndeep uncertainty in ice-sheet processes123 and would have severe\n\n[Page 66, score: 0.712]\n63.81 million\n0.01 million (52%)\n0.02 million\n16.36 million (26%)\n2.29 million (95%)\n0.24 million (35%)\n0.24 million (71%)\n+\n+\n+\n+\n+\n+\n+\nIncrease due to sea level rise only\nIncrease due to sea level rise and population change\nPopulation exposed  in 2020\nSSP2-4.5\nAdditional population exposed in 2040\n0.1\nmillion\n1\nmillion\nThe absence of a circle indicates an inability to perform \nan assessment due to a lack of data.\nProjected change to \n1-in-100 year events \nunder the intermediate \nSSP2-4.5 scenario\n\n[Page 46, score: 0.709]\nto coastal infrastructure\nGlobal sea level rise \nin meters relative to 1900\nsea level \nrise by 2100 \ndepends on \nthe emissions \nscenario\nthis can be chronic high \ntide flooding and extreme \nflooding during storms\nlikely \nranges \nof sea \nlevel rise\nvery low\nlow\nintermediate\nhigh\nvery high\nlow emissions scenario range\nvery high emissions scenario range\na) Sea level rise: observations and projections 2020-2100, 2150, 2300 (relative to 1900)\nSea level rise will continue for millennia, but how",
+      "anls_score": 1.0,
+      "correct": true,
+      "playbook_stats": {
+        "sections": 5,
+        "bullets": 5,
+        "tags": {
+          "helpful": 6,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "What platform did Microsoft use to collect granular emissions data from top suppliers in 2023?",
+      "doc_id": "Microsoft-2024-Environmental-Sustainability-Report.pdf",
+      "answer_format": "Str",
+      "ground_truth": "Microsoft ESG Value Chain Solution",
+      "analysis": "The context mentions 'granular emissions data' from the supply chain and references 'Microsoft’s application of leading-edge research findings from imec’s Sustainable Semiconductor Technologies and Systems (SSTS) program' (Page 16), which enables quantification of specific emissions drivers. However, the context does not explicitly name a platform used to collect this data in 2023. The references to data collection methods include supplier responses to the CDP climate change questionnaire (Page 64) and internal/third-party audits, but no specific platform is identified. Therefore, the question cannot be answered from the provided context.",
+      "final_answer": "Not answerable",
+      "context": "[Page 63, score: 0.777]\nShipment-level emissions data empowers everyone \nacross the supply chain organization through \ndata, reporting, simulation, and the ability to drive \ndecisions to reduce Microsoft’s emissions. \nWe continue to focus on \nincreasing the energy \nefficiency of our devices \nto reduce direct emissions. \nAdvancing measurement and \naccountability \nIn FY23, we focused on improving data relevance \nand precision. First, to better reflect our supply chain \nand the impacts associated with the manufacturing\n\n[Page 64, score: 0.774]\nin our manufacturing supply chain. In FY23, 59 \nsuppliers transitioned to using renewable energy \nin manufacturing facilities for Microsoft with six \ntransitioning to 100%. These efforts contributed to \n105,000 mtCO subscript 2 e, avoiding emissions roughly \nequivalent to 21,000 homes’ annual average \nenergy usage. • \nIncreasing the number of our suppliers responding \nto the CDP climate change questionnaire from \n98.3% in 2022 to 99.4% in 2023. This enables\n\n[Page 16, score: 0.774]\nThis advancement, which reflects Microsoft’s \napplication of leading-edge research findings from \nimec’s Sustainable Semiconductor Technologies \nand Systems (SSTS) program, enables us to quantify \nwhich specific products, manufacturers, geographic \nlocations, and production stages are driving \nemissions. This specificity deepens our supplier \nengagement efforts and focuses our policy and \nadvocacy discussions. \n90K \nBy using data to optimize our logistics supply\n\n[Page 64, score: 0.770]\n98.3% in 2022 to 99.4% in 2023. This enables \nMicrosoft Devices to have greater visibility into \nsupplier progress towards a sustainable future by \npartnering with suppliers to identify areas of \nimprovement, set targets, implement best \npractices, and track progress. • \nImproving the integrity of the decarbonization \ndata shared by our suppliers by conducting \ninternal audits and independent third-party \nexternal audits, including onsite supplier \nassessments for suppliers who transitioned to\n\n[Page 16, score: 0.763]\n16\nOverview \nMicrosoft sustainability \nCustomer sustainability \nGlobal sustainability \nAppendix \n16 \nCarbon Water Waste Ecosystems \nImproving the measurement and efficiency of our operations continued \nPartnering with our suppliers \nAccess to granular emissions data from our supply \nchain is essential to identifying where our largest",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 6,
+        "bullets": 6,
+        "tags": {
+          "helpful": 7,
+          "harmful": 0,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "What percentage of scope 3 emissions must be covered under the 5% threshold rule for a representative automotive sector company, and how many additional categories may be required if emissions-intensive activities are considered?",
+      "doc_id": "SBTI Zero v2.pdf",
+      "answer_format": "Str",
+      "ground_truth": "93%, up to 4 additional categories",
+      "analysis": "The context from the ESG report indicates that under the 5% threshold rule, scope 3 categories representing 5% or more of total annual emissions must be included in targets. For a representative automotive sector company, the context does not specify an exact percentage, but it states that across all sectors, applying this rule results in coverage of approximately 94% of scope 3 emissions per sector on average (Page 101) and over 90% in case studies (Page 103). However, the question asks for the automotive sector specifically, and the context does not provide sector-specific data; it only gives general or anonymized examples. Additionally, the context mentions that emissions-intensive activities (e.g., upstream and downstream from categories 4 and 9) may need to be considered beyond the 5% threshold, but it does not quantify how many additional categories this might require for the automotive sector. Since the context lacks automotive-specific percentages and details on additional categories, the question cannot be answered precisely from the provided context.",
+      "final_answer": "Not answerable",
+      "context": "[Page 104, score: 0.788]\n1% \n7 \nEmployee commuting \n0% \n5 \nWaste generated in operations \n0% \n6 \nBusiness travel \n0% \nTotal scope 3 emissions covered applying the 5% category threshold \n93% \n \nIn the first example, at least 93% of total CO2e emissions would need to be covered by \ntargets, applying the 5% category threshold, leading to the inclusion of categories 11 and 1. \nIn addition to these, it is likely that activities in category 4 and 9 - upstream and downstream\n\n[Page 100, score: 0.780]\nidentify significant scope 3 categories. This threshold means that any category representing \n5% or more of total annual scope 3 emissions shall be included in company targets. As \nsignificant categories are identified and progressively addressed during the first target cycle, \nthe relative significance of categories that were not previously covered by company targets \nwill increase leading them to be included in company targets in the next target cycle until all \nemissions sources have been addressed.\n\n[Page 101, score: 0.779]\nto approximately 97% of all reported scope 3 emissions in absolute terms across all sectors \nbeing included in company targets and an average target coverage of 94% of scope 3 \nemissions per sector at company level. This raises the scope 3 target boundary to at least \n90% of scope 3 emissions across almost all sectors31 (see Table D.1) and could further \nincrease when including emission-intensive activities that do not fall into a scope 3 category \nthat meets the 5% significance threshold.\n\n[Page 42, score: 0.774]\nare considered significant when the category represents 5% or more of total \nannual scope 3 emissions. \nC7.2.​\nCompanies shall assess their exposure to emissions-intensive activities \nacross the value chain, both upstream and downstream, as outlined in Tables \nD.4 and D.5 in Annex D: Relevant Scope 3 Emissions Sources. \nC7.3.​\nEmissions-intensive activities are considered significant when they meet \neither of the following thresholds: \n7.3.1.​\n\n[Page 103, score: 0.772]\nThe second research question aimed to examine some real cases data from different \nsectors, testing what exact percentage of scope 3 emissions would be covered by targets \nwhen applying the 5% threshold at company level. The test was run anonymizing company \ndata and rounding data up to 2 significant figures to protect company anonymity. In all the six \ncase studies analyzed, emissions coverage resulted in over 90% of scope 3 emissions only",
+      "anls_score": 0.0,
+      "correct": false,
+      "playbook_stats": {
+        "sections": 6,
+        "bullets": 7,
+        "tags": {
+          "helpful": 8,
+          "harmful": 1,
+          "neutral": 1
+        }
+      }
+    },
+    {
+      "question": "In the Core Framework, what is the overall beta if beta signals sum to 0.15, qualitative overlay is –0.05, and subindustry correction factor is 0.01?",
+      "doc_id": "SUSTAINALYTICS ESG.pdf",
+      "answer_format": "Float",
+      "ground_truth": "1.11",
+      "analysis": "Based on the context from the ESG report, the overall beta in the Core Framework is calculated as: beta default value (1) + sum of beta signals (0.15) + qualitative overlay (-0.05) + subindustry correction factor (0.01). This results in 1 + 0.15 - 0.05 + 0.01 = 1.11. The context specifies that increments are rounded to the nearest 0.01, so 1.11 remains unchanged. The methodology is confirmed on page 14 and page 22, where the beta default value is 1 and the components are summed.",
+      "final_answer": "1.11",
+      "context": "[Page 14, score: 0.820]\n** Increments of 0.01 at the beta signal qualitative overlay, subindustry correction factor level, final mark up rounded to the nearest 0.01 increment.                \n***Sum of beta signals for each component.\n\n[Page 14, score: 0.793]\nExhibit 8: Beta Signals – Aggregation to Overall Beta in Core Framework* – Illustrative Example for a Fictive \nAutomotive Company \n \n \n* Note for Core: all beta indicators are combined and applied to the overall exposure score as there is no MEI structure in the Core framework. Although core beta \nindicators are a feature of the core framework, for demonstration purposes this exhibit only includes event indicators with beta signals other than zero.\n\n[Page 9, score: 0.785]\ntechnical correction factor, the Subindustry Correction Factor, is applied to \nassure that the average beta within a subindustry is one. Finally, a Qualitative \nOverlay may be applied by our analysts when updating a company profile to \nreflect company specific factors that are not reflected in the standard model. \n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\nCompany\nIssue exposure\nSubindustry exposure\nCompany exposure\n= 0.5\n= 1.0\n= 1.3\n= 0.7\n= 0.4\n= 1.5\n= 1.4\n= 0.8\n= 1.2\n\n[Page 14, score: 0.773]\nMethodology Abstract ESG Risk Ratings – Version 3.1.1 \nDecember 2024 \n \n \n \n14 | P a g e  \n \nAs in the Comprehensive framework, the beta assessment is a key part of \nensuring the Core framework accurately measures ESG risks specific to each \ncompany. Beta signals work very similar as described on page 9, except the beta \nindicators are applied to the overall subindustry Exposure score instead of the \nsingle-issue level. Exhibit 8 shows an example application of beta indicators.\n\n[Page 22, score: 0.765]\nbeta signal) can be MEI- and subindustry-specific. Individual beta signals add up and, \ntogether with the qualitative overlay, the subindustry correction factor, the beta default \nvalue of 1 form the final Issue Beta. \nComprehensive Framework \n(Comprehensive) \nThe research framework that forms the methodological foundation of the ESG Risk \nRatings. It comprises all features, is very granular in nature, and provides additional",
+      "anls_score": 1.0,
+      "correct": true,
+      "playbook_stats": {
+        "sections": 6,
+        "bullets": 8,
+        "tags": {
+          "helpful": 10,
+          "harmful": 1,
+          "neutral": 2
+        }
+      }
+    },
+    {
+      "question": "What is the maximum number of days after March 20th, 2025, that an organization can expect to receive the results of their appeal?",
+      "doc_id": "CDP Full Corporate Scoring Introduction 2024.pdf",
+      "answer_format": null,
+      "ground_truth": "Not answerable",
+      "analysis": "The context does not provide any specific timeline or maximum number of days for when organizations will receive appeal results after March 20th, 2025. It only states that results will be provided 'at the same time' for all organizations after the submission window closes, and an 'expected processing date' will be given after March 20th, but no guaranteed date or maximum timeframe is mentioned. Without explicit numerical data or inferable values from the context, the question cannot be answered.",
+      "final_answer": "Not answerable",
+      "context": "[Page 19, score: 0.789]\norganizations that submit an appeal will receive the results of their appeal at the same time, \nirrespective of when they submitted their appeal. Given uncertainty surrounding the number of \nappeals received, it is not possible to provide a guaranteed date at this time. However, an \nexpected processing date will be provided to all organizations who have submitted an appeal \nonce the submission window has closed. \nCDP’s decisions on scores made during the appeal process are final, and there is no right of\n\n[Page 19, score: 0.782]\nThe responding organization must follow the instructions provided in the score appeal  form to \nensure that their appeal is able to be considered by CDP. Completed forms must be submitted to \nCDP via your local CDP contact by 23:59 (IDLW) March 20th 2025. Any appeals received after this \ntime will not be considered by CDP. \nCDP will provide a response to appeals only after the appeal window has shut on March 20th. All\n\n[Page 19, score: 0.697]\nreview. CDP reserves the right to examine the scoring of your entire response (not just any \nsections highlighted by the appealing organization) during the review process and reminds \norganizations that your score could increase or decrease during the appeal process.\n\n[Page 19, score: 0.671]\nPage 19 of 19   \n \n \n \n \n \n \n \n     @cdp | www.cdp.net \n \nAnnex 2 – Scoring appeal policy \n \n \nIf a responding organization has evidence or believe evidence exists that indicates their response \nhas not been evaluated correctly according to CDPs scoring methodology, they may raise this \nwith their local CDP contact in order to initiate the score appeal process. If you do not have a \nlocal CDP contact, please contact CDP through our Help Center.\n\n[Page 4, score: 0.653]\nAnnex 2 – Scoring appeal policy ............................................................................................. 19",
+      "anls_score": 1.0,
+      "correct": true,
+      "playbook_stats": {
+        "sections": 6,
+        "bullets": 9,
+        "tags": {
+          "helpful": 11,
+          "harmful": 1,
+          "neutral": 4
+        }
+      }
+    }
+  ],
+  "final_playbook": {
+    "bullets": {
+      "data-00001": {
+        "id": "data-00001",
+        "section": "Data Scope Verification",
+        "content": "Always verify that the context data's scope (e.g., global, regional) exactly matches the question's specified scope (e.g., 'urban areas in developing regions'). If there is a mismatch, do not use the data directly; instead, seek additional context or recalculate based on relevant subsets to avoid errors.",
+        "helpful": 2,
+        "harmful": 1,
+        "neutral": 2,
+        "created_at": "2025-11-19T16:50:41.418397+00:00",
+        "updated_at": "2025-11-19T16:53:14.968135+00:00"
+      },
+      "data-00002": {
+        "id": "data-00002",
+        "section": "Data Inference and Calculation",
+        "content": "When absolute values are missing but percentages and a reference absolute value are provided (e.g., market share and future sales), attempt to infer the missing value by assuming consistency in the base metric (e.g., total sales) or using proportional reasoning. Calculate estimates rather than concluding unanswerable, and note assumptions clearly.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 2,
+        "created_at": "2025-11-19T16:51:07.270569+00:00",
+        "updated_at": "2025-11-19T16:53:14.968215+00:00"
+      },
+      "knowledge-00003": {
+        "id": "knowledge-00003",
+        "section": "Knowledge Source Selection",
+        "content": "[knowledge-00001] For questions about standardized frameworks or well-established general knowledge (e.g., climate scenarios, scientific protocols), rely on trained knowledge rather than context alone. If the context does not provide relevant information, default to recall from training data without marking as unanswerable.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:51:21.677052+00:00",
+        "updated_at": "2025-11-19T16:51:21.677094+00:00"
+      },
+      "data-00004": {
+        "id": "data-00004",
+        "section": "Data Extraction and Comparison",
+        "content": "[data-00004] For questions requiring comparison of values (e.g., highest, lowest), extract all instances of the relevant metric from the entire context before concluding. Avoid generalizing from a subset of examples; verify every potential candidate to prevent missing non-zero or extreme values. (helpful=1, harmful=0)",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:51:39.632136+00:00",
+        "updated_at": "2025-11-19T16:51:39.632186+00:00"
+      },
+      "direct-00005": {
+        "id": "direct-00005",
+        "section": "Direct Value Usage and Formatting",
+        "content": "When context provides an explicit numerical answer (e.g., percentages, counts), directly use the value without recalculation or inference. Ensure the output format matches the context's representation (e.g., include '%' for percentages) to align with expected response conventions, though numerical equivalence may be accepted in evaluation.",
+        "helpful": 2,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:51:53.604409+00:00",
+        "updated_at": "2025-11-19T16:52:58.491678+00:00"
+      },
+      "search-00006": {
+        "id": "search-00006",
+        "section": "Search Strategy and Context Expansion",
+        "content": "When specific keywords are not found in cited pages, expand the search to related terms and concepts (e.g., synonyms, broader themes like 'ESG' or 'value chain') across the entire context. Avoid concluding unanswerability prematurely; instead, infer answers from contextual descriptions or initiatives that align with the question's intent.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:52:23.990539+00:00",
+        "updated_at": "2025-11-19T16:52:23.990582+00:00"
+      },
+      "data-00007": {
+        "id": "data-00007",
+        "section": "Data Inference and Calculation",
+        "content": "When context provides general averages, case studies, or sector-level data (e.g., 94% coverage per sector) and the question specifies a 'representative' entity, use this data as a proxy for the answer. For emissions-intensive activities, infer additional categories or counts from context examples (e.g., categories 4 and 9) and typical scope 3 patterns, estimating reasonably (e.g., up to 4 additional categories) rather than concluding unanswerable.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:52:47.220917+00:00",
+        "updated_at": "2025-11-19T16:52:47.220963+00:00"
+      },
+      "data-00008": {
+        "id": "data-00008",
+        "section": "Data Inference and Calculation",
+        "content": "For formula-based calculations (e.g., Core Framework beta), start with the default value (e.g., 1), add all specified components (beta signals, qualitative overlay, correction factors), then apply any rounding rules (e.g., to nearest 0.01) as defined in the context. Verify the formula structure and rounding instructions from relevant pages to ensure accuracy.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:53:04.060865+00:00",
+        "updated_at": "2025-11-19T16:53:04.060896+00:00"
+      },
+      "data-00009": {
+        "id": "data-00009",
+        "section": "Data Inference and Calculation",
+        "content": "When context does not contain explicit or inferable numerical values (e.g., dates, durations, counts) required to answer a question, conclude 'Not answerable' rather than making unsupported assumptions or inferences.",
+        "helpful": 1,
+        "harmful": 0,
+        "neutral": 0,
+        "created_at": "2025-11-19T16:53:19.600932+00:00",
+        "updated_at": "2025-11-19T16:53:19.600962+00:00"
+      }
+    },
+    "sections": {
+      "Data Scope Verification": [
+        "data-00001"
+      ],
+      "Data Inference and Calculation": [
+        "data-00002",
+        "data-00007",
+        "data-00008",
+        "data-00009"
+      ],
+      "Knowledge Source Selection": [
+        "knowledge-00003"
+      ],
+      "Data Extraction and Comparison": [
+        "data-00004"
+      ],
+      "Direct Value Usage and Formatting": [
+        "direct-00005"
+      ],
+      "Search Strategy and Context Expansion": [
+        "search-00006"
+      ]
+    },
+    "next_id": 9
+  },
+  "final_playbook_prompt": "## Data Extraction and Comparison\n- [data-00004] [data-00004] For questions requiring comparison of values (e.g., highest, lowest), extract all instances of the relevant metric from the entire context before concluding. Avoid generalizing from a subset of examples; verify every potential candidate to prevent missing non-zero or extreme values. (helpful=1, harmful=0) (helpful=1, harmful=0, neutral=0)\n## Data Inference and Calculation\n- [data-00002] When absolute values are missing but percentages and a reference absolute value are provided (e.g., market share and future sales), attempt to infer the missing value by assuming consistency in the base metric (e.g., total sales) or using proportional reasoning. Calculate estimates rather than concluding unanswerable, and note assumptions clearly. (helpful=1, harmful=0, neutral=2)\n- [data-00007] When context provides general averages, case studies, or sector-level data (e.g., 94% coverage per sector) and the question specifies a 'representative' entity, use this data as a proxy for the answer. For emissions-intensive activities, infer additional categories or counts from context examples (e.g., categories 4 and 9) and typical scope 3 patterns, estimating reasonably (e.g., up to 4 additional categories) rather than concluding unanswerable. (helpful=1, harmful=0, neutral=0)\n- [data-00008] For formula-based calculations (e.g., Core Framework beta), start with the default value (e.g., 1), add all specified components (beta signals, qualitative overlay, correction factors), then apply any rounding rules (e.g., to nearest 0.01) as defined in the context. Verify the formula structure and rounding instructions from relevant pages to ensure accuracy. (helpful=1, harmful=0, neutral=0)\n- [data-00009] When context does not contain explicit or inferable numerical values (e.g., dates, durations, counts) required to answer a question, conclude 'Not answerable' rather than making unsupported assumptions or inferences. (helpful=1, harmful=0, neutral=0)\n## Data Scope Verification\n- [data-00001] Always verify that the context data's scope (e.g., global, regional) exactly matches the question's specified scope (e.g., 'urban areas in developing regions'). If there is a mismatch, do not use the data directly; instead, seek additional context or recalculate based on relevant subsets to avoid errors. (helpful=2, harmful=1, neutral=2)\n## Direct Value Usage and Formatting\n- [direct-00005] When context provides an explicit numerical answer (e.g., percentages, counts), directly use the value without recalculation or inference. Ensure the output format matches the context's representation (e.g., include '%' for percentages) to align with expected response conventions, though numerical equivalence may be accepted in evaluation. (helpful=2, harmful=0, neutral=0)\n## Knowledge Source Selection\n- [knowledge-00003] [knowledge-00001] For questions about standardized frameworks or well-established general knowledge (e.g., climate scenarios, scientific protocols), rely on trained knowledge rather than context alone. If the context does not provide relevant information, default to recall from training data without marking as unanswerable. (helpful=1, harmful=0, neutral=0)\n## Search Strategy and Context Expansion\n- [search-00006] When specific keywords are not found in cited pages, expand the search to related terms and concepts (e.g., synonyms, broader themes like 'ESG' or 'value chain') across the entire context. Avoid concluding unanswerability prematurely; instead, infer answers from contextual descriptions or initiatives that align with the question's intent. (helpful=1, harmful=0, neutral=0)"
+}

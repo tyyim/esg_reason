@@ -24,7 +24,9 @@ from .roles import Generator, Reflector, Curator
 from .adaptation import OnlineAdapter, TaskEnvironment, EnvironmentResult, Sample
 from .prompts import GENERATOR_PROMPT, REFLECTOR_PROMPT, CURATOR_PROMPT
 
+from .llm_base import LLMClient
 from .ace_llm import DashscopeLLMClient
+from .openai_llm import OpenAILLMClient
 
 logger = logging.getLogger(__name__)
 
@@ -70,10 +72,38 @@ class ACERAGModule:
         *,
         max_refinement_rounds: int = 1,
         reflection_window: int = 3,
+        llm_client: Optional[LLMClient] = None,
+        llm_type: str = "dashscope",  # "dashscope" or "openai"
+        api_key: Optional[str] = None,
+        base_url: Optional[str] = None,
     ) -> None:
+        """
+        Initialize ACE RAG Module.
+
+        Args:
+            model_name: Model name to use
+            max_refinement_rounds: Maximum refinement rounds for adapter
+            reflection_window: Reflection window size
+            llm_client: Custom LLMClient instance (if provided, overrides llm_type)
+            llm_type: Type of LLM client to use ("dashscope" or "openai")
+            api_key: API key (for OpenAI client, defaults to OPENAI_API_KEY env var)
+            base_url: Base URL (for OpenAI client, defaults to OPENAI_API_BASE env var)
+        """
         self.retriever = DSPyPostgresRetriever()
         self.playbook = Playbook()
-        self.llm = DashscopeLLMClient(model=model_name)
+        
+        # Initialize LLM client
+        if llm_client is not None:
+            self.llm = llm_client
+        elif llm_type == "openai":
+            self.llm = OpenAILLMClient(
+                model=model_name,
+                api_key=api_key,
+                base_url=base_url,
+            )
+        else:  # default to dashscope
+            self.llm = DashscopeLLMClient(model=model_name)
+        
         self.generator = Generator(self.llm, prompt_template=GENERATOR_PROMPT)
         self.reflector = Reflector(self.llm, prompt_template=REFLECTOR_PROMPT)
         self.curator = Curator(self.llm, prompt_template=CURATOR_PROMPT)

@@ -1,0 +1,118 @@
+{
+  "bullets": {
+    "data-00001": {
+      "id": "data-00001",
+      "section": "Data Scope Verification",
+      "content": "Always verify that the context data's scope (e.g., global, regional) exactly matches the question's specified scope (e.g., 'urban areas in developing regions'). If there is a mismatch, do not use the data directly; instead, seek additional context or recalculate based on relevant subsets to avoid errors.",
+      "helpful": 2,
+      "harmful": 1,
+      "neutral": 2,
+      "created_at": "2025-11-19T16:50:41.418397+00:00",
+      "updated_at": "2025-11-19T16:53:14.968135+00:00"
+    },
+    "data-00002": {
+      "id": "data-00002",
+      "section": "Data Inference and Calculation",
+      "content": "When absolute values are missing but percentages and a reference absolute value are provided (e.g., market share and future sales), attempt to infer the missing value by assuming consistency in the base metric (e.g., total sales) or using proportional reasoning. Calculate estimates rather than concluding unanswerable, and note assumptions clearly.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 2,
+      "created_at": "2025-11-19T16:51:07.270569+00:00",
+      "updated_at": "2025-11-19T16:53:14.968215+00:00"
+    },
+    "knowledge-00003": {
+      "id": "knowledge-00003",
+      "section": "Knowledge Source Selection",
+      "content": "[knowledge-00001] For questions about standardized frameworks or well-established general knowledge (e.g., climate scenarios, scientific protocols), rely on trained knowledge rather than context alone. If the context does not provide relevant information, default to recall from training data without marking as unanswerable.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:51:21.677052+00:00",
+      "updated_at": "2025-11-19T16:51:21.677094+00:00"
+    },
+    "data-00004": {
+      "id": "data-00004",
+      "section": "Data Extraction and Comparison",
+      "content": "[data-00004] For questions requiring comparison of values (e.g., highest, lowest), extract all instances of the relevant metric from the entire context before concluding. Avoid generalizing from a subset of examples; verify every potential candidate to prevent missing non-zero or extreme values. (helpful=1, harmful=0)",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:51:39.632136+00:00",
+      "updated_at": "2025-11-19T16:51:39.632186+00:00"
+    },
+    "direct-00005": {
+      "id": "direct-00005",
+      "section": "Direct Value Usage and Formatting",
+      "content": "When context provides an explicit numerical answer (e.g., percentages, counts), directly use the value without recalculation or inference. Ensure the output format matches the context's representation (e.g., include '%' for percentages) to align with expected response conventions, though numerical equivalence may be accepted in evaluation.",
+      "helpful": 2,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:51:53.604409+00:00",
+      "updated_at": "2025-11-19T16:52:58.491678+00:00"
+    },
+    "search-00006": {
+      "id": "search-00006",
+      "section": "Search Strategy and Context Expansion",
+      "content": "When specific keywords are not found in cited pages, expand the search to related terms and concepts (e.g., synonyms, broader themes like 'ESG' or 'value chain') across the entire context. Avoid concluding unanswerability prematurely; instead, infer answers from contextual descriptions or initiatives that align with the question's intent.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:52:23.990539+00:00",
+      "updated_at": "2025-11-19T16:52:23.990582+00:00"
+    },
+    "data-00007": {
+      "id": "data-00007",
+      "section": "Data Inference and Calculation",
+      "content": "When context provides general averages, case studies, or sector-level data (e.g., 94% coverage per sector) and the question specifies a 'representative' entity, use this data as a proxy for the answer. For emissions-intensive activities, infer additional categories or counts from context examples (e.g., categories 4 and 9) and typical scope 3 patterns, estimating reasonably (e.g., up to 4 additional categories) rather than concluding unanswerable.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:52:47.220917+00:00",
+      "updated_at": "2025-11-19T16:52:47.220963+00:00"
+    },
+    "data-00008": {
+      "id": "data-00008",
+      "section": "Data Inference and Calculation",
+      "content": "For formula-based calculations (e.g., Core Framework beta), start with the default value (e.g., 1), add all specified components (beta signals, qualitative overlay, correction factors), then apply any rounding rules (e.g., to nearest 0.01) as defined in the context. Verify the formula structure and rounding instructions from relevant pages to ensure accuracy.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:53:04.060865+00:00",
+      "updated_at": "2025-11-19T16:53:04.060896+00:00"
+    },
+    "data-00009": {
+      "id": "data-00009",
+      "section": "Data Inference and Calculation",
+      "content": "When context does not contain explicit or inferable numerical values (e.g., dates, durations, counts) required to answer a question, conclude 'Not answerable' rather than making unsupported assumptions or inferences.",
+      "helpful": 1,
+      "harmful": 0,
+      "neutral": 0,
+      "created_at": "2025-11-19T16:53:19.600932+00:00",
+      "updated_at": "2025-11-19T16:53:19.600962+00:00"
+    }
+  },
+  "sections": {
+    "Data Scope Verification": [
+      "data-00001"
+    ],
+    "Data Inference and Calculation": [
+      "data-00002",
+      "data-00007",
+      "data-00008",
+      "data-00009"
+    ],
+    "Knowledge Source Selection": [
+      "knowledge-00003"
+    ],
+    "Data Extraction and Comparison": [
+      "data-00004"
+    ],
+    "Direct Value Usage and Formatting": [
+      "direct-00005"
+    ],
+    "Search Strategy and Context Expansion": [
+      "search-00006"
+    ]
+  },
+  "next_id": 9
+}

@@ -40,8 +40,8 @@ def evaluate_simple_baseline_raw(dataset_name='dev', model_name='deepseek-v3.1',
     
     # Load environment
     load_dotenv()
-    api_key = os.getenv("DASHSCOPE_API_KEY")
-    base_url = os.getenv("QWEN_API_BASE")
+    api_key = os.getenv("API_KEY")
+    base_url = os.getenv("API_BASE")
     
     if not api_key:
         raise ValueError("DASHSCOPE_API_KEY not found in environment. Please set it in your .env file.")

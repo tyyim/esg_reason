@@ -169,12 +169,13 @@ class ACEEvaluator:
             'format_breakdown': fmt_breakdown
         }
 
-    def evaluate(self, dataset_name: str = "dev", model_name: str = "qwen2.5-7b-instruct", max_questions: int | None = None, no_retrieval: bool = False, baseline_context_file: str | None = None, checkpoint_interval: int = 10, *, offline_pretrain: bool = False, offline_train_split: str = "dev", offline_epochs: int = 1, freeze_playbook: bool = False, offline_max_questions: int | None = None, load_playbook: str | None = None, no_progress: bool = False):
+    def evaluate(self, dataset_name: str = "dev", model_name: str = "qwen2.5-7b-instruct", max_questions: int | None = None, no_retrieval: bool = False, baseline_context_file: str | None = None, checkpoint_interval: int = 10, *, offline_pretrain: bool = False, offline_train_split: str = "dev", offline_epochs: int = 1, freeze_playbook: bool = False, offline_max_questions: int | None = None, load_playbook: str | None = None, no_progress: bool = False, llm_type: str = "dashscope", api_key: str | None = None, base_url: str | None = None):
         self.logger.info("=" * 80)
         self.logger.info("ACE EVALUATION - MMESGBench")
         self.logger.info("=" * 80)
         self.logger.info(f"Dataset: {dataset_name}")
         self.logger.info(f"Model: {model_name}")
+        self.logger.info(f"LLM Type: {llm_type}")
 
         setup_dspy_qwen()
         dataset = MMESGBenchDataset()
@@ -191,7 +192,12 @@ class ACEEvaluator:
         checkpoint_file = self.output_dir / f"ace_online_{dataset_name}_{model_name}_checkpoint.json"
         output_file = self.output_dir / f"ace_online_{dataset_name}_{model_name}_{timestamp}.json"
 
-        ace_module = ACERAGModule(model_name=model_name)
+        ace_module = ACERAGModule(
+            model_name=model_name,
+            llm_type=llm_type,
+            api_key=api_key,
+            base_url=base_url,
+        )
 
         # Check for checkpoint first - checkpoint takes priority over load_playbook
         checkpoint = self._load_checkpoint(checkpoint_file)
@@ -418,9 +424,29 @@ if __name__ == "__main__":
     parser.add_argument("--offline-epochs", type=int, default=1, help="Number of epochs for offline pretrain")
     parser.add_argument("--offline-max-questions", type=int, default=None, help="Limit number of questions for offline pretrain")
     parser.add_argument("--freeze-playbook", action="store_true", help="Freeze playbook during evaluation (no reflection/curation)")
+    parser.add_argument("--llm-type", choices=["dashscope", "openai"], default="openai", help="Type of LLM client to use (default: dashscope)")
+    parser.add_argument("--api-key", type=str, default=None, help="API key (defaults to DASHSCOPE_API_KEY or OPENAI_API_KEY env var)")
+    parser.add_argument("--base-url", type=str, default=None, help="Base URL for API (defaults to OPENAI_API_BASE env var for OpenAI)")
     args = parser.parse_args()
 
     evaluator = ACEEvaluator(output_dir=args.output_dir)
-    evaluator.evaluate(dataset_name=args.dataset, model_name=args.model, max_questions=args.max_questions, no_retrieval=args.no_retrieval, baseline_context_file=args.baseline_context_file, checkpoint_interval=args.checkpoint_interval, offline_pretrain=args.offline_pretrain, offline_train_split=args.offline_train_split, offline_epochs=args.offline_epochs, freeze_playbook=args.freeze_playbook, offline_max_questions=args.offline_max_questions, load_playbook=args.load_playbook, no_progress=args.no_progress)
+    evaluator.evaluate(
+        dataset_name=args.dataset,
+        model_name=args.model,
+        max_questions=args.max_questions,
+        no_retrieval=args.no_retrieval,
+        baseline_context_file=args.baseline_context_file,
+        checkpoint_interval=args.checkpoint_interval,
+        offline_pretrain=args.offline_pretrain,
+        offline_train_split=args.offline_train_split,
+        offline_epochs=args.offline_epochs,
+        freeze_playbook=args.freeze_playbook,
+        offline_max_questions=args.offline_max_questions,
+        load_playbook=args.load_playbook,
+        no_progress=args.no_progress,
+        llm_type=args.llm_type,
+        api_key=args.api_key,
+        base_url=args.base_url,
+    )
 
 
