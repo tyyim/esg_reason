@@ -19,35 +19,38 @@ import tiktoken
 # Add project root to path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
+sys.path.insert(0, str(project_root / "dc_repo"))
 
 from dspy_implementation.dspy_dataset import MMESGBenchDataset
 from dspy_implementation.dspy_postgres_retriever import DSPyPostgresRetriever
 from dspy_implementation.dc.prompt_manager import get_prompts
-from dspy_implementation.dc.utils import extract_answer, extract_cheatsheet, extract_and_run_python_code
+from dynamic_cheatsheet.utils.extractor import extract_answer, extract_cheatsheet
+from dynamic_cheatsheet.utils.execute_code import extract_and_run_python_code
+from dynamic_cheatsheet.language_model import LanguageModel
 from src.evaluation_utils import eval_score
+from langchain_community.embeddings import DashScopeEmbeddings
 
 
-class DCLanguageModel:
+class DCLanguageModel(LanguageModel):
     """
     Dynamic Cheatsheet Language Model wrapper
-    Adapts DC's logic to work with OpenAI client (used by baseline)
+    Extends LanguageModel to work with OpenAI client (used by baseline)
     """
     
     def __init__(self, client: OpenAI, model_name: str):
-        self.client = client
-        self.model_name = model_name
-        self.gpt4Tokenizer = tiktoken.encoding_for_model('gpt-4o')
-    
-    def count_tokens(self, text: str) -> int:
-        """
-        Count the number of tokens in the text.
-        """
-        tokens = self.gpt4Tokenizer.encode(text)
-        return len(tokens)
+        # Initialize parent class with a valid model name (for compatibility)
+        # We'll use our own OpenAI client instead of litellm
+        # Pass a dummy model name that's in the supported list to avoid ValueError
+        super().__init__(model_name="openai/gpt-4o")
+        self.openai_client = client  # Store OpenAI client separately
+        self.model_name = model_name  # Store actual model name for our use
+        # Override parent's client to prevent it from being used
+        self.client = None  # Parent's client won't be used
     
     def generate(
         self,
-        messages: list,
+        messages: list = None,
+        history: list = None,
         temperature: float = 0.1,
         max_tokens: int = 2048,
         current_depth: int = 1,
@@ -58,9 +61,11 @@ class DCLanguageModel:
     ) -> str:
         """
         Generate response from language model with optional code execution
+        Supports both 'messages' (OpenAI format) and 'history' (DC format) parameters
         
         Args:
-            messages: List of message dicts with 'role' and 'content'
+            messages: List of message dicts with 'role' and 'content' (OpenAI format)
+            history: List of message dicts (DC format, for compatibility)
             temperature: Sampling temperature
             max_tokens: Maximum tokens to generate
             current_depth: Current depth of the conversation
@@ -72,17 +77,20 @@ class DCLanguageModel:
         Returns:
             Final output string
         """
-        if len(messages) == 0:
+        # Support both 'messages' and 'history' parameters for compatibility
+        if messages is None:
+            messages = history
+        if messages is None or len(messages) == 0:
             raise ValueError("Messages must contain at least one message.")
         
-        # 判断调用类型
+
         is_cheatsheet = max_tokens > 3000
         call_type = "CHEATSHEET" if is_cheatsheet else "GENERATOR"
         
         print(f"[{call_type}] max_tokens={max_tokens}", end=" ... ")
         
         try:
-            response = self.client.chat.completions.create(
+            response = self.openai_client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,
                 temperature=temperature,
@@ -154,7 +162,8 @@ class DCLanguageModel:
                 resp_dict = json.loads(output_stripped)
                 reasoning = resp_dict.get('reasoning', '')
                 final_answer = resp_dict.get('final_answer', extracted_answer)
-                
+                if (final_answer is None or final_answer == '' or str(final_answer).strip().lower() in ['none', 'null', 'n/a', 'na', 'str']):
+                    final_answer = "Not answerable"
                 # Format as readable text for original curator
                 formatted = f"Reasoning:\n{reasoning}\n\nFinal Answer:\n{final_answer}"
                 return formatted
@@ -168,6 +177,8 @@ class DCLanguageModel:
                         resp_dict = json.loads(json_str)
                         reasoning = resp_dict.get('reasoning', '')
                         final_answer = resp_dict.get('final_answer', extracted_answer)
+                        if (final_answer is None or final_answer == '' or str(final_answer).strip().lower() in ['none', 'null', 'n/a', 'na', 'str']):
+                            final_answer = "Not answerable"
                         formatted = f"Reasoning:\n{reasoning}\n\nFinal Answer:\n{final_answer}"
                         return formatted
                     except (json.JSONDecodeError, ValueError):
@@ -189,26 +200,72 @@ class DCLanguageModel:
         """
         if prompt_type == 'custom':
             # Custom prompts return JSON format: {"reasoning": "...", "final_answer": "..."}
-            # Try to parse as JSON first
+            # Try multiple strategies to extract JSON
+            
+            # Strategy 1: Try parsing the entire output as JSON
             output_stripped = output.strip()
             if output_stripped.startswith('{'):
                 try:
                     resp_dict = json.loads(output_stripped)
-                    return resp_dict.get('final_answer', '')
+                    final_answer = resp_dict.get('final_answer', '')
+                    if (final_answer is None or final_answer == '' or str(final_answer).strip().lower() in ['none', 'null', 'n/a', 'na', 'str']):
+                        final_answer = "Not answerable"
+                    return final_answer
                 except json.JSONDecodeError:
-                    # If JSON parsing fails, try to find JSON block in the output
-                    # Sometimes the output might have markdown code blocks
+                    # Strategy 2: Try to fix common JSON issues (single quotes, etc.)
+                    try:
+                        # Replace single quotes around string values with double quotes
+                        # This is a simple fix for cases like: "final_answer": 'value'
+                        import re
+                        # Pattern to match: "key": 'value' and replace with "key": "value"
+                        fixed_output = re.sub(r'"(\w+)":\s*\'([^\']+)\'', r'"\1": "\2"', output_stripped)
+                        # Also handle nested quotes: "key": '["item1", "item2"]'
+                        fixed_output = re.sub(r'"(\w+)":\s*\'([^\']+)\'', r'"\1": "\2"', fixed_output)
+                        resp_dict = json.loads(fixed_output)
+                        final_answer = resp_dict.get('final_answer', '')
+                        if (final_answer is None or final_answer == '' or str(final_answer).strip().lower() in ['none', 'null', 'n/a', 'na', 'str']):
+                            final_answer = "Not answerable"
+                        return final_answer
+                    except (json.JSONDecodeError, ValueError):
+                        pass
+                    
+                    # Strategy 3: Try to find JSON block in markdown code blocks
                     if '```json' in output:
                         try:
                             json_start = output.find('```json') + 7
                             json_end = output.find('```', json_start)
                             json_str = output[json_start:json_end].strip()
                             resp_dict = json.loads(json_str)
-                            return resp_dict.get('final_answer', '')
+                            final_answer = resp_dict.get('final_answer', '')
+                            if (final_answer is None or final_answer == '' or str(final_answer).strip().lower() in ['none', 'null', 'n/a', 'na', 'str']):
+                                final_answer = "Not answerable"
+                            return final_answer
                         except (json.JSONDecodeError, ValueError):
                             pass
-                    # If still can't parse, fall back to extract_answer
-                    return extract_answer(output)
+                    
+                    # Strategy 4: Use regex to extract final_answer value directly
+                    import re
+                    # Try to find "final_answer": 'value' or "final_answer": "value"
+                    patterns = [
+                        r'"final_answer"\s*:\s*\'([^\']+)\'',  # "final_answer": 'value'
+                        r'"final_answer"\s*:\s*"([^"]+)"',    # "final_answer": "value"
+                        r'"final_answer"\s*:\s*(\d+\.?\d*)',  # "final_answer": 123 or 123.45
+                        r'"final_answer"\s*:\s*\[([^\]]+)\]', # "final_answer": [...]
+                    ]
+                    for pattern in patterns:
+                        match = re.search(pattern, output)
+                        if match:
+                            answer = match.group(1)
+                            if answer and answer.strip().lower() not in ['none', 'null', 'n/a', 'na', 'str']:
+                                return answer.strip()
+                    
+                    # Strategy 5: Fall back to extract_answer
+                    extracted = extract_answer(output)
+                    if extracted != "No final answer found":
+                        return extracted
+                    
+                    # Last resort: return "Not answerable"
+                    return "Not answerable"
             else:
                 # Not JSON format, try extract_answer
                 return extract_answer(output)
@@ -342,13 +399,6 @@ class DCLanguageModel:
 
             cheatsheet_history = [{"role": "user", "content": cheatsheet_prompt}]
             
-            if hasattr(self, '_current_question_index') and self._current_question_index == 10:  # 0-based, 所以10是第11个
-                print(f"\n{'='*70}")
-                print(f"[DEBUG] 第11个问题的 Curator Prompt (Cumulative, Round {round+1}):")
-                print(f"{'='*70}")
-                print(cheatsheet_prompt)
-                print(f"{'='*70}\n")
-            
             cheatsheet_output = self.generate(
                 messages=cheatsheet_history,
                 temperature=temperature,
@@ -389,6 +439,9 @@ class DCLanguageModel:
     ):
         """Retrieval & Synthesis approach: retrieve similar examples and synthesize cheatsheet"""
         # Get the current original input embedding
+        # Note: This matches run_benchmark.py logic where embeddings[:idx+1] includes current question
+        if original_input_embeddings is None or len(original_input_embeddings) == 0:
+            raise ValueError("original_input_embeddings is required for retrieval_synthesis approach but is None or empty. Please provide embeddings.")
         current_original_input_embedding = original_input_embeddings[-1]  # Current original input embedding
         prev_original_input_embeddings = original_input_embeddings[:-1]  # Note that this can be empty
         
@@ -444,14 +497,6 @@ class DCLanguageModel:
             )
             cheatsheet_history = [{"role": "user", "content": cheatsheet_prompt}]
             
-
-            if hasattr(self, '_current_question_index') and self._current_question_index == 10:  # 0-based, 所以10是第11个
-                print(f"\n{'='*70}")
-                print(f"[DEBUG] 第11个问题的 Curator Prompt (Retrieval Synthesis):")
-                print(f"{'='*70}")
-                print(cheatsheet_prompt)
-                print(f"{'='*70}\n")
-            
             cheatsheet_output = self.generate(
                 messages=cheatsheet_history,
                 temperature=temperature,
@@ -478,7 +523,8 @@ class DCLanguageModel:
                 code_execution_flag=code_execution_flag,
             )
         # Extract the answer from the generator model (keep custom extraction)
-        generator_answer = self._extract_answer_from_output(generator_output, prompt_type)
+        # Note: generator always returns JSON format (custom prompts), so always use 'custom' for extraction
+        generator_answer = self._extract_answer_from_output(generator_output, 'custom')
         
         return {
             "input_txt": input_txt,
@@ -506,7 +552,7 @@ def evaluate_dc(
     max_questions=None,
     max_num_rounds=1,
     retrieve_top_k=3,
-    allow_code_execution=False,
+    allow_code_execution=True,
 ):
     """
     Evaluate Dynamic Cheatsheet approach on ESG dataset
@@ -531,15 +577,15 @@ def evaluate_dc(
     
     # Load environment
     load_dotenv()
-    api_key = os.getenv("DASHSCOPE_API_KEY")
-    base_url = os.getenv("QWEN_API_BASE")
+    api_key = os.getenv("API_KEY")
+    base_url = os.getenv("API_BASE")
     
     if not api_key:
-        raise ValueError("DASHSCOPE_API_KEY not found in environment. Please set it in your .env file.")
+        raise ValueError("API_KEY not found in environment. Please set it in your .env file.")
     
     if not base_url:
         base_url = 'https://dashscope.aliyuncs.com/compatible-mode/v1'
-        print(f"⚠️  DASHSCOPE_BASE_URL not set, using default: {base_url}")
+        print(f"⚠️  BASE_URL not set, using default: {base_url}")
     
     print(f"   API Key: {api_key[:10]}...{api_key[-4:] if len(api_key) > 14 else '***'}")
     print(f"   Base URL: {base_url}")
@@ -589,13 +635,18 @@ def evaluate_dc(
     
     # For retrieval_synthesis: prepare embeddings and corpus
     original_input_corpus = []
-    original_input_embeddings = None
+    original_input_embeddings = []
     generator_outputs_so_far = []
+    embedding_model = None
     
     if approach == 'retrieval_synthesis':
-        # TODO: Load or generate embeddings for questions
-        # For now, we'll use a simple approach without embeddings
-        print("⚠️  Retrieval synthesis requires embeddings. Using simple retrieval for now.")
+        # Initialize embedding model (same as dc_evaluator_v2.py)
+        print("  Initializing embedding model for retrieval synthesis...")
+        embedding_model = DashScopeEmbeddings(
+            model="text-embedding-v4",
+            dashscope_api_key=api_key
+        )
+        print("  ✓ Embedding model ready")
     
     # Evaluate
     print(f"\n Running evaluation on {len(eval_set)} questions...")
@@ -649,6 +700,14 @@ def evaluate_dc(
             # Prepare input text
             input_txt = f"Question #{i+1}:\n{question}"
             
+            # For retrieval_synthesis: generate embedding and add to corpus BEFORE calling advanced_generate
+            # This matches run_benchmark.py logic where questions[:idx+1] includes current question
+            # and dc_evaluator_v2.py lines 175-178
+            if approach == 'retrieval_synthesis':
+                current_embedding = embedding_model.embed_query(question)
+                original_input_embeddings.append(current_embedding)
+                original_input_corpus.append(input_txt)
+            
             # Generate using DC approach
             output_dict = dc_model.advanced_generate(
                 approach=approach,
@@ -666,7 +725,7 @@ def evaluate_dc(
                 allow_code_execution=allow_code_execution,
                 code_execution_flag="EXECUTE CODE!",
                 original_input_corpus=original_input_corpus if approach == 'retrieval_synthesis' else None,
-                original_input_embeddings=original_input_embeddings if approach == 'retrieval_synthesis' else None,
+                original_input_embeddings=np.array(original_input_embeddings) if approach == 'retrieval_synthesis' and len(original_input_embeddings) > 0 else None,
                 generator_outputs_so_far=generator_outputs_so_far if approach == 'retrieval_synthesis' else None,
                 retrieve_top_k=retrieve_top_k,
             )
@@ -682,11 +741,10 @@ def evaluate_dc(
             final_answer = output_dict['final_answer']
             raw_output = output_dict.get('final_output', '')
             
-            # For retrieval_synthesis: update corpus
+            # For retrieval_synthesis: update generator_outputs_so_far AFTER getting result
+            # This matches run_benchmark.py line 247 and dc_evaluator_v2.py line 214
             if approach == 'retrieval_synthesis':
-                original_input_corpus.append(input_txt)
                 generator_outputs_so_far.append(raw_output)
-                # TODO: Update embeddings if available
             
             # Extract analysis/reasoning text based on prompt type
             if prompt_type == 'custom':
@@ -747,6 +805,13 @@ def evaluate_dc(
             print(f"\n⚠️  Q{i+1} 失败: {type(e).__name__}: {str(e)}")
             import traceback
             traceback.print_exc()
+            
+            # For retrieval_synthesis: remove the embedding/corpus we added if there was an error
+            # This matches dc_evaluator_v2.py lines 235-237
+            if approach == 'retrieval_synthesis' and len(original_input_embeddings) > len(generator_outputs_so_far):
+                original_input_embeddings.pop()
+                original_input_corpus.pop()
+            
             predictions.append({
                 'question': question,
                 'doc_id': doc_id,
@@ -816,7 +881,8 @@ if __name__ == "__main__":
     parser.add_argument('--max-questions', type=int, default=None, help='Limit number of questions')
     parser.add_argument('--max-rounds', type=int, default=1, help='Max rounds for cumulative approach')
     parser.add_argument('--retrieve-top-k', type=int, default=3, help='Top k for retrieval synthesis')
-    parser.add_argument('--code-execution', action='store_true', help='Enable code execution (default: disabled)')
+    parser.add_argument('--no-code-execution', action='store_false', dest='code_execution',
+                       default=True, help='Disable code execution (enabled by default)')
     
     args = parser.parse_args()
     
